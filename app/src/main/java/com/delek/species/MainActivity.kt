@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         hideSystemBars()
         setContentView(R.layout.activity_main)
 
@@ -35,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideSystemBars() {
+        enableEdgeToEdge()
         val controller = WindowInsetsControllerCompat(
             window, window.decorView
         )
