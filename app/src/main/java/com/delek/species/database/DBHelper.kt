@@ -2,20 +2,15 @@ package com.delek.species.database
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.R
 
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
-
-    private val context: Context? = null
-
     // If you change the database schema, you must increment the database version.
     companion object{
-        const val DATABASE_NAME: String = "species_db"
+        const val DATABASE_NAME: String = "db_species"
         const val DATABASE_VERSION: Int = 1
     }
 
@@ -28,16 +23,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         onCreate(db)
     }
 
-    fun insertSpecies(specie : Specie){
-
-        val res : Resources = context!!.resources
-
-        val name = res.getStringArray(R.array.name_species)
-        val image = res.getStringArray(R.array.image_species)
-        val description = res.getStringArray(R.array.description_species)
-        val star = res.getStringArray(R.array.origin_species)
-
-
+    fun insertSpecies(specie: Specie) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put(DBSpecies.COLUMN_ID, specie.id)
@@ -46,7 +32,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(DBSpecies.COLUMN_IMAGE, specie.image)
             put(DBSpecies.COLUMN_SKILL, specie.skill)
             put(DBSpecies.COLUMN_TYPE, specie.type)
-            put(DBSpecies.COLUMN_STAR, specie.start)
+            put(DBSpecies.COLUMN_STAR, specie.star)
         }
         db.insert(DBSpecies.TABLE_NAME, null, values)
         db.close()

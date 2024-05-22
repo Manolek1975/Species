@@ -19,7 +19,7 @@ class DBSpecies {
                 "$COLUMN_IMAGE TEXT," +
                 "$COLUMN_SKILL TEXT," +
                 "$COLUMN_TYPE INTEGER," +
-                "$COLUMN_STAR INTEGER)"
+                "$COLUMN_STAR TEXT)"
 
         val dropTableQuery = "DROP TABLE IF EXIST $TABLE_NAME"
 
