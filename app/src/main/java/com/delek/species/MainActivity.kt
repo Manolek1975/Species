@@ -8,19 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.delek.species.database.DBHelper
+import com.delek.species.database.DBSpeciesHelper
 import com.delek.species.database.Specie
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var db: DBHelper
+    private lateinit var db: DBSpeciesHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemBars()
         setContentView(R.layout.activity_main)
 
-        db = DBHelper(this)
+        db = DBSpeciesHelper(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 InitialActivity::class.java
             )
-            //db.onUpgrade(this)
+            db.deleteDB()
             startActivity(i)
         }
     }
