@@ -2,53 +2,42 @@ package com.delek.species
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.database.DBSpeciesHelper
 import com.delek.species.database.Specie
+import com.delek.species.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var db: DBSpeciesHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemBars()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         db = DBSpeciesHelper(this)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        val play = findViewById<Button>(R.id.play_button)
-        play.setOnClickListener {
-            val i = Intent(
-                this,
-                InitialActivity::class.java
-            )
+        binding.playButton.setOnClickListener {
             loadSpecies()
+            val i = Intent(this, InitialActivity::class.java)
             startActivity(i)
         }
 
-        val ayuda = findViewById<Button>(R.id.ayuda_button)
-        ayuda.setOnClickListener {
-            val i = Intent(
-                this,
-                InitialActivity::class.java
-            )
-            db.deleteDB()
+        binding.ayudaButton.setOnClickListener {
+            val i = Intent(this, InitialActivity::class.java)
+            db.deleteSpecies()
             startActivity(i)
         }
     }
 
+    // Load Species resources from species.xml
     private fun loadSpecies(){
         val res = this.resources
         val name = res.getStringArray(R.array.name_species)

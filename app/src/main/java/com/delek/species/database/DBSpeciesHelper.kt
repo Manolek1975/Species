@@ -20,7 +20,6 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
         const val COLUMN_SKILL: String = "skill"
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_STAR: String = "star"
-
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -34,19 +33,18 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
             append("$COLUMN_TYPE INTEGER,")
             append("$COLUMN_STAR TEXT)")
         }
-        //db?.execSQL(DBSpecies.createTableSpecies)
         db?.execSQL(createTableSpecies)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         val dropTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME"
         db?.execSQL(dropTableQuery)
+        onCreate(db)
     }
 
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_ID, specie.id)
             put(COLUMN_NAME, specie.name)
             put(COLUMN_DESC, specie.desc)
             put(COLUMN_IMAGE, specie.image)
@@ -58,7 +56,32 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
         db.close()
     }
 
-    fun deleteDB(){
+    fun getAllSpecies(): List<Specie> {
+        val specieList = mutableListOf<Specie>()
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
+            val desc = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESC))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
+            val skill = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SKILL))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TYPE))
+            val star = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STAR))
+
+            val specie = Specie(id, name, desc, image, skill, type, star)
+            specieList.add(specie)
+        }
+
+        cursor.close()
+        db.close()
+        return specieList
+
+    }
+
+    fun deleteSpecies(){
         val db = writableDatabase
         db.execSQL("DELETE from species")
         db.close()

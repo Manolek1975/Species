@@ -53,6 +53,17 @@
             a cualquier civilización que sea su objetivo, afortunadamente no son muy numerosos y dependen de los pueblos conquistados</item>
     </string-array>
 
+    <string-array name="skill_species">
+        <item>Constructores</item>
+        <item>Luchadores</item>
+        <item>Investigadoores</item>
+        <item>Resistentes</item>
+        <item>Tecnológicos</item>
+        <item>Diplomáticos</item>
+        <item>Recolectores</item>
+        <item>Conquistadores</item>
+    </string-array>
+
     <string-array name="origin_species">
         <item>2</item>
         <item>3</item>
