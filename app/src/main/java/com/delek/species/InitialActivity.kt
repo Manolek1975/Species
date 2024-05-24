@@ -5,10 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.database.DBSpeciesHelper
 import com.delek.species.databinding.ActivityInitialBinding
-
-
 
 class InitialActivity : AppCompatActivity() {
 
@@ -25,6 +24,14 @@ class InitialActivity : AppCompatActivity() {
         db = DBSpeciesHelper(this)
         speciesAdapter = SpeciesAdapter(db.getAllSpecies(), this)
 
+        binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.speciesRecyclerView.adapter = speciesAdapter
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        speciesAdapter.refreshData(db.getAllSpecies())
     }
 
     private fun hideSystemBars() {

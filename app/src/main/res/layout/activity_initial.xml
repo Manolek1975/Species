@@ -8,18 +8,20 @@
     android:orientation="vertical"
     tools:context=".InitialActivity">
 
-    <ImageView
-        android:id="@+id/fondoView"
+    <TextView
+        android:id="@+id/selectSpecie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription='@string/fondo'
-        android:fitsSystemWindows="false"
-        android:scaleType="fitXY"
-        tools:ignore="ImageContrastCheck" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aclonica"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:padding="20dp"
+        android:text="Elige tu specie" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="331dp"
-        android:layout_height="81dp" />
+        android:id="@+id/speciesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

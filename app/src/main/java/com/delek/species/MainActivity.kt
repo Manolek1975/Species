@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         db = DBSpeciesHelper(this)
 
         binding.playButton.setOnClickListener {
-            loadSpecies()
+            //loadSpecies()
             val i = Intent(this, InitialActivity::class.java)
             startActivity(i)
         }

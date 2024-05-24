@@ -13,14 +13,14 @@
     </string-array>
 
     <string-array name="name_species">
-        <item>Chamariles</item>
-        <item>Galecis</item>
-        <item>Humanos</item>
-        <item>Karbaris</item>
-        <item>Mecas</item>
-        <item>Sílfides</item>
-        <item>Volerias</item>
-        <item>Wurfanos</item>
+        <item>Chamaril</item>
+        <item>Galeci</item>
+        <item>Humano</item>
+        <item>Karbari</item>
+        <item>Meca</item>
+        <item>Sinasian</item>
+        <item>Voleria</item>
+        <item>Wurfano</item>
     </string-array>
 
     <string-array name="image_species">
@@ -29,7 +29,7 @@
         <item>icon_human</item>
         <item>icon_karbari</item>
         <item>icon_mecha</item>
-        <item>icon_silfide</item>
+        <item>icon_sinasian</item>
         <item>icon_voleria</item>
         <item>icon_wurfano</item>
     </string-array>
