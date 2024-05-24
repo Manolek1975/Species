@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.database.Specie
 
 
-class SpeciesAdapter(private var species: List<Specie>):
+class SpeciesAdapter(private var species: List<Specie>, context: Context):
     RecyclerView.Adapter<SpeciesAdapter.SpecieViewHolder>() {
 
     class SpecieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
