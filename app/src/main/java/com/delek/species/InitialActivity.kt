@@ -5,13 +5,26 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.database.DBSpeciesHelper
+import com.delek.species.databinding.ActivityInitialBinding
+
+
 
 class InitialActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityInitialBinding
+    private lateinit var db: DBSpeciesHelper
+    private lateinit var speciesAdapter: SpeciesAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityInitialBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         hideSystemBars()
-        setContentView(R.layout.initial_activity)
+
+        db = DBSpeciesHelper(this)
+        speciesAdapter = SpeciesAdapter(db.getAllSpecies(), this)
+
     }
 
     private fun hideSystemBars() {

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:fitsSystemWindows="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".InitialActivity">
 
     <ImageView
         android:id="@+id/fondoView"
