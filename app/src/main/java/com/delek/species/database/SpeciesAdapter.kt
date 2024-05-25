@@ -1,19 +1,22 @@
-package com.delek.species
+package com.delek.species.database
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.database.Specie
+import com.delek.species.DialogActivity
+import com.delek.species.R
 
 
-class SpeciesAdapter(private var species: List<Specie>, context: Context):
+class SpeciesAdapter(private var species: List<Specie>,
+                     context: Context):
     RecyclerView.Adapter<SpeciesAdapter.SpecieViewHolder>() {
 
     class SpecieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val specieName: TextView = itemView.findViewById(R.id.specieName)
+        val specieItem: TextView = itemView.findViewById(R.id.specieItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecieViewHolder {
@@ -23,12 +26,18 @@ class SpeciesAdapter(private var species: List<Specie>, context: Context):
 
     override fun onBindViewHolder(holder: SpecieViewHolder, position: Int) {
         val specie = species[position]
-        holder.specieName.text = specie.name
-        val context: Context = holder.specieName.context
+        holder.specieItem.text = specie.name
+        val context: Context = holder.specieItem.context
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
-        holder.specieName.setCompoundDrawablesWithIntrinsicBounds(id,0,0,0)
-        holder.specieName.setCompoundDrawablePadding(50)
+        holder.specieItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
+        holder.specieItem.setCompoundDrawablePadding(50)
 
+        holder.specieItem.setOnClickListener{
+            val intent = Intent(holder.itemView.context, DialogActivity::class.java).apply {
+                putExtra("specie_id", specie.id)
+            }
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = species.size

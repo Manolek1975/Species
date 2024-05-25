@@ -1,19 +1,22 @@
 package com.delek.species
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.database.DBSpeciesHelper
+import com.delek.species.database.Specie
+import com.delek.species.database.SpeciesAdapter
 import com.delek.species.databinding.ActivityInitialBinding
 
 class InitialActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInitialBinding
     private lateinit var db: DBSpeciesHelper
-    private lateinit var speciesAdapter: SpeciesAdapter
+    private lateinit var adapter: SpeciesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +25,17 @@ class InitialActivity : AppCompatActivity() {
         hideSystemBars()
 
         db = DBSpeciesHelper(this)
-        speciesAdapter = SpeciesAdapter(db.getAllSpecies(), this)
-
+        adapter = SpeciesAdapter(db.getAllSpecies(), this)
         binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.speciesRecyclerView.adapter = speciesAdapter
+        binding.speciesRecyclerView.adapter = adapter
+
+
 
     }
 
     override fun onResume() {
         super.onResume()
-        speciesAdapter.refreshData(db.getAllSpecies())
+        adapter.refreshData(db.getAllSpecies())
     }
 
     private fun hideSystemBars() {

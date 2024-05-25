@@ -7,5 +7,5 @@ data class Specie(
     val image : String,
     val skill : String,
     val type : Int,
-    val star : String
+    val star : Int
 )

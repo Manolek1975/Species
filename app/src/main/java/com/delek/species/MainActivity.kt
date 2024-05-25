@@ -40,13 +40,14 @@ class MainActivity : AppCompatActivity() {
     // Load Species resources from species.xml
     private fun loadSpecies(){
         val res = this.resources
+        val id = res.getStringArray(R.array.id_species)
         val name = res.getStringArray(R.array.name_species)
         val image = res.getStringArray(R.array.image_species)
         val desc = res.getStringArray(R.array.description_species)
         val star = res.getStringArray(R.array.origin_species)
 
         for (i in name.indices){
-            val specie = Specie(id = 0, name[i], desc[i], image[i], type = 0, skill = "", star = star[i])
+            val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
             db.insertSpecies(specie)
             finish()
         }

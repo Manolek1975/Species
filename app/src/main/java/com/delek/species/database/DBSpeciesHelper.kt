@@ -45,6 +45,7 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
         val values = ContentValues().apply {
+            put(COLUMN_ID, specie.id)
             put(COLUMN_NAME, specie.name)
             put(COLUMN_DESC, specie.desc)
             put(COLUMN_IMAGE, specie.image)
@@ -69,7 +70,7 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
             val image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
             val skill = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SKILL))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TYPE))
-            val star = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STAR))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR))
 
             val specie = Specie(id, name, desc, image, skill, type, star)
             specieList.add(specie)
@@ -78,7 +79,25 @@ class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NA
         cursor.close()
         db.close()
         return specieList
+    }
 
+    fun getSpecieById(specieId: Int): Specie{
+        val db = readableDatabase
+        val query = "SELECT * from $TABLE_NAME WHERE $COLUMN_ID = $specieId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
+        val desc = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESC))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE))
+        val skill = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SKILL))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TYPE))
+        val star = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR))
+
+        cursor.close()
+        db.close()
+        return Specie(id, name, desc, image, skill, type, star)
     }
 
     fun deleteSpecies(){

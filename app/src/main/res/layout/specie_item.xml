@@ -12,10 +12,11 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/specieName"
+            android:id="@+id/specieItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/aclonica"
+            android:textColor="@color/white"
             android:gravity="center"
             android:textSize="24sp" />
 
