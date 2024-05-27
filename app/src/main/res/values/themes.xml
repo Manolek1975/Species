@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/aclonica</item>
     </style>
 
     <style name="AppTheme.SpeciesTheme">
@@ -25,13 +26,13 @@
 
     <style name="AppTheme.AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_bg</item>
-        <item name="android:fontFamily">serif</item>
+
         <!-- Used for the buttons -->
         <item name="colorAccent">#FFC107</item>
         <!-- Used for the title and text -->
         <item name="android:textColorPrimary">#FFFFFF</item>
         <!-- Used for the background -->
-        <item name="android:background">#1C67B3</item>
+        <item name="android:background">@color/light_blue_900</item>
     </style>
 
     <style name="Theme.Species.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

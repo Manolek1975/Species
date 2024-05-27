@@ -1,14 +1,12 @@
 package com.delek.species
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.database.DBSpeciesHelper
-import com.delek.species.database.Specie
 import com.delek.species.database.SpeciesAdapter
 import com.delek.species.databinding.ActivityInitialBinding
 
@@ -28,8 +26,6 @@ class InitialActivity : AppCompatActivity() {
         adapter = SpeciesAdapter(db.getAllSpecies(), this)
         binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.speciesRecyclerView.adapter = adapter
-
-
 
     }
 
