@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.DialogActivity
 import com.delek.species.R
+import com.delek.species.SectorActivity
 
 
 class SpeciesAdapter(private var species: List<Specie>,
@@ -52,7 +52,7 @@ class SpeciesAdapter(private var species: List<Specie>,
         dialogBuilder.setMessage(specie.desc)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            val intent = Intent(context, DialogActivity::class.java).apply {
+            val intent = Intent(context, SectorActivity::class.java).apply {
                 putExtra("specie_id", specie.id)
             }
             context.startActivity(intent)
