@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.database.BK_DBSpeciesHelper
+import com.delek.species.database.DBHelper
 import com.delek.species.database.SpeciesAdapter
+import com.delek.species.database.SpeciesHelper
 import com.delek.species.databinding.ActivityInitialBinding
 
 class InitialActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInitialBinding
-    //private lateinit var db: BK_DBSpeciesHelper
+    private lateinit var db: DBHelper
     private lateinit var adapter: SpeciesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +23,9 @@ class InitialActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        //db = BK_DBSpeciesHelper(this)
-        //adapter = SpeciesAdapter(db.getAllSpecies(), this)
-        //binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
-        //binding.speciesRecyclerView.adapter = adapter
+        adapter = SpeciesAdapter(db.getAllSpecies(), this)
+        binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.speciesRecyclerView.adapter = adapter
 
     }
 

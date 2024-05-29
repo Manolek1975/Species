@@ -1,5 +1,10 @@
 package com.delek.species.database
 
+import android.content.ContentValues
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+
 class SpeciesHelper {
 
     companion object{
@@ -25,5 +30,10 @@ class SpeciesHelper {
 
         val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
+
+
+
+
+
 
 }

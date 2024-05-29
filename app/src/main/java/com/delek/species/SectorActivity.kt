@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.delek.species.database.BK_DBSpeciesHelper
-import com.delek.species.database.DBStarHelper
+import com.delek.species.database.DBHelper
+import com.delek.species.database.SpeciesHelper
 import com.delek.species.database.Star
+import com.delek.species.database.StarsHelper
 import com.delek.species.databinding.ActivitySectorBinding
 
 
@@ -20,8 +21,7 @@ class SectorActivity() : AppCompatActivity() {
 
     private var context: Context = this
     private lateinit var binding: ActivitySectorBinding
-    private lateinit var db: BK_DBSpeciesHelper
-    private lateinit var stars: DBStarHelper
+    private lateinit var db: DBHelper
     private var specieId: Int = -1
 
     private lateinit var fondo: ImageView
@@ -39,8 +39,7 @@ class SectorActivity() : AppCompatActivity() {
             return
         }
 
-        db = BK_DBSpeciesHelper(this)
-        stars = DBStarHelper(this)
+        db = DBHelper(this)
         val specie = db.getSpecieById(specieId)
         binding.sector.text = specie.name
 
@@ -73,7 +72,7 @@ class SectorActivity() : AppCompatActivity() {
             var x = split[0].toInt()
             val y = split[1].toInt()
             val star = Star(1, name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
-            stars.insertStars(star)
+            db.insertStars(star)
             finish()
         }
     }

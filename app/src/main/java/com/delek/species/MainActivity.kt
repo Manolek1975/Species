@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Specie
+import com.delek.species.database.SpeciesHelper
 import com.delek.species.databinding.ActivityMainBinding
 
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         db = DBHelper(this)
 
         binding.playButton.setOnClickListener {
-            //loadSpecies()
+            loadSpecies()
             val i = Intent(this, InitialActivity::class.java)
             startActivity(i)
         }
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in name.indices){
             val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
-            //db.insertSpecies(specie)
+            db.insertSpecies(specie)
             finish()
         }
     }
