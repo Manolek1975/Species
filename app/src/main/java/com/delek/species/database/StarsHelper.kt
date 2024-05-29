@@ -15,10 +15,8 @@ class StarsHelper {
         const val COLUMN_Y: String = "y"
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_EXPLORE: String = "explore"
-    }
 
-    fun onCreate(db: SQLiteDatabase?) {
-        val createTableStars = buildString {
+        val createTable = buildString {
             append("CREATE TABLE ${DBStarHelper.TABLE_NAME} (")
             append("${DBStarHelper.COLUMN_ID}} INTEGER PRIMARY_KEY")
             append("${DBStarHelper.COLUMN_NAME}} TEXT,")
@@ -30,6 +28,6 @@ class StarsHelper {
             append("${DBStarHelper.COLUMN_TYPE}} INTEGER,")
             append("${DBStarHelper.COLUMN_EXPLORE}} INTEGER)")
         }
-        db?.execSQL(createTableStars)
     }
+
 }

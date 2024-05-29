@@ -26,21 +26,21 @@ class DBStarHelper(context: Context?) : SQLiteOpenHelper(context,
     override fun onCreate(db: SQLiteDatabase?) {
         val createTableStars = buildString {
             append("CREATE TABLE $TABLE_NAME (")
-            append("$COLUMN_ID} INTEGER PRIMARY_KEY")
-            append("$COLUMN_NAME} TEXT,")
-            append("$COLUMN_IMAGE} TEXT,")
-            append("$COLUMN_SECTOR} TEXT,")
-            append("$COLUMN_JUMPS} INTEGER,")
-            append("$COLUMN_X} INTEGER,")
-            append("$COLUMN_Y} INTEGER,")
-            append("$COLUMN_TYPE} INTEGER,")
-            append("$COLUMN_EXPLORE} INTEGER)")
+            append("$COLUMN_ID INTEGER PRIMARY_KEY")
+            append("$COLUMN_NAME TEXT,")
+            append("$COLUMN_IMAGE TEXT,")
+            append("$COLUMN_SECTOR TEXT,")
+            append("$COLUMN_JUMPS INTEGER,")
+            append("$COLUMN_X INTEGER,")
+            append("$COLUMN_Y INTEGER,")
+            append("$COLUMN_TYPE INTEGER,")
+            append("$COLUMN_EXPLORE INTEGER)")
         }
         db?.execSQL(createTableStars)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        val dropTableQuery = "DROP TABLE IF EXISTS ${TABLE_NAME}"
+        val dropTableQuery = "DROP TABLE IF EXISTS $TABLE_NAME"
         db?.execSQL(dropTableQuery)
         onCreate(db)
     }

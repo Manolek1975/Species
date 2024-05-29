@@ -6,18 +6,18 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
-    private lateinit var species: SpeciesHelper
     companion object {
         const val DATABASE_NAME: String = "db_species"
         const val DATABASE_VERSION: Int = 1
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(species.createTable)
-        db?.execSQL(StarsHelper.TABLE_NAME)
+        db?.execSQL(SpeciesHelper.SQL_CREATE_ENTRIES)
+        //db?.execSQL(StarsHelper.createTable)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
+        db?.execSQL(SpeciesHelper.SQL_DELETE_ENTRIES);
+        onCreate(db)
     }
 }
