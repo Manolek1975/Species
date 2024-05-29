@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.delek.species.database.DBSpeciesHelper
+import com.delek.species.database.DBHelper
 import com.delek.species.database.Specie
 import com.delek.species.databinding.ActivityMainBinding
 
@@ -14,7 +14,7 @@ import com.delek.species.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: DBSpeciesHelper
+    private lateinit var db: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        db = DBSpeciesHelper(this)
+        db = DBHelper(this)
 
         binding.playButton.setOnClickListener {
             //loadSpecies()
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.ayudaButton.setOnClickListener {
             val i = Intent(this, InitialActivity::class.java)
-            db.deleteSpecies()
+            //db.deleteSpecies()
             startActivity(i)
         }
     }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in name.indices){
             val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
-            db.insertSpecies(specie)
+            //db.insertSpecies(specie)
             finish()
         }
     }

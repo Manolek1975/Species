@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 
-class DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class BK_DBSpeciesHelper(context: Context?) : SQLiteOpenHelper(context,
+    DATABASE_NAME, null, DATABASE_VERSION) {
 
     // If you change the database schema, you must increment the database version.
     companion object{

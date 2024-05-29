@@ -2,9 +2,6 @@ package com.delek.species
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.ImageView
@@ -13,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.delek.species.database.DBSpeciesHelper
+import com.delek.species.database.BK_DBSpeciesHelper
+import com.delek.species.database.DBStarHelper
+import com.delek.species.database.Star
 import com.delek.species.databinding.ActivitySectorBinding
 
 
@@ -21,19 +20,13 @@ class SectorActivity() : AppCompatActivity() {
 
     private var context: Context = this
     private lateinit var binding: ActivitySectorBinding
-    private lateinit var db: DBSpeciesHelper
+    private lateinit var db: BK_DBSpeciesHelper
+    private lateinit var stars: DBStarHelper
     private var specieId: Int = -1
 
-    // Declaring ImageView, Bitmap, Canvas, Paint,
-    // Down Coordinates and Up Coordinates
     private lateinit var fondo: ImageView
     private lateinit var bitmap: Bitmap
-/*    private lateinit var canvas: Canvas
-    private lateinit var paint: Paint
-    private var downX = 0f
-    private var downY = 0f
-    private var upX = 0f
-    private var upY = 0f*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySectorBinding.inflate(layoutInflater)
@@ -46,11 +39,12 @@ class SectorActivity() : AppCompatActivity() {
             return
         }
 
-        db = DBSpeciesHelper(this)
+        db = BK_DBSpeciesHelper(this)
+        stars = DBStarHelper(this)
         val specie = db.getSpecieById(specieId)
         binding.sector.text = specie.name
 
-
+        loadStars()
         drawSector()
     }
 
@@ -66,42 +60,23 @@ class SectorActivity() : AppCompatActivity() {
         bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
         fondo.setImageBitmap(bitmap)
 
-/*
-
-        // Getting the current window dimensions
-        val currentDisplay = windowManager.currentWindowMetrics
-        val dw = currentDisplay.bounds.width()
-        val dh = currentDisplay.bounds.height()
-
-
-
-
-
-        // Creating a bitmap with fetched dimensions
-        bitmap = Bitmap.createBitmap(dw, dh, Bitmap.Config.ARGB_8888)
-
-        // Storing the canvas on the bitmap
-        canvas = Canvas(bitmap)
-
-
-
-        canvas.drawBitmap(bmStar, 0, 50, null)
-        //val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
-        // Initializing Paint to determine
-        // stoke attributes like color and size
-*/
-/*        paint = Paint()
-        paint.color = Color.RED
-        paint.strokeWidth = 10F*//*
-
-
-        // Setting the bitmap on ImageView
-        fondo.setImageBitmap(bitmap)
-*/
-
     }
 
+    fun loadStars(){
+        val res = this.resources
+        val name = res.getStringArray(R.array.name_stars)
+        val image = res.getStringArray(R.array.image_stars)
+        val coords = res.getStringArray(R.array.coords_stars)
 
+        for (i in name.indices){
+            val split: List<String> = coords[i].split(",")
+            var x = split[0].toInt()
+            val y = split[1].toInt()
+            val star = Star(1, name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
+            stars.insertStars(star)
+            finish()
+        }
+    }
 
     private fun hideSystemBars() {
         enableEdgeToEdge()
