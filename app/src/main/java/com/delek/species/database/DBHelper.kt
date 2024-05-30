@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.R
 import com.delek.species.database.SpeciesHelper.Companion.TABLE_NAME
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -16,11 +15,12 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(SpeciesHelper.SQL_CREATE_ENTRIES)
-        db?.execSQL(StarsHelper.createTable)
+        db?.execSQL(StarsHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        db?.execSQL(SpeciesHelper.SQL_DELETE_ENTRIES);
+        db?.execSQL(SpeciesHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(StarsHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -35,7 +35,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(SpeciesHelper.COLUMN_TYPE, specie.type)
             put(SpeciesHelper.COLUMN_STAR, specie.star)
         }
-        db.insert(SpeciesHelper.TABLE_NAME, null, values)
+        db.insert(TABLE_NAME, null, values)
         db.close()
     }
 
@@ -59,7 +59,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     fun getAllSpecies(): List<Specie> {
         val specieList = mutableListOf<Specie>()
         val db = readableDatabase
-        val query = "SELECT * FROM ${SpeciesHelper.TABLE_NAME}"
+        val query = "SELECT * FROM $TABLE_NAME"
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){
@@ -83,7 +83,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     fun getSpecieById(specieId: Int): Specie{
 
         val db = readableDatabase
-        val query = "SELECT * from ${SpeciesHelper.TABLE_NAME} WHERE ${SpeciesHelper.COLUMN_ID} = $specieId"
+        val query = "SELECT * from $TABLE_NAME WHERE ${SpeciesHelper.COLUMN_ID} = $specieId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
 

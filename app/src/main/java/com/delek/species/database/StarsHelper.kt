@@ -1,13 +1,6 @@
 package com.delek.species.database
 
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-
-class StarsHelper(context: Context?) : SQLiteOpenHelper(context,
-    DBHelper.DATABASE_NAME, null,
-    DBHelper.DATABASE_VERSION
-) {
+class StarsHelper {
 
     companion object{
         const val TABLE_NAME: String = "stars"
@@ -21,9 +14,9 @@ class StarsHelper(context: Context?) : SQLiteOpenHelper(context,
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_EXPLORE: String = "explore"
 
-        val createTable = buildString {
+        val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
-            append("$COLUMN_ID INTEGER PRIMARY_KEY")
+            append("$COLUMN_ID INTEGER PRIMARY_KEY,")
             append("$COLUMN_NAME TEXT,")
             append("$COLUMN_IMAGE TEXT,")
             append("$COLUMN_SECTOR TEXT,")
@@ -33,14 +26,9 @@ class StarsHelper(context: Context?) : SQLiteOpenHelper(context,
             append("$COLUMN_TYPE INTEGER,")
             append("$COLUMN_EXPLORE INTEGER)")
         }
+
+        const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
 
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
 
 }

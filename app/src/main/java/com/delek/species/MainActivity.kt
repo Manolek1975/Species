@@ -2,13 +2,13 @@ package com.delek.species
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Specie
-import com.delek.species.database.SpeciesHelper
 import com.delek.species.databinding.ActivityMainBinding
 
 
@@ -32,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.ayudaButton.setOnClickListener {
-            val i = Intent(this, InitialActivity::class.java)
+            Toast.makeText(this,"PULSA JUGAR", Toast.LENGTH_SHORT).show()
+            //val i = Intent(this, InitialActivity::class.java)
             //db.deleteSpecies()
-            startActivity(i)
+            //startActivity(i)
         }
     }
 
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val desc = res.getStringArray(R.array.description_species)
         val star = res.getStringArray(R.array.origin_species)
 
-        for (i in name.indices){
+        for (i in id.indices){
             val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
             db.insertSpecies(specie)
             finish()

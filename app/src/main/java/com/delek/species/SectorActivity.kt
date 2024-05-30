@@ -11,19 +11,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.database.DBHelper
-import com.delek.species.database.SpeciesHelper
+
 import com.delek.species.database.Star
-import com.delek.species.database.StarsHelper
 import com.delek.species.databinding.ActivitySectorBinding
 
 
-class SectorActivity() : AppCompatActivity() {
+class SectorActivity : AppCompatActivity() {
 
     private var context: Context = this
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
-    private var specieId: Int = -1
 
+    private var specieId: Int = -1
     private lateinit var fondo: ImageView
     private lateinit var bitmap: Bitmap
 
@@ -33,18 +32,35 @@ class SectorActivity() : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
+        db = DBHelper(this)
         specieId = intent.getIntExtra("specie_id", -1)
         if (specieId == -1){
             finish()
             return
         }
 
-        db = DBHelper(this)
         val specie = db.getSpecieById(specieId)
         binding.sector.text = specie.name
 
         loadStars()
         drawSector()
+    }
+
+    private fun loadStars(){
+        val res = this.resources
+        val id = res.getStringArray(R.array.id_stars)
+        val name = res.getStringArray(R.array.name_stars)
+        val image = res.getStringArray(R.array.image_stars)
+        val coords = res.getStringArray(R.array.coords_stars)
+
+        for (i in id.indices){
+            val split: List<String> = coords[i].split(",")
+            val x = split[0].toInt()
+            val y = split[1].toInt()
+            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
+            db.insertStars(star)
+            //finish()
+        }
     }
 
     private fun drawSector() {
@@ -56,25 +72,9 @@ class SectorActivity() : AppCompatActivity() {
         if (imageStar != null) {
             bitmap = imageStar.bitmap
         }
-        bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
+        bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false)
         fondo.setImageBitmap(bitmap)
 
-    }
-
-    fun loadStars(){
-        val res = this.resources
-        val name = res.getStringArray(R.array.name_stars)
-        val image = res.getStringArray(R.array.image_stars)
-        val coords = res.getStringArray(R.array.coords_stars)
-
-        for (i in name.indices){
-            val split: List<String> = coords[i].split(",")
-            var x = split[0].toInt()
-            val y = split[1].toInt()
-            val star = Star(1, name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
-            db.insertStars(star)
-            finish()
-        }
     }
 
     private fun hideSystemBars() {

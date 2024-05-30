@@ -8,7 +8,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.database.DBHelper
 import com.delek.species.database.SpeciesAdapter
-import com.delek.species.database.SpeciesHelper
 import com.delek.species.databinding.ActivityInitialBinding
 
 class InitialActivity : AppCompatActivity() {
@@ -23,6 +22,7 @@ class InitialActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
+        db = DBHelper(this)
         adapter = SpeciesAdapter(db.getAllSpecies(), this)
         binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.speciesRecyclerView.adapter = adapter
