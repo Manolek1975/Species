@@ -2,9 +2,11 @@ package com.delek.species.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.SpeciesHelper.Companion.TABLE_NAME
+
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -81,7 +83,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     }
 
     fun getSpecieById(specieId: Int): Specie{
-
         val db = readableDatabase
         val query = "SELECT * from $TABLE_NAME WHERE ${SpeciesHelper.COLUMN_ID} = $specieId"
         val cursor = db.rawQuery(query, null)
@@ -98,6 +99,17 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         cursor.close()
         db.close()
         return Specie(id, name, desc, image, skill, type, star)
+    }
+
+    fun isEmpty(table: String?): Boolean {
+        val database = this.readableDatabase
+        val numRows = DatabaseUtils.queryNumEntries(database, table)
+
+        return if (numRows == 0L) {
+            true
+        } else {
+            false
+        }
     }
 
 

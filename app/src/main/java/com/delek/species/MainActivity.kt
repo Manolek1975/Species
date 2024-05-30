@@ -26,16 +26,13 @@ class MainActivity : AppCompatActivity() {
         db = DBHelper(this)
 
         binding.playButton.setOnClickListener {
-            loadSpecies()
+            if(db.isEmpty("species")) loadSpecies()
             val i = Intent(this, InitialActivity::class.java)
             startActivity(i)
         }
 
         binding.ayudaButton.setOnClickListener {
             Toast.makeText(this,"PULSA JUGAR", Toast.LENGTH_SHORT).show()
-            //val i = Intent(this, InitialActivity::class.java)
-            //db.deleteSpecies()
-            //startActivity(i)
         }
     }
 

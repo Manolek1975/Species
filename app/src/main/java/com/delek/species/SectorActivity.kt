@@ -42,7 +42,7 @@ class SectorActivity : AppCompatActivity() {
         val specie = db.getSpecieById(specieId)
         binding.sector.text = specie.name
 
-        loadStars()
+        if(db.isEmpty("stars")) loadStars()
         drawSector()
     }
 
