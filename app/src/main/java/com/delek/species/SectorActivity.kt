@@ -1,19 +1,16 @@
 package com.delek.species
 
+
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.database.DBHelper
-
 import com.delek.species.database.Star
 import com.delek.species.databinding.ActivitySectorBinding
+import kotlin.random.Random
 
 
 class SectorActivity : AppCompatActivity() {
@@ -22,10 +19,6 @@ class SectorActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
 
-    private var specieId: Int = -1
-    private lateinit var fondo: ImageView
-    private lateinit var bitmap: Bitmap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySectorBinding.inflate(layoutInflater)
@@ -33,17 +26,13 @@ class SectorActivity : AppCompatActivity() {
         hideSystemBars()
 
         db = DBHelper(this)
-        specieId = intent.getIntExtra("specie_id", -1)
-        if (specieId == -1){
-            finish()
-            return
-        }
-
-        val specie = db.getSpecieById(specieId)
-        binding.sector.text = specie.name
-
         if(db.isEmpty("stars")) loadStars()
-        drawSector()
+
+        val drawStars = DrawStars(this)
+        setContentView(drawStars)
+
+        //drawSector()
+        //randomPosition()
     }
 
     private fun loadStars(){
@@ -59,22 +48,58 @@ class SectorActivity : AppCompatActivity() {
             val y = split[1].toInt()
             val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
             db.insertStars(star)
-            //finish()
         }
     }
 
     private fun drawSector() {
-        // Initializing the ImageView
-        fondo = findViewById(R.id.fondoSector)
+        // Get scale of Sreen
+        val dm = resources.displayMetrics
+        val fwidth = dm.density * dm.widthPixels
+        val fheight = dm.density * dm.heightPixels
 
-        val id = context.resources.getIdentifier("star1", "drawable", context.packageName)
-        val imageStar = ContextCompat.getDrawable(context, id) as BitmapDrawable?
-        if (imageStar != null) {
-            bitmap = imageStar.bitmap
-        }
-        bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false)
-        fondo.setImageBitmap(bitmap)
+    }
 
+    fun randomPosition(){
+        val random = Random
+        //val rnds = (0..10).random() // generated random from 0 to 10 included
+        val numberOfCircle = 8
+        val width = 400
+        val height = 300
+        val diameter = 51
+        val radius = diameter * 0.5f
+        val d2 = (diameter * diameter).toFloat()
+
+        val posX: MutableList<Float> = ArrayList(numberOfCircle)
+        val posY: MutableList<Float> = ArrayList(numberOfCircle)
+
+        while (posX.size < numberOfCircle) {  // till enough generated
+            // generate new coordinates
+            val x: Float = random.nextInt(width - diameter) + radius
+            val y: Float = random.nextInt(height - diameter) + radius
+
+            System.out.printf("Generated [%3.3f, %3.3f] ... ", x, y)
+
+            // verify it does not overlap/touch with previous circles
+            var j = 0
+            while (j < posX.size) {
+                val dx = posX[j] - x
+                val dy = posY[j] - y
+                val diffSquare = (dx * dx) + (dy * dy)
+                if (diffSquare <= d2) break
+                ++j
+            }
+
+            // generate another pair of coordinates, if it does touch previous
+            if (j != posX.size) {
+                println("collided.")
+                continue
+            }
+            println("added.")
+
+            // not overlapping/touch, add as new circle
+            posX.add(x)
+            posY.add(y)
+        } // while (posX.size() < numberOfCircle)
     }
 
     private fun hideSystemBars() {
