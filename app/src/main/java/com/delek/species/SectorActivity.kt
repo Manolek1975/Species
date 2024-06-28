@@ -3,6 +3,7 @@ package com.delek.species
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
@@ -24,12 +25,11 @@ class SectorActivity : AppCompatActivity() {
         binding = ActivitySectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
+        val drawStars = DrawStars(this)
+        setContentView(drawStars)
 
         db = DBHelper(this)
         if(db.isEmpty("stars")) loadStars()
-
-        val drawStars = DrawStars(this)
-        setContentView(drawStars)
 
         //drawSector()
         //randomPosition()
@@ -52,6 +52,7 @@ class SectorActivity : AppCompatActivity() {
     }
 
     private fun drawSector() {
+        var fondo: ImageView = findViewById(R.id.fondoSector)
         // Get scale of Sreen
         val dm = resources.displayMetrics
         val fwidth = dm.density * dm.widthPixels
