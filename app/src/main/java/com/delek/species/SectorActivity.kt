@@ -46,7 +46,7 @@ class SectorActivity : AppCompatActivity() {
             val split: List<String> = coords[i].split(",")
             val x = split[0].toInt()
             val y = split[1].toInt()
-            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0, x, y, type = 0, true)
+            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0, x, y, type = 0, 0)
             db.insertStars(star)
         }
     }

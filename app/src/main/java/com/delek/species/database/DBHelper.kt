@@ -76,10 +76,34 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             val specie = Specie(id, name, desc, image, skill, type, star)
             specieList.add(specie)
         }
-
         cursor.close()
         db.close()
         return specieList
+    }
+
+    fun getAllStars(): List<Star>{
+        val starList = mutableListOf<Star>()
+        val db = readableDatabase
+        val query = "SELECT * FROM stars"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_IMAGE))
+            val sector = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_SECTOR))
+            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_JUMPS))
+            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_X))
+            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_Y))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_TYPE))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_EXPLORE))
+
+            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
+            starList.add(star)
+        }
+        cursor.close()
+        db.close()
+        return starList
     }
 
     fun getSpecieById(specieId: Int): Specie{
@@ -100,6 +124,8 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db.close()
         return Specie(id, name, desc, image, skill, type, star)
     }
+
+
 
     fun isEmpty(table: String?): Boolean {
         val database = this.readableDatabase
