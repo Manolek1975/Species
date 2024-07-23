@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.DisplayMetrics
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.delek.species.database.DBHelper
+import com.delek.species.database.Star
 
 
 class DrawStars(context: Context): View(context) {
@@ -31,17 +33,53 @@ class DrawStars(context: Context): View(context) {
         p.textSize = 36f
         p.style = Paint.Style.FILL
         for (star in stars){
-            //p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
             getColorType(star.type)
             canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 20F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
         }
-
     }
 
-    // Get type color
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val touchedStar = findTouchedStar(event.x, event.y)
+                touchedStar?.let {
+                    println(it.name)
+                    performClick()
+                }
+                return true
+            }
+            else -> return super.onTouchEvent(event)
+        }
+    }
+
+
+    private fun findTouchedStar(x: Float, y: Float): Star? {
+        // Logic to find the star that was touched based on coordinates
+        val stars = db.getAllStars()
+        for (star in stars) {
+            // Check if (x, y) is within the bounds of the star's circle
+            if (star.x -40 <= x && x <= star.x + 40 &&
+                star.y -40 <= y && y <= star.y + 40) {
+                return star
+            }
+        }
+        return null
+    }
+
+    override fun performClick(): Boolean {
+        // Call super for default handling if needed
+        if (super.performClick()) return true
+        // Execute the same logic as when a star is touched
+        // For example, you might trigger a sound, open a dialog, etc.
+        println("Star clicked")
+        return true
+    }
+
+
     private fun getColorType(type: Int) {
+        // Get type color
         when (type) {
             1 -> p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             2 -> p.color = ResourcesCompat.getColor(resources, R.color.cyan, null)
@@ -51,8 +89,9 @@ class DrawStars(context: Context): View(context) {
         }
     }
 
-    // Height of action bar
+
     private fun getActionBarHeight(): Int {
+        // Height of action bar
         val ta = context.theme.obtainStyledAttributes(
             intArrayOf(android.R.attr.actionBarSize)
         )
