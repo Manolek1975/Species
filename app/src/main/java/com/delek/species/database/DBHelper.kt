@@ -125,17 +125,11 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         return Specie(id, name, desc, image, skill, type, star)
     }
 
-
-
     fun isEmpty(table: String?): Boolean {
         val database = this.readableDatabase
         val numRows = DatabaseUtils.queryNumEntries(database, table)
 
-        return if (numRows == 0L) {
-            true
-        } else {
-            false
-        }
+        return numRows == 0L
     }
 
 

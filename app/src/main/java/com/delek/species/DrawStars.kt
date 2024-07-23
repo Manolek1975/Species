@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.util.DisplayMetrics
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.delek.species.database.DBHelper
@@ -12,37 +13,15 @@ import com.delek.species.database.DBHelper
 
 class DrawStars(context: Context): View(context) {
 
-    val db = DBHelper(context)
-    private var posX = 1080f
-    private var posY = 2256f
-    private var drawcolor: Int = ResourcesCompat.getColor(resources, R.color.yellow, null)
+    private val db = DBHelper(context)
     private val p = Paint()
 
-/*
-    private val paint =  Paint().apply{
-        color = drawcolor
-        style = Paint.Style.FILL
-        isAntiAlias = true
-        textSize= 36f
-    }
-*/
-    // Altura de la barra de acción
-    fun getActionBarHeight(): Int {
-        val ta = context.theme.obtainStyledAttributes(
-            intArrayOf(android.R.attr.actionBarSize)
-        )
-        val actionBarHeight = ta.getDimension(0, 0f).toInt()
-        return actionBarHeight
-    }
-
-
-    val bar = getActionBarHeight()
-    val dm = resources.displayMetrics
-    val fwidth = dm.density * dm.widthPixels
-    val fheight = dm.density * dm.heightPixels
+    private val bar = getActionBarHeight()
+    private val dm: DisplayMetrics = resources.displayMetrics
     private var bitmap = BitmapFactory.decodeResource(resources, R.drawable.fondo_sector)
     private val background = Bitmap.createScaledBitmap(
         bitmap, dm.widthPixels, dm.heightPixels + bar, true)
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -55,9 +34,18 @@ class DrawStars(context: Context): View(context) {
             p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
             canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 20F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
-            canvas.drawText(star.name, star.x.toFloat()-20, star.y.toFloat()-40, p)
+            canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
         }
 
+    }
+
+    // Height of action bar
+    private fun getActionBarHeight(): Int {
+        val ta = context.theme.obtainStyledAttributes(
+            intArrayOf(android.R.attr.actionBarSize)
+        )
+        val actionBarHeight = ta.getDimension(0, 0f).toInt()
+        return actionBarHeight
     }
 
 }
