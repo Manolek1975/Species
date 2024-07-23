@@ -36,11 +36,12 @@ class SectorActivity : AppCompatActivity() {
         val id = res.getStringArray(R.array.id_stars)
         val name = res.getStringArray(R.array.name_stars)
         val image = res.getStringArray(R.array.image_stars)
+        val type = res.getStringArray(R.array.type_stars)
         //val coords = res.getStringArray(R.array.coords_stars)
         val coords = getCoords()
         for (i in id.indices){
             val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
-                coords[i].x, coords[i].y, type = 0, 0)
+                coords[i].x, coords[i].y, type[i].toInt(), 0)
             db.insertStars(star)
         }
     }
@@ -56,14 +57,13 @@ class SectorActivity : AppCompatActivity() {
         val radius = diameter * 0.5f
         val d2 = (diameter * diameter).toFloat()
         val coordinate : MutableList<Point> = ArrayList(size)
-        val adjust = 100 // Center position on screen to no touch action bar
 
         val posX: MutableList<Float> = ArrayList(size)
         val posY: MutableList<Float> = ArrayList(size)
         while (posX.size < size) {
             // generate new coordinates
             val x: Float = random.nextInt(width - diameter) + radius
-            val y: Float = random.nextInt(height - diameter-adjust) + radius
+            val y: Float = random.nextInt(height - diameter) + radius
 
             System.out.printf("Generated [%3.3f, %3.3f] ... ", x, y)
 

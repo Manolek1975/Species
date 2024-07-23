@@ -31,12 +31,24 @@ class DrawStars(context: Context): View(context) {
         p.textSize = 36f
         p.style = Paint.Style.FILL
         for (star in stars){
-            p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
+            //p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
+            getColorType(star.type)
             canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 20F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
         }
 
+    }
+
+    // Get type color
+    private fun getColorType(type: Int) {
+        when (type) {
+            1 -> p.color = ResourcesCompat.getColor(resources, R.color.white, null)
+            2 -> p.color = ResourcesCompat.getColor(resources, R.color.cyan, null)
+            3 -> p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
+            4 -> p.color = ResourcesCompat.getColor(resources, R.color.orange, null)
+            5 -> p.color = ResourcesCompat.getColor(resources, R.color.red, null)
+        }
     }
 
     // Height of action bar

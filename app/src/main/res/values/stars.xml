@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <string-array name="id_stars">
         <item>1</item>
@@ -71,9 +71,33 @@
 
         <item>star10</item>
         <item>star5</item>
-        <item tools:ignore="Typos">star11</item>
-        <item tools:ignore="Typos">star1</item>
+        <item>star11</item>
+        <item>star1</item>
         <item>star4</item>
+    </string-array>
+
+    <string-array name="type_stars">
+        <item>3</item>
+        <item>1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>4</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>5</item>
+        <item>5</item>
+
     </string-array>
 
     <string-array name="coords_stars">
