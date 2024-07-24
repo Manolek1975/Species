@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.DrawStars
 import com.delek.species.R
 import com.delek.species.database.DBHelper
+import com.delek.species.database.Planet
 import com.delek.species.database.Star
 import com.delek.species.databinding.ActivitySectorBinding
 import kotlin.random.Random
@@ -29,7 +30,10 @@ class SectorActivity : AppCompatActivity() {
         setContentView(drawStars)
 
         db = DBHelper(this)
-        if(db.isEmpty("stars")) loadStars()
+        if(db.isEmpty("stars")) {
+            loadStars()
+            loadPlanets()
+        }
 
     }
 
@@ -39,7 +43,6 @@ class SectorActivity : AppCompatActivity() {
         val name = res.getStringArray(R.array.name_stars)
         val image = res.getStringArray(R.array.image_stars)
         val type = res.getStringArray(R.array.type_stars)
-        //val coords = res.getStringArray(R.array.coords_stars)
         val coords = getCoords()
         for (i in id.indices){
             val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
@@ -47,6 +50,34 @@ class SectorActivity : AppCompatActivity() {
             db.insertStars(star)
         }
     }
+
+    private fun loadPlanets() {
+        val star = db.getAllStars()
+        for (i in star){
+            val planets = (1..8).random()
+            for (j in 1..planets){
+                val image = getPlanetImage(j)
+                val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
+                    0, 0,0,0,0)
+                db.insertPlanets(planet)
+            }
+        }
+    }
+
+    fun getPlanetImage(j: Int): String {
+        when (j) {
+            1 -> return "planet1"
+            2 -> return "planet2"
+            3 -> return "planet3"
+            4 -> return "planet4"
+            5 -> return "planet5"
+            6 -> return "planet6"
+            7 -> return "planet7"
+            8 -> return "planet8"
+        }
+        return "planet1"
+    }
+
 
     // Insert random coordinates to stars
     private fun getCoords(): List<Point> {

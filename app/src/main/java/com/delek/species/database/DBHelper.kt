@@ -18,11 +18,13 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(SpeciesHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(StarsHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(PlanetHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db?.execSQL(SpeciesHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(StarsHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(PlanetHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -55,6 +57,26 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(StarsHelper.COLUMN_EXPLORE, star.explore)
         }
         db.insert(StarsHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertPlanets(planet: Planet){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            //put(PlanetHelper.COLUMN_ID, planet.id)
+            put(PlanetHelper.COLUMN_STAR, planet.star)
+            put(PlanetHelper.COLUMN_NAME, planet.name)
+            put(PlanetHelper.COLUMN_IMAGE, planet.image)
+            put(PlanetHelper.COLUMN_SIZE, planet.size)
+            put(PlanetHelper.COLUMN_TYPE, planet.type)
+            put(PlanetHelper.COLUMN_OWNER, planet.owner)
+            put(PlanetHelper.COLUMN_FOOD, planet.food)
+            put(PlanetHelper.COLUMN_PRODUCTION, planet.production)
+            put(PlanetHelper.COLUMN_POPULATION, planet.population)
+            put(PlanetHelper.COLUMN_RESEARCH, planet.research)
+            put(PlanetHelper.COLUMN_EXPLORE, planet.explore)
+        }
+        db.insert(PlanetHelper.TABLE_NAME, null, values)
         db.close()
     }
 

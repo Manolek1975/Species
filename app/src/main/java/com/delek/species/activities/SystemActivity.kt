@@ -30,24 +30,12 @@ class SystemActivity : AppCompatActivity() {
         hideSystemBars()
 
         val star = intent.getSerializableExtra("star") as Star?
-        println(star?.id)
-
-
-/*        val starImage = findViewById<ImageView>(R.id.starImage)
-        val starName = findViewById<TextView>(R.id.starName)
-        starName.text = star?.name
-
-        val id: Int = this.getResources().getIdentifier(star?.image, "drawable", this.packageName)
-
-        println("id: $id ${star?.image}")
-        //starImage.setImageResource(id)
-        starImage.setBackgroundResource(id)*/
-
 
         val starInfo: TextView = findViewById(R.id.starInfo)
         val drawableId = resources.getIdentifier(star?.image, "drawable", packageName)
         starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0) // Left drawable
         starInfo.text = star?.name // Set the star name
+
 
 
 
