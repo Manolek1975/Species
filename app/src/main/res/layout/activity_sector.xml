@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_sector"
-    tools:context=".SectorActivity">
+    tools:context=".activities.SectorActivity">
 
     <ImageView
         android:id="@+id/fondoSector"

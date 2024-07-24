@@ -1,6 +1,8 @@
 package com.delek.species
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -9,6 +11,7 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import com.delek.species.activities.SystemActivity
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Star
 
@@ -40,13 +43,17 @@ class DrawStars(context: Context): View(context) {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
                     println(it.name)
-                    performClick()
+                    val intent = Intent(context, SystemActivity::class.java).apply {
+                        putExtra("star", it)
+                    }
+                    context.startActivity(intent)
                 }
                 return true
             }
@@ -66,15 +73,6 @@ class DrawStars(context: Context): View(context) {
             }
         }
         return null
-    }
-
-    override fun performClick(): Boolean {
-        // Call super for default handling if needed
-        if (super.performClick()) return true
-        // Execute the same logic as when a star is touched
-        // For example, you might trigger a sound, open a dialog, etc.
-        println("Star clicked")
-        return true
     }
 
 

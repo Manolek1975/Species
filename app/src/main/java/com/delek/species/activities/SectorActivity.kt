@@ -1,4 +1,4 @@
-package com.delek.species
+package com.delek.species.activities
 
 
 import android.graphics.Point
@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.DrawStars
+import com.delek.species.R
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Star
 import com.delek.species.databinding.ActivitySectorBinding
@@ -92,7 +94,7 @@ class SectorActivity : AppCompatActivity() {
         return coordinate
     }
 
-    private fun hideSystemBars() {
+    fun hideSystemBars() {
         enableEdgeToEdge()
         val controller = WindowInsetsControllerCompat(
             window, window.decorView
@@ -101,6 +103,7 @@ class SectorActivity : AppCompatActivity() {
         controller.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
+
 }
 
 

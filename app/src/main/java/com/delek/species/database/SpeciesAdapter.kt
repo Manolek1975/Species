@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.SectorActivity
+import com.delek.species.activities.SectorActivity
 
 
 class SpeciesAdapter(private var species: List<Specie>,

@@ -6,7 +6,7 @@
     android:background="@drawable/fondo"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    tools:context=".InitialActivity">
+    tools:context=".activities.InitialActivity">
 
     <TextView
         android:id="@+id/selectSpecie"

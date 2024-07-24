@@ -1,4 +1,4 @@
-package com.delek.species
+package com.delek.species.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.R
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Specie
 import com.delek.species.databinding.ActivityMainBinding

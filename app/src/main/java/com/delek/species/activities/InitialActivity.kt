@@ -1,4 +1,4 @@
-package com.delek.species
+package com.delek.species.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
