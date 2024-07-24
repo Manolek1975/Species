@@ -8,26 +8,15 @@
     android:background="@drawable/fondo_sistema"
     tools:context=".activities.SystemActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/starInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/starImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="50dp" />
-
-        <TextView
-            android:id="@+id/starName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="star"
-            android:paddingStart="20dp"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </LinearLayout>
+        android:drawablePadding="40dp"
+        android:padding="16dp"
+        android:text="Star Name"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 </RelativeLayout>

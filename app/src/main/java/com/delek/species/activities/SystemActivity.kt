@@ -33,7 +33,7 @@ class SystemActivity : AppCompatActivity() {
         println(star?.id)
 
 
-        val starImage = findViewById<ImageView>(R.id.starImage)
+/*        val starImage = findViewById<ImageView>(R.id.starImage)
         val starName = findViewById<TextView>(R.id.starName)
         starName.text = star?.name
 
@@ -41,7 +41,15 @@ class SystemActivity : AppCompatActivity() {
 
         println("id: $id ${star?.image}")
         //starImage.setImageResource(id)
-        starImage.setBackgroundResource(id)
+        starImage.setBackgroundResource(id)*/
+
+
+        val starInfo: TextView = findViewById(R.id.starInfo)
+        val drawableId = resources.getIdentifier(star?.image, "drawable", packageName)
+        starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0) // Left drawable
+        starInfo.text = star?.name // Set the star name
+
+
 
 
     }
