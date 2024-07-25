@@ -16,7 +16,7 @@
         android:padding="16dp"
         android:text="Star Name"
         android:textColor="@color/white"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/systemRecyclerView"

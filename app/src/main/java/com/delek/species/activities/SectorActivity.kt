@@ -11,6 +11,7 @@ import com.delek.species.DrawStars
 import com.delek.species.R
 import com.delek.species.database.DBHelper
 import com.delek.species.database.Planet
+import com.delek.species.database.PlanetDAO
 import com.delek.species.database.Star
 import com.delek.species.databinding.ActivitySectorBinding
 import kotlin.random.Random
@@ -20,6 +21,7 @@ class SectorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
+    private lateinit var tablePlanets: PlanetDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,13 @@ class SectorActivity : AppCompatActivity() {
         setContentView(drawStars)
 
         db = DBHelper(this)
+        tablePlanets = PlanetDAO(this)
         if(db.isEmpty("stars")) {
             loadStars()
             loadPlanets()
         }
+
+
 
     }
 
@@ -59,7 +64,7 @@ class SectorActivity : AppCompatActivity() {
                 val image = getPlanetImage(j)
                 val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
                     0, 0,0,0,0)
-                db.insertPlanets(planet)
+                tablePlanets.insertPlanets(planet)
             }
         }
     }
@@ -75,7 +80,7 @@ class SectorActivity : AppCompatActivity() {
             7 -> return "icon_planet7"
             8 -> return "icon_planet8"
         }
-        return "planet9"
+        return "planet8"
     }
 
 
