@@ -58,6 +58,34 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return planetList
     }
 
+    fun getPlanetById(planetId: Int?): List<Planet> {
+        val planetList = mutableListOf<Planet>()
+        val db = readableDatabase
+        val query = "SELECT * FROM planets where id = $planetId"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_ID))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_STAR))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_IMAGE))
+            val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_SIZE))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_TYPE))
+            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_OWNER))
+            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_FOOD))
+            val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_PRODUCTION))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_POPULATION))
+            val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_RESEARCH))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
+
+            val planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
+            planetList.add(planet)
+        }
+        cursor.close()
+        db.close()
+        return planetList
+    }
+
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")

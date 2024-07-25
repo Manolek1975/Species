@@ -13,12 +13,19 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".activities.PlanetActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SystemActivity"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.SectorActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.SpecieActivity"
+            android:theme="@style/AppTheme.SpeciesTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
@@ -30,11 +37,6 @@
                     android:theme="@style/AppTheme.SpeciesTheme" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.SpecieActivity"
-            android:theme="@style/AppTheme.SpeciesTheme"
-            android:windowSoftInputMode="adjustResize" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

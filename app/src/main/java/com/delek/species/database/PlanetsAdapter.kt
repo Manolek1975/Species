@@ -1,14 +1,14 @@
 package com.delek.species.database
 
 import android.content.Context
-import android.graphics.Color
-import android.view.Gravity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
+import com.delek.species.activities.PlanetActivity
 
 class PlanetsAdapter(private var planets: List<Planet>,
                      private val context: Context):
@@ -30,14 +30,13 @@ class PlanetsAdapter(private var planets: List<Planet>,
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
         holder.planetItem.setOnClickListener{
-            dialog(planet)
+            val intent = Intent(context, PlanetActivity::class.java).apply {
+                putExtra("planet", planet)
+            }
+            context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int = planets.size
-
-    private fun dialog(planet: Planet) {
-
-    }
 
 }
