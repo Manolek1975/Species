@@ -38,8 +38,6 @@ class SectorActivity : AppCompatActivity() {
             loadPlanets()
         }
 
-
-
     }
 
     private fun loadStars(){
@@ -70,7 +68,10 @@ class SectorActivity : AppCompatActivity() {
     }
 
     private fun getPlanetImage(j: Int): String {
-        when (j) {
+        var image = j
+        var rnd = (0..1).random()
+        if (rnd == 1 && j <= 4 ) image = j + 8
+        when (image) {
             1 -> return "icon_planet1"
             2 -> return "icon_planet2"
             3 -> return "icon_planet3"
@@ -79,8 +80,12 @@ class SectorActivity : AppCompatActivity() {
             6 -> return "icon_planet6"
             7 -> return "icon_planet7"
             8 -> return "icon_planet8"
+            9 -> return "icon_planet9"
+            10 -> return "icon_planet10"
+            11 -> return "icon_planet11"
+            12 -> return "icon_planet12"
         }
-        return "planet8"
+        return "planet12"
     }
 
 

@@ -33,7 +33,9 @@ class PlanetsAdapter(private var planets: List<Planet>,
             dialog(planet)
         }
     }
+
     override fun getItemCount(): Int = planets.size
+
     private fun dialog(planet: Planet) {
 
     }
