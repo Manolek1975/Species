@@ -1,6 +1,5 @@
 package com.delek.species.database
 
-
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SectorActivity
-
 
 class SpeciesAdapter(private var species: List<Specie>,
                      private val context: Context):

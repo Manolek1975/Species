@@ -8,17 +8,17 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.database.DBHelper
 import com.delek.species.database.SpeciesAdapter
-import com.delek.species.databinding.ActivityInitialBinding
+import com.delek.species.databinding.ActivitySpecieBinding
 
-class InitialActivity : AppCompatActivity() {
+class SpecieActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityInitialBinding
-    private lateinit var db: DBHelper
+    private lateinit var binding: ActivitySpecieBinding
     private lateinit var adapter: SpeciesAdapter
+    private lateinit var db: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInitialBinding.inflate(layoutInflater)
+        binding = ActivitySpecieBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
 

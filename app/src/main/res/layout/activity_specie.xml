@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
-    android:fitsSystemWindows="false"
     android:orientation="vertical"
-    tools:context=".activities.InitialActivity">
+    tools:context=".activities.SystemActivity">
 
     <TextView
         android:id="@+id/selectSpecie"
@@ -14,10 +13,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/aclonica"
         android:gravity="center"
-        android:textSize="24sp"
         android:padding="20dp"
+        android:text="@string/elige_tu_specie"
         android:textColor="@color/white"
-        android:text="@string/elige_tu_specie" />
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/speciesRecyclerView"

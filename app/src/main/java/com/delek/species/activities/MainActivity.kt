@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             if(db.isEmpty("species")) loadSpecies()
-            val i = Intent(this, InitialActivity::class.java)
+            val i = Intent(this, SpecieActivity::class.java)
             startActivity(i)
         }
 

@@ -1,6 +1,5 @@
 package com.delek.species.database
 
-import android.os.Parcelable
 import java.io.Serializable
 
 data class Star(

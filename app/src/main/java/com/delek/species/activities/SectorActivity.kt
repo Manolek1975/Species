@@ -64,18 +64,18 @@ class SectorActivity : AppCompatActivity() {
         }
     }
 
-    fun getPlanetImage(j: Int): String {
+    private fun getPlanetImage(j: Int): String {
         when (j) {
-            1 -> return "planet1"
-            2 -> return "planet2"
-            3 -> return "planet3"
-            4 -> return "planet4"
-            5 -> return "planet5"
-            6 -> return "planet6"
-            7 -> return "planet7"
-            8 -> return "planet8"
+            1 -> return "icon_planet1"
+            2 -> return "icon_planet2"
+            3 -> return "icon_planet3"
+            4 -> return "icon_planet4"
+            5 -> return "icon_planet5"
+            6 -> return "icon_planet6"
+            7 -> return "icon_planet7"
+            8 -> return "icon_planet8"
         }
-        return "planet1"
+        return "planet9"
     }
 
 
@@ -125,7 +125,7 @@ class SectorActivity : AppCompatActivity() {
         return coordinate
     }
 
-    fun hideSystemBars() {
+    private fun hideSystemBars() {
         enableEdgeToEdge()
         val controller = WindowInsetsControllerCompat(
             window, window.decorView
