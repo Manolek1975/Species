@@ -1,4 +1,4 @@
-package com.delek.species.database
+package com.delek.species.database.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SectorActivity
+import com.delek.species.database.dataclass.Specie
 
 class SpeciesAdapter(private var species: List<Specie>,
                      private val context: Context):
@@ -37,10 +38,7 @@ class SpeciesAdapter(private var species: List<Specie>,
 
     override fun getItemCount(): Int = species.size
 
-    fun refreshData(newSpecies: List<Specie>){
-        species = newSpecies
-        notifyDataSetChanged()
-    }
+
 
     private fun dialog(specie: Specie) {
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)

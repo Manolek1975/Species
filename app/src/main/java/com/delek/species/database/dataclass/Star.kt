@@ -1,4 +1,4 @@
-package com.delek.species.database
+package com.delek.species.database.dataclass
 
 import java.io.Serializable
 

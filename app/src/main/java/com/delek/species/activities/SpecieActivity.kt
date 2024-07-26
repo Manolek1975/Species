@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.database.DBHelper
-import com.delek.species.database.SpeciesAdapter
+import com.delek.species.database.adapter.SpeciesAdapter
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.databinding.ActivitySpecieBinding
 
 class SpecieActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySpecieBinding
     private lateinit var adapter: SpeciesAdapter
-    private lateinit var db: DBHelper
+    private lateinit var species: SpecieDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +22,8 @@ class SpecieActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        db = DBHelper(this)
-        adapter = SpeciesAdapter(db.getAllSpecies(), this)
+        species = SpecieDAO(this)
+        adapter = SpeciesAdapter(species.getAllSpecies(), this)
         binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.speciesRecyclerView.adapter = adapter
 

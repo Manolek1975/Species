@@ -1,4 +1,4 @@
-package com.delek.species.database
+package com.delek.species.database.dataclass
 
 data class Specie(
     val id : Int,

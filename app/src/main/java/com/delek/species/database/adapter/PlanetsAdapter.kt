@@ -1,4 +1,4 @@
-package com.delek.species.database
+package com.delek.species.database.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.PlanetActivity
+import com.delek.species.database.dataclass.Planet
 
 class PlanetsAdapter(private var planets: List<Planet>,
                      private val context: Context):

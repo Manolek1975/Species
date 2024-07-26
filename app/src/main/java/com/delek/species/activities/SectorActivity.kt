@@ -9,10 +9,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.DrawStars
 import com.delek.species.R
-import com.delek.species.database.DBHelper
-import com.delek.species.database.Planet
-import com.delek.species.database.PlanetDAO
-import com.delek.species.database.Star
+import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.StarDAO
+import com.delek.species.database.dataclass.Star
 import com.delek.species.databinding.ActivitySectorBinding
 import kotlin.random.Random
 
@@ -21,7 +22,8 @@ class SectorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
-    private lateinit var tablePlanets: PlanetDAO
+    private lateinit var stars: StarDAO
+    private lateinit var planets: PlanetDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,8 @@ class SectorActivity : AppCompatActivity() {
         setContentView(drawStars)
 
         db = DBHelper(this)
-        tablePlanets = PlanetDAO(this)
+        stars = StarDAO(this)
+        planets = PlanetDAO(this)
         if(db.isEmpty("stars")) {
             loadStars()
             loadPlanets()
@@ -50,26 +53,26 @@ class SectorActivity : AppCompatActivity() {
         for (i in id.indices){
             val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
                 coords[i].x, coords[i].y, type[i].toInt(), 0)
-            db.insertStars(star)
+            stars.insertStars(star)
         }
     }
 
     private fun loadPlanets() {
-        val star = db.getAllStars()
+        val star = stars.getAllStars()
         for (i in star){
-            val planets = (1..8).random()
-            for (j in 1..planets){
+            val rnd = (1..8).random() // Nº de planetas por estrella
+            for (j in 1..rnd){
                 val image = getPlanetImage(j)
                 val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
                     0, 0,0,0,0)
-                tablePlanets.insertPlanets(planet)
+                planets.insertPlanets(planet)
             }
         }
     }
 
     private fun getPlanetImage(j: Int): String {
         var image = j
-        var rnd = (0..1).random()
+        val rnd = (0..1).random()
         if (rnd == 1 && j <= 4 ) image = j + 8
         when (image) {
             1 -> return "icon_planet1"

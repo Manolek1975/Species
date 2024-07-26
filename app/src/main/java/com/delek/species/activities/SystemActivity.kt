@@ -8,9 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.database.PlanetDAO
-import com.delek.species.database.PlanetsAdapter
-import com.delek.species.database.Star
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.adapter.PlanetsAdapter
+import com.delek.species.database.dataclass.Star
 import com.delek.species.databinding.ActivitySystemBinding
 
 

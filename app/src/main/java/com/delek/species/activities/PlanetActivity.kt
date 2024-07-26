@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
-import com.delek.species.database.Planet
-import com.delek.species.database.PlanetDAO
+import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.ActivityPlanetBinding
 
 class PlanetActivity : AppCompatActivity() {

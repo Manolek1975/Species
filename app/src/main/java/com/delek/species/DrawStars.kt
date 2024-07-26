@@ -12,13 +12,14 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.delek.species.activities.SystemActivity
-import com.delek.species.database.DBHelper
-import com.delek.species.database.Star
+import com.delek.species.database.dao.StarDAO
+import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.dataclass.Star
 
 
 class DrawStars(context: Context): View(context) {
 
-    private val db = DBHelper(context)
+    private val db = StarDAO(context)
     private val p = Paint()
 
     private val bar = getActionBarHeight()

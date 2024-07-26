@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
-import com.delek.species.database.DBHelper
-import com.delek.species.database.Specie
+import com.delek.species.database.dao.SpecieDAO
+import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.dataclass.Specie
 import com.delek.species.databinding.ActivityMainBinding
 
 
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: DBHelper
+    private lateinit var species: SpecieDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = DBHelper(this)
+        species = SpecieDAO(this)
 
         binding.playButton.setOnClickListener {
             if(db.isEmpty("species")) loadSpecies()
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in id.indices){
             val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
-            db.insertSpecies(specie)
+            species.insertSpecies(specie)
             finish()
         }
     }

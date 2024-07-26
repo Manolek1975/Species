@@ -1,9 +1,13 @@
-package com.delek.species.database
+package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.helper.PlanetsHelper
 
 class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -85,7 +89,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return planetList
     }
-
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")

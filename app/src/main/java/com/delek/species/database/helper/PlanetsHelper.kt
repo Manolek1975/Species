@@ -1,4 +1,4 @@
-package com.delek.species.database
+package com.delek.species.database.helper
 
 class PlanetsHelper {
     companion object{
