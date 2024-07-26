@@ -25,11 +25,34 @@ class PlanetActivity : AppCompatActivity() {
         db = PlanetDAO(this)
         val planet = intent.getSerializableExtra("planet") as Planet?
 
-        val name: TextView = findViewById(R.id.planetName)
+/*        val name: TextView = findViewById(R.id.planetName)
         val image: ImageView = findViewById(R.id.planetImage)
         val id = resources.getIdentifier(planet?.image, "drawable", packageName)
         name.text = planet?.name
-        image.setImageResource(id)
+        image.setImageResource(id)*/
+
+
+        val planetInfo: TextView = findViewById(R.id.planetInfo)
+        val drawableId = resources.getIdentifier(planet?.image, "drawable", packageName)
+        planetInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
+        planetInfo.text = planet?.name
+
+        val foodInfo: TextView = findViewById(R.id.foodInfo)
+        foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
+        foodInfo.text = planet?.food.toString()
+
+
+        val prodInfo: TextView = findViewById(R.id.prodInfo)
+        prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
+        prodInfo.text = planet?.production.toString()
+
+        val scienceInfo: TextView = findViewById(R.id.scienceInfo)
+        scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
+        scienceInfo.text = planet?.research.toString()
+
+        val popInfo: TextView = findViewById(R.id.popInfo)
+        popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
+        popInfo.text = planet?.population.toString()
     }
 
     private fun hideSystemBars() {

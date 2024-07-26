@@ -36,8 +36,8 @@ class SystemActivity : AppCompatActivity() {
 
         val starInfo: TextView = findViewById(R.id.starInfo)
         val drawableId = resources.getIdentifier(star?.image, "drawable", packageName)
-        starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0) // Left drawable
-        starInfo.text = "\n" + star?.name // Set the star name
+        starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
+        starInfo.text = "\n" + star?.name
 
     }
 
