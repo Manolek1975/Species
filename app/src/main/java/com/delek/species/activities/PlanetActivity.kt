@@ -1,7 +1,7 @@
 package com.delek.species.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,16 +31,16 @@ class PlanetActivity : AppCompatActivity() {
         name.text = planet?.name
         image.setImageResource(id)*/
 
-
+        // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
         val drawableId = resources.getIdentifier(planet?.image, "drawable", packageName)
         planetInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
         planetInfo.text = planet?.name
 
+        // Resources
         val foodInfo: TextView = findViewById(R.id.foodInfo)
         foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
         foodInfo.text = planet?.food.toString()
-
 
         val prodInfo: TextView = findViewById(R.id.prodInfo)
         prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
@@ -53,6 +53,13 @@ class PlanetActivity : AppCompatActivity() {
         val popInfo: TextView = findViewById(R.id.popInfo)
         popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
         popInfo.text = planet?.population.toString()
+
+        // builds
+        binding.prodInfo.setOnClickListener {
+            val i = Intent(this, BuildActivity::class.java)
+                i.putExtra("planet", planet)
+            startActivity(i)
+        }
     }
 
     private fun hideSystemBars() {

@@ -18,22 +18,6 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
-    fun insertStars(star: Star) {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put(StarsHelper.COLUMN_ID, star.id)
-            put(StarsHelper.COLUMN_NAME, star.name)
-            put(StarsHelper.COLUMN_IMAGE, star.image)
-            put(StarsHelper.COLUMN_SECTOR, star.sector)
-            put(StarsHelper.COLUMN_JUMPS, star.jumps)
-            put(StarsHelper.COLUMN_X, star.x)
-            put(StarsHelper.COLUMN_Y, star.y)
-            put(StarsHelper.COLUMN_TYPE, star.type)
-            put(StarsHelper.COLUMN_EXPLORE, star.explore)
-        }
-        db.insert(StarsHelper.TABLE_NAME, null, values)
-        db.close()
-    }
 
     fun getAllStars(): List<Star>{
         val starList = mutableListOf<Star>()
@@ -60,12 +44,6 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return starList
     }
 
-    fun isEmpty(table: String?): Boolean {
-        val database = this.readableDatabase
-        val numRows = DatabaseUtils.queryNumEntries(database, table)
-
-        return numRows == 0L
-    }
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")

@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".activities.BuildActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PlanetActivity"
             android:exported="false" />
         <activity
@@ -37,6 +40,7 @@
                     android:theme="@style/AppTheme.SpeciesTheme" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

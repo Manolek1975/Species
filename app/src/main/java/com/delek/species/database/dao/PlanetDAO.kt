@@ -14,25 +14,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
-    fun insertPlanets(planet: Planet){
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            //put(PlanetHelper.COLUMN_ID, planet.id)
-            put(PlanetsHelper.COLUMN_STAR, planet.star)
-            put(PlanetsHelper.COLUMN_NAME, planet.name)
-            put(PlanetsHelper.COLUMN_IMAGE, planet.image)
-            put(PlanetsHelper.COLUMN_SIZE, planet.size)
-            put(PlanetsHelper.COLUMN_TYPE, planet.type)
-            put(PlanetsHelper.COLUMN_OWNER, planet.owner)
-            put(PlanetsHelper.COLUMN_FOOD, planet.food)
-            put(PlanetsHelper.COLUMN_PRODUCTION, planet.production)
-            put(PlanetsHelper.COLUMN_POPULATION, planet.population)
-            put(PlanetsHelper.COLUMN_RESEARCH, planet.research)
-            put(PlanetsHelper.COLUMN_EXPLORE, planet.explore)
-        }
-        db.insert(PlanetsHelper.TABLE_NAME, null, values)
-        db.close()
-    }
 
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
         val planetList = mutableListOf<Planet>()

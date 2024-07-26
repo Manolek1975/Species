@@ -16,20 +16,6 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
-    fun insertSpecies(specie: Specie) {
-        val db = writableDatabase
-        val values = ContentValues().apply {
-            put(SpeciesHelper.COLUMN_ID, specie.id)
-            put(SpeciesHelper.COLUMN_NAME, specie.name)
-            put(SpeciesHelper.COLUMN_DESC, specie.desc)
-            put(SpeciesHelper.COLUMN_IMAGE, specie.image)
-            put(SpeciesHelper.COLUMN_SKILL, specie.skill)
-            put(SpeciesHelper.COLUMN_TYPE, specie.type)
-            put(SpeciesHelper.COLUMN_STAR, specie.star)
-        }
-        db.insert(SpeciesHelper.TABLE_NAME, null, values)
-        db.close()
-    }
 
     fun getAllSpecies(): List<Specie> {
         val specieList = mutableListOf<Specie>()

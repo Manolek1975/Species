@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: DBHelper
-    private lateinit var species: SpecieDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = DBHelper(this)
-        species = SpecieDAO(this)
-
-        binding.playButton.setOnClickListener {
+         binding.playButton.setOnClickListener {
             if(db.isEmpty("species")) loadSpecies()
             val i = Intent(this, SpecieActivity::class.java)
             startActivity(i)
@@ -51,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in id.indices){
             val specie = Specie(id[i].toInt(), name[i], desc[i], image[i], type = 0, skill = "", star = star[i].toInt())
-            species.insertSpecies(specie)
+            db.insertSpecies(specie)
             finish()
         }
     }

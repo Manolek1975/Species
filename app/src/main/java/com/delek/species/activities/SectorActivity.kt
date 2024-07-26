@@ -13,6 +13,7 @@ import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
+import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Star
 import com.delek.species.databinding.ActivitySectorBinding
 import kotlin.random.Random
@@ -23,7 +24,6 @@ class SectorActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
     private lateinit var stars: StarDAO
-    private lateinit var planets: PlanetDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +35,11 @@ class SectorActivity : AppCompatActivity() {
 
         db = DBHelper(this)
         stars = StarDAO(this)
-        planets = PlanetDAO(this)
+
         if(db.isEmpty("stars")) {
             loadStars()
             loadPlanets()
+            loadBuilds()
         }
 
     }
@@ -53,7 +54,7 @@ class SectorActivity : AppCompatActivity() {
         for (i in id.indices){
             val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
                 coords[i].x, coords[i].y, type[i].toInt(), 0)
-            stars.insertStars(star)
+            db.insertStars(star)
         }
     }
 
@@ -65,9 +66,29 @@ class SectorActivity : AppCompatActivity() {
                 val image = getPlanetImage(j)
                 val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
                     0, 0,0,0,0)
-                planets.insertPlanets(planet)
+                db.insertPlanets(planet)
             }
         }
+    }
+
+    private fun loadBuilds() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.builds_name)
+        val image = res.getStringArray(R.array.builds_image)
+        val description = res.getStringArray(R.array.builds_description)
+        val tech = res.getStringArray(R.array.builds_tech)
+        val cost = res.getStringArray(R.array.builds_cost)
+        val food = res.getStringArray(R.array.builds_food)
+        val industry = res.getStringArray(R.array.builds_industry)
+        val science = res.getStringArray(R.array.builds_science)
+
+        for (i in name.indices){
+            val build = Build(0, name[i], description[i], image[i], tech[i].toInt(),
+                cost[i].toInt(), food[i].toInt(), industry[i].toInt(), science[i].toInt(),
+                0, 0, 0, 0)
+            db.insertBuilds(build)
+        }
+
     }
 
     private fun getPlanetImage(j: Int): String {
