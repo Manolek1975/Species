@@ -1,8 +1,6 @@
 package com.delek.species.database.dao
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Planet
@@ -43,8 +41,9 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return planetList
     }
 
-    fun getPlanetById(planetId: Int?): List<Planet> {
-        val planetList = mutableListOf<Planet>()
+    fun getPlanetById(planetId: Int?): Planet {
+        //val planet = mutableListOf<Planet>()
+        var planet = Planet()
         val db = readableDatabase
         val query = "SELECT * FROM planets where id = $planetId"
         val cursor = db.rawQuery(query, null)
@@ -63,12 +62,13 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_RESEARCH))
             val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
 
-            val planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
-            planetList.add(planet)
+
+            planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
+        //planetList.add(planet)
         }
         cursor.close()
         db.close()
-        return planetList
+        return planet
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {

@@ -8,14 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
-import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.ActivityPlanetBinding
 
 class PlanetActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlanetBinding
     private lateinit var db: PlanetDAO
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlanetBinding.inflate(layoutInflater)
@@ -23,9 +25,12 @@ class PlanetActivity : AppCompatActivity() {
         hideSystemBars()
 
         db = PlanetDAO(this)
-        val planet = intent.getSerializableExtra("planet") as Planet?
 
-/*        val name: TextView = findViewById(R.id.planetName)
+        val planet = intent.getSerializableExtra("planet") as Planet?
+        val build = intent.getSerializableExtra("build") as Build?
+        println(build?.name.toString())
+
+        /*        val name: TextView = findViewById(R.id.planetName)
         val image: ImageView = findViewById(R.id.planetImage)
         val id = resources.getIdentifier(planet?.image, "drawable", packageName)
         name.text = planet?.name
@@ -33,8 +38,8 @@ class PlanetActivity : AppCompatActivity() {
 
         // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
-        val drawableId = resources.getIdentifier(planet?.image, "drawable", packageName)
-        planetInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
+        val planetID = resources.getIdentifier(planet?.image, "drawable", packageName)
+        planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
         planetInfo.text = planet?.name
 
         // Resources
@@ -54,13 +59,36 @@ class PlanetActivity : AppCompatActivity() {
         popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
         popInfo.text = planet?.population.toString()
 
-        // builds
-        binding.prodInfo.setOnClickListener {
+        if (build != null) {
+            val buildInfo: TextView = findViewById(R.id.buildInfo)
+            val buildId = resources.getIdentifier(build.image, "drawable", packageName)
+            buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
+            buildInfo.text = build.name
+        }
+
+        binding.newProject.setOnClickListener {
             val i = Intent(this, BuildActivity::class.java)
-                i.putExtra("planet", planet)
+            i.putExtra("planet", planet)
             startActivity(i)
         }
     }
+
+/*    override fun onResume(){
+        super.onResume()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val id = data.getInt("planetID", 0)
+        planet = db.getPlanetById(id)
+    }
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("planetID", planet.id)
+        edit.apply()
+        db.close()
+    }*/
 
     private fun hideSystemBars() {
         enableEdgeToEdge()

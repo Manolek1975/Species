@@ -16,6 +16,7 @@ import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
 
 class BuildsAdapter(private var builds: List<Build>,
+                    private var planet: Planet,
                     private val context: Context):
     RecyclerView.Adapter<BuildsAdapter.BuildViewHolder>() {
 
@@ -37,6 +38,7 @@ class BuildsAdapter(private var builds: List<Build>,
         holder.buildItem.setOnClickListener{
             val intent = Intent(context, PlanetActivity::class.java).apply {
                 putExtra("build", build)
+                putExtra("planet", planet)
             }
             context.startActivity(intent)
         }

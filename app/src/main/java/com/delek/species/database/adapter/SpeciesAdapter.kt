@@ -38,8 +38,6 @@ class SpeciesAdapter(private var species: List<Specie>,
 
     override fun getItemCount(): Int = species.size
 
-
-
     private fun dialog(specie: Specie) {
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
@@ -49,7 +47,7 @@ class SpeciesAdapter(private var species: List<Specie>,
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             val intent = Intent(context, SectorActivity::class.java).apply {
-                putExtra("specie_id", specie.id)
+                putExtra("specie", specie)
             }
             context.startActivity(intent)
         }

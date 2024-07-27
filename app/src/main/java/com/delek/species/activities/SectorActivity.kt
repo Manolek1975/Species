@@ -1,6 +1,7 @@
 package com.delek.species.activities
 
 
+import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,12 +10,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.DrawStars
 import com.delek.species.R
-import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
+import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivitySectorBinding
 import kotlin.random.Random
 
@@ -23,8 +24,10 @@ class SectorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySectorBinding
     private lateinit var db: DBHelper
+    private lateinit var specie: Specie
     private lateinit var stars: StarDAO
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySectorBinding.inflate(layoutInflater)
@@ -32,6 +35,8 @@ class SectorActivity : AppCompatActivity() {
         hideSystemBars()
         val drawStars = DrawStars(this)
         setContentView(drawStars)
+
+        specie = intent.getSerializableExtra("specie") as Specie
 
         db = DBHelper(this)
         stars = StarDAO(this)
@@ -42,6 +47,16 @@ class SectorActivity : AppCompatActivity() {
             loadBuilds()
         }
 
+    }
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("specieID", specie.id)
+        edit.putInt("turn", 1)
+        edit.apply()
+        db.close()
     }
 
     private fun loadStars(){

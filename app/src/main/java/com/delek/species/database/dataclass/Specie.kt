@@ -1,5 +1,7 @@
 package com.delek.species.database.dataclass
 
+import java.io.Serializable
+
 data class Specie(
     val id : Int,
     val name : String,
@@ -8,4 +10,5 @@ data class Specie(
     val skill : String,
     val type : Int,
     val star : Int
-)
+) : Serializable
+
