@@ -2,6 +2,7 @@ package com.delek.species.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.ActivityPlanetBinding
+import com.google.android.material.snackbar.Snackbar
 
 class PlanetActivity : AppCompatActivity() {
 
@@ -66,10 +68,14 @@ class PlanetActivity : AppCompatActivity() {
             buildInfo.text = build.name
         }
 
-        binding.newProject.setOnClickListener {
+        val fab: View = findViewById(R.id.fab)
+        fab.setOnClickListener { view ->
             val i = Intent(this, BuildActivity::class.java)
             i.putExtra("planet", planet)
             startActivity(i)
+            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
         }
     }
 

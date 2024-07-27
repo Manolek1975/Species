@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="40dp"
+        android:gravity="center_vertical"
         android:padding="16dp"
         android:text="@string/planet_name"
         android:textColor="@color/white"
@@ -33,7 +34,7 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/prodInfo"
@@ -44,7 +45,7 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/scienceInfo"
@@ -55,7 +56,7 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/popInfo"
@@ -66,24 +67,6 @@
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="24sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/newProject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:text="Nuevo proyecto"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -92,10 +75,19 @@
         android:id="@+id/buildInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawablePadding="40dp"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
         android:padding="16dp"
-        android:text="Build name"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="proyecto"
+        android:src="@android:drawable/ic_menu_manage" />
 
 </LinearLayout>
