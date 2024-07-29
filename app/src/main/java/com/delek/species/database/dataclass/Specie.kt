@@ -9,6 +9,7 @@ data class Specie(
     val image : String,
     val skill : String,
     val type : Int,
-    val star : Int
+    val star : Int,
+    val color : String
 ) : Serializable
 

@@ -11,6 +11,7 @@ class SpeciesHelper {
         const val COLUMN_SKILL: String = "skill"
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_STAR: String = "star"
+        const val COLUMN_COLOR: String = "color"
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
@@ -20,7 +21,8 @@ class SpeciesHelper {
             append("$COLUMN_IMAGE TEXT,")
             append("$COLUMN_SKILL TEXT,")
             append("$COLUMN_TYPE INTEGER,")
-            append("$COLUMN_STAR TEXT)")
+            append("$COLUMN_STAR TEXT,")
+            append("$COLUMN_COLOR INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"

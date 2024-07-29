@@ -2,9 +2,11 @@ package com.delek.species
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AlertDialog
 import com.delek.species.activities.SectorActivity
 import com.delek.species.database.dataclass.Specie
+import com.delek.species.database.dataclass.Star
 
 
 class Dialog(context: Context) : AlertDialog.Builder(context) {
@@ -22,7 +24,31 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             }
             context.startActivity(intent)
         }
-            .show()
+        .show()
+    }
+
+    fun showTutorial(specie: Specie, starName: String) {
+        val res = context.resources
+        val color = getSpecieColor(specie.id)
+        val message = res.getString(R.string.tutorial_sector, specie.name, starName, color)
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setMessage(message)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }
+        .show()
+    }
+
+    fun getSpecieColor(color: Int): String {
+        when (color) {
+            1-> return "naranja"
+            2-> return "cyan"
+            3-> return "verde"
+            4-> return "marrón"
+            5-> return "azul"
+            6-> return "amarillo"
+            7-> return "rosa"
+            8-> return "rojo"
+        }
+        return "blanco"
     }
 
 }

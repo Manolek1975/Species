@@ -50,6 +50,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(SpeciesHelper.COLUMN_SKILL, specie.skill)
             put(SpeciesHelper.COLUMN_TYPE, specie.type)
             put(SpeciesHelper.COLUMN_STAR, specie.star)
+            put(SpeciesHelper.COLUMN_COLOR, specie.color)
         }
         db.insert(SpeciesHelper.TABLE_NAME, null, values)
         db.close()

@@ -12,5 +12,6 @@
     <string name="previous">Previous</string>
 
     <string name="planet_name">Planet Name</string>
+    <string name="tutorial_text">Tutorial</string>
 
 </resources>

@@ -31,8 +31,9 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
             val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_SKILL))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
+            val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
 
-            val specie = Specie(id, name, desc, image, skill, type, star)
+            val specie = Specie(id, name, desc, image, skill, type, star, color)
             specieList.add(specie)
         }
         cursor.close()
@@ -53,10 +54,11 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_SKILL))
         val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
         val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
+        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
 
         cursor.close()
         db.close()
-        return Specie(id, name, desc, image, skill, type, star)
+        return Specie(id, name, desc, image, skill, type, star, color)
     }
 
      override fun onCreate(p0: SQLiteDatabase?) {

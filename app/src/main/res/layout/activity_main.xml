@@ -38,5 +38,14 @@
         android:fontFamily="@font/aclonica"
         android:text="@string/ayuda" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/tutorial_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="100dp"
+        android:textColor="@color/white"
+        android:text="@string/tutorial_text" />
+
 
 </LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tutorial_sector">
+        <item>Saludos comandante de los %s, hemos llegado a la estrella %s, tiene un planeta apto
+            para la vida, comenzamos a finalizar la hibernación de nuestros 100 colonos, la estrella
+            se indica en nuestro mapa galáctico por un circulo %s.
+            Toca la estrella para continuar.</item>
+    </string>
+
+
+
+</resources>

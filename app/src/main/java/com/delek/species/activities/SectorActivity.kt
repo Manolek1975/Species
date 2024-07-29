@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.Dialog
 import com.delek.species.DrawStars
 import com.delek.species.R
 import com.delek.species.database.dao.StarDAO
@@ -33,10 +34,10 @@ class SectorActivity : AppCompatActivity() {
         binding = ActivitySectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
-        val drawStars = DrawStars(this)
-        setContentView(drawStars)
 
         specie = intent.getSerializableExtra("specie") as Specie
+        val drawStars = DrawStars(this)
+        setContentView(drawStars)
 
         db = DBHelper(this)
         stars = StarDAO(this)
@@ -48,6 +49,19 @@ class SectorActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onResume(){
+        super.onResume()
+        val starName = stars.getStarNameBySpecie(specie.id)
+        val dialog = Dialog(this)
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial != 0){
+            dialog.showTutorial(specie, starName)
+        }
+    }
+
     override fun onPause(){
         super.onPause()
         val file = "game_data"

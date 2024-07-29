@@ -44,6 +44,20 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return starList
     }
 
+    fun getStarNameBySpecie(specieId: Int): String{
+        val starList = mutableListOf<Star>()
+        var name = ""
+        val db = readableDatabase
+        val query = "SELECT * FROM stars WHERE id = $specieId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            name = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_NAME))
+        }
+        cursor.close()
+        db.close()
+        return name
+    }
+
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")
