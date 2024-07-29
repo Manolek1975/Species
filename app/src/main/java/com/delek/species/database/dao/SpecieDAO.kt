@@ -20,7 +20,7 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     fun getAllSpecies(): List<Specie> {
         val specieList = mutableListOf<Specie>()
         val db = readableDatabase
-        val query = "SELECT * FROM ${SpeciesHelper.TABLE_NAME}"
+        val query = "SELECT * FROM species"
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){
@@ -32,8 +32,9 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
             val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
+            val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ORIGIN))
 
-            val specie = Specie(id, name, desc, image, skill, type, star, color)
+            val specie = Specie(id, name, desc, image, skill, type, star, color, origin)
             specieList.add(specie)
         }
         cursor.close()
@@ -55,10 +56,11 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
         val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
         val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
+        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ORIGIN))
 
         cursor.close()
         db.close()
-        return Specie(id, name, desc, image, skill, type, star, color)
+        return Specie(id, name, desc, image, skill, type, star, color, origin)
     }
 
      override fun onCreate(p0: SQLiteDatabase?) {

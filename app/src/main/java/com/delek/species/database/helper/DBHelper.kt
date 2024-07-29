@@ -43,7 +43,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(SpeciesHelper.COLUMN_ID, specie.id)
+            //put(SpeciesHelper.COLUMN_ID, specie.id)
             put(SpeciesHelper.COLUMN_NAME, specie.name)
             put(SpeciesHelper.COLUMN_DESC, specie.desc)
             put(SpeciesHelper.COLUMN_IMAGE, specie.image)
@@ -51,6 +51,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(SpeciesHelper.COLUMN_TYPE, specie.type)
             put(SpeciesHelper.COLUMN_STAR, specie.star)
             put(SpeciesHelper.COLUMN_COLOR, specie.color)
+            put(SpeciesHelper.COLUMN_ORIGIN, specie.origin)
         }
         db.insert(SpeciesHelper.TABLE_NAME, null, values)
         db.close()

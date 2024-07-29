@@ -6,12 +6,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.delek.species.activities.SystemActivity
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.dataclass.Star
@@ -19,7 +21,8 @@ import com.delek.species.database.dataclass.Star
 
 class DrawStars(context: Context): View(context) {
 
-    private val db = StarDAO(context)
+    private val species = SpecieDAO(context)
+    private val stars = StarDAO(context)
     private val p = Paint()
 
     private val bar = getActionBarHeight()
@@ -33,14 +36,25 @@ class DrawStars(context: Context): View(context) {
         super.onDraw(canvas)
         canvas.drawBitmap(background, 0f, 0f, p)
 
-        val stars = db.getAllStars()
+        val species = species.getAllSpecies()
+        val stars = stars.getAllStars()
         p.textSize = 36f
-        p.style = Paint.Style.FILL
+
         for (star in stars){
+            p.style = Paint.Style.FILL
             getColorType(star.type)
-            canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 20F, p)
+            canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 15F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
+            for(specie in species){ // Check origin star
+                if(specie.origin == star.id){
+                    p.style = Paint.Style.STROKE
+                    p.strokeWidth = 5F
+                    p.color = Color.parseColor(specie.color)
+                    canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 30F, p)
+                }
+            }
+
         }
     }
 
@@ -65,7 +79,7 @@ class DrawStars(context: Context): View(context) {
 
     private fun findTouchedStar(x: Float, y: Float): Star? {
         // Logic to find the star that was touched based on coordinates
-        val stars = db.getAllStars()
+        val stars = stars.getAllStars()
         for (star in stars) {
             // Check if (x, y) is within the bounds of the star's circle
             if (star.x -40 <= x && x <= star.x + 40 &&

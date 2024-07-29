@@ -52,7 +52,7 @@ class SectorActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-        val starName = stars.getStarNameBySpecie(specie.id)
+        val starName = stars.getStarNameBySpecie(specie.origin)
         val dialog = Dialog(this)
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)

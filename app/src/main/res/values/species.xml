@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="id_species">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-    </string-array>
-
     <string-array name="name_species">
         <item>Chamariles</item>
         <item>Galecis</item>
@@ -64,17 +53,6 @@
         <item>Conquistadores</item>
     </string-array>
 
-    <string-array name="origin_species">
-        <item>2</item>
-        <item>3</item>
-        <item>1</item>
-        <item>0</item>
-        <item>0</item>
-        <item>8</item>
-        <item>0</item>
-        <item>0</item>
-    </string-array>
-
     <string-array name="color_species">
         <item>#D27E00</item>
         <item>#00FFFF</item>
@@ -84,6 +62,17 @@
         <item>#B9C10D</item>
         <item>#F200FF</item>
         <item>#FF0000</item>
+    </string-array>
+
+    <string-array name="origin_species">
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>8</item>
+        <item>0</item>
+        <item>0</item>
     </string-array>
 
 </resources>
