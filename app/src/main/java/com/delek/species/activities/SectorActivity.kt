@@ -88,16 +88,23 @@ class SectorActivity : AppCompatActivity() {
     }
 
     private fun loadPlanets() {
+        //val specie = SpecieDAO(this)
         val star = stars.getAllStars()
+        var rnd: Int
         for (i in star){
-            val rnd = (1..8).random() // Nº de planetas por estrella
-            for (j in 1..rnd){
-                val image = getPlanetImage(j)
-                val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
-                    0, 0,0,0,0)
-                db.insertPlanets(planet)
-            }
+                if (stars.getStarOrigin(i.id))
+                    rnd = 3
+                else
+                    rnd = (1..8).random()
+
+                for (j in 1..rnd){
+                    val image = getPlanetImage(j)
+                    val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
+                        0, 0,0,0,0)
+                    db.insertPlanets(planet)
+                }
         }
+
     }
 
     private fun loadBuilds() {

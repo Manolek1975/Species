@@ -1,16 +1,10 @@
 package com.delek.species.database.dao
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetsHelper
-import com.delek.species.database.helper.SpeciesHelper
 import com.delek.species.database.helper.StarsHelper
 
 class StarDAO(context: Context) : SQLiteOpenHelper(context,
@@ -45,7 +39,6 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarNameBySpecie(specieId: Int): String{
-        val starList = mutableListOf<Star>()
         var name = ""
         val db = readableDatabase
         val query = "SELECT * FROM stars WHERE id = $specieId"
@@ -56,6 +49,18 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return name
+    }
+
+    fun getStarOrigin(id: Int): Boolean {
+        val db = readableDatabase
+        val result: Boolean
+        val query =
+            "SELECT * FROM species WHERE species.origin = $id"
+        val cursor = db.rawQuery(query, null)
+        result = cursor.count >= 1
+        cursor.close()
+        db.close()
+        return result
     }
 
 
