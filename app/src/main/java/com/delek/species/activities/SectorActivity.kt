@@ -4,6 +4,8 @@ package com.delek.species.activities
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
@@ -48,6 +50,18 @@ class SectorActivity : AppCompatActivity() {
             loadBuilds()
         }
 
+        var backTime = 0L
+
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (backTime + 2000 > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else {
+                Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
+            }
+            backTime = System.currentTimeMillis()
+        }
     }
 
     override fun onResume(){

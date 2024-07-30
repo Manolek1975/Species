@@ -3,8 +3,8 @@ package com.delek.species.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"PULSA JUGAR", Toast.LENGTH_SHORT).show()
         }
 
-        binding.tutorialSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+        binding.tutorialSwitch.setOnCheckedChangeListener { _, isChecked ->
             val file = "game_data"
             val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
             val edit = data.edit()
@@ -47,7 +47,11 @@ class MainActivity : AppCompatActivity() {
                 edit.putInt("tutorial", 0)
             }
             edit.apply()
-        })
+        }
+
+        onBackPressedDispatcher.addCallback(this) {
+            finishAffinity()
+        }
     }
 
     // Load Species resources from species.xml
