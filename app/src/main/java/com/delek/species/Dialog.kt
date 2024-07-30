@@ -27,14 +27,26 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
         .show()
     }
 
-    fun showTutorial(specie: Specie, starName: String) {
+    fun showTutorialSector(specie: Specie, starName: String) {
         val res = context.resources
+        val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
         val color = getSpecieColor(specie.id)
         val message = res.getString(R.string.tutorial_sector, specie.name, starName, color)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(specie.name)
         dialogBuilder.setMessage(message)
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
         .show()
+    }
+
+    fun showTutorial(resource: Int) {
+        val res = context.resources
+        val message = res.getString(resource)
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setMessage(message)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }
+            .show()
     }
 
     fun getSpecieColor(color: Int): String {

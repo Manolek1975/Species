@@ -8,6 +8,25 @@
             Toca la estrella para continuar.</item>
     </string>
 
+    <string name="tutorial_system">
+        <item>Esta es la ventana del sistema, el nombre de la estrella se encuentra en la parte
+            superior y debajo los planetas, los cuatro primeros planetas más cerca de la estrella
+            suelen ser habitables, el tercer planeta es idóneo para la vida. Más allá se encuentran
+            los planetas gaseosos no aptos para la colonización.
+            Toca el tercer planeta para fundar tu colonia.
+        </item>
+    </string>
+
+    <string name="tutorial_planet">
+        <item>Aquí puedes gestionar tu planeta, tu nave nodriza ya posee un módulo de colonia,
+            por lo que lo puedes colonizar. Los recursos son comida, producción, ciencia y
+            población, al colonizar el planeta se actualizará la población con los cien colonos que
+            viajaban en tu nave. Observa que no tenemos alimentos, ni población ni ciencia. Debemos
+            alimentar a los colonos para que puedan sobrevivir.
+            Primero coloniza el planeta y toca el botón de la llave inglesa para construir un agriplot.
+        </item>
+    </string>
+
 
 
 </resources>

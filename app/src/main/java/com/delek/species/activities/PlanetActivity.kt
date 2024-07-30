@@ -1,5 +1,6 @@
 package com.delek.species.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.Dialog
 import com.delek.species.R
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Build
@@ -79,22 +81,16 @@ class PlanetActivity : AppCompatActivity() {
         }
     }
 
-/*    override fun onResume(){
+    override fun onResume(){
         super.onResume()
+        val dialog = Dialog(this)
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-        val id = data.getInt("planetID", 0)
-        planet = db.getPlanetById(id)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial != 0){
+            dialog.showTutorial(R.string.tutorial_planet)
+        }
     }
-    override fun onPause(){
-        super.onPause()
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-        val edit = data.edit()
-        edit.putInt("planetID", planet.id)
-        edit.apply()
-        db.close()
-    }*/
 
     private fun hideSystemBars() {
         enableEdgeToEdge()
