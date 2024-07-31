@@ -27,6 +27,16 @@
         </item>
     </string>
 
+    <string name="tutorial_build">
+        <item>Los edificios que puedes construir dependen de la tecnología que hayas investigado.
+            Toca el agriplot para comenzar su construcción.
+        </item>
+    </string>
+
+    <string name="tutorial_upgrade">
+        <item>Tu agriplot ha empezado a construirse.</item>
+    </string>
+
 
 
 </resources>

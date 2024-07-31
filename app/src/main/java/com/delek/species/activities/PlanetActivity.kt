@@ -87,9 +87,21 @@ class PlanetActivity : AppCompatActivity() {
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
-        if(tutorial != 0){
+        if(tutorial == 3){
             dialog.showTutorial(R.string.tutorial_planet)
         }
+        else if(tutorial == 5){
+            dialog.showTutorial(R.string.tutorial_upgrade)
+        }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("tutorial", 4)
+        edit.apply()
     }
 
     private fun hideSystemBars() {

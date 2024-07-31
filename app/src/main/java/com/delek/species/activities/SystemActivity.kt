@@ -51,9 +51,19 @@ class SystemActivity : AppCompatActivity() {
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
-        if(tutorial != 0){
+        if(tutorial == 2){
                 dialog.showTutorial(R.string.tutorial_system)
         }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("tutorial", 3)
+        edit.apply()
+        db.close()
     }
 
     private fun hideSystemBars() {

@@ -2,8 +2,10 @@ package com.delek.species.activities
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +22,7 @@ import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivitySectorBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlin.random.Random
 
 
@@ -50,13 +53,11 @@ class SectorActivity : AppCompatActivity() {
             loadBuilds()
         }
 
+        val i = Intent(this, MainActivity::class.java)
         var backTime = 0L
-
-
         onBackPressedDispatcher.addCallback(this) {
             if (backTime + 2000 > System.currentTimeMillis()) {
-                super.onBackPressed()
-                finish()
+                startActivity(i)
             } else {
                 Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
             }
@@ -71,7 +72,7 @@ class SectorActivity : AppCompatActivity() {
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
-        if(tutorial != 0){
+        if(tutorial == 1){
             dialog.showTutorialSector(specie, starName)
         }
     }
@@ -83,6 +84,7 @@ class SectorActivity : AppCompatActivity() {
         val edit = data.edit()
         edit.putInt("specieID", specie.id)
         edit.putInt("turn", 1)
+        edit.putInt("tutorial", 2)
         edit.apply()
         db.close()
     }

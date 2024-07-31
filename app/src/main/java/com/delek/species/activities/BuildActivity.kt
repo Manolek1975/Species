@@ -1,11 +1,14 @@
 package com.delek.species.activities
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.Dialog
+import com.delek.species.R
 import com.delek.species.database.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dataclass.Planet
@@ -31,6 +34,27 @@ class BuildActivity : AppCompatActivity() {
         adapter = BuildsAdapter(builds.getAllBuilds(), planet, this)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.buildsRecyclerView.adapter = adapter
+
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(this)
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial == 4){
+            dialog.showTutorial(R.string.tutorial_build)
+        }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("tutorial", 5)
+        edit.apply()
 
     }
 
