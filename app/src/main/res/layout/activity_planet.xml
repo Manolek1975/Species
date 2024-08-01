@@ -59,6 +59,17 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/energyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:drawablePadding="5dp"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/popInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

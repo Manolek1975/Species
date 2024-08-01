@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AlertDialog
+import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
+import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 
@@ -25,6 +28,23 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             context.startActivity(intent)
         }
         .show()
+    }
+
+    fun showBuild(build: Build, planet: Planet) {
+        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(build.name)
+        dialogBuilder.setMessage(build.description)
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            val intent = Intent(context, PlanetActivity::class.java).apply {
+                putExtra("build", build)
+                putExtra("planet", planet)
+            }
+            context.startActivity(intent)
+        }
+            .show()
     }
 
     fun showTutorialSector(specie: Specie, starName: String) {

@@ -59,8 +59,12 @@ class PlanetActivity : AppCompatActivity() {
         scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
         scienceInfo.text = planet?.research.toString()
 
+        val energyInfo: TextView = findViewById(R.id.energyInfo)
+        energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
+        energyInfo.text = planet?.research.toString()
+
         val popInfo: TextView = findViewById(R.id.popInfo)
-        popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
+        popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
         popInfo.text = planet?.population.toString()
 
         if (build != null) {

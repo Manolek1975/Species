@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.delek.species.Dialog
 import com.delek.species.R
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
@@ -30,17 +31,21 @@ class BuildsAdapter(private var builds: List<Build>,
     }
 
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
+        val dialog = Dialog(context)
         val build = builds[position]
         holder.buildItem.text = build.name
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
         holder.buildItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.buildItem.compoundDrawablePadding = 50
         holder.buildItem.setOnClickListener{
+            dialog.showBuild(build, planet)
+/*
             val intent = Intent(context, PlanetActivity::class.java).apply {
                 putExtra("build", build)
                 putExtra("planet", planet)
             }
             context.startActivity(intent)
+*/
         }
     }
 
