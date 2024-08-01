@@ -9,6 +9,7 @@ import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
+import com.delek.species.database.dataclass.Tech
 
 
 class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -23,6 +24,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(StarsHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(PlanetsHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(BuildHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(TechHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -30,6 +32,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(StarsHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(PlanetsHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(BuildHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(TechHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -111,6 +114,18 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(BuildHelper.COLUMN_INVADER, build.invader)
         }
         db.insert(BuildHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertTechs(tech: Tech){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(TechHelper.COLUMN_NAME, tech.name)
+            put(TechHelper.COLUMN_COST, tech.cost)
+            put(TechHelper.COLUMN_REQUIRE, tech.require)
+            put(TechHelper.COLUMN_UNLOCK, tech.unlock)
+        }
+        db.insert(TechHelper.TABLE_NAME, null, values)
         db.close()
     }
 

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
@@ -20,9 +19,9 @@ import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
+import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivitySectorBinding
-import com.google.android.material.snackbar.Snackbar
 import kotlin.random.Random
 
 
@@ -51,6 +50,7 @@ class SectorActivity : AppCompatActivity() {
             loadStars()
             loadPlanets()
             loadBuilds()
+            loadTechs()
         }
 
         val i = Intent(this, MainActivity::class.java)
@@ -65,62 +65,17 @@ class SectorActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume(){
-        super.onResume()
-        val starName = stars.getStarNameBySpecie(specie.origin)
-        val dialog = Dialog(this)
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-        val tutorial = data.getInt("tutorial", 0)
-        if(tutorial == 1){
-            dialog.showTutorialSector(specie, starName)
+    private fun loadTechs() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.name_techs)
+        val cost = res.getStringArray(R.array.cost_techs)
+        val require = res.getStringArray(R.array.require_techs)
+        val unlock = res.getStringArray(R.array.unlock_techs)
+
+        for (i in name.indices){
+            val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
+            db.insertTechs(tech)
         }
-    }
-
-    override fun onPause(){
-        super.onPause()
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-        val edit = data.edit()
-        edit.putInt("specieID", specie.id)
-        edit.putInt("turn", 1)
-        edit.putInt("tutorial", 2)
-        edit.apply()
-        db.close()
-    }
-
-    private fun loadStars(){
-        val res = this.resources
-        val id = res.getStringArray(R.array.id_stars)
-        val name = res.getStringArray(R.array.name_stars)
-        val image = res.getStringArray(R.array.image_stars)
-        val type = res.getStringArray(R.array.type_stars)
-        val coords = getCoords()
-        for (i in id.indices){
-            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
-            db.insertStars(star)
-        }
-    }
-
-    private fun loadPlanets() {
-        //val specie = SpecieDAO(this)
-        val star = stars.getAllStars()
-        var rnd: Int
-        for (i in star){
-                if (stars.getStarOrigin(i.id))
-                    rnd = 3
-                else
-                    rnd = (1..8).random()
-
-                for (j in 1..rnd){
-                    val image = getPlanetImage(j)
-                    val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
-                        0, 0,0,0,0)
-                    db.insertPlanets(planet)
-                }
-        }
-
     }
 
     private fun loadBuilds() {
@@ -140,7 +95,63 @@ class SectorActivity : AppCompatActivity() {
                 0, 0, 0, 0)
             db.insertBuilds(build)
         }
+    }
 
+    private fun loadPlanets() {
+        //val specie = SpecieDAO(this)
+        val star = stars.getAllStars()
+        var rnd: Int
+        for (i in star){
+            if (stars.getStarOrigin(i.id))
+                rnd = 3
+            else
+                rnd = (1..8).random()
+
+            for (j in 1..rnd){
+                val image = getPlanetImage(j)
+                val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
+                    0, 0,0,0,0)
+                db.insertPlanets(planet)
+            }
+        }
+    }
+
+    private fun loadStars(){
+        val res = this.resources
+        val id = res.getStringArray(R.array.id_stars)
+        val name = res.getStringArray(R.array.name_stars)
+        val image = res.getStringArray(R.array.image_stars)
+        val type = res.getStringArray(R.array.type_stars)
+        val coords = getCoords()
+        for (i in id.indices){
+            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
+                coords[i].x, coords[i].y, type[i].toInt(), 0)
+            db.insertStars(star)
+        }
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val starName = stars.getStarNameBySpecie(specie.origin)
+        val dialog = Dialog(this)
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial == 1){
+            dialog.showTutorialSector(specie, starName)
+        }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val file = "game_data"
+        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        val edit = data.edit()
+        edit.putInt("specieID", specie.id)
+        edit.putInt("turn", 1)
+        if(tutorial == 1) edit.putInt("tutorial", 2)
+        edit.apply()
     }
 
     private fun getPlanetImage(j: Int): String {

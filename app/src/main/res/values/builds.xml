@@ -8,7 +8,7 @@
         <item>Laboratorio</item>
         <item>Outpost</item>
 
-        <item>Tuberías de Transporte</item>
+        <item>Generador solar</item>
         <item>Metroplex</item>
         <item>Megafactoría</item>
         <item>Hidroproductora</item>
@@ -37,6 +37,7 @@
         <item>Bomba de Crecimiento</item>
         <item>Automatización</item>
         <item>Astillero Espacial</item>
+
         <item>Hangar Orbital</item>
         <item>Escudo Orbital</item>
         <item>Mega Escudo Orbital</item>
@@ -93,7 +94,7 @@
         <item>Incrementa prosperidad</item>
         <item>Incrementa investigación</item>
         <item>Incrementa máximo de población</item>
-        <item>Permite unir cuadrados negros</item>
+        <item>Incrementa la energía</item>
         <item>Incrementa producción, prosperidad e investigación</item>
         <item>Incrementa producción</item>
         <item>Incrementa prosperidad</item>
@@ -173,7 +174,6 @@
         <item>0</item>
         <item>0</item>
         <item>0</item>
-        <item>0</item>
         <item>1</item>
         <item>1</item>
         <item>1</item>
@@ -191,7 +191,8 @@
         <item>1</item>
         <item>1</item>
         <item>1</item>
-        <item>0</item>
+        <item>1</item>
+        <item>1</item>
         <item>1</item>
         <item>1</item>
         <item>1</item>

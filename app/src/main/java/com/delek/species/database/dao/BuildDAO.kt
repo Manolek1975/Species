@@ -1,28 +1,21 @@
 package com.delek.species.database.dao
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.helper.BuildHelper
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetsHelper
-import com.delek.species.database.helper.SpeciesHelper
 
 class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
 
-
-    fun getAllBuilds(): List<Build> {
+    fun getBuildsByTech(techMax: Int): List<Build> {
         val buildList = mutableListOf<Build>()
         val db = readableDatabase
-        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME}"
+        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE tech <= $techMax"
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){

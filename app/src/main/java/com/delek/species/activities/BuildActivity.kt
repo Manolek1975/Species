@@ -29,9 +29,11 @@ class BuildActivity : AppCompatActivity() {
         hideSystemBars()
 
         val planet = intent.getSerializableExtra("planet") as Planet
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val tech = data.getInt("tech", 0)
 
         builds = BuildDAO(this)
-        adapter = BuildsAdapter(builds.getAllBuilds(), planet, this)
+        adapter = BuildsAdapter(builds.getBuildsByTech(tech), planet, this)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.buildsRecyclerView.adapter = adapter
 
@@ -52,8 +54,9 @@ class BuildActivity : AppCompatActivity() {
         super.onPause()
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
-        edit.putInt("tutorial", 5)
+        if(tutorial == 4) edit.putInt("tutorial", 5)
         edit.apply()
 
     }

@@ -27,7 +27,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.SpecieActivity"
-            android:theme="@style/AppTheme.SpeciesTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.MainActivity"

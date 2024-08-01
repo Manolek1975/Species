@@ -99,8 +99,9 @@ class PlanetActivity : AppCompatActivity() {
         super.onPause()
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
-        edit.putInt("tutorial", 4)
+        if(tutorial == 3) edit.putInt("tutorial", 4)
         edit.apply()
     }
 
