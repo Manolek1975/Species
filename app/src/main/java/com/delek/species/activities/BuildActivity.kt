@@ -8,7 +8,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.Dialog
-import com.delek.species.R
 import com.delek.species.database.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dataclass.Planet
@@ -46,7 +45,7 @@ class BuildActivity : AppCompatActivity() {
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 4){
-            dialog.showTutorial(R.string.tutorial_build)
+            dialog.showTutorial(4)
         }
     }
 

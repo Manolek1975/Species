@@ -98,7 +98,6 @@ class SectorActivity : AppCompatActivity() {
     }
 
     private fun loadPlanets() {
-        //val specie = SpecieDAO(this)
         val star = stars.getAllStars()
         var rnd: Int
         for (i in star){
@@ -132,13 +131,12 @@ class SectorActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-        val starName = stars.getStarNameBySpecie(specie.origin)
         val dialog = Dialog(this)
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 1){
-            dialog.showTutorialSector(specie, starName)
+            dialog.showTutorial(1)
         }
     }
 

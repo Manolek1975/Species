@@ -50,7 +50,7 @@ class SystemActivity : AppCompatActivity() {
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 2){
-                dialog.showTutorial(R.string.tutorial_system)
+                dialog.showTutorial(2)
         }
     }
 

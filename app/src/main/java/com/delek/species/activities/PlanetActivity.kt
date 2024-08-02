@@ -32,7 +32,7 @@ class PlanetActivity : AppCompatActivity() {
 
         val planet = intent.getSerializableExtra("planet") as Planet?
         val build = intent.getSerializableExtra("build") as Build?
-        println(build?.name.toString())
+        println("Build: " + build?.name.toString())
 
         /*        val name: TextView = findViewById(R.id.planetName)
         val image: ImageView = findViewById(R.id.planetImage)
@@ -92,10 +92,10 @@ class PlanetActivity : AppCompatActivity() {
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 3){
-            dialog.showTutorial(R.string.tutorial_planet)
+            dialog.showTutorial(3)
         }
         else if(tutorial == 5){
-            dialog.showTutorial(R.string.tutorial_upgrade)
+            dialog.showTutorial(5)
         }
     }
 
