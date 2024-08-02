@@ -47,14 +47,13 @@ class DrawStars(context: Context): View(context) {
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
             for(specie in species){ // Check origin star
-                if(specie.origin == star.id){
+                if(specie.origin == star.id && star.explore != 0){
                     p.style = Paint.Style.STROKE
                     p.strokeWidth = 5F
                     p.color = Color.parseColor(specie.color)
                     canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 30F, p)
                 }
             }
-
         }
     }
 

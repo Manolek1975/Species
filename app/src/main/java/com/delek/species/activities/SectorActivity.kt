@@ -45,13 +45,15 @@ class SectorActivity : AppCompatActivity() {
 
         db = DBHelper(this)
         stars = StarDAO(this)
-
         if(db.isEmpty("stars")) {
             loadStars()
             loadPlanets()
             loadBuilds()
             loadTechs()
         }
+
+        val origin = stars.getStarById(specie.origin)
+        stars.insertStarExplored(origin.id) // Set origin star Explored
 
         val i = Intent(this, MainActivity::class.java)
         var backTime = 0L

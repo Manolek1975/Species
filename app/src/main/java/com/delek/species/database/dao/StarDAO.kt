@@ -1,11 +1,14 @@
 package com.delek.species.database.dao
 
+
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.StarsHelper
+
 
 class StarDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -38,6 +41,25 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return starList
     }
 
+    fun getStarById(starId: Int): Star{
+        val db = readableDatabase
+        val query = "SELECT * FROM stars WHERE id = $starId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_IMAGE))
+        val sector = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_SECTOR))
+        val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_JUMPS))
+        val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_X))
+        val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_Y))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_TYPE))
+        val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_EXPLORE))
+
+        return Star(id, name, image, sector, jumps, x, y, type, explore)
+    }
+
     fun getStarNameBySpecie(specieId: Int): String{
         var name = ""
         val db = readableDatabase
@@ -54,13 +76,20 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     fun getStarOrigin(id: Int): Boolean {
         val db = readableDatabase
         val result: Boolean
-        val query =
-            "SELECT * FROM species WHERE species.origin = $id"
+        val query = "SELECT * FROM species WHERE species.origin = $id"
         val cursor = db.rawQuery(query, null)
         result = cursor.count >= 1
         cursor.close()
         db.close()
         return result
+    }
+
+    fun insertStarExplored(id: Int){
+        val db = readableDatabase
+        val values = ContentValues()
+        values.put("explore", 1)
+        db.update("stars", values, "id=$id", null)
+        db.close()
     }
 
 

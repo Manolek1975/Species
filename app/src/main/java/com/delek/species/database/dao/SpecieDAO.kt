@@ -44,7 +44,7 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
 
     fun getSpecieById(specieId: Int): Specie {
         val db = readableDatabase
-        val query = "SELECT * from ${SpeciesHelper.TABLE_NAME} WHERE ${SpeciesHelper.COLUMN_ID} = $specieId"
+        val query = "SELECT * from species WHERE id = $specieId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
 
