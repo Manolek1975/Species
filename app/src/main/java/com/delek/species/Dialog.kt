@@ -56,6 +56,22 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             .show()
     }
 
+    fun showColony(planet: Planet){
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setIcon(R.drawable.build1)
+        dialogBuilder.setTitle(planet.name)
+        dialogBuilder.setMessage("Fundar una nueva colonia")
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            val intent = Intent(context, PlanetActivity::class.java).apply {
+                putExtra("planet", planet)
+            }
+            context.startActivity(intent)
+        }
+            .show()
+
+    }
+
     /*    fun showTutorialSector(specie: Specie, starName: String) {
         val res = context.resources
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)

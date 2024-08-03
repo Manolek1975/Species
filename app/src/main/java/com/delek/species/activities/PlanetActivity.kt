@@ -43,7 +43,7 @@ class PlanetActivity : AppCompatActivity() {
         planetInfo.text = planet?.name
 
         // TODO("Sustituir cuando una nave entre en el planeta")
-        if (planet?.id == 3) {
+        if (planet?.id == 3 && planet?.explore == 0) {
             planetDao.setPlanetExplored(planet.id)
         }
 
@@ -72,9 +72,11 @@ class PlanetActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             if (planet?.explore == 1) {
                 // TODO("Comprobar si la nave tiene modulo de colonización")
+                val dialog = Dialog(this)
                 planetDao.setPlanetColonized(planet.id)
                 explored.visibility = GONE
-                Snackbar.make(view, "Se ha fundado la colonia ${planet?.name}", Snackbar.LENGTH_LONG)
+                dialog.showColony(planet)
+                Snackbar.make(view, "Se ha fundado la colonia ${planet?.explore}", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
             } else if (planet?.explore == 2) {
