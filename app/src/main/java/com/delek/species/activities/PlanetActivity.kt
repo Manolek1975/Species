@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 class PlanetActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlanetBinding
-    private lateinit var db: PlanetDAO
+    private lateinit var planetDao: PlanetDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +29,12 @@ class PlanetActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        db = PlanetDAO(this)
+        planetDao = PlanetDAO(this)
 
-        val planet = intent.getSerializableExtra("planet") as Planet?
+        var planet = intent.getSerializableExtra("planet") as Planet?
         val build = intent.getSerializableExtra("build") as Build?
-        println("Build: " + build?.name.toString())
-
-        /*        val name: TextView = findViewById(R.id.planetName)
-        val image: ImageView = findViewById(R.id.planetImage)
-        val id = resources.getIdentifier(planet?.image, "drawable", packageName)
-        name.text = planet?.name
-        image.setImageResource(id)*/
+        println("Planet: " + planet?.id.toString())
+        println("Build: " + build?.name)
 
         // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
@@ -46,7 +42,52 @@ class PlanetActivity : AppCompatActivity() {
         planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
         planetInfo.text = planet?.name
 
-        // Resources
+        // TODO("Sustituir cuando una nave entre en el planeta")
+        if (planet?.id == 3) {
+            planetDao.setPlanetExplored(planet.id)
+        }
+
+        println("Explored: " + planet?.explore.toString())
+
+        if (build != null) {
+            val buildInfo: TextView = findViewById(R.id.buildInfo)
+            val buildId = resources.getIdentifier(build.image, "drawable", packageName)
+            buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
+            buildInfo.text = build.name
+        }
+
+        val fab: View = findViewById(R.id.fab)
+        var explored: TextView = findViewById(R.id.explored)
+        if (planet?.explore == 0) {
+            explored.text = getString(R.string.inexplorado)
+            fab.visibility = GONE
+        }
+        if (planet?.explore == 1) explored.text = getString(R.string.fundar_colonia)
+        if (planet?.explore == 2) {
+            setResources(planet!!)
+            explored.visibility = GONE
+        }
+
+        planet = planetDao.getPlanetById(planet?.id)
+        fab.setOnClickListener { view ->
+            if (planet?.explore == 1) {
+                // TODO("Comprobar si la nave tiene modulo de colonización")
+                planetDao.setPlanetColonized(planet.id)
+                explored.visibility = GONE
+                Snackbar.make(view, "Se ha fundado la colonia ${planet?.name}", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+            } else if (planet?.explore == 2) {
+                val i = Intent(this, BuildActivity::class.java)
+                i.putExtra("planet", planet)
+                startActivity(i)
+            }
+
+
+        }
+    }
+
+    private fun setResources(planet: Planet) {
         val foodInfo: TextView = findViewById(R.id.foodInfo)
         foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
         foodInfo.text = planet?.food.toString()
@@ -66,23 +107,6 @@ class PlanetActivity : AppCompatActivity() {
         val popInfo: TextView = findViewById(R.id.popInfo)
         popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
         popInfo.text = planet?.population.toString()
-
-        if (build != null) {
-            val buildInfo: TextView = findViewById(R.id.buildInfo)
-            val buildId = resources.getIdentifier(build.image, "drawable", packageName)
-            buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
-            buildInfo.text = build.name
-        }
-
-        val fab: View = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            val i = Intent(this, BuildActivity::class.java)
-            i.putExtra("planet", planet)
-            startActivity(i)
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
-        }
     }
 
     override fun onResume(){
@@ -106,6 +130,7 @@ class PlanetActivity : AppCompatActivity() {
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 3) edit.putInt("tutorial", 4)
+        if(tutorial == 5) edit.putInt("tutorial", 6)
         edit.apply()
     }
 

@@ -13,5 +13,7 @@
 
     <string name="planet_name">Planet Name</string>
     <string name="tutorial_text">Tutorial</string>
+    <string name="fundar_colonia">Fundar Colonia</string>
+    <string name="inexplorado">Sin explorar</string>
 
 </resources>

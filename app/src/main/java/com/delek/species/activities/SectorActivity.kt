@@ -53,7 +53,7 @@ class SectorActivity : AppCompatActivity() {
         }
 
         val origin = stars.getStarById(specie.origin)
-        stars.insertStarExplored(origin.id) // Set origin star Explored
+        stars.setStarExplored(origin.id) // Set origin star Explored
 
         val i = Intent(this, MainActivity::class.java)
         var backTime = 0L

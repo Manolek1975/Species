@@ -84,7 +84,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return result
     }
 
-    fun insertStarExplored(id: Int){
+    fun setStarExplored(id: Int){
         val db = readableDatabase
         val values = ContentValues()
         values.put("explore", 1)

@@ -1,5 +1,6 @@
 package com.delek.species.database.dao
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -69,6 +70,21 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return planet
+    }
+
+    fun setPlanetExplored(id: Int){
+        val db = readableDatabase
+        val values = ContentValues()
+        values.put("explore", 1)
+        db.update("planets", values, "id=$id", null)
+        db.close()
+    }
+    fun setPlanetColonized(id: Int){
+        val db = readableDatabase
+        val values = ContentValues()
+        values.put("explore", 2)
+        db.update("planets", values, "id=$id", null)
+        db.close()
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {

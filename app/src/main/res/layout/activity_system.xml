@@ -18,6 +18,15 @@
         android:textColor="@color/white"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/explored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:text="@string/inexplorado" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/systemRecyclerView"
         android:layout_width="match_parent"
