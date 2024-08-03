@@ -35,6 +35,7 @@ class PlanetActivity : AppCompatActivity() {
         val build = intent.getSerializableExtra("build") as Build?
         println("Planet: " + planet?.id.toString())
         println("Build: " + build?.name)
+        println("Explored: " + planet?.explore.toString())
 
         // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
@@ -43,11 +44,13 @@ class PlanetActivity : AppCompatActivity() {
         planetInfo.text = planet?.name
 
         // TODO("Sustituir cuando una nave entre en el planeta")
-        if (planet?.id == 3 && planet?.explore == 0) {
+        if (planet?.id == 3 && planet.explore == 0) {
             planetDao.setPlanetExplored(planet.id)
         }
+        planet = planetDao.getPlanetById(planet?.id)
+        println("Planet2: " + planet.id.toString())
+        println("Explored2: " + planet.explore.toString())
 
-        println("Explored: " + planet?.explore.toString())
 
         if (build != null) {
             val buildInfo: TextView = findViewById(R.id.buildInfo)
@@ -56,30 +59,30 @@ class PlanetActivity : AppCompatActivity() {
             buildInfo.text = build.name
         }
 
+        // Manage FAB and Texview
         val fab: View = findViewById(R.id.fab)
-        var explored: TextView = findViewById(R.id.explored)
-        if (planet?.explore == 0) {
-            explored.text = getString(R.string.inexplorado)
-            fab.visibility = GONE
-        }
-        if (planet?.explore == 1) explored.text = getString(R.string.fundar_colonia)
-        if (planet?.explore == 2) {
-            setResources(planet!!)
-            explored.visibility = GONE
+        val explored: TextView = findViewById(R.id.explored)
+        when (planet.explore) {
+            0 -> fab.visibility = GONE
+            1 -> explored.text = getString(R.string.fundar_colonia)
+            2 -> {
+                explored.visibility = GONE
+                setResources(planet)
+            }
         }
 
-        planet = planetDao.getPlanetById(planet?.id)
         fab.setOnClickListener { view ->
-            if (planet?.explore == 1) {
+            if (planet.explore == 1) {
                 // TODO("Comprobar si la nave tiene modulo de colonización")
                 val dialog = Dialog(this)
                 planetDao.setPlanetColonized(planet.id)
                 explored.visibility = GONE
                 dialog.showColony(planet)
-                Snackbar.make(view, "Se ha fundado la colonia ${planet?.explore}", Snackbar.LENGTH_LONG)
+
+                Snackbar.make(view, "Se ha fundado la colonia ${planet.explore}", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
-            } else if (planet?.explore == 2) {
+            } else if (planet.explore == 2) {
                 val i = Intent(this, BuildActivity::class.java)
                 i.putExtra("planet", planet)
                 startActivity(i)
@@ -92,23 +95,23 @@ class PlanetActivity : AppCompatActivity() {
     private fun setResources(planet: Planet) {
         val foodInfo: TextView = findViewById(R.id.foodInfo)
         foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
-        foodInfo.text = planet?.food.toString()
+        foodInfo.text = planet.food.toString()
 
         val prodInfo: TextView = findViewById(R.id.prodInfo)
         prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
-        prodInfo.text = planet?.production.toString()
+        prodInfo.text = planet.production.toString()
 
         val scienceInfo: TextView = findViewById(R.id.scienceInfo)
         scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
-        scienceInfo.text = planet?.research.toString()
+        scienceInfo.text = planet.research.toString()
 
         val energyInfo: TextView = findViewById(R.id.energyInfo)
         energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
-        energyInfo.text = planet?.research.toString()
+        energyInfo.text = planet.research.toString()
 
         val popInfo: TextView = findViewById(R.id.popInfo)
         popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
-        popInfo.text = planet?.population.toString()
+        popInfo.text = planet.population.toString()
     }
 
     override fun onResume(){

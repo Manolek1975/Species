@@ -63,7 +63,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_RESEARCH))
             val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
 
-
             planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
         //planetList.add(planet)
         }
