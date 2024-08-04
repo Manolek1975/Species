@@ -17,7 +17,7 @@ import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityPlanetBinding
-import com.google.android.material.snackbar.Snackbar
+
 
 class PlanetActivity : AppCompatActivity() {
 
@@ -60,7 +60,11 @@ class PlanetActivity : AppCompatActivity() {
             val buildId = resources.getIdentifier(build.image, "drawable", packageName)
             buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
             buildInfo.text = build.name
-            db.insertPlanetBuild(build, planet)
+            val planetBuild = planetDao.getPlanetBuild(build, planet)
+            if (planetBuild.id != 0) planetDao.setPlanetBuild(planetBuild)
+            else db.insertPlanetBuild(build, planet)
+
+            println("Level: " + planetBuild.level.toString())
         }
 
         // Manage FAB and Textview Message
@@ -83,9 +87,12 @@ class PlanetActivity : AppCompatActivity() {
                 explored.visibility = GONE
                 dialog.showColony(planet)
 
+/*
                 Snackbar.make(view, "Se ha fundado la colonia ${planet.explore}", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
+*/
+
             } else if (planet.explore == 2) {
                 val i = Intent(this, BuildActivity::class.java)
                 i.putExtra("planet", planet)

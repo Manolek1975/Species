@@ -7,7 +7,7 @@ class PlanetBuildsHelper {
         const val COLUMN_ID: String = "id"
         const val COLUMN_PLANET_ID: String = "planet_id"
         const val COLUMN_BUILD_ID: String = "build_id"
-        const val COLUMN_NIVEL: String = "nivel"
+        const val COLUMN_LEVEL: String = "level"
         const val COLUMN_DAYSLEFT: String = "days_left"
 
         val SQL_CREATE_ENTRIES = buildString {
@@ -15,7 +15,7 @@ class PlanetBuildsHelper {
             append("$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,")
             append("$COLUMN_PLANET_ID TEXT,")
             append("$COLUMN_BUILD_ID TEXT,")
-            append("$COLUMN_NIVEL TEXT,")
+            append("$COLUMN_LEVEL TEXT,")
             append("$COLUMN_DAYSLEFT INTEGER)")
         }
 

@@ -4,9 +4,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.PlanetsHelper
+import com.delek.species.database.helper.PlanetBuildsHelper
 
 class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -43,7 +46,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetById(planetId: Int?): Planet {
-        //val planet = mutableListOf<Planet>()
         var planet = Planet()
         val db = readableDatabase
         val query = "SELECT * FROM planets where id = $planetId"
@@ -64,7 +66,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
 
             planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
-        //planetList.add(planet)
         }
         cursor.close()
         db.close()
@@ -83,6 +84,34 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         val values = ContentValues()
         values.put("explore", 2)
         db.update("planets", values, "id=$id", null)
+        db.close()
+    }
+
+    fun getPlanetBuild(build: Build, planet: Planet): PlanetBuilds {
+        var planetBuild = PlanetBuilds()
+        val db=readableDatabase
+        val query = "SELECT * FROM planet_builds WHERE build_id = ${build.id} AND planet_id = ${planet.id}"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
+            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
+
+            planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
+        }
+        cursor.close()
+        db.close()
+        return planetBuild
+    }
+
+    fun setPlanetBuild(planetBuild: PlanetBuilds){
+        val db = readableDatabase
+        val values = ContentValues()
+        values.put("level", planetBuild.level + 1)
+        db.update("planet_builds", values, "id=${planetBuild.id}", null)
         db.close()
     }
 

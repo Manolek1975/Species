@@ -132,32 +132,15 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
 
     fun insertPlanetBuild(build: Build, planet: Planet) {
         val db = writableDatabase
-        val nivel = getBuildLevel(build, planet)
         val values = ContentValues().apply {
             put(PlanetBuildsHelper.COLUMN_PLANET_ID, planet.id)
             put(PlanetBuildsHelper.COLUMN_BUILD_ID, build.id)
-            put(PlanetBuildsHelper.COLUMN_NIVEL, nivel + 1)
+            put(PlanetBuildsHelper.COLUMN_LEVEL, 1)
             put(PlanetBuildsHelper.COLUMN_DAYSLEFT, build.cost)
         }
         db.insert(PlanetBuildsHelper.TABLE_NAME, null, values)
         db.close()
 
-    }
-
-    fun getBuildLevel(build: Build, planet: Planet): Int {
-        val db =readableDatabase
-        val nivel: Int
-        val query = "SELECT * FROM planet_builds WHERE build_id = ${build.id} AND planet_id = ${planet.id}"
-        val cursor = db.rawQuery(query, null)
-        if (cursor.moveToFirst()) {
-            nivel = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_NIVEL))
-        } else {
-            nivel = 0
-        }
-
-        cursor.close()
-        db.close()
-        return nivel
     }
 
 }
