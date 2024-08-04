@@ -15,12 +15,14 @@ import com.delek.species.R
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityPlanetBinding
 import com.google.android.material.snackbar.Snackbar
 
 class PlanetActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlanetBinding
+    private lateinit var db: DBHelper
     private lateinit var planetDao: PlanetDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,7 @@ class PlanetActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
+        db = DBHelper(this)
         planetDao = PlanetDAO(this)
 
         var planet = intent.getSerializableExtra("planet") as Planet?
@@ -57,9 +60,10 @@ class PlanetActivity : AppCompatActivity() {
             val buildId = resources.getIdentifier(build.image, "drawable", packageName)
             buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
             buildInfo.text = build.name
+            db.insertPlanetBuild(build, planet)
         }
 
-        // Manage FAB and Texview
+        // Manage FAB and Textview Message
         val fab: View = findViewById(R.id.fab)
         val explored: TextView = findViewById(R.id.explored)
         when (planet.explore) {
@@ -91,6 +95,7 @@ class PlanetActivity : AppCompatActivity() {
 
         }
     }
+
 
     private fun setResources(planet: Planet) {
         val foodInfo: TextView = findViewById(R.id.foodInfo)

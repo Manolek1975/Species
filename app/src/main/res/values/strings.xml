@@ -15,5 +15,6 @@
     <string name="tutorial_text">Tutorial</string>
     <string name="fundar_colonia">Fundar Colonia</string>
     <string name="inexplorado">Sin explorar</string>
+    <string name="description">description</string>
 
 </resources>

@@ -60,19 +60,6 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return Star(id, name, image, sector, jumps, x, y, type, explore)
     }
 
-    fun getStarNameBySpecie(specieId: Int): String{
-        var name = ""
-        val db = readableDatabase
-        val query = "SELECT * FROM stars WHERE id = $specieId"
-        val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
-            name = cursor.getString(cursor.getColumnIndexOrThrow(StarsHelper.COLUMN_NAME))
-        }
-        cursor.close()
-        db.close()
-        return name
-    }
-
     fun getStarOrigin(id: Int): Boolean {
         val db = readableDatabase
         val result: Boolean
