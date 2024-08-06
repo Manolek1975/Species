@@ -107,6 +107,27 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return planetBuild
     }
 
+    fun getAllPlanetBuilds(planet: Planet): List<PlanetBuilds> {
+        val planetBuildList = mutableListOf<PlanetBuilds>()
+        val db = readableDatabase
+        val query = "SELECT * FROM planet_builds WHERE planet_id = ${planet.id}"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
+            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
+
+            val planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
+            planetBuildList.add(planetBuild)
+        }
+        cursor.close()
+        db.close()
+        return planetBuildList
+    }
+
     fun setPlanetBuild(planetBuild: PlanetBuilds){
         val db = readableDatabase
         val values = ContentValues()

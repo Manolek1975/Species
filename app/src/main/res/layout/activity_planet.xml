@@ -82,32 +82,37 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/explored"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:text="@string/inexplorado" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/buildInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="20dp"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/explored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="@string/inexplorado" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/planetBuildsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="48dp"
+            android:clipToPadding="false"/>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:padding="16dp"
         android:contentDescription="@string/description"
         android:src="@android:drawable/ic_menu_manage" />
+
 
 </LinearLayout>

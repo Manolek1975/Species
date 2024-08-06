@@ -10,8 +10,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.Dialog
 import com.delek.species.R
+import com.delek.species.database.adapter.PlanetBuildsAdapter
+import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
@@ -22,8 +25,10 @@ import com.delek.species.databinding.ActivityPlanetBinding
 class PlanetActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlanetBinding
+    private lateinit var adapter: PlanetBuildsAdapter
     private lateinit var db: DBHelper
     private lateinit var planetDao: PlanetDAO
+    private lateinit var builds: BuildDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,7 @@ class PlanetActivity : AppCompatActivity() {
 
         db = DBHelper(this)
         planetDao = PlanetDAO(this)
+        builds = BuildDAO(this)
 
         var planet = intent.getSerializableExtra("planet") as Planet?
         val build = intent.getSerializableExtra("build") as Build?
@@ -54,18 +60,18 @@ class PlanetActivity : AppCompatActivity() {
         println("Planet2: " + planet.id.toString())
         println("Explored2: " + planet.explore.toString())
 
-
         if (build != null) {
-            val buildInfo: TextView = findViewById(R.id.buildInfo)
-            val buildId = resources.getIdentifier(build.image, "drawable", packageName)
-            buildInfo.setCompoundDrawablesWithIntrinsicBounds(buildId, 0, 0, 0)
-            buildInfo.text = build.name
             val planetBuild = planetDao.getPlanetBuild(build, planet)
             if (planetBuild.id != 0) planetDao.setPlanetBuild(planetBuild)
             else db.insertPlanetBuild(build, planet)
-
             println("Level: " + planetBuild.level.toString())
         }
+
+        val planetBuilds = planetDao.getAllPlanetBuilds(planet)
+        adapter = PlanetBuildsAdapter(builds.getBuildsByPlanet(planetBuilds), planetDao, planet, this)
+        //adapter = PlanetBuildsAdapter(builds.getBuildsByPlanet(planetBuilds),  this)
+        binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.planetBuildsRecyclerView.adapter = adapter
 
         // Manage FAB and Textview Message
         val fab: View = findViewById(R.id.fab)
@@ -79,27 +85,18 @@ class PlanetActivity : AppCompatActivity() {
             }
         }
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             if (planet.explore == 1) {
                 // TODO("Comprobar si la nave tiene modulo de colonización")
                 val dialog = Dialog(this)
                 planetDao.setPlanetColonized(planet.id)
                 explored.visibility = GONE
                 dialog.showColony(planet)
-
-/*
-                Snackbar.make(view, "Se ha fundado la colonia ${planet.explore}", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show()
-*/
-
             } else if (planet.explore == 2) {
                 val i = Intent(this, BuildActivity::class.java)
                 i.putExtra("planet", planet)
                 startActivity(i)
             }
-
-
         }
     }
 
