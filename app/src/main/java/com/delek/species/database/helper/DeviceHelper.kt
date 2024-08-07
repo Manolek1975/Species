@@ -22,7 +22,7 @@ class DeviceHelper {
             append("$COLUMN_TYPE INTEGER,")
             append("$COLUMN_COST INTEGER,")
             append("$COLUMN_POWER INTEGER,")
-            append("${COLUMN_TECH_ID}_ INTEGER)")
+            append("$COLUMN_TECH_ID INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
