@@ -3,7 +3,7 @@ package com.delek.species.database.helper
 class DeviceHelper {
 
     companion object{
-        const val TABLE_NAME: String = "ships"
+        const val TABLE_NAME: String = "devices"
         const val COLUMN_ID: String = "id"
         const val COLUMN_NAME: String = "name"
         const val COLUMN_DESC: String = "desc"
