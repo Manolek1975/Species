@@ -1,6 +1,6 @@
 package com.delek.species.database.helper
 
-class StarsHelper {
+class StarHelper {
     companion object{
         const val TABLE_NAME: String = "stars"
         const val COLUMN_ID: String = "id"

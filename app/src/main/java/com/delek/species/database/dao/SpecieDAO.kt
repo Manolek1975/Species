@@ -1,15 +1,11 @@
 package com.delek.species.database.dao
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetsHelper
-import com.delek.species.database.helper.SpeciesHelper
+import com.delek.species.database.helper.SpecieHelper
 
 class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -24,15 +20,15 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_NAME))
-            val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_DESC))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_IMAGE))
-            val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_SKILL))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
-            val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
-            val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
-            val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ORIGIN))
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
+            val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
+            val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
+            val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
+            val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
 
             val specie = Specie(id, name, desc, image, skill, type, star, color, origin)
             specieList.add(specie)
@@ -48,15 +44,15 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
 
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_NAME))
-        val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_DESC))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_IMAGE))
-        val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_SKILL))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_TYPE))
-        val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_STAR))
-        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_COLOR))
-        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpeciesHelper.COLUMN_ORIGIN))
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
+        val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
+        val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
+        val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
+        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
+        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
 
         cursor.close()
         db.close()

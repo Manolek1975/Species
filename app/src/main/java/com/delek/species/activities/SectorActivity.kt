@@ -17,6 +17,7 @@ import com.delek.species.R
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.Tech
@@ -50,6 +51,7 @@ class SectorActivity : AppCompatActivity() {
             loadPlanets()
             loadBuilds()
             loadTechs()
+            loadShips()
         }
 
         val origin = stars.getStarById(specie.origin)
@@ -65,6 +67,18 @@ class SectorActivity : AppCompatActivity() {
             }
             backTime = System.currentTimeMillis()
         }
+    }
+
+    private fun loadShips() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.name_ships)
+        val specie = res.getStringArray(R.array.specie_ships)
+
+        for (i in name.indices){
+            val ship = Ship(0, name[i], specie[i].toInt(), 0, 0, 0)
+            db.insertShips(ship)
+        }
+
     }
 
     private fun loadTechs() {

@@ -1,6 +1,6 @@
 package com.delek.species.database.helper
 
-class SpeciesHelper {
+class SpecieHelper {
 
     companion object{
         const val TABLE_NAME: String = "species"

@@ -8,7 +8,7 @@ import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetsHelper
+import com.delek.species.database.helper.PlanetHelper
 import com.delek.species.database.helper.PlanetBuildsHelper
 
 class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
@@ -24,18 +24,18 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_ID))
-            val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_STAR))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_IMAGE))
-            val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_SIZE))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_TYPE))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_OWNER))
-            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_FOOD))
-            val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_PRODUCTION))
-            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_POPULATION))
-            val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_RESEARCH))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
+            val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
+            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
+            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
+            val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
+            val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_EXPLORE))
 
             val planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
             planetList.add(planet)
@@ -52,18 +52,18 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_ID))
-            val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_STAR))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_IMAGE))
-            val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_SIZE))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_TYPE))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_OWNER))
-            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_FOOD))
-            val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_PRODUCTION))
-            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_POPULATION))
-            val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_RESEARCH))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetsHelper.COLUMN_EXPLORE))
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
+            val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
+            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
+            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
+            val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
+            val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_EXPLORE))
 
             planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
         }

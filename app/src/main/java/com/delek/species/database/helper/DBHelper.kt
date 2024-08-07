@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.Tech
@@ -20,20 +21,23 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(SpeciesHelper.SQL_CREATE_ENTRIES)
-        db?.execSQL(StarsHelper.SQL_CREATE_ENTRIES)
-        db?.execSQL(PlanetsHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(SpecieHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(StarHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(PlanetHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(BuildHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(TechHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(PlanetBuildsHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(ShipHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        db?.execSQL(SpeciesHelper.SQL_DELETE_ENTRIES)
-        db?.execSQL(StarsHelper.SQL_DELETE_ENTRIES)
-        db?.execSQL(PlanetsHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(SpecieHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(StarHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(PlanetHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(BuildHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(TechHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(PlanetBuildsHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -48,33 +52,33 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val db = writableDatabase
         val values = ContentValues().apply {
             //put(SpeciesHelper.COLUMN_ID, specie.id)
-            put(SpeciesHelper.COLUMN_NAME, specie.name)
-            put(SpeciesHelper.COLUMN_DESC, specie.desc)
-            put(SpeciesHelper.COLUMN_IMAGE, specie.image)
-            put(SpeciesHelper.COLUMN_SKILL, specie.skill)
-            put(SpeciesHelper.COLUMN_TYPE, specie.type)
-            put(SpeciesHelper.COLUMN_STAR, specie.star)
-            put(SpeciesHelper.COLUMN_COLOR, specie.color)
-            put(SpeciesHelper.COLUMN_ORIGIN, specie.origin)
+            put(SpecieHelper.COLUMN_NAME, specie.name)
+            put(SpecieHelper.COLUMN_DESC, specie.desc)
+            put(SpecieHelper.COLUMN_IMAGE, specie.image)
+            put(SpecieHelper.COLUMN_SKILL, specie.skill)
+            put(SpecieHelper.COLUMN_TYPE, specie.type)
+            put(SpecieHelper.COLUMN_STAR, specie.star)
+            put(SpecieHelper.COLUMN_COLOR, specie.color)
+            put(SpecieHelper.COLUMN_ORIGIN, specie.origin)
         }
-        db.insert(SpeciesHelper.TABLE_NAME, null, values)
+        db.insert(SpecieHelper.TABLE_NAME, null, values)
         db.close()
     }
 
     fun insertStars(star: Star) {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(StarsHelper.COLUMN_ID, star.id)
-            put(StarsHelper.COLUMN_NAME, star.name)
-            put(StarsHelper.COLUMN_IMAGE, star.image)
-            put(StarsHelper.COLUMN_SECTOR, star.sector)
-            put(StarsHelper.COLUMN_JUMPS, star.jumps)
-            put(StarsHelper.COLUMN_X, star.x)
-            put(StarsHelper.COLUMN_Y, star.y)
-            put(StarsHelper.COLUMN_TYPE, star.type)
-            put(StarsHelper.COLUMN_EXPLORE, star.explore)
+            put(StarHelper.COLUMN_ID, star.id)
+            put(StarHelper.COLUMN_NAME, star.name)
+            put(StarHelper.COLUMN_IMAGE, star.image)
+            put(StarHelper.COLUMN_SECTOR, star.sector)
+            put(StarHelper.COLUMN_JUMPS, star.jumps)
+            put(StarHelper.COLUMN_X, star.x)
+            put(StarHelper.COLUMN_Y, star.y)
+            put(StarHelper.COLUMN_TYPE, star.type)
+            put(StarHelper.COLUMN_EXPLORE, star.explore)
         }
-        db.insert(StarsHelper.TABLE_NAME, null, values)
+        db.insert(StarHelper.TABLE_NAME, null, values)
         db.close()
     }
 
@@ -82,19 +86,19 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val db = writableDatabase
         val values = ContentValues().apply {
             //put(PlanetHelper.COLUMN_ID, planet.id)
-            put(PlanetsHelper.COLUMN_STAR, planet.star)
-            put(PlanetsHelper.COLUMN_NAME, planet.name)
-            put(PlanetsHelper.COLUMN_IMAGE, planet.image)
-            put(PlanetsHelper.COLUMN_SIZE, planet.size)
-            put(PlanetsHelper.COLUMN_TYPE, planet.type)
-            put(PlanetsHelper.COLUMN_OWNER, planet.owner)
-            put(PlanetsHelper.COLUMN_FOOD, planet.food)
-            put(PlanetsHelper.COLUMN_PRODUCTION, planet.production)
-            put(PlanetsHelper.COLUMN_POPULATION, planet.population)
-            put(PlanetsHelper.COLUMN_RESEARCH, planet.research)
-            put(PlanetsHelper.COLUMN_EXPLORE, planet.explore)
+            put(PlanetHelper.COLUMN_STAR, planet.star)
+            put(PlanetHelper.COLUMN_NAME, planet.name)
+            put(PlanetHelper.COLUMN_IMAGE, planet.image)
+            put(PlanetHelper.COLUMN_SIZE, planet.size)
+            put(PlanetHelper.COLUMN_TYPE, planet.type)
+            put(PlanetHelper.COLUMN_OWNER, planet.owner)
+            put(PlanetHelper.COLUMN_FOOD, planet.food)
+            put(PlanetHelper.COLUMN_PRODUCTION, planet.production)
+            put(PlanetHelper.COLUMN_POPULATION, planet.population)
+            put(PlanetHelper.COLUMN_RESEARCH, planet.research)
+            put(PlanetHelper.COLUMN_EXPLORE, planet.explore)
         }
-        db.insert(PlanetsHelper.TABLE_NAME, null, values)
+        db.insert(PlanetHelper.TABLE_NAME, null, values)
         db.close()
     }
 
@@ -140,7 +144,19 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         }
         db.insert(PlanetBuildsHelper.TABLE_NAME, null, values)
         db.close()
+    }
 
+    fun insertShips(ship: Ship) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(ShipHelper.COLUMN_NAME, ship.name)
+            put(ShipHelper.COLUMN_SPECIE_ID, ship.specie_id)
+            put(ShipHelper.COLUMN_ORBIT, ship.orbit)
+            put(ShipHelper.COLUMN_ROUTE, ship.route)
+            put(ShipHelper.COLUMN_DAYS, ship.days)
+        }
+        db.insert(ShipHelper.TABLE_NAME, null, values)
+        db.close()
     }
 
 }
