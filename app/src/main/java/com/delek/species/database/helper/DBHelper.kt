@@ -6,6 +6,7 @@ import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
@@ -28,6 +29,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(TechHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(PlanetBuildsHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(ShipHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(DeviceHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -38,6 +40,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(TechHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(PlanetBuildsHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -150,12 +153,27 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val db = writableDatabase
         val values = ContentValues().apply {
             put(ShipHelper.COLUMN_NAME, ship.name)
-            put(ShipHelper.COLUMN_SPECIE_ID, ship.specie_id)
+            put(ShipHelper.COLUMN_SPECIE_ID, ship.specieId)
             put(ShipHelper.COLUMN_ORBIT, ship.orbit)
             put(ShipHelper.COLUMN_ROUTE, ship.route)
             put(ShipHelper.COLUMN_DAYS, ship.days)
         }
         db.insert(ShipHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertDevices(device: Device){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(DeviceHelper.COLUMN_NAME, device.name)
+            put(DeviceHelper.COLUMN_DESC, device.desc)
+            put(DeviceHelper.COLUMN_IMAGE, device.image)
+            put(DeviceHelper.COLUMN_TYPE, device.type)
+            put(DeviceHelper.COLUMN_COST, device.cost)
+            put(DeviceHelper.COLUMN_POWER, device.power)
+            put(DeviceHelper.COLUMN_TECH_ID, device.techId)
+        }
+        db.insert(DeviceHelper.TABLE_NAME, null, values)
         db.close()
     }
 

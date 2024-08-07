@@ -16,6 +16,7 @@ import com.delek.species.DrawStars
 import com.delek.species.R
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
@@ -52,6 +53,7 @@ class SectorActivity : AppCompatActivity() {
             loadBuilds()
             loadTechs()
             loadShips()
+            loadDevices()
         }
 
         val origin = stars.getStarById(specie.origin)
@@ -69,6 +71,22 @@ class SectorActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadDevices() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.name_devices)
+        val desc = res.getStringArray(R.array.desc_devices)
+        val image = res.getStringArray(R.array.image_devices)
+        val type = res.getStringArray(R.array.type_devices)
+        val cost = res.getStringArray(R.array.cost_devices)
+        val power = res.getStringArray(R.array.power_devices)
+        val tech = res.getStringArray(R.array.tech_devices)
+
+        for (i in name.indices){
+            val device = Device(0, name[i], desc[i], image[i], type[i].toInt(), cost[i].toInt(), power[i].toInt(), tech[i].toInt())
+            db.insertDevices(device)
+        }
+    }
+
     private fun loadShips() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_ships)
@@ -78,7 +96,6 @@ class SectorActivity : AppCompatActivity() {
             val ship = Ship(0, name[i], specie[i].toInt(), 0, 0, 0)
             db.insertShips(ship)
         }
-
     }
 
     private fun loadTechs() {

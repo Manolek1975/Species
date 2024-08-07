@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="name_devices">
+        <item>Motor Kotlin</item>
+        <item>Detonador Iónico</item>
+        <item>Proyector Gavitrón</item>
+        <item>Negador Inercial</item>
+        <item>Segador de Nanoondas</item>
+
+        <item>Generador Kotlin</item>
+        <item>Absorvedor Subatómico</item>
+        <item>Quark Express</item>
+        <item>Hipermezclador Van Creeg</item>
+        <item>Nanorrotador</item>
+
+        <item>Analizador Kotlin</item>
+        <item>Cadena Subespacial</item>
+        <item>Constructor de Nubes Aural</item>
+        <item>Tímpano de Microondas</item>
+        <item>Murgatroyd</item>
+
+        <item>Controlador Estelar</item>
+        <item>Hipercontrolador Estelar</item>
+        <item>Megaprisma de Rayos X</item>
+        <item>Encapotador</item>
+        <item>Restaurador</item>
+    </string-array>
+
+    <string-array name="desc_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="image_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="type_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="cost_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="power_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string-array name="tech_devices">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+
+</resources>
