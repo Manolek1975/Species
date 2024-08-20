@@ -44,6 +44,19 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         onCreate(db)
     }
 
+    fun onDelete() {
+        val db = writableDatabase
+        db?.execSQL(SpecieHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(StarHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(PlanetHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(BuildHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(TechHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(PlanetBuildsHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
+        onCreate(db)
+    }
+
     fun isEmpty(table: String?): Boolean {
         val database = this.readableDatabase
         val numRows = DatabaseUtils.queryNumEntries(database, table)
@@ -174,5 +187,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db.insert(DeviceHelper.TABLE_NAME, null, values)
         db.close()
     }
+
 
 }

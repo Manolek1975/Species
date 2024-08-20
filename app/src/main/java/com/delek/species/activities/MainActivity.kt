@@ -33,20 +33,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
 
-        binding.ayudaButton.setOnClickListener {
-            Toast.makeText(this,"PULSA JUGAR", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tutorialSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val file = "game_data"
-            val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-            val edit = data.edit()
-            if (isChecked) {
-                edit.putInt("tutorial", 1)
-            } else {
-                edit.putInt("tutorial", 0)
-            }
-            edit.apply()
+        binding.optionsButton.setOnClickListener {
+            val i = Intent(this, OptionsActivity::class.java)
+            startActivity(i)
+            //Toast.makeText(this,"PULSA JUGAR", Toast.LENGTH_SHORT).show()
         }
 
         onBackPressedDispatcher.addCallback(this) {

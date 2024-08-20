@@ -22,6 +22,7 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@drawable/dialog_bg"
@@ -29,23 +30,15 @@
         android:text="@string/jugar" />
 
     <Button
-        android:id="@+id/ayudaButton"
+        android:id="@+id/options_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="120dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/dialog_bg"
         android:fontFamily="@font/aclonica"
-        android:text="@string/ayuda" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/tutorial_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="100dp"
-        android:textColor="@color/white"
-        android:text="@string/tutorial_text" />
+        android:text="@string/opciones" />
 
 
 </LinearLayout>

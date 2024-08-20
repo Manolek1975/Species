@@ -17,4 +17,10 @@
     <string name="inexplorado">Sin explorar</string>
     <string name="description">description</string>
 
+    <string name="music_text">Musica</string>
+    <string name="sound_text">Sonido</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="go_back">go_back</string>
+    <string name="opciones">Opciones</string>
+
 </resources>
