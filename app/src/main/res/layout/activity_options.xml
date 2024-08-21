@@ -25,8 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:textColor="@color/white"
-        android:text="@string/tutorial_text" />
+        android:checked="false"
+        android:text="@string/tutorial_text"
+        android:textColor="@color/white" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/music_switch"

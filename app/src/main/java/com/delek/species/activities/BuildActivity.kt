@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.Dialog
 import com.delek.species.database.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.ActivityBuildBinding
+import com.delek.species.Dialog as Dialog
 
 
 class BuildActivity : AppCompatActivity() {

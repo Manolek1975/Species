@@ -3,15 +3,32 @@ package com.delek.species
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import com.delek.species.activities.MainActivity
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
+import com.delek.species.database.helper.DBHelper
 
 
 class Dialog(context: Context) : AlertDialog.Builder(context) {
 
+    fun showRestartDialog(){
+        val db = DBHelper(context)
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setIcon(android.R.drawable.stat_sys_warning)
+        dialogBuilder.setTitle("ATENCIÓN")
+        dialogBuilder.setMessage("Se borrarán todos los datos de tu partida. ¿Quieres continuar?")
+        dialogBuilder.setNegativeButton("No") { _, _ -> }
+        dialogBuilder.setPositiveButton("BORRAR") { _, _: Int ->
+            db.onDelete()
+            val i = Intent(context, MainActivity::class.java)
+            context.startActivity(i)
+        }
+        .show()
+
+    }
 
     fun showSpecie(specie: Specie) {
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)

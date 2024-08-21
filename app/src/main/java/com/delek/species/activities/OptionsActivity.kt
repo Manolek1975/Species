@@ -7,10 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.delek.species.Dialog
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityOptionsBinding
 
 
+@Suppress("UNUSED_EXPRESSION")
 class OptionsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOptionsBinding
@@ -36,9 +38,8 @@ class OptionsActivity : AppCompatActivity() {
         }
 
         binding.restartButton.setOnClickListener {
-            //TODO: Crear un cuadro de dialogo para confirmar el reinicio
-            val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+            val dialog = Dialog(this)
+            dialog.showRestartDialog()
         }
 
         binding.backButton.setOnClickListener {
