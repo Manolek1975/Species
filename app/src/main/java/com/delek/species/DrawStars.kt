@@ -15,7 +15,6 @@ import androidx.core.content.res.ResourcesCompat
 import com.delek.species.activities.SystemActivity
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
-import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.dataclass.Star
 
 
@@ -35,17 +34,29 @@ class DrawStars(context: Context): View(context) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawBitmap(background, 0f, 0f, p)
-
+        p.textSize = 36f
         val species = species.getAllSpecies()
         val stars = stars.getAllStars()
-        p.textSize = 36f
+        val pairs = stars.zipWithNext()
 
         for (star in stars){
+            val x1 = star.x.toFloat()
+            val y1 = star.y.toFloat()
             p.style = Paint.Style.FILL
             getColorType(star.type)
-            canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 15F, p)
+            canvas.drawCircle(x1, y1, 15F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
-            canvas.drawText(star.name, star.x.toFloat()-50, star.y.toFloat()-40, p)
+            canvas.drawText(star.name, x1-50, y1-40, p)
+
+            if(star.id < 20) {
+                val x2 = pairs[stars.indexOf(star)].second.x.toFloat()
+                val y2 = pairs[stars.indexOf(star)].second.y.toFloat()
+                p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
+                p.style = Paint.Style.STROKE
+                p.strokeWidth = 3F
+                canvas.drawLine(x1, y1, x2, y2, p)
+            }
+
             for(specie in species){ // Check origin star
                 if(specie.origin == star.id && star.explore != 0){
                     p.style = Paint.Style.STROKE
@@ -81,8 +92,8 @@ class DrawStars(context: Context): View(context) {
         val stars = stars.getAllStars()
         for (star in stars) {
             // Check if (x, y) is within the bounds of the star's circle
-            if (star.x -40 <= x && x <= star.x + 40 &&
-                star.y -40 <= y && y <= star.y + 40) {
+            if (star.x - 40 <= x && x <= star.x + 40 &&
+                star.y - 40 <= y && y <= star.y + 40) {
                 return star
             }
         }
