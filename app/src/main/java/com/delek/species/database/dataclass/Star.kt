@@ -6,7 +6,7 @@ data class Star(
     val id: Int,
     val name: String,
     val image: String,
-    val sector: String,
+    val sector: Int,
     val jumps: Int,
     val x: Int,
     val y: Int,

@@ -83,7 +83,6 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     fun insertStars(star: Star) {
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(StarHelper.COLUMN_ID, star.id)
             put(StarHelper.COLUMN_NAME, star.name)
             put(StarHelper.COLUMN_IMAGE, star.image)
             put(StarHelper.COLUMN_SECTOR, star.sector)

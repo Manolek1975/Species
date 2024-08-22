@@ -15,10 +15,10 @@ class StarHelper {
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
-            append("$COLUMN_ID INTEGER PRIMARY_KEY,")
+            append("$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,")
             append("$COLUMN_NAME TEXT,")
             append("$COLUMN_IMAGE TEXT,")
-            append("$COLUMN_SECTOR TEXT,")
+            append("$COLUMN_SECTOR INTEGER,")
             append("$COLUMN_JUMPS INTEGER,")
             append("$COLUMN_X INTEGER,")
             append("$COLUMN_Y INTEGER,")

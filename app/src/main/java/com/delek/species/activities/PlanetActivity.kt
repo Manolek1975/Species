@@ -69,7 +69,6 @@ class PlanetActivity : AppCompatActivity() {
 
         val planetBuilds = planetDao.getAllPlanetBuilds(planet)
         adapter = PlanetBuildsAdapter(builds.getBuildsByPlanet(planetBuilds), planetDao, planet, this)
-        //adapter = PlanetBuildsAdapter(builds.getBuildsByPlanet(planetBuilds),  this)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.planetBuildsRecyclerView.adapter = adapter
 

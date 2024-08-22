@@ -41,12 +41,10 @@ class SectorActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        specie = intent.getSerializableExtra("specie") as Specie
-        val drawStars = DrawStars(this)
-        setContentView(drawStars)
-
         db = DBHelper(this)
         stars = StarDAO(this)
+        specie = intent.getSerializableExtra("specie") as Specie
+
         if(db.isEmpty("stars")) {
             loadStars()
             loadPlanets()
@@ -58,6 +56,12 @@ class SectorActivity : AppCompatActivity() {
 
         val origin = stars.getStarById(specie.origin)
         stars.setStarExplored(origin.id) // Set origin star Explored
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val edit = data.edit()
+        edit.putInt("sector", origin.sector)
+        edit.apply()
+        val drawStars = DrawStars(this)
+        setContentView(drawStars)
 
         val i = Intent(this, MainActivity::class.java)
         var backTime = 0L
@@ -150,13 +154,13 @@ class SectorActivity : AppCompatActivity() {
 
     private fun loadStars(){
         val res = this.resources
-        val id = res.getStringArray(R.array.id_stars)
         val name = res.getStringArray(R.array.name_stars)
         val image = res.getStringArray(R.array.image_stars)
+        val sector = res.getStringArray(R.array.sector_stars)
         val type = res.getStringArray(R.array.type_stars)
         val coords = getCoords()
-        for (i in id.indices){
-            val star = Star(id[i].toInt(), name[i], image[i], "CENTAURI", 0,
+        for (i in name.indices){
+            val star = Star(0, name[i], image[i], sector[i].toInt(), 0,
                 coords[i].x, coords[i].y, type[i].toInt(), 0)
             db.insertStars(star)
         }

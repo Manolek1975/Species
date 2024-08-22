@@ -31,12 +31,18 @@ class DrawStars(context: Context): View(context) {
         bitmap, dm.widthPixels, dm.heightPixels + bar, true)
 
 
+
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val sector = data.getInt("sector", 0)
+
         canvas.drawBitmap(background, 0f, 0f, p)
         p.textSize = 36f
         val species = species.getAllSpecies()
-        val stars = stars.getAllStars()
+        val stars = stars.getStarBySector(sector).sortedBy { it.y }
         val pairs = stars.zipWithNext()
 
         for (star in stars){
@@ -48,7 +54,7 @@ class DrawStars(context: Context): View(context) {
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             canvas.drawText(star.name, x1-50, y1-40, p)
 
-            if(star.id < 20) {
+            if(pairs.getOrNull(stars.indexOf(star)) != null) {
                 val x2 = pairs[stars.indexOf(star)].second.x.toFloat()
                 val y2 = pairs[stars.indexOf(star)].second.y.toFloat()
                 p.color = ResourcesCompat.getColor(resources, R.color.yellow, null)
@@ -123,3 +129,4 @@ class DrawStars(context: Context): View(context) {
     }
 
 }
+

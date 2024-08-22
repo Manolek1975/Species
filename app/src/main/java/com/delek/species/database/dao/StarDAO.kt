@@ -26,7 +26,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
             val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-            val sector = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
             val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
             val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
             val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
@@ -50,20 +50,48 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
         val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
         val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-        val sector = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+        val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
         val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
         val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
         val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
         val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
         val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
 
+        cursor.close()
+        db.close()
         return Star(id, name, image, sector, jumps, x, y, type, explore)
+
+    }
+
+    fun getStarBySector(s: Int): List<Star>{
+        val starList = mutableListOf<Star>()
+        val db = readableDatabase
+        val query = "SELECT * FROM stars WHERE sector = $s"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
+            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
+            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
+            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
+
+            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
+            starList.add(star)
+        }
+        cursor.close()
+        db.close()
+        return starList
     }
 
     fun getStarOrigin(id: Int): Boolean {
         val db = readableDatabase
         val result: Boolean
-        val query = "SELECT * FROM species WHERE species.origin = $id"
+        val query = "SELECT * FROM species WHERE origin = $id"
         val cursor = db.rawQuery(query, null)
         result = cursor.count >= 1
         cursor.close()
