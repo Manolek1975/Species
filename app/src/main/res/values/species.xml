@@ -65,14 +65,14 @@
     </string-array>
 
     <string-array name="origin_species">
-        <item>0</item>
-        <item>0</item>
+        <item>21</item>
+        <item>15</item>
         <item>1</item>
-        <item>0</item>
-        <item>0</item>
+        <item>25</item>
+        <item>39</item>
         <item>8</item>
-        <item>0</item>
-        <item>0</item>
+        <item>6</item>
+        <item>35</item>
     </string-array>
 
 </resources>

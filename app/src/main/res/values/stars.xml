@@ -25,9 +25,57 @@
         <item>Groombridge</item>
         <item>Indi</item>
         <item>Cancri</item>
+
+        <item>Canopus</item>
+        <item>Arturo</item>
+        <item>Rigel</item>
+        <item>Vega</item>
+        <item>Achernar</item>
+
+        <item>Betelgeuse</item>
+        <item>Capella</item>
+        <item>Altair</item>
+        <item>Aldebaran</item>
+        <item>Espiga</item>
+
+        <item>Antares</item>
+        <item>Polux</item>
+        <item>Fomalhaut</item>
+        <item>Deneb</item>
+        <item>Becrux</item>
+
+        <item>Regulus</item>
+        <item>Adhara</item>
+        <item>Shaula</item>
+        <item>Gacrux</item>
+        <item>Bellatrix</item>
     </string-array>
 
     <string-array name="image_stars">
+        <item>star2</item>
+        <item>star3</item>
+        <item>star4</item>
+        <item>star9</item>
+        <item>star6</item>
+
+        <item>star8</item>
+        <item>star7</item>
+        <item>star4</item>
+        <item>star6</item>
+        <item>star6</item>
+
+        <item>star6</item>
+        <item>star2</item>
+        <item>star12</item>
+        <item>star8</item>
+        <item>star5</item>
+
+        <item>star10</item>
+        <item>star5</item>
+        <item>star11</item>
+        <item>star1</item>
+        <item>star4</item>
+
         <item>star2</item>
         <item>star3</item>
         <item>star4</item>
@@ -77,6 +125,36 @@
         <item>1</item>
         <item>1</item>
         <item>1</item>
+
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="type_stars">
@@ -104,32 +182,29 @@
         <item>3</item>
         <item>4</item>
 
-    </string-array>
+        <item>3</item>
+        <item>1</item>
+        <item>4</item>
+        <item>1</item>
+        <item>5</item>
 
-    <string-array name="coords_stars">
-        <item>150,1770</item>
-        <item>307,1633</item>
-        <item>665,1499</item>
-        <item>607,1686</item>
-        <item>504,1597</item>
+        <item>3</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>5</item>
 
-        <item>484,1331</item>
-        <item>566,907</item>
-        <item>432,1130</item>
-        <item>150,542</item>
-        <item>141,382</item>
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>3</item>
+        <item>3</item>
 
-        <item>219,695</item>
-        <item>249,1284</item>
-        <item>767,673</item>
-        <item>830,1739</item>
-        <item>864,1346</item>
-
-        <item>783,1086</item>
-        <item>343,850</item>
-        <item>794,245</item>
-        <item>167,163</item>
-        <item>607,524</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
 
 </resources>

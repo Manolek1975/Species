@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="name_stars_s2">
+        <item>Canopus</item>
+        <item>Arturo</item>
+        <item>Rigel</item>
+        <item>Vega</item>
+        <item>Achernar</item>
+
+        <item>Betelgeuse</item>
+        <item>Capella</item>
+        <item>Altair</item>
+        <item>Aldebaran</item>
+        <item>Espiga</item>
+
+        <item>Antares</item>
+        <item>Polux</item>
+        <item>Fomalhaut</item>
+        <item>Deneb</item>
+        <item>Becrux</item>
+
+        <item>Regulus</item>
+        <item>Adhara</item>
+        <item>Shaula</item>
+        <item>Gacrux</item>
+        <item>Bellatrix</item>
+    </string-array>
+
+    <string-array name="image_stars_s2">
+        <item>star2</item>
+        <item>star3</item>
+        <item>star4</item>
+        <item>star9</item>
+        <item>star6</item>
+
+        <item>star8</item>
+        <item>star7</item>
+        <item>star4</item>
+        <item>star6</item>
+        <item>star6</item>
+
+        <item>star6</item>
+        <item>star2</item>
+        <item>star12</item>
+        <item>star8</item>
+        <item>star5</item>
+
+        <item>star10</item>
+        <item>star5</item>
+        <item>star11</item>
+        <item>star1</item>
+        <item>star4</item>
+    </string-array>
+
+    <string-array name="type_stars_s2">
+        <item>3</item>
+        <item>1</item>
+        <item>4</item>
+        <item>1</item>
+        <item>5</item>
+
+        <item>3</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>5</item>
+
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>3</item>
+        <item>3</item>
+
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+</resources>

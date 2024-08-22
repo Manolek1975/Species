@@ -31,8 +31,6 @@ class DrawStars(context: Context): View(context) {
         bitmap, dm.widthPixels, dm.heightPixels + bar, true)
 
 
-
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -40,12 +38,13 @@ class DrawStars(context: Context): View(context) {
         val sector = data.getInt("sector", 0)
 
         canvas.drawBitmap(background, 0f, 0f, p)
-        p.textSize = 36f
+
         val species = species.getAllSpecies()
         val stars = stars.getStarBySector(sector).sortedBy { it.y }
         val pairs = stars.zipWithNext()
 
         for (star in stars){
+            p.textSize = 36f
             val x1 = star.x.toFloat()
             val y1 = star.y.toFloat()
             p.style = Paint.Style.FILL
@@ -71,6 +70,9 @@ class DrawStars(context: Context): View(context) {
                     canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 30F, p)
                 }
             }
+
+            p.textSize = 56f
+            canvas.drawText("SECTOR $sector", dm.widthPixels/2f-100, dm.heightPixels.toFloat(), p)
         }
     }
 

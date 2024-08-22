@@ -46,7 +46,9 @@ class SectorActivity : AppCompatActivity() {
         specie = intent.getSerializableExtra("specie") as Specie
 
         if(db.isEmpty("stars")) {
-            loadStars()
+            //loadStars()
+            loadStarsSector1()
+            loadStarsSector2()
             loadPlanets()
             loadBuilds()
             loadTechs()
@@ -158,9 +160,39 @@ class SectorActivity : AppCompatActivity() {
         val image = res.getStringArray(R.array.image_stars)
         val sector = res.getStringArray(R.array.sector_stars)
         val type = res.getStringArray(R.array.type_stars)
+
+        var coords = getCoords()
+        for (i in name.indices){
+            if (i == 20) coords = getCoords()
+            val star = Star(0, name[i], image[i], sector[i].toInt(),0,
+                coords[i].x, coords[i].y, type[i].toInt(), 0)
+            db.insertStars(star)
+        }
+    }
+
+    private fun loadStarsSector1(){
+        val res = this.resources
+        val name = res.getStringArray(R.array.name_stars_s1)
+        val image = res.getStringArray(R.array.image_stars_s1)
+        val type = res.getStringArray(R.array.type_stars_s1)
+        val sector = 1
         val coords = getCoords()
         for (i in name.indices){
-            val star = Star(0, name[i], image[i], sector[i].toInt(), 0,
+            val star = Star(0, name[i], image[i], sector,0,
+                coords[i].x, coords[i].y, type[i].toInt(), 0)
+            db.insertStars(star)
+        }
+    }
+
+    private fun loadStarsSector2(){
+        val res = this.resources
+        val name = res.getStringArray(R.array.name_stars_s2)
+        val image = res.getStringArray(R.array.image_stars_s2)
+        val type = res.getStringArray(R.array.type_stars_s2)
+        val sector = 2
+        val coords = getCoords()
+        for (i in name.indices){
+            val star = Star(0, name[i], image[i], sector,0,
                 coords[i].x, coords[i].y, type[i].toInt(), 0)
             db.insertStars(star)
         }
@@ -212,7 +244,7 @@ class SectorActivity : AppCompatActivity() {
 
 
     // Insert random coordinates to stars
-    private fun getCoords(): List<Point> {
+    private fun getCoords(): MutableList<Point> {
         val random = Random
         val size = 20
         val dm = resources.displayMetrics

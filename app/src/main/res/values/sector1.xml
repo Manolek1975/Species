@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="name_stars_s1">
+        <item>Alpha Centauri</item>
+        <item>Barnard</item>
+        <item>Luhman</item>
+        <item>Wise</item>
+        <item>Wolf</item>
+
+        <item>Lalande</item>
+        <item>Sirio</item>
+        <item>Luyten</item>
+        <item>Ross 128</item>
+        <item>Ross 154</item>
+
+        <item>Ross 248</item>
+        <item>Eridani</item>
+        <item>Lacaille</item>
+        <item>Aquari</item>
+        <item>Procyon</item>
+
+        <item>Cygni</item>
+        <item>Struve</item>
+        <item>Groombridge</item>
+        <item>Indi</item>
+        <item>Cancri</item>
+    </string-array>
+
+    <string-array name="image_stars_s1">
+        <item>star2</item>
+        <item>star3</item>
+        <item>star4</item>
+        <item>star9</item>
+        <item>star6</item>
+
+        <item>star8</item>
+        <item>star7</item>
+        <item>star4</item>
+        <item>star6</item>
+        <item>star6</item>
+
+        <item>star6</item>
+        <item>star2</item>
+        <item>star12</item>
+        <item>star8</item>
+        <item>star5</item>
+
+        <item>star10</item>
+        <item>star5</item>
+        <item>star11</item>
+        <item>star1</item>
+        <item>star4</item>
+    </string-array>
+
+    <string-array name="type_stars_s1">
+        <item>3</item>
+        <item>1</item>
+        <item>4</item>
+        <item>1</item>
+        <item>5</item>
+
+        <item>3</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>5</item>
+
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>3</item>
+        <item>3</item>
+
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+</resources>
