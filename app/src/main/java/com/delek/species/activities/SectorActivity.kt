@@ -96,10 +96,11 @@ class SectorActivity : AppCompatActivity() {
     private fun loadShips() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_ships)
+        val image = res.getStringArray(R.array.image_ships)
         val specie = res.getStringArray(R.array.specie_ships)
 
         for (i in name.indices){
-            val ship = Ship(0, name[i], specie[i].toInt(), 0, 0, 0)
+            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 0, 0, 0)
             db.insertShips(ship)
         }
     }

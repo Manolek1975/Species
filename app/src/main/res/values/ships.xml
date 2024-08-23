@@ -23,6 +23,17 @@
         <item>8</item>
     </string-array>
 
+    <string-array name="image_ships">
+        <item>ship01</item>
+        <item>ship02</item>
+        <item>ship03</item>
+        <item>ship04</item>
+        <item>ship05</item>
+        <item>ship06</item>
+        <item>ship07</item>
+        <item>ship08</item>
+    </string-array>
+
 
 
 </resources>

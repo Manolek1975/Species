@@ -16,6 +16,7 @@ import com.delek.species.R
 import com.delek.species.database.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.helper.DBHelper
@@ -60,6 +61,20 @@ class PlanetActivity : AppCompatActivity() {
         println("Planet2: " + planet.id.toString())
         println("Explored2: " + planet.explore.toString())
 
+        // Ship Info
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val specie = data.getInt("specieID", 0)
+        val ship = ShipDAO(this).getShipBySpecie(specie)
+        val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
+        binding.shipInfo.setImageResource(shipID)
+
+        binding.shipInfo.setOnClickListener {
+            val i = Intent(this, ShipDevicesActivity::class.java)
+            i.putExtra("ship", ship)
+            startActivity(i)
+        }
+
+        // Build Info
         if (build != null) {
             val planetBuild = planetDao.getPlanetBuild(build, planet)
             if (planetBuild.id != 0) planetDao.setPlanetBuild(planetBuild)
@@ -84,6 +99,7 @@ class PlanetActivity : AppCompatActivity() {
             }
         }
 
+        // FAB
         fab.setOnClickListener { _ ->
             if (planet.explore == 1) {
                 // TODO("Comprobar si la nave tiene modulo de colonización")

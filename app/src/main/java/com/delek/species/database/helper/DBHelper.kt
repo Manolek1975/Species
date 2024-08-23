@@ -163,6 +163,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val db = writableDatabase
         val values = ContentValues().apply {
             put(ShipHelper.COLUMN_NAME, ship.name)
+            put(ShipHelper.COLUMN_IMAGE, ship.image)
             put(ShipHelper.COLUMN_SPECIE_ID, ship.specieId)
             put(ShipHelper.COLUMN_ORBIT, ship.orbit)
             put(ShipHelper.COLUMN_ROUTE, ship.route)

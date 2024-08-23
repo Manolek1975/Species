@@ -44,13 +44,13 @@ class DrawStars(context: Context): View(context) {
         val pairs = stars.zipWithNext()
 
         for (star in stars){
-            p.textSize = 36f
             val x1 = star.x.toFloat()
             val y1 = star.y.toFloat()
-            p.style = Paint.Style.FILL
             getColorType(star.type)
+            p.style = Paint.Style.FILL
             canvas.drawCircle(x1, y1, 15F, p)
             p.color = ResourcesCompat.getColor(resources, R.color.white, null)
+            p.textSize = 36f
             canvas.drawText(star.name, x1-50, y1-40, p)
 
             if(pairs.getOrNull(stars.indexOf(star)) != null) {
