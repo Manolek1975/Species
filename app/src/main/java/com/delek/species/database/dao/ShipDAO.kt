@@ -18,6 +18,28 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
+    fun getAllShips(): List<Ship> {
+        var shipList = mutableListOf<Ship>()
+        val db = readableDatabase
+        val query = "SELECT * FROM ships"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
+            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
+            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
+            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
+            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
+
+            val ship = Ship(id, name, image, specieId, orbit, route, days)
+            shipList.add(ship)
+        }
+        cursor.close()
+        db.close()
+        return shipList
+    }
 
     fun getShipBySpecie(specieID: Int?): Ship {
         var ship = Ship()
@@ -50,4 +72,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")
     }
+
+
 }

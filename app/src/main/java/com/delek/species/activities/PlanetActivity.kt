@@ -19,7 +19,6 @@ import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityPlanetBinding
 
 
@@ -27,9 +26,7 @@ class PlanetActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlanetBinding
     private lateinit var adapter: PlanetBuildsAdapter
-    private lateinit var db: DBHelper
     private lateinit var planetDao: PlanetDAO
-    private lateinit var builds: BuildDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +34,7 @@ class PlanetActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        db = DBHelper(this)
         planetDao = PlanetDAO(this)
-        builds = BuildDAO(this)
 
         var planet = intent.getSerializableExtra("planet") as Planet?
         val build = intent.getSerializableExtra("build") as Build?
@@ -78,12 +73,14 @@ class PlanetActivity : AppCompatActivity() {
         if (build != null) {
             val planetBuild = planetDao.getPlanetBuild(build, planet)
             if (planetBuild.id != 0) planetDao.setPlanetBuild(planetBuild)
-            else db.insertPlanetBuild(build, planet)
+            else planetDao.insertPlanetBuild(build, planet)
             println("Level: " + planetBuild.level.toString())
         }
 
+
         val planetBuilds = planetDao.getAllPlanetBuilds(planet)
-        adapter = PlanetBuildsAdapter(builds.getBuildsByPlanet(planetBuilds), planetDao, planet, this)
+        val builds = BuildDAO(this).getBuildsByPlanet(planetBuilds)
+        adapter = PlanetBuildsAdapter(builds, planetDao, planet, this)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.planetBuildsRecyclerView.adapter = adapter
 

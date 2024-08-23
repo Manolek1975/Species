@@ -9,6 +9,7 @@ import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
+import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.Tech
@@ -30,6 +31,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(PlanetBuildsHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(ShipHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(ShipDevicesHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -41,6 +43,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(PlanetBuildsHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ShipDevicesHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -54,6 +57,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(PlanetBuildsHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ShipDevicesHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -147,7 +151,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db.close()
     }
 
-    fun insertPlanetBuild(build: Build, planet: Planet) {
+/*    fun insertPlanetBuild(build: Build, planet: Planet) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put(PlanetBuildsHelper.COLUMN_PLANET_ID, planet.id)
@@ -157,7 +161,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         }
         db.insert(PlanetBuildsHelper.TABLE_NAME, null, values)
         db.close()
-    }
+    }*/
 
     fun insertShips(ship: Ship) {
         val db = writableDatabase
@@ -185,6 +189,16 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(DeviceHelper.COLUMN_TECH_ID, device.techId)
         }
         db.insert(DeviceHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertShipDevices(shipDevice: ShipDevices) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(ShipDevicesHelper.COLUMN_SHIP_ID, shipDevice.shipId)
+            put(ShipDevicesHelper.COLUMN_DEVICE_ID, shipDevice.deviceId)
+       }
+        db.insert(ShipDevicesHelper.TABLE_NAME, null, values)
         db.close()
     }
 

@@ -14,11 +14,14 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.Dialog
 import com.delek.species.DrawStars
 import com.delek.species.R
+import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
+import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.Tech
@@ -46,7 +49,6 @@ class SectorActivity : AppCompatActivity() {
         specie = intent.getSerializableExtra("specie") as Specie
 
         if(db.isEmpty("stars")) {
-            //loadStars()
             loadStarsSector1()
             loadStarsSector2()
             loadPlanets()
@@ -54,6 +56,7 @@ class SectorActivity : AppCompatActivity() {
             loadTechs()
             loadShips()
             loadDevices()
+            loadShipDevices()
         }
 
         val origin = stars.getStarById(specie.origin)
@@ -74,6 +77,19 @@ class SectorActivity : AppCompatActivity() {
                 Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
             }
             backTime = System.currentTimeMillis()
+        }
+    }
+
+    private fun loadShipDevices() {
+        val ships = ShipDAO(this).getAllShips()
+        val device = DeviceDAO(this).getAllDevices()
+        for (i in ships){
+            for (j in device){
+                if (j.techId == 1){
+                    val shipDevice = ShipDevices(0, i.id, j.id)
+                    db.insertShipDevices(shipDevice)
+                }
+            }
         }
     }
 

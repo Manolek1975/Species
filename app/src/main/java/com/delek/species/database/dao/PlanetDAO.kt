@@ -16,6 +16,19 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
+    fun insertPlanetBuild(build: Build, planet: Planet) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(PlanetBuildsHelper.COLUMN_PLANET_ID, planet.id)
+            put(PlanetBuildsHelper.COLUMN_BUILD_ID, build.id)
+            put(PlanetBuildsHelper.COLUMN_LEVEL, 1)
+            put(PlanetBuildsHelper.COLUMN_DAYSLEFT, build.cost)
+        }
+        db.insert(PlanetBuildsHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+
 
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
         val planetList = mutableListOf<Planet>()
@@ -135,6 +148,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.update("planet_builds", values, "id=${planetBuild.id}", null)
         db.close()
     }
+
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")
