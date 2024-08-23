@@ -4,24 +4,33 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.PlanetBuilds
-import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
-import com.delek.species.database.helper.PlanetHelper
-import com.delek.species.database.helper.PlanetBuildsHelper
-import com.delek.species.database.helper.ShipHelper
+
 
 class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
 
+    fun insertDevices(device: Device){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(DeviceHelper.COLUMN_NAME, device.name)
+            put(DeviceHelper.COLUMN_DESC, device.desc)
+            put(DeviceHelper.COLUMN_IMAGE, device.image)
+            put(DeviceHelper.COLUMN_TYPE, device.type)
+            put(DeviceHelper.COLUMN_COST, device.cost)
+            put(DeviceHelper.COLUMN_POWER, device.power)
+            put(DeviceHelper.COLUMN_TECH_ID, device.techId)
+        }
+        db.insert(DeviceHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
     fun getAllDevices(): List<Device> {
-        var deviceList = mutableListOf<Device>()
+        val deviceList = mutableListOf<Device>()
         val db = readableDatabase
         val query = "SELECT * FROM devices"
         val cursor = db.rawQuery(query, null)

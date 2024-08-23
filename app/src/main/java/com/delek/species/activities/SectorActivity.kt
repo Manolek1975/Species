@@ -3,7 +3,6 @@ package com.delek.species.activities
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Point
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -13,21 +12,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.Dialog
 import com.delek.species.DrawStars
-import com.delek.species.R
-import com.delek.species.database.dao.DeviceDAO
-import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.StarDAO
-import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.Ship
-import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
-import com.delek.species.database.dataclass.Star
-import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivitySectorBinding
-import kotlin.random.Random
 
 
 class SectorActivity : AppCompatActivity() {
@@ -37,7 +25,6 @@ class SectorActivity : AppCompatActivity() {
     private lateinit var specie: Specie
     private lateinit var stars: StarDAO
 
-    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySectorBinding.inflate(layoutInflater)
@@ -47,17 +34,6 @@ class SectorActivity : AppCompatActivity() {
         db = DBHelper(this)
         stars = StarDAO(this)
         specie = intent.getSerializableExtra("specie") as Specie
-
-        if(db.isEmpty("stars")) {
-            loadStarsSector1()
-            loadStarsSector2()
-            loadPlanets()
-            loadBuilds()
-            loadTechs()
-            loadShips()
-            loadDevices()
-            loadShipDevices()
-        }
 
         val origin = stars.getStarById(specie.origin)
         stars.setStarExplored(origin.id) // Set origin star Explored
@@ -77,141 +53,6 @@ class SectorActivity : AppCompatActivity() {
                 Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
             }
             backTime = System.currentTimeMillis()
-        }
-    }
-
-    private fun loadShipDevices() {
-        val ships = ShipDAO(this).getAllShips()
-        val device = DeviceDAO(this).getAllDevices()
-        for (i in ships){
-            for (j in device){
-                if (j.techId == 1){
-                    val shipDevice = ShipDevices(0, i.id, j.id)
-                    db.insertShipDevices(shipDevice)
-                }
-            }
-        }
-    }
-
-    private fun loadDevices() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_devices)
-        val desc = res.getStringArray(R.array.desc_devices)
-        val image = res.getStringArray(R.array.image_devices)
-        val type = res.getStringArray(R.array.type_devices)
-        val cost = res.getStringArray(R.array.cost_devices)
-        val power = res.getStringArray(R.array.power_devices)
-        val tech = res.getStringArray(R.array.tech_devices)
-
-        for (i in name.indices){
-            val device = Device(0, name[i], desc[i], image[i], type[i].toInt(), cost[i].toInt(), power[i].toInt(), tech[i].toInt())
-            db.insertDevices(device)
-        }
-    }
-
-    private fun loadShips() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_ships)
-        val image = res.getStringArray(R.array.image_ships)
-        val specie = res.getStringArray(R.array.specie_ships)
-
-        for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 0, 0, 0)
-            db.insertShips(ship)
-        }
-    }
-
-    private fun loadTechs() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_techs)
-        val cost = res.getStringArray(R.array.cost_techs)
-        val require = res.getStringArray(R.array.require_techs)
-        val unlock = res.getStringArray(R.array.unlock_techs)
-
-        for (i in name.indices){
-            val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
-            db.insertTechs(tech)
-        }
-    }
-
-    private fun loadBuilds() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.builds_name)
-        val image = res.getStringArray(R.array.builds_image)
-        val description = res.getStringArray(R.array.builds_description)
-        val tech = res.getStringArray(R.array.builds_tech)
-        val cost = res.getStringArray(R.array.builds_cost)
-        val food = res.getStringArray(R.array.builds_food)
-        val industry = res.getStringArray(R.array.builds_industry)
-        val science = res.getStringArray(R.array.builds_science)
-
-        for (i in name.indices){
-            val build = Build(0, name[i], description[i], image[i], tech[i].toInt(),
-                cost[i].toInt(), food[i].toInt(), industry[i].toInt(), science[i].toInt(),
-                0, 0, 0, 0)
-            db.insertBuilds(build)
-        }
-    }
-
-    private fun loadPlanets() {
-        val star = stars.getAllStars()
-        var rnd: Int
-        for (i in star){
-            if (stars.getStarOrigin(i.id))
-                rnd = 3
-            else
-                rnd = (1..8).random()
-
-            for (j in 1..rnd){
-                val image = getPlanetImage(j)
-                val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
-                    0, 0,0,0,0)
-                db.insertPlanets(planet)
-            }
-        }
-    }
-
-    private fun loadStars(){
-        val res = this.resources
-        val name = res.getStringArray(R.array.name_stars)
-        val image = res.getStringArray(R.array.image_stars)
-        val sector = res.getStringArray(R.array.sector_stars)
-        val type = res.getStringArray(R.array.type_stars)
-
-        var coords = getCoords()
-        for (i in name.indices){
-            if (i == 20) coords = getCoords()
-            val star = Star(0, name[i], image[i], sector[i].toInt(),0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
-            db.insertStars(star)
-        }
-    }
-
-    private fun loadStarsSector1(){
-        val res = this.resources
-        val name = res.getStringArray(R.array.name_stars_s1)
-        val image = res.getStringArray(R.array.image_stars_s1)
-        val type = res.getStringArray(R.array.type_stars_s1)
-        val sector = 1
-        val coords = getCoords()
-        for (i in name.indices){
-            val star = Star(0, name[i], image[i], sector,0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
-            db.insertStars(star)
-        }
-    }
-
-    private fun loadStarsSector2(){
-        val res = this.resources
-        val name = res.getStringArray(R.array.name_stars_s2)
-        val image = res.getStringArray(R.array.image_stars_s2)
-        val type = res.getStringArray(R.array.type_stars_s2)
-        val sector = 2
-        val coords = getCoords()
-        for (i in name.indices){
-            val star = Star(0, name[i], image[i], sector,0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
-            db.insertStars(star)
         }
     }
 
@@ -236,74 +77,6 @@ class SectorActivity : AppCompatActivity() {
         edit.putInt("turn", 1)
         if(tutorial == 1) edit.putInt("tutorial", 2)
         edit.apply()
-    }
-
-    private fun getPlanetImage(j: Int): String {
-        var image = j
-        val rnd = (0..1).random()
-        if (rnd == 1 && j <= 4 ) image = j + 8
-        when (image) {
-            1 -> return "icon_planet1"
-            2 -> return "icon_planet2"
-            3 -> return "icon_planet3"
-            4 -> return "icon_planet4"
-            5 -> return "icon_planet5"
-            6 -> return "icon_planet6"
-            7 -> return "icon_planet7"
-            8 -> return "icon_planet8"
-            9 -> return "icon_planet9"
-            10 -> return "icon_planet10"
-            11 -> return "icon_planet11"
-            12 -> return "icon_planet12"
-        }
-        return "planet12"
-    }
-
-
-    // Insert random coordinates to stars
-    private fun getCoords(): MutableList<Point> {
-        val random = Random
-        val size = 20
-        val dm = resources.displayMetrics
-        val width = dm.widthPixels
-        val height = dm.heightPixels
-        val diameter = 200
-        val radius = diameter * 0.5f
-        val d2 = (diameter * diameter).toFloat()
-        val coordinate : MutableList<Point> = ArrayList(size)
-
-        val posX: MutableList<Float> = ArrayList(size)
-        val posY: MutableList<Float> = ArrayList(size)
-        while (posX.size < size) {
-            // generate new coordinates
-            val x: Float = random.nextInt(width - diameter) + radius
-            val y: Float = random.nextInt(height - diameter) + radius
-
-            System.out.printf("Generated [%3.3f, %3.3f] ... ", x, y)
-
-            // verify it does not overlap/touch with previous circles
-            var j = 0
-            while (j < posX.size) {
-                val dx = posX[j] - x
-                val dy = posY[j] - y
-                val diffSquare = (dx * dx) + (dy * dy)
-                if (diffSquare <= d2) break
-                ++j
-            }
-
-            // generate another pair of coordinates, if it does touch previous
-            if (j != posX.size) {
-                println("collided.")
-                continue
-            }
-            println("added.")
-
-            // not overlapping/touch, add as new circle
-            posX.add(x)
-            posY.add(y)
-            coordinate.add(Point(x.toInt(),y.toInt()))
-        }
-        return coordinate
     }
 
     private fun hideSystemBars() {

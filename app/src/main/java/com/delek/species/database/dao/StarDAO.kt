@@ -15,6 +15,21 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
+    fun insertStars(star: Star) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(StarHelper.COLUMN_NAME, star.name)
+            put(StarHelper.COLUMN_IMAGE, star.image)
+            put(StarHelper.COLUMN_SECTOR, star.sector)
+            put(StarHelper.COLUMN_JUMPS, star.jumps)
+            put(StarHelper.COLUMN_X, star.x)
+            put(StarHelper.COLUMN_Y, star.y)
+            put(StarHelper.COLUMN_TYPE, star.type)
+            put(StarHelper.COLUMN_EXPLORE, star.explore)
+        }
+        db.insert(StarHelper.TABLE_NAME, null, values)
+        db.close()
+    }
 
     fun getAllStars(): List<Star>{
         val starList = mutableListOf<Star>()

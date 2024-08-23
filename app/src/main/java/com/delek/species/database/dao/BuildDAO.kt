@@ -1,5 +1,6 @@
 package com.delek.species.database.dao
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -12,6 +13,26 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+
+    fun insertBuilds(build: Build){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(BuildHelper.COLUMN_NAME, build.name)
+            put(BuildHelper.COLUMN_DESC, build.description)
+            put(BuildHelper.COLUMN_IMAGE, build.image)
+            put(BuildHelper.COLUMN_TECH, build.tech)
+            put(BuildHelper.COLUMN_COST, build.cost)
+            put(BuildHelper.COLUMN_FOOD, build.food)
+            put(BuildHelper.COLUMN_INDUSTRY, build.industry)
+            put(BuildHelper.COLUMN_SCIENCE, build.science)
+            put(BuildHelper.COLUMN_POPULATION, build.population)
+            put(BuildHelper.COLUMN_OFFENCE, build.offense)
+            put(BuildHelper.COLUMN_DEFENSE, build.defense)
+            put(BuildHelper.COLUMN_INVADER, build.invader)
+        }
+        db.insert(BuildHelper.TABLE_NAME, null, values)
+        db.close()
+    }
 
     fun getBuildsByTech(techMax: Int): List<Build> {
         val buildList = mutableListOf<Build>()

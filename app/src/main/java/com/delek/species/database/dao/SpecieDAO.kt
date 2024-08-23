@@ -1,5 +1,6 @@
 package com.delek.species.database.dao
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -12,6 +13,21 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
+    fun insertSpecies(specie: Specie) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(SpecieHelper.COLUMN_NAME, specie.name)
+            put(SpecieHelper.COLUMN_DESC, specie.desc)
+            put(SpecieHelper.COLUMN_IMAGE, specie.image)
+            put(SpecieHelper.COLUMN_SKILL, specie.skill)
+            put(SpecieHelper.COLUMN_TYPE, specie.type)
+            put(SpecieHelper.COLUMN_STAR, specie.star)
+            put(SpecieHelper.COLUMN_COLOR, specie.color)
+            put(SpecieHelper.COLUMN_ORIGIN, specie.origin)
+        }
+        db.insert(SpecieHelper.TABLE_NAME, null, values)
+        db.close()
+    }
 
     fun getAllSpecies(): List<Specie> {
         val specieList = mutableListOf<Specie>()

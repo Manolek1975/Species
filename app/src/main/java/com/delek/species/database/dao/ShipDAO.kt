@@ -18,6 +18,21 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_VERSION
 ) {
 
+
+    fun insertShips(ship: Ship) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(ShipHelper.COLUMN_NAME, ship.name)
+            put(ShipHelper.COLUMN_IMAGE, ship.image)
+            put(ShipHelper.COLUMN_SPECIE_ID, ship.specieId)
+            put(ShipHelper.COLUMN_ORBIT, ship.orbit)
+            put(ShipHelper.COLUMN_ROUTE, ship.route)
+            put(ShipHelper.COLUMN_DAYS, ship.days)
+        }
+        db.insert(ShipHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
     fun getAllShips(): List<Ship> {
         var shipList = mutableListOf<Ship>()
         val db = readableDatabase
