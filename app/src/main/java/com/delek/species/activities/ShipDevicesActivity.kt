@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.adapter.ShipDevicesAdapter
 import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.databinding.ActivityShipDevicesBinding
 
@@ -25,6 +26,7 @@ class ShipDevicesActivity : AppCompatActivity() {
         hideSystemBars()
 
         val ship = intent.getSerializableExtra("ship") as Ship?
+        val planet = intent.getSerializableExtra("planet") as Planet?
 
         // Ship Info
         val shipInfo: TextView = findViewById(R.id.shipInfo)
@@ -33,7 +35,7 @@ class ShipDevicesActivity : AppCompatActivity() {
         shipInfo.text = ship?.name
 
         val devices = DeviceDAO(this).getDevicesByShip(ship?.id)
-        adapter = ShipDevicesAdapter(devices, this)
+        adapter = ShipDevicesAdapter(devices, planet, this)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.shipDevicesRecyclerView.adapter = adapter
     }

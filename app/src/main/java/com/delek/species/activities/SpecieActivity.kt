@@ -31,7 +31,6 @@ class SpecieActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this) {
             finishAffinity()
         }
-
     }
 
     private fun hideSystemBars() {

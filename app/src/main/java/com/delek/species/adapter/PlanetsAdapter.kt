@@ -25,15 +25,15 @@ class PlanetsAdapter(private var planets: List<Planet>,
     }
 
     override fun onBindViewHolder(holder: PlanetViewHolder, position: Int) {
+        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val planet = planets[position]
         holder.planetItem.text = planet.name
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
         holder.planetItem.setOnClickListener{
-            val intent = Intent(context, PlanetActivity::class.java).apply {
-                putExtra("planet", planet)
-            }
+            val intent = Intent(context, PlanetActivity::class.java)
+            data.edit().putInt("planet_id", planet.id).apply()
             context.startActivity(intent)
         }
     }

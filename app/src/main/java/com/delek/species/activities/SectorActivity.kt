@@ -73,7 +73,7 @@ class SectorActivity : AppCompatActivity() {
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
-        edit.putInt("specieID", specie.id)
+        edit.putInt("specie", specie.id)
         edit.putInt("turn", 1)
         if(tutorial == 1) edit.putInt("tutorial", 2)
         edit.apply()

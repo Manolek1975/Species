@@ -36,29 +36,30 @@ class PlanetActivity : AppCompatActivity() {
 
         planetDao = PlanetDAO(this)
 
-        var planet = intent.getSerializableExtra("planet") as Planet?
+
+        //var planet = intent.getSerializableExtra("planet") as Planet?
+
         val build = intent.getSerializableExtra("build") as Build?
-        println("Planet: " + planet?.id.toString())
-        println("Build: " + build?.name)
-        println("Explored: " + planet?.explore.toString())
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val specie = data.getInt("specie", 0)
+        val planetId = data.getInt("planet", 0)
+        val planet = planetDao.getPlanetById(planetId)
+        val edit = data.edit()
+        edit.putInt("planet", planet.id)
+        edit.apply()
 
         // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
-        val planetID = resources.getIdentifier(planet?.image, "drawable", packageName)
+        val planetID = resources.getIdentifier(planet.image, "drawable", packageName)
         planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
-        planetInfo.text = planet?.name
+        planetInfo.text = planet.name
 
         // TODO("Sustituir cuando una nave entre en el planeta")
-        if (planet?.id == 3 && planet.explore == 0) {
+        if (planet.id == 3 && planet.explore == 0) {
             planetDao.setPlanetExplored(planet.id)
         }
-        planet = planetDao.getPlanetById(planet?.id)
-        println("Planet2: " + planet.id.toString())
-        println("Explored2: " + planet.explore.toString())
 
         // Ship Info
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
-        val specie = data.getInt("specieID", 0)
         val ship = ShipDAO(this).getShipBySpecie(specie)
         val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
         binding.shipInfo.setImageResource(shipID)

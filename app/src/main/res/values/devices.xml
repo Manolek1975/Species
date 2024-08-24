@@ -2,10 +2,10 @@
 <resources>
 
     <string-array name="name_devices">
+        <item>Módulo de colonia</item>
         <item>Motor Kotlin</item>
         <item>Generador Kotlin</item>
         <item>Analizador Kotlin</item>
-        <item>Módulo de colonia</item>
         <item>Controlador estelar</item>
 
         <item>Detonador Iónico</item>
@@ -54,10 +54,10 @@
     </string-array>
 
     <string-array name="image_devices">
+        <item>s40</item>
         <item>e1</item>
         <item>g1</item>
         <item>a1</item>
-        <item>s40</item>
         <item></item>
 
         <item></item>
@@ -80,10 +80,10 @@
     </string-array>
 
     <string-array name="type_devices">
+        <item>0</item>
         <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>1</item>
+        <item>1</item>
         <item>1</item>
 
         <item>2</item>
