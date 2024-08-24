@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.Dialog
 import com.delek.species.R
 import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.database.adapter.PlanetsAdapter
+import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dataclass.Star
 import com.delek.species.databinding.ActivitySystemBinding
 import java.lang.Boolean.FALSE

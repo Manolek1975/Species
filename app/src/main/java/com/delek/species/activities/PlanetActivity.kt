@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.Dialog
 import com.delek.species.R
-import com.delek.species.database.adapter.PlanetBuildsAdapter
+import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO

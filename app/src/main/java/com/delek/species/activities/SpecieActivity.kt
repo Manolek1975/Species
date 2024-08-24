@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.database.adapter.SpeciesAdapter
+import com.delek.species.adapter.SpeciesAdapter
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.databinding.ActivitySpecieBinding
 

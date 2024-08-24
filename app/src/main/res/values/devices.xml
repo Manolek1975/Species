@@ -3,24 +3,24 @@
 
     <string-array name="name_devices">
         <item>Motor Kotlin</item>
-        <item>Detonador Iónico</item>
-        <item>Proyector Gavitrón</item>
-        <item>Negador Inercial</item>
-        <item>Segador de Nanoondas</item>
-
         <item>Generador Kotlin</item>
+        <item>Analizador Kotlin</item>
+        <item>Módulo de colonia</item>
+        <item>Controlador estelar</item>
+
+        <item>Detonador Iónico</item>
         <item>Absorvedor Subatómico</item>
         <item>Quark Express</item>
         <item>Hipermezclador Van Creeg</item>
         <item>Nanorrotador</item>
 
-        <item>Analizador Kotlin</item>
+        <item>Proyector Gavitrón</item>
         <item>Cadena Subespacial</item>
         <item>Constructor de Nubes Aural</item>
         <item>Tímpano de Microondas</item>
         <item>Murgatroyd</item>
 
-        <item>Controlador Estelar</item>
+        <item>Negador Inercial</item>
         <item>Hipercontrolador Estelar</item>
         <item>Megaprisma de Rayos X</item>
         <item>Encapotador</item>
@@ -54,10 +54,10 @@
     </string-array>
 
     <string-array name="image_devices">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>e1</item>
+        <item>g1</item>
+        <item>a1</item>
+        <item>s40</item>
         <item></item>
 
         <item></item>
@@ -81,9 +81,9 @@
 
     <string-array name="type_devices">
         <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
         <item>1</item>
 
         <item>2</item>
@@ -159,24 +159,24 @@
 
     <string-array name="tech_devices">
         <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+
+        <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
 
-        <item>1</item>
         <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-
-        <item>1</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
 
-        <item>1</item>
+        <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>

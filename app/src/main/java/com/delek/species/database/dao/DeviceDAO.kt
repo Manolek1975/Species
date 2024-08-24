@@ -53,6 +53,31 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         return deviceList
     }
 
+    fun getDevicesByShip(shipId: Int?): List<Device> {
+        val deviceList = mutableListOf<Device>()
+        val db = readableDatabase
+        val query = "SELECT devices.* FROM devices INNER JOIN ship_devices " +
+                "ON devices.id = ship_devices.device_id " +
+                "WHERE ship_devices.ship_id = $shipId"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
+            val desc = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DESC))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_IMAGE))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TYPE))
+            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_COST))
+            val power = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_POWER))
+            val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
+
+            val device = Device(id, name, desc, image, type, cost, power, techId)
+            deviceList.add(device)
+        }
+        cursor.close()
+        db.close()
+        return deviceList
+    }
 
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")
@@ -61,6 +86,8 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")
     }
+
+
 
 
 }

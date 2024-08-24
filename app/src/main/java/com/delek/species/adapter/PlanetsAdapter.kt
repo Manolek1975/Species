@@ -1,4 +1,4 @@
-package com.delek.species.database.adapter
+package com.delek.species.adapter
 
 import android.content.Context
 import android.content.Intent

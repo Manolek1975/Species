@@ -6,13 +6,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
+import com.delek.species.adapter.ShipDevicesAdapter
+import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.databinding.ActivityShipDevicesBinding
 
 class ShipDevicesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShipDevicesBinding
+    private lateinit var adapter: ShipDevicesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,11 @@ class ShipDevicesActivity : AppCompatActivity() {
         val shipID = resources.getIdentifier(ship?.image, "drawable", packageName)
         shipInfo.setCompoundDrawablesWithIntrinsicBounds(shipID, 0, 0, 0)
         shipInfo.text = ship?.name
+
+        val devices = DeviceDAO(this).getDevicesByShip(ship?.id)
+        adapter = ShipDevicesAdapter(devices, this)
+        binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.shipDevicesRecyclerView.adapter = adapter
     }
 
     private fun hideSystemBars() {
