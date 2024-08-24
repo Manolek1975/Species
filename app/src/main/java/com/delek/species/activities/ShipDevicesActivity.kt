@@ -35,7 +35,7 @@ class ShipDevicesActivity : AppCompatActivity() {
         shipInfo.text = ship?.name
 
         val devices = DeviceDAO(this).getDevicesByShip(ship?.id)
-        adapter = ShipDevicesAdapter(devices, planet, this)
+        adapter = ShipDevicesAdapter(devices, planet, ship!!.id, this)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.shipDevicesRecyclerView.adapter = adapter
     }

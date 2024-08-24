@@ -36,17 +36,11 @@ class PlanetActivity : AppCompatActivity() {
 
         planetDao = PlanetDAO(this)
 
-
-        //var planet = intent.getSerializableExtra("planet") as Planet?
-
         val build = intent.getSerializableExtra("build") as Build?
         val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
         val planet = planetDao.getPlanetById(planetId)
-        val edit = data.edit()
-        edit.putInt("planet", planet.id)
-        edit.apply()
 
         // Planet Info
         val planetInfo: TextView = findViewById(R.id.planetInfo)
@@ -67,6 +61,7 @@ class PlanetActivity : AppCompatActivity() {
         binding.shipInfo.setOnClickListener {
             val i = Intent(this, ShipDevicesActivity::class.java)
             i.putExtra("ship", ship)
+            i.putExtra("planet", planet)
             startActivity(i)
         }
 
@@ -101,10 +96,8 @@ class PlanetActivity : AppCompatActivity() {
         fab.setOnClickListener { _ ->
             if (planet.explore == 1) {
                 // TODO("Comprobar si la nave tiene modulo de colonización")
-                val dialog = Dialog(this)
                 planetDao.setPlanetColonized(planet.id)
                 explored.visibility = GONE
-                dialog.showColony(planet)
             } else if (planet.explore == 2) {
                 val i = Intent(this, BuildActivity::class.java)
                 i.putExtra("planet", planet)

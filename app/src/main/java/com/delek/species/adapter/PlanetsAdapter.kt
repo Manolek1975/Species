@@ -33,7 +33,7 @@ class PlanetsAdapter(private var planets: List<Planet>,
         holder.planetItem.compoundDrawablePadding = 50
         holder.planetItem.setOnClickListener{
             val intent = Intent(context, PlanetActivity::class.java)
-            data.edit().putInt("planet_id", planet.id).apply()
+            data.edit().putInt("planet", planet.id).apply()
             context.startActivity(intent)
         }
     }

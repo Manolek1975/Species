@@ -10,9 +10,11 @@ import com.delek.species.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.Ship
 
 class ShipDevicesAdapter(private var device: List<Device>,
-                         private var planet: Planet,
+                         private var planet: Planet?,
+                         private var shipId: Int,
                          private val context: Context):
     RecyclerView.Adapter<ShipDevicesAdapter.BuildViewHolder>() {
 
@@ -35,7 +37,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
         holder.deviceItem.compoundDrawablePadding = 50
 
         holder.deviceItem.setOnClickListener{
-            if (device.type == 0) Dialog(context).showColony(planet)
+            if (device.type == 0) Dialog(context).showColony(planet, shipId)
         }
 
     }

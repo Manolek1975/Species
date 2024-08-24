@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
+import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Specie
@@ -73,15 +74,16 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             .show()
     }
 
-    fun showColony(planet: Planet){
+    fun showColony(planet: Planet?, shipId: Int){
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(R.drawable.build1)
-        dialogBuilder.setTitle(planet.name)
+        dialogBuilder.setTitle(planet?.name)
         dialogBuilder.setMessage("Fundar una nueva colonia")
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             val intent = Intent(context, PlanetActivity::class.java).apply {
                 putExtra("planet", planet)
+                ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
             }
             context.startActivity(intent)
         }
