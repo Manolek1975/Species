@@ -28,10 +28,10 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             context.startActivity(i)
         }
         .show()
-
     }
 
     fun showSpecie(specie: Specie) {
+        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
@@ -39,10 +39,11 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
         dialogBuilder.setMessage(specie.desc)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            val intent = Intent(context, SectorActivity::class.java).apply {
-                putExtra("specie", specie)
+            val i = Intent(context, SectorActivity::class.java).apply {
+                data.edit().putInt("specie", specie.id).apply()
+                data.edit().putInt("turn", 1).apply()
             }
-            context.startActivity(intent)
+            context.startActivity(i)
         }
         .show()
     }

@@ -1,6 +1,5 @@
 package com.delek.species
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -76,15 +75,16 @@ class DrawStars(context: Context): View(context) {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
                     println(it.name)
                     val intent = Intent(context, SystemActivity::class.java).apply {
-                        putExtra("star", it)
+                        data.edit().putInt("star", it.id).apply()
                     }
                     context.startActivity(intent)
                 }
@@ -108,7 +108,6 @@ class DrawStars(context: Context): View(context) {
         return null
     }
 
-
     private fun getColorType(type: Int) {
         // Get type color
         when (type) {
@@ -119,7 +118,6 @@ class DrawStars(context: Context): View(context) {
             5 -> p.color = ResourcesCompat.getColor(resources, R.color.red, null)
         }
     }
-
 
     private fun getActionBarHeight(): Int {
         // Height of action bar

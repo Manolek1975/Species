@@ -109,9 +109,9 @@ class MainActivity : AppCompatActivity() {
         var rnd: Int
         for (i in star){
             if (StarDAO(this).getStarOrigin(i.id))
-                rnd = 3
+                rnd = 8
             else
-                rnd = (1..8).random()
+                rnd = (1..7).random()
 
             for (j in 1..rnd){
                 val image = getPlanetImage(j)
@@ -258,14 +258,12 @@ class MainActivity : AppCompatActivity() {
                 if (diffSquare <= d2) break
                 ++j
             }
-
             // generate another pair of coordinates, if it does touch previous
             if (j != posX.size) {
                 println("collided.")
                 continue
             }
             println("added.")
-
             // not overlapping/touch, add as new circle
             posX.add(x)
             posY.add(y)
