@@ -132,12 +132,11 @@ class PlanetActivity : AppCompatActivity() {
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
-        if(tutorial == 3){
-            dialog.showTutorial(3)
-        }
-        else if(tutorial == 5){
-            dialog.showTutorial(5)
-        }
+        if(tutorial == 3) dialog.showTutorial(3)
+        if(tutorial == 5) dialog.showTutorial(5)
+        if(tutorial == 7) dialog.showTutorial(7)
+        if(tutorial == 9) dialog.showTutorial(9)
+
     }
 
     override fun onPause(){
@@ -148,6 +147,8 @@ class PlanetActivity : AppCompatActivity() {
         val edit = data.edit()
         if(tutorial == 3) edit.putInt("tutorial", 4)
         if(tutorial == 5) edit.putInt("tutorial", 6)
+        if(tutorial == 7) edit.putInt("tutorial", 8)
+        if(tutorial == 9) edit.putInt("tutorial", 10)
         edit.apply()
     }
 

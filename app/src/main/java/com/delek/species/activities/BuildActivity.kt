@@ -44,9 +44,7 @@ class BuildActivity : AppCompatActivity() {
         val file = "game_data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
-        if(tutorial == 4){
-            dialog.showTutorial(4)
-        }
+        if(tutorial == 8) dialog.showTutorial(8)
     }
 
     override fun onPause(){
@@ -55,9 +53,8 @@ class BuildActivity : AppCompatActivity() {
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
-        if(tutorial == 4) edit.putInt("tutorial", 5)
+        if(tutorial == 8) edit.putInt("tutorial", 9)
         edit.apply()
-
     }
 
     private fun hideSystemBars() {

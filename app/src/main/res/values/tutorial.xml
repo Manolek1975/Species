@@ -5,10 +5,10 @@
         <item>Tutorial Deshabilitado</item>
 
         <item>Saludos comandante, hemos llegado a nuestro destino, la estrella tiene un planeta apto
-            para la vida, comenzamos a finalizar la hibernación de nuestros 100 colonos, la estrella
+            para la vida, comenzamos a finalizar la hibernación de nuestros colonos, la estrella
             se indica en nuestro mapa galáctico por un circulo.
             \n\n
-            Toca la estrella para continuar.
+            Toca tu estrella para continuar.
         </item>
 
         <item>Esta es la ventana del sistema, el nombre de la estrella se encuentra en la parte
@@ -16,24 +16,52 @@
             suelen ser habitables, el tercer planeta es idóneo para la vida. Más allá se encuentran
             los planetas gaseosos no aptos para la colonización.
             \n\n
-            Toca el tercer planeta para fundar tu colonia.
+            Toca el tercer planeta para entrar en orbita.
         </item>
 
-        <item>Aquí puedes gestionar tu planeta, tu nave nodriza ya posee un módulo de colonia,
-            por lo que lo puedes colonizar. Los recursos son comida, producción, ciencia y
-            población, al colonizar el planeta se actualizará la población con los cien colonos que
-            viajaban en tu nave. Observa que no tenemos alimentos, ni población ni ciencia. Debemos
-            alimentar a los colonos para que puedan sobrevivir.
+        <item>Tu nave está orbitando el planeta, observa que está sin explorar, toca tu nave para ver
+            que dispositivos tienes a bordo.
+        </item>
+
+        <item>Para explorar el planeta necesitas utilizar un scanner. Toca el analizador Kotlin para
+            rastrear la superficie del planeta.
+        </item>
+
+        <item>Ahora que has explorado el planeta necesitas crear una colonia, tu nave tiene un
+            módulo de colonia listo para descender al planeta, toca en tu nave para volver a la
+            pantalla de disposivos.
+        </item>
+
+        <item>Ciertos dispositivo se pierden al utilizarlos, el módulo es uno de ellos.
             \n\n
-            Coloniza el planeta y toca el botón de la llave inglesa para construir un agriplot.
+            Toca el Módulo de Colonia
+        </item>
+
+        <item>Ahora puedes gestionar tu planeta. Los recursos son comida, producción, ciencia,
+            energía y población, observa que los colonos que viajaban en tu nave han bajado a la colonia.
+            Sin embargo no tenemos alimentos, debemos alimentar a los colonos para que puedan sobrevivir.
+            \n\n
+            Pulsa el botón de la llave inglesa para construir un agriplot.
         </item>
 
         <item>Los edificios que puedes construir dependen de la tecnología que hayas investigado.
+            El número a la derecha te indica los días que tardarás en construirlos.
             \n\n
             Toca el agriplot para comenzar su construcción.
         </item>
 
-        <item>Tu agriplot ha empezado a construirse.</item>
+        <item>Tu agriplot ha empezado a construirse. Ahora tienes un agriplot, a la derecha te indica
+            los días restantes para construirlo. Ahora sería interesante explorar otros planetas.
+            \n\n
+            Toca tu nave para acceder a los dispositivos.
+        </item>
+
+        <item>Tu nave dispone de un Motor Kotlin, podemos poner en marcha el motor y salir de órbita,
+            como no disponemos de un navegador estelar sólo podremos viajar a otros planetas en
+            nuestro sistema. El generador suministra la energía para tus motores y dispositivos.
+            \n\n
+            Toca el motor Kotlin para seleccionar un destino
+        </item>
 
     </string-array>
 
