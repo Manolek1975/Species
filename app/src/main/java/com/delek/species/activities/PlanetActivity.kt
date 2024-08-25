@@ -3,8 +3,7 @@ package com.delek.species.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +34,6 @@ class PlanetActivity : AppCompatActivity() {
         hideSystemBars()
 
         planetDao = PlanetDAO(this)
-
         val build = intent.getSerializableExtra("build") as Build?
         val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
@@ -43,17 +41,13 @@ class PlanetActivity : AppCompatActivity() {
         val planet = planetDao.getPlanetById(planetId)
 
         // Planet Info
-        val planetInfo: TextView = findViewById(R.id.planetInfo)
         val planetID = resources.getIdentifier(planet.image, "drawable", packageName)
-        planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
-        planetInfo.text = planet.name
-
-        // TODO("Sustituir cuando una nave entre en el planeta")
-        if (planet.id == 3 && planet.explore == 0) {
-            planetDao.setPlanetExplored(planet.id)
-        }
+        binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
+        binding.planetInfo.text = planet.name
 
         // Ship Info
+        //TODO comprobar todas las baves en orbita
+        val ships = ShipDAO(this).getShipsByPlanet(planet.id)
         val ship = ShipDAO(this).getShipBySpecie(specie)
         val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
         binding.shipInfo.setImageResource(shipID)
@@ -73,7 +67,6 @@ class PlanetActivity : AppCompatActivity() {
             println("Level: " + planetBuild.level.toString())
         }
 
-
         val planetBuilds = planetDao.getAllPlanetBuilds(planet)
         val builds = BuildDAO(this).getBuildsByPlanet(planetBuilds)
         adapter = PlanetBuildsAdapter(builds, planetDao, planet, this)
@@ -81,29 +74,33 @@ class PlanetActivity : AppCompatActivity() {
         binding.planetBuildsRecyclerView.adapter = adapter
 
         // Manage FAB and Textview Message
-        val fab: View = findViewById(R.id.fab)
-        val explored: TextView = findViewById(R.id.explored)
         when (planet.explore) {
-            0 -> fab.visibility = GONE
-            1 -> explored.text = getString(R.string.fundar_colonia)
+            0 -> binding.explored.visibility = VISIBLE
+            1 -> {
+                binding.planetType.text = setType(planet.type)
+            }
             2 -> {
-                explored.visibility = GONE
+                binding.fab.visibility = VISIBLE
+                binding.planetType.text = setType(planet.type)
                 setResources(planet)
             }
         }
 
         // FAB
-        fab.setOnClickListener { _ ->
-            if (planet.explore == 1) {
-                // TODO("Comprobar si la nave tiene modulo de colonización")
-                planetDao.setPlanetColonized(planet.id)
-                explored.visibility = GONE
-            } else if (planet.explore == 2) {
-                val i = Intent(this, BuildActivity::class.java)
-                i.putExtra("planet", planet)
-                startActivity(i)
-            }
+        binding.fab.setOnClickListener { _ ->
+            val i = Intent(this, BuildActivity::class.java)
+            i.putExtra("planet", planet)
+            startActivity(i)
         }
+
+    }
+
+    private fun setType(type: Int): CharSequence {
+        when (type) {
+            in 1..4 -> return "Planeta Rocoso"
+            in 5..7 -> return "Planeta Gaseoso"
+        }
+        return "Planeta Helado"
     }
 
 

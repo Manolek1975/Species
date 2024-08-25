@@ -4,20 +4,20 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetHelper
-import com.delek.species.database.helper.PlanetBuildsHelper
 import com.delek.species.database.helper.ShipHelper
 
 class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
-
+    override fun onCreate(p0: SQLiteDatabase?) {
+        TODO("Not yet implemented")
+    }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+        TODO("Not yet implemented")
+    }
 
     fun insertShips(ship: Ship) {
         val db = writableDatabase
@@ -34,7 +34,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllShips(): List<Ship> {
-        var shipList = mutableListOf<Ship>()
+        val shipList = mutableListOf<Ship>()
         val db = readableDatabase
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
@@ -78,15 +78,32 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         return ship
     }
 
-
-
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
+    fun updateOrbitShip(planetId: Int, specie: Int) {
+        val db = readableDatabase
+        val values = ContentValues()
+        values.put("orbit", planetId)
+        db.update("ships", values, "id = $specie", null)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    fun getShipsByPlanet(planetId: Int): List<Ship> {
+        val db = readableDatabase
+        val shipList = mutableListOf<Ship>()
+        val query = "SELECT * FROM ships WHERE orbit = $planetId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
+            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
+            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
+            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
+            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
+            val ship = Ship(id, name, image, specieId, orbit, route, days)
+            shipList.add(ship)
+            }
+        cursor.close()
+        db.close()
+        return shipList
     }
-
-
 }
+

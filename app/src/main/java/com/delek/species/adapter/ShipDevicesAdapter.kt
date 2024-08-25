@@ -10,7 +10,6 @@ import com.delek.species.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.Ship
 
 class ShipDevicesAdapter(private var device: List<Device>,
                          private var planet: Planet?,
@@ -37,7 +36,17 @@ class ShipDevicesAdapter(private var device: List<Device>,
         holder.deviceItem.compoundDrawablePadding = 50
 
         holder.deviceItem.setOnClickListener{
-            if (device.type == 0) Dialog(context).showColony(planet, shipId)
+            if (device.type == 0 && planet?.explore == 0)
+                Dialog(context).notExplored()
+            if (device.type == 0 && planet?.explore == 1)
+                Dialog(context).showColony(planet, shipId)
+            if (device.type == 0 && planet?.explore == 2)
+                Dialog(context).existColony()
+            if (device.type == 3 && planet?.explore == 0)
+                Dialog(context).explorePlanet(planet)
+            if (device.type == 3 && planet?.explore == 2)
+                Dialog(context).alreadyExplored()
+
         }
 
     }

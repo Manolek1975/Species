@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
@@ -85,11 +86,50 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             val intent = Intent(context, PlanetActivity::class.java).apply {
                 putExtra("planet", planet)
                 ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
+                PlanetDAO(context).setPlanetColonized(planet?.id ?: 0)
             }
             context.startActivity(intent)
+        }.show()
+    }
+
+    fun explorePlanet(planet: Planet?) {
+        val id = context.resources.getIdentifier(planet?.image, "drawable", context.packageName)
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(planet?.name)
+        dialogBuilder.setMessage("EXPLORANDO PLANETA")
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            val i = Intent(context, PlanetActivity::class.java).apply {
+                PlanetDAO(context).setPlanetExplored(planet?.id ?: 0)
+            }
+            context.startActivity(i)
+        }.show()
+
+    }
+
+    fun notExplored() {
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setTitle("PLANETA NO EXPLORADO")
+        dialogBuilder.setMessage("Usa tu scanner para explorar el planeta")
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }
+        .show()
+    }
+
+    fun existColony() {
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setTitle("YA EXISTE UNA COLONIA")
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }
+            .show()
+    }
+
+    fun alreadyExplored() {
+        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+        dialogBuilder.setTitle("YA ESTA EXPLORADO")
+        dialogBuilder.setNegativeButton("OK") { _, _ ->
+            val i = Intent(context, PlanetActivity::class.java)
+            context.startActivity(i)
         }
             .show()
-
     }
 
     /*    fun showTutorialSector(specie: Specie, starName: String) {

@@ -115,10 +115,29 @@ class MainActivity : AppCompatActivity() {
 
             for (j in 1..rnd){
                 val image = getPlanetImage(j)
-                val planet = Planet(0, i.id, i.name +" "+ j, image,0, 0, 0,
-                    0, 0,0,0,0)
+                val planet = Planet(0, i.id, i.name +" "+ j, image, setSize(j), setType(j),
+                    0,0, 0,0,0,0)
                 PlanetDAO(this).insertPlanets(planet)
             }
+        }
+    }
+
+    private fun setSize(j: Int): Int {
+        return when (j) {
+            1 -> 1
+            in 2..4 -> 2
+            in 5..7 -> 3
+            8 -> 1
+            else -> 0
+        }
+    }
+
+    private fun setType(j: Int): Int {
+        return when (j) {
+            in 1..4 -> 1
+            in 5..7 -> 2
+            8 -> 3
+            else -> 0
         }
     }
 

@@ -24,5 +24,6 @@
     <string name="opciones">Opciones</string>
     <string name="ship_name">ship_name</string>
     <string name="todo">TODO</string>
+    <string name="planeta">Planeta %1$s</string>
 
 </resources>
