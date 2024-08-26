@@ -35,12 +35,11 @@ class SystemActivity : AppCompatActivity() {
         starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
         starInfo.text = star.name
 
-        val explored = findViewById<TextView>(R.id.explored)
         if (star.explore != 0) {
             adapter = PlanetsAdapter(PlanetDAO(this).getPlanetsByStarId(star.id), this)
             binding.systemRecyclerView.layoutManager = LinearLayoutManager(this)
             binding.systemRecyclerView.adapter = adapter
-            explored.visibility = GONE
+            binding.explored.visibility = GONE
         }
     }
 

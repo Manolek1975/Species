@@ -17,4 +17,3 @@ data class Planet(
     val explore: Int = 0
 ) : Serializable
 
-

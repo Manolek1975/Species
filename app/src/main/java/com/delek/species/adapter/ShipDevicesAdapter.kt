@@ -1,6 +1,7 @@
 package com.delek.species.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.Dialog
 import com.delek.species.R
+import com.delek.species.activities.NavigationActivity
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 
@@ -46,6 +48,12 @@ class ShipDevicesAdapter(private var device: List<Device>,
                 Dialog(context).explorePlanet(planet)
             if (device.type == 3 && planet?.explore == 2)
                 Dialog(context).alreadyExplored()
+            if (device.type == 1){
+                val i = Intent(context, NavigationActivity::class.java)
+                i.putExtra("shipId", shipId)
+                context.startActivity(i)
+            }
+
 
         }
 

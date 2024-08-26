@@ -46,7 +46,7 @@ class PlanetActivity : AppCompatActivity() {
         binding.planetInfo.text = planet.name
 
         // Ship Info
-        //TODO comprobar todas las baves en orbita
+        //TODO comprobar todas las naves en orbita
         val ships = ShipDAO(this).getShipsByPlanet(planet.id)
         val ship = ShipDAO(this).getShipBySpecie(specie)
         val shipID = resources.getIdentifier(ship.image, "drawable", packageName)

@@ -98,12 +98,35 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
             val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
             val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
             val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
+
             val ship = Ship(id, name, image, specieId, orbit, route, days)
             shipList.add(ship)
             }
         cursor.close()
         db.close()
         return shipList
+    }
+
+    fun getShipById(shipId: Int): Ship {
+        val db = readableDatabase
+        var ship = Ship()
+        val query = "SELECT * FROM ships WHERE id = $shipId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
+            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
+            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
+            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
+            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
+
+            ship = Ship(id, name, image, specieId, orbit, route, days)
+        }
+        cursor.close()
+        db.close()
+        return ship
+
     }
 }
 

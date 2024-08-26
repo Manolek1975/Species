@@ -132,6 +132,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             .show()
     }
 
+
     /*    fun showTutorialSector(specie: Specie, starName: String) {
         val res = context.resources
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
