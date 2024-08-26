@@ -7,6 +7,7 @@ data class Planet(
     val star: Int = 0,
     val name: String = "",
     val image: String = "",
+    val position: Int = 0,
     val size: Int = 0,
     val type: Int = 0,
     val owner: Int = 0,

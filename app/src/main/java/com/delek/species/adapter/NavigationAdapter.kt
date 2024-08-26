@@ -36,7 +36,8 @@ class NavigationAdapter(private var planets: List<Planet>,
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
-        val dias = ship.days + 400
+        //val dias = ship.days + position*400
+        val dias = distances(planet)
         holder.daysLeft.text = res.getString(R.string.dias, dias)
         holder.planetItem.setOnClickListener{
             val intent = Intent(context, PlanetActivity::class.java)
@@ -47,5 +48,12 @@ class NavigationAdapter(private var planets: List<Planet>,
     }
 
     override fun getItemCount(): Int = planets.size
+
+    private fun distances(planet: Planet): Int {
+        if (planet.position <= ship.orbit){
+            return (ship.orbit - planet.position)*400
+        } else
+            return (planet.position - ship.orbit)*400
+    }
 
 }

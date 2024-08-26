@@ -32,8 +32,7 @@
             android:id="@+id/shipInfo"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/ship03" />
+            android:contentDescription="@string/todo" />
 
     </LinearLayout>
 

@@ -7,6 +7,7 @@ class PlanetHelper {
         const val COLUMN_STAR: String = "star"
         const val COLUMN_NAME: String = "name"
         const val COLUMN_IMAGE: String = "image"
+        const val COLUMN_POSITION: String = "position"
         const val COLUMN_SIZE: String = "size"
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_OWNER: String = "owner"
@@ -22,7 +23,8 @@ class PlanetHelper {
             append("$COLUMN_STAR INTEGER,")
             append("$COLUMN_NAME TEXT,")
             append("$COLUMN_IMAGE TEXT,")
-            append("$COLUMN_SIZE TEXT,")
+            append("$COLUMN_POSITION INTEGER,")
+            append("$COLUMN_SIZE INTEGER,")
             append("$COLUMN_TYPE INTEGER,")
             append("$COLUMN_OWNER INTEGER,")
             append("$COLUMN_FOOD INTEGER,")

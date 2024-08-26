@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
             for (j in 1..rnd){
                 val image = getPlanetImage(j)
-                val planet = Planet(0, i.id, i.name +" "+ j, image, setSize(j), setType(j),
+                val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), setType(j),
                     0,0, 0,0,0,0)
                 PlanetDAO(this).insertPlanets(planet)
             }
@@ -178,9 +178,10 @@ class MainActivity : AppCompatActivity() {
         val name = res.getStringArray(R.array.name_ships)
         val image = res.getStringArray(R.array.image_ships)
         val specie = res.getStringArray(R.array.specie_ships)
+        val orbit = res.getStringArray(R.array.orbit_ships)
 
         for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 0, 0, 0)
+            val ship = Ship(0, name[i], image[i], specie[i].toInt(), orbit[i].toInt(),0, 0)
             ShipDAO(this).insertShips(ship)
         }
     }

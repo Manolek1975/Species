@@ -50,7 +50,8 @@ class PlanetActivity : AppCompatActivity() {
         val ships = ShipDAO(this).getShipsByPlanet(planet.id)
         val ship = ShipDAO(this).getShipBySpecie(specie)
         val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
-        binding.shipInfo.setImageResource(shipID)
+        if (ship.orbit == planet.position)
+            binding.shipInfo.setImageResource(shipID)
 
         binding.shipInfo.setOnClickListener {
             val i = Intent(this, ShipDevicesActivity::class.java)

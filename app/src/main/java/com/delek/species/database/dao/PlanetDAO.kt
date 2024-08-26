@@ -22,6 +22,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             put(PlanetHelper.COLUMN_STAR, planet.star)
             put(PlanetHelper.COLUMN_NAME, planet.name)
             put(PlanetHelper.COLUMN_IMAGE, planet.image)
+            put(PlanetHelper.COLUMN_POSITION, planet.position)
             put(PlanetHelper.COLUMN_SIZE, planet.size)
             put(PlanetHelper.COLUMN_TYPE, planet.type)
             put(PlanetHelper.COLUMN_OWNER, planet.owner)
@@ -47,8 +48,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-
-
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
         val planetList = mutableListOf<Planet>()
         val db = readableDatabase
@@ -60,6 +59,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
             val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
+            val position = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POSITION))
             val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
@@ -69,7 +69,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
             val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_EXPLORE))
 
-            val planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
+            val planet = Planet(id, star, name, image, position, size, type, owner, food, production, population, research, explore)
             planetList.add(planet)
         }
         cursor.close()
@@ -88,6 +88,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
             val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
+            val position = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POSITION))
             val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
@@ -97,7 +98,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
             val explore = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_EXPLORE))
 
-            planet = Planet(id, star, name, image, size, type, owner, food, production, population, research, explore)
+            planet = Planet(id, star, name, image, position, size, type, owner, food, production, population, research, explore)
         }
         cursor.close()
         db.close()

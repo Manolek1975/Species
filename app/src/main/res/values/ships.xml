@@ -34,6 +34,15 @@
         <item>ship08</item>
     </string-array>
 
-
+    <string-array name="orbit_ships">
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+    </string-array>
 
 </resources>

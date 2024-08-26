@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.PlanetActivity
-import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 
 class PlanetsAdapter(private var planets: List<Planet>,
@@ -35,7 +34,6 @@ class PlanetsAdapter(private var planets: List<Planet>,
         holder.planetItem.setOnClickListener{
             val intent = Intent(context, PlanetActivity::class.java)
             data.edit().putInt("planet", planet.id).apply()
-            ShipDAO(context).updateOrbitShip(planet.id, data.getInt("specie", 0))
             context.startActivity(intent)
         }
     }

@@ -2,16 +2,12 @@ package com.delek.species.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.R
 import com.delek.species.adapter.NavigationAdapter
-import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.StarDAO

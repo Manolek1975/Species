@@ -11,7 +11,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
 
     companion object {
         const val DATABASE_NAME: String = "db_species"
-        const val DATABASE_VERSION: Int = 1
+        const val DATABASE_VERSION: Int = 2
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
