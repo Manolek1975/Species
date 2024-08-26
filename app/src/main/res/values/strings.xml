@@ -27,5 +27,6 @@
     <string name="planeta">Planeta %1$s</string>
     <string name="navegador">Navegador</string>
     <string name="dias">%1$d días</string>
+    <string name="naves">Naves</string>
 
 </resources>

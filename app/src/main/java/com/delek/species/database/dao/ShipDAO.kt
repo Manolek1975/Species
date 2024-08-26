@@ -72,10 +72,34 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
             val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
 
             ship = Ship(id, name, image, specieId, orbit, route, days)
+
         }
         cursor.close()
         db.close()
         return ship
+    }
+
+    fun getShipsBySpecie(specieID: Int?): List<Ship> {
+        val shipList = mutableListOf(Ship())
+        val db = readableDatabase
+        val query = "SELECT * FROM ships WHERE specie_id = $specieID"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
+            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
+            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
+            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
+            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_DAYS))
+
+            val ship = Ship(id, name, image, specieId, orbit, route, days)
+            shipList.add(ship)
+        }
+        cursor.close()
+        db.close()
+        return shipList
     }
 
     fun updateOrbitShip(planetId: Int, specie: Int) {

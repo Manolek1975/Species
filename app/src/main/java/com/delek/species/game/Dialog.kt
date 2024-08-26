@@ -1,8 +1,9 @@
-package com.delek.species
+package com.delek.species.game
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity

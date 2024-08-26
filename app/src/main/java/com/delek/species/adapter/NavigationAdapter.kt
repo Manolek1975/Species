@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.activities.PlanetActivity
-import com.delek.species.database.dao.ShipDAO
+import com.delek.species.activities.ShipActivity
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 
@@ -36,18 +35,15 @@ class NavigationAdapter(private var planets: List<Planet>,
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
-        //val dias = ship.days + position*400
         val dias = distances(planet)
         holder.daysLeft.text = res.getString(R.string.dias, dias)
         holder.planetItem.setOnClickListener{
-            val intent = Intent(context, PlanetActivity::class.java)
-            data.edit().putInt("planet", planet.id).apply()
-            ShipDAO(context).updateOrbitShip(planet.id, data.getInt("specie", 0))
-            context.startActivity(intent)
+            val i = Intent(context, ShipActivity::class.java)
+            //data.edit().putInt("planet", planet.id).apply()
+            //ShipDAO(context).updateOrbitShip(planet.id, data.getInt("specie", 0))
+            context.startActivity(i)
         }
     }
-
-    override fun getItemCount(): Int = planets.size
 
     private fun distances(planet: Planet): Int {
         if (planet.position <= ship.orbit){
@@ -55,5 +51,7 @@ class NavigationAdapter(private var planets: List<Planet>,
         } else
             return (planet.position - ship.orbit)*400
     }
+
+    override fun getItemCount(): Int = planets.size
 
 }

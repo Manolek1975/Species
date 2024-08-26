@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.Dialog
+import com.delek.species.game.Dialog
 import com.delek.species.R
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.adapter.PlanetsAdapter

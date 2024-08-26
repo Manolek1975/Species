@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.Dialog
+import com.delek.species.game.Dialog
 import com.delek.species.R
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
@@ -48,11 +48,13 @@ class PlanetActivity : AppCompatActivity() {
         // Ship Info
         //TODO comprobar todas las naves en orbita
         val ships = ShipDAO(this).getShipsByPlanet(planet.id)
-        val ship = ShipDAO(this).getShipBySpecie(specie)
-        val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
-        if (ship.orbit == planet.position)
-            binding.shipInfo.setImageResource(shipID)
+        for (ship in ships){
+            val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
+            if (ship.orbit == planet.position)
+                binding.shipInfo.setImageResource(shipID)
+        }
 
+        val ship = ShipDAO(this).getShipBySpecie(specie)
         binding.shipInfo.setOnClickListener {
             val i = Intent(this, ShipDevicesActivity::class.java)
             i.putExtra("ship", ship)

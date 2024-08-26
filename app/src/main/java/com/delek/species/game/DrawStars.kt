@@ -1,4 +1,4 @@
-package com.delek.species
+package com.delek.species.game
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import com.delek.species.R
 import com.delek.species.activities.SystemActivity
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO

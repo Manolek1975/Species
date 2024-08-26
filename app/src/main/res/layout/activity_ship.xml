@@ -4,24 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo"
-    tools:context=".activities.SystemActivity">
+    android:background="@drawable/fondo_sector"
+    tools:context=".activities.ShipActivity">
 
     <TextView
-        android:id="@+id/selectSpecie"
+        android:id="@+id/navesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aclonica"
         android:gravity="center"
         android:padding="20dp"
-        android:text="@string/elige_tu_specie"
+        android:text="@string/naves"
         android:textColor="@color/white"
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/speciesRecyclerView"
+        android:id="@+id/shipsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="48dp"
         android:clipToPadding="false"/>
+
 </LinearLayout>

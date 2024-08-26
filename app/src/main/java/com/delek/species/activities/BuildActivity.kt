@@ -11,7 +11,7 @@ import com.delek.species.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.ActivityBuildBinding
-import com.delek.species.Dialog as Dialog
+import com.delek.species.game.Dialog
 
 
 class BuildActivity : AppCompatActivity() {
