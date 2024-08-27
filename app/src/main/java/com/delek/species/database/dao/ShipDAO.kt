@@ -80,7 +80,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsBySpecie(specieID: Int): List<Ship> {
-        val shipList = mutableListOf(Ship())
+        val shipList = mutableListOf<Ship>()
         val db = readableDatabase
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
@@ -146,10 +146,13 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
 
     }
 
-    fun updateRouteShip(shipId: Int, planetId: Int) {
+    fun updateRouteShip(shipId: Int, planetId: Int, days: Int) {
         val db = readableDatabase
         val values = ContentValues()
         values.put("route", planetId)
+        values.put("orbit", 0)
+        values.put("days", days)
+
         db.update("ships", values, "id = $shipId", null)
     }
 

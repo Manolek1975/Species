@@ -45,7 +45,7 @@ class NavigationAdapter(private var planets: List<Planet>,
                 context.startActivity(i)
             } else {
                 val i = Intent(context, ShipActivity::class.java)
-                ShipDAO(context).updateRouteShip(ship.id, planet.id)
+                ShipDAO(context).updateRouteShip(ship.id, planet.id, dias)
                 context.startActivity(i)
             }
 

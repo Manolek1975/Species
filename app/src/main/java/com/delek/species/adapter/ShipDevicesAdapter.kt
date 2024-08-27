@@ -51,7 +51,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
     fun checkDevice(device: Device, planet: Planet){
         when (device.type to planet.explore) {
             0 to 0 -> Dialog(context).notExplored()
-            0 to 1 -> Dialog(context).showColony(planet, shipId)
+            0 to 1 -> Dialog(context).createColony(planet, shipId)
             0 to 2 -> Dialog(context).alreadyColony()
             3 to 0 -> Dialog(context).explorePlanet(planet)
             3 to 1 -> Dialog(context).alreadyExplored()

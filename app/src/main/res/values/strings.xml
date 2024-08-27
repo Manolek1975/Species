@@ -28,5 +28,7 @@
     <string name="navegador">Navegador</string>
     <string name="dias">%1$d días</string>
     <string name="naves">Naves</string>
+    <string name="en_ruta">En ruta a %1$s</string>
+    <string name="faltan_dias">Faltan %1$s dias</string>
 
 </resources>

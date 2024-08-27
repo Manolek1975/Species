@@ -53,12 +53,14 @@ class PlanetActivity : AppCompatActivity() {
             if (specie == ship.specieId){
                 binding.shipInfo.setImageResource(shipID)
                 data.edit().putInt("ship", ship.id).apply()
+
+                binding.shipInfo.setOnClickListener {
+                    val i = Intent(this, ShipDevicesActivity::class.java)
+                    startActivity(i)
+                }
             }
 
-            binding.shipInfo.setOnClickListener {
-                val i = Intent(this, ShipDevicesActivity::class.java)
-                startActivity(i)
-            }
+
         }
 
         // Build Info

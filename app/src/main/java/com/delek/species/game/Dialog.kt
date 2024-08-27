@@ -77,7 +77,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             .show()
     }
 
-    fun showColony(planet: Planet?, shipId: Int){
+    fun createColony(planet: Planet?, shipId: Int){
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(R.drawable.build1)
         dialogBuilder.setTitle(planet?.name)

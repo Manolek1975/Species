@@ -1,6 +1,7 @@
 package com.delek.species.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.game.Dialog
 import com.delek.species.R
+import com.delek.species.activities.PlanetActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Ship
 
@@ -18,7 +20,9 @@ class ShipsAdapter(private var ship: List<Ship>,
 
     class ShipViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val shipItem: TextView = itemView.findViewById(R.id.shipItem)
+        val nameItem: TextView = itemView.findViewById(R.id.nameItem)
         val routeItem: TextView = itemView.findViewById(R.id.routeItem)
+        val daysLeftItem: TextView = itemView.findViewById(R.id.daysLeftItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShipViewHolder {
@@ -30,13 +34,18 @@ class ShipsAdapter(private var ship: List<Ship>,
         val dialog = Dialog(context)
         val ship = ship[position]
         val planetName = PlanetDAO(context).getPlanetName(ship.route)
-        holder.shipItem.text = ship.name
-        holder.routeItem.text = "En ruta al planeta $planetName"
         val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
         holder.shipItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0,0)
         holder.shipItem.compoundDrawablePadding = 20
+        holder.nameItem.text = ship.name
+        holder.routeItem.text = context.getString(R.string.en_ruta, planetName)
+        holder.daysLeftItem.text = context.getString(R.string.faltan_dias, ship.days.toString())
+
         holder.shipItem.setOnClickListener{
-            //dialog.showSpecie(ship)
+            if(ship.orbit > 0){
+                val i = Intent(context, PlanetActivity::class.java)
+                context.startActivity(i)
+            }
         }
     }
 
