@@ -1,5 +1,6 @@
 package com.delek.species.activities
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.delek.species.adapter.SpeciesAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.ActivityShipBinding
+import com.delek.species.game.Dialog
 
 class ShipActivity : AppCompatActivity() {
 
@@ -32,6 +34,23 @@ class ShipActivity : AppCompatActivity() {
         binding.shipsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.shipsRecyclerView.adapter = adapter
 
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(this)
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial == 12) dialog.showTutorial(12)
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        val edit = data.edit()
+        if(tutorial == 12) edit.putInt("tutorial", 0)
+        edit.apply()
     }
 
     private fun hideSystemBars() {

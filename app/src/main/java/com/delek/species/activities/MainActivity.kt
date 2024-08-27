@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         db = DBHelper(this)
         binding.playButton.setOnClickListener {
             if(db.isEmpty("species")) {
-                Toast.makeText(this, "Crando Galaxia...", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Creando Galaxia...", Toast.LENGTH_LONG).show()
                 loadTables()
             }
             val i = Intent(this, SpecieActivity::class.java)

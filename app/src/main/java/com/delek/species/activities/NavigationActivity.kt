@@ -12,6 +12,7 @@ import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.ActivityNavigationBinding
+import com.delek.species.game.Dialog
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -32,6 +33,23 @@ class NavigationActivity : AppCompatActivity() {
         binding.navigationRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.navigationRecyclerView.adapter = adapter
 
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(this)
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if(tutorial == 11) dialog.showTutorial(11)
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        val edit = data.edit()
+        if(tutorial == 11) edit.putInt("tutorial", 12)
+        edit.apply()
     }
 
     private fun hideSystemBars() {

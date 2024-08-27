@@ -50,24 +50,21 @@ class ShipDevicesActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 4) dialog.showTutorial(4)
         if(tutorial == 6) dialog.showTutorial(6)
         if(tutorial == 10) dialog.showTutorial(10)
-
     }
 
     override fun onPause(){
         super.onPause()
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 4) edit.putInt("tutorial", 5)
         if(tutorial == 6) edit.putInt("tutorial", 7)
-        if(tutorial == 10) edit.putInt("tutorial", 0)
+        if(tutorial == 10) edit.putInt("tutorial", 11)
         edit.apply()
     }
 

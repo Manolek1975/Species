@@ -16,7 +16,7 @@
             suelen ser habitables, el tercer planeta es idóneo para la vida. Más allá se encuentran
             los planetas gaseosos no aptos para la colonización.
             \n\n
-            Toca el tercer planeta para entrar en orbita.
+            Toca el tercer planeta.
         </item>
 
         <item>Tu nave está orbitando el planeta, observa que está sin explorar, toca tu nave para ver
@@ -61,6 +61,19 @@
             nuestro sistema. El generador suministra la energía para tus motores y dispositivos.
             \n\n
             Toca el motor Kotlin para seleccionar un destino
+        </item>
+
+        <item>El ordenador de navegación te permite seleccionar la ruta hacia un planeta o estrella.
+            Vamos a explorar los planetas más cercanos, el cuarto planeta parece interesante.
+            \n\n
+            Toca el cuarto planeta
+        </item>
+
+        <item>La pantalla de naves te indica todas tus naves contruidasa, su nombre, si están orbitando
+            un planeta, si están en ruta hacia una planeta o estrella y los dias que faltan para llegar
+            al destino. Siempre puedes acceder desde el menú de la nave.
+            \n\n
+            Desliza el dedo por el lateral izquierdo para abrir el menú y abre la pantalla de planetas.
         </item>
 
     </string-array>
