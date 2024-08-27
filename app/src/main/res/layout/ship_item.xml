@@ -17,7 +17,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aclonica"
             android:textColor="@color/white"
-            android:gravity="center"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/routeItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aclonica"
+            android:textColor="@color/white"
+            android:gravity="center|end"
             android:textSize="12sp" />
 
     </LinearLayout>

@@ -15,6 +15,9 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+    override fun onCreate(p0: SQLiteDatabase?) { }
+
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
@@ -169,12 +172,15 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    fun getPlanetName(planetId: Int): Any {
+        val db = readableDatabase
+        var planetName = ""
+        val query = "SELECT name FROM planets WHERE id = $planetId"
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            planetName = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+        }
+        cursor.close()
+        return planetName
     }
 }

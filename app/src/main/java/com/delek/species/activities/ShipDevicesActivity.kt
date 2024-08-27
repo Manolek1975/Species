@@ -12,6 +12,8 @@ import com.delek.species.game.Dialog
 import com.delek.species.R
 import com.delek.species.adapter.ShipDevicesAdapter
 import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.databinding.ActivityShipDevicesBinding
@@ -27,17 +29,20 @@ class ShipDevicesActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        val ship = intent.getSerializableExtra("ship") as Ship?
-        val planet = intent.getSerializableExtra("planet") as Planet?
+        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val shipId = data.getInt("ship", 0)
+        val planetId = data.getInt("planet", 0)
+        val ship = ShipDAO(this).getShipById(shipId)
+        val planet = PlanetDAO(this).getPlanetById(planetId)
 
         // Ship Info
         val shipInfo: TextView = findViewById(R.id.shipInfo)
-        val shipID = resources.getIdentifier(ship?.image, "drawable", packageName)
+        val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
         shipInfo.setCompoundDrawablesWithIntrinsicBounds(shipID, 0, 0, 0)
-        shipInfo.text = ship?.name
+        shipInfo.text = ship.name
 
-        val devices = DeviceDAO(this).getDevicesByShip(ship?.id)
-        adapter = ShipDevicesAdapter(devices, planet, ship!!.id, this)
+        val devices = DeviceDAO(this).getDevicesByShip(ship.id)
+        adapter = ShipDevicesAdapter(devices, planet, ship.id, this)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.shipDevicesRecyclerView.adapter = adapter
     }

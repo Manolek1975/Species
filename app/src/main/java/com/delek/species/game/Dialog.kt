@@ -116,7 +116,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
         .show()
     }
 
-    fun existColony() {
+    fun alreadyColony() {
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("YA EXISTE UNA COLONIA")
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
@@ -126,10 +126,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
     fun alreadyExplored() {
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("YA ESTA EXPLORADO")
-        dialogBuilder.setNegativeButton("OK") { _, _ ->
-            val i = Intent(context, PlanetActivity::class.java)
-            context.startActivity(i)
-        }
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }
             .show()
     }
 

@@ -14,7 +14,7 @@ import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 
 class ShipDevicesAdapter(private var device: List<Device>,
-                         private var planet: Planet?,
+                         private var planet: Planet,
                          private var shipId: Int,
                          private val context: Context):
     RecyclerView.Adapter<ShipDevicesAdapter.BuildViewHolder>() {
@@ -38,25 +38,25 @@ class ShipDevicesAdapter(private var device: List<Device>,
         holder.deviceItem.compoundDrawablePadding = 50
 
         holder.deviceItem.setOnClickListener{
-            if (device.type == 0 && planet?.explore == 0)
-                Dialog(context).notExplored()
-            if (device.type == 0 && planet?.explore == 1)
-                Dialog(context).showColony(planet, shipId)
-            if (device.type == 0 && planet?.explore == 2)
-                Dialog(context).existColony()
-            if (device.type == 3 && planet?.explore == 0)
-                Dialog(context).explorePlanet(planet)
-            if (device.type == 3 && planet?.explore == 2)
-                Dialog(context).alreadyExplored()
+            checkDevice(device, planet)
             if (device.type == 1){
                 val i = Intent(context, NavigationActivity::class.java)
                 i.putExtra("shipId", shipId)
                 context.startActivity(i)
             }
-
-
         }
 
+    }
+
+    fun checkDevice(device: Device, planet: Planet){
+        when (device.type to planet.explore) {
+            0 to 0 -> Dialog(context).notExplored()
+            0 to 1 -> Dialog(context).showColony(planet, shipId)
+            0 to 2 -> Dialog(context).alreadyColony()
+            3 to 0 -> Dialog(context).explorePlanet(planet)
+            3 to 1 -> Dialog(context).alreadyExplored()
+            3 to 2 -> Dialog(context).alreadyExplored()
+        }
     }
 
     override fun getItemCount(): Int = device.size

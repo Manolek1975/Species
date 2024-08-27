@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.adapter.ShipsAdapter
 import com.delek.species.adapter.SpeciesAdapter
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.ActivityShipBinding
 
@@ -26,9 +27,8 @@ class ShipActivity : AppCompatActivity() {
 
         val data = this.getSharedPreferences("game_data", MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
-
-        val ships = ShipDAO(this).getShipsBySpecie(specieId)
-        adapter = ShipsAdapter(ships, this)
+        val ship = ShipDAO(this).getShipsBySpecie(specieId)
+        adapter = ShipsAdapter(ship, this)
         binding.shipsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.shipsRecyclerView.adapter = adapter
 

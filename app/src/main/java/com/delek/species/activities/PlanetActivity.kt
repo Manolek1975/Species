@@ -47,19 +47,18 @@ class PlanetActivity : AppCompatActivity() {
 
         // Ship Info
         //TODO comprobar todas las naves en orbita
-        val ships = ShipDAO(this).getShipsByPlanet(planet.id)
+        val ships = ShipDAO(this).getShipsByPlanet(planet.position)
         for (ship in ships){
             val shipID = resources.getIdentifier(ship.image, "drawable", packageName)
-            if (ship.orbit == planet.position)
+            if (specie == ship.specieId){
                 binding.shipInfo.setImageResource(shipID)
-        }
+                data.edit().putInt("ship", ship.id).apply()
+            }
 
-        val ship = ShipDAO(this).getShipBySpecie(specie)
-        binding.shipInfo.setOnClickListener {
-            val i = Intent(this, ShipDevicesActivity::class.java)
-            i.putExtra("ship", ship)
-            i.putExtra("planet", planet)
-            startActivity(i)
+            binding.shipInfo.setOnClickListener {
+                val i = Intent(this, ShipDevicesActivity::class.java)
+                startActivity(i)
+            }
         }
 
         // Build Info

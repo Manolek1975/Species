@@ -27,7 +27,8 @@ class NavigationActivity : AppCompatActivity() {
         val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
         val ship = ShipDAO(this).getShipById(shipId)
         val star = StarDAO(this).getStarById(data.getInt("star", 0))
-        adapter = NavigationAdapter(PlanetDAO(this).getPlanetsByStarId(star.id), ship,this)
+        val planet = PlanetDAO(this).getPlanetsByStarId(star.id)
+        adapter = NavigationAdapter(planet, ship,this)
         binding.navigationRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.navigationRecyclerView.adapter = adapter
 

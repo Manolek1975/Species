@@ -18,7 +18,6 @@
             android:fontFamily="@font/aclonica"
             android:textColor="@color/white"
             android:gravity="center|start"
-
             android:textSize="20sp" />
 
         <TextView
