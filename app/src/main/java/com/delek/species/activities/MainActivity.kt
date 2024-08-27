@@ -3,6 +3,7 @@ package com.delek.species.activities
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -43,7 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         db = DBHelper(this)
         binding.playButton.setOnClickListener {
-            if(db.isEmpty("species")) loadTables()
+            if(db.isEmpty("species")) {
+                Toast.makeText(this, "Crando Galaxia...", Toast.LENGTH_LONG).show()
+                loadTables()
+            }
             val i = Intent(this, SpecieActivity::class.java)
             startActivity(i)
         }
@@ -56,6 +60,18 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this) {
             finishAffinity()
         }
+    }
+
+    private fun loadTables() {
+        loadSpecies()
+        loadStarsSector1()
+        loadStarsSector2()
+        loadPlanets()
+        loadBuilds()
+        loadTechs()
+        loadShips()
+        loadDevices()
+        loadShipDevices()
     }
 
     // Load resources from xml files to database
@@ -213,18 +229,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun loadTables() {
-        loadSpecies()
-        loadStarsSector1()
-        loadStarsSector2()
-        loadPlanets()
-        loadBuilds()
-        loadTechs()
-        loadShips()
-        loadDevices()
-        loadShipDevices()
     }
 
     private fun getPlanetImage(j: Int): String {

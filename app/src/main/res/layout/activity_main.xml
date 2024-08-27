@@ -40,5 +40,4 @@
         android:fontFamily="@font/aclonica"
         android:text="@string/opciones" />
 
-
 </LinearLayout>
