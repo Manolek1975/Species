@@ -34,7 +34,7 @@ class DrawStars(context: Context): View(context) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val sector = data.getInt("sector", 0)
 
         canvas.drawBitmap(background, 0f, 0f, p)
@@ -78,7 +78,7 @@ class DrawStars(context: Context): View(context) {
 
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)

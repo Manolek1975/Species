@@ -27,7 +27,7 @@ class SectorActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = SpecieDAO(this).getSpecieById(data.getInt("specie", 0))
         val origin = StarDAO(this).getStarById(specie.origin)
         StarDAO(this).setStarExplored(origin.id) // Set origin star Explored
@@ -52,7 +52,7 @@ class SectorActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 1){
             dialog.showTutorial(1)
@@ -61,7 +61,7 @@ class SectorActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 1)
             data.edit().putInt("tutorial", 2).apply()

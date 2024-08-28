@@ -25,7 +25,7 @@ class NavigationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val shipId = intent.getIntExtra("shipId", 0)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val ship = ShipDAO(this).getShipById(shipId)
         val star = StarDAO(this).getStarById(data.getInt("star", 0))
         val planet = PlanetDAO(this).getPlanetsByStarId(star.id)
@@ -38,14 +38,14 @@ class NavigationActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 11) dialog.showTutorial(11)
     }
 
     override fun onPause(){
         super.onPause()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 11) edit.putInt("tutorial", 12)

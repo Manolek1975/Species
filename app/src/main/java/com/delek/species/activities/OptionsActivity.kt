@@ -23,17 +23,18 @@ class OptionsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = DBHelper(this)
+        val data = this.getSharedPreferences("data", MODE_PRIVATE)
+        val tutorial = data.getInt("tutorial", 0)
+        if (tutorial == 1) {
+            binding.tutorialSwitch.isChecked = true
+        }
 
         binding.tutorialSwitch.setOnCheckedChangeListener { _, isChecked ->
-            val file = "game_data"
-            val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
-            val edit = data.edit()
             if (isChecked) {
-                edit.putInt("tutorial", 1)
+                data.edit().putInt("tutorial", 1).apply()
             } else {
-                edit.putInt("tutorial", 0)
+                data.edit().putInt("tutorial", 0).apply()
             }
-            edit.apply()
         }
 
         binding.restartButton.setOnClickListener {

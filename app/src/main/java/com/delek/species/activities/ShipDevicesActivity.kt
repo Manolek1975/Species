@@ -29,7 +29,7 @@ class ShipDevicesActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideSystemBars()
 
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val shipId = data.getInt("ship", 0)
         val planetId = data.getInt("planet", 0)
         val ship = ShipDAO(this).getShipById(shipId)
@@ -50,7 +50,7 @@ class ShipDevicesActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 4) dialog.showTutorial(4)
         if(tutorial == 6) dialog.showTutorial(6)
@@ -59,7 +59,7 @@ class ShipDevicesActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 4) edit.putInt("tutorial", 5)

@@ -41,7 +41,7 @@ class BuildActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val file = "game_data"
+        val file = "data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 8) dialog.showTutorial(8)
@@ -49,7 +49,7 @@ class BuildActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        val file = "game_data"
+        val file = "data"
         val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()

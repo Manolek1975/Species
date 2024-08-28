@@ -27,7 +27,7 @@ class ShipActivity : AppCompatActivity() {
         binding = ActivityShipBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val data = this.getSharedPreferences("game_data", MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val ship = ShipDAO(this).getShipsBySpecie(specieId)
         adapter = ShipsAdapter(ship, this)
@@ -39,14 +39,14 @@ class ShipActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 12) dialog.showTutorial(12)
     }
 
     override fun onPause(){
         super.onPause()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 12) edit.putInt("tutorial", 0)

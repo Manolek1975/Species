@@ -18,6 +18,7 @@ import com.delek.species.database.helper.DBHelper
 class Dialog(context: Context) : AlertDialog.Builder(context) {
 
     fun showRestartDialog(){
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val db = DBHelper(context)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(android.R.drawable.stat_sys_warning)
@@ -27,13 +28,14 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
         dialogBuilder.setPositiveButton("BORRAR") { _, _: Int ->
             db.onDelete()
             val i = Intent(context, MainActivity::class.java)
+            data.edit().putInt("tutorial", 1).apply()
             context.startActivity(i)
         }
         .show()
     }
 
     fun showSpecie(specie: Specie) {
-        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
@@ -78,6 +80,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
     }
 
     fun createColony(planet: Planet?, shipId: Int){
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(R.drawable.build1)
         dialogBuilder.setTitle(planet?.name)
@@ -87,7 +90,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
             val intent = Intent(context, PlanetActivity::class.java).apply {
                 putExtra("planet", planet)
                 ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
-                PlanetDAO(context).setPlanetColonized(planet?.id ?: 0)
+                PlanetDAO(context).setPlanetColonized(planet?.id ?: 0, data.getInt("specie", 0))
             }
             context.startActivity(intent)
         }.show()

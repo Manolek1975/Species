@@ -31,7 +31,7 @@ class NavigationAdapter(private var planets: List<Planet>,
 
     override fun onBindViewHolder(holder: NavigationViewHolder, position: Int) {
         val res = context.resources
-        val data = context.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val planet = planets[position]
         holder.planetItem.text = planet.name
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)

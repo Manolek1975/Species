@@ -11,6 +11,7 @@ import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.PlanetHelper
 import com.delek.species.database.helper.PlanetBuildsHelper
 
+
 class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
@@ -115,10 +116,13 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.update("planets", values, "id=$id", null)
         db.close()
     }
-    fun setPlanetColonized(id: Int){
+
+    fun setPlanetColonized(id: Int, specieId: Int){
         val db = readableDatabase
         val values = ContentValues()
         values.put("explore", 2)
+        values.put("owner", specieId)
+        values.put("population", 50)
         db.update("planets", values, "id=$id", null)
         db.close()
     }
@@ -181,6 +185,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             planetName = cursor.getString(cursor.getColumnIndexOrThrow("name"))
         }
         cursor.close()
+        db.close()
         return planetName
     }
 }

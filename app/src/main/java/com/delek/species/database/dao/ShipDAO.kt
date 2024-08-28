@@ -154,6 +154,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         values.put("days", days)
 
         db.update("ships", values, "id = $shipId", null)
+        db.close()
     }
 
     fun updateOrbitShip(planetId: Int, specie: Int) {
@@ -161,6 +162,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val values = ContentValues()
         values.put("orbit", planetId)
         db.update("ships", values, "id = $specie", null)
+        db.close()
     }
 }
 

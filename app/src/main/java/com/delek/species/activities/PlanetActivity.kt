@@ -35,7 +35,7 @@ class PlanetActivity : AppCompatActivity() {
 
         planetDao = PlanetDAO(this)
         val build = intent.getSerializableExtra("build") as Build?
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
         val planet = planetDao.getPlanetById(planetId)
@@ -109,32 +109,26 @@ class PlanetActivity : AppCompatActivity() {
 
 
     private fun setResources(planet: Planet) {
-        val foodInfo: TextView = findViewById(R.id.foodInfo)
-        foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
-        foodInfo.text = planet.food.toString()
+        binding.foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
+        binding.foodInfo.text = planet.food.toString()
 
-        val prodInfo: TextView = findViewById(R.id.prodInfo)
-        prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
-        prodInfo.text = planet.production.toString()
+        binding.prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
+        binding.prodInfo.text = planet.production.toString()
 
-        val scienceInfo: TextView = findViewById(R.id.scienceInfo)
-        scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
-        scienceInfo.text = planet.research.toString()
+        binding.scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
+        binding.scienceInfo.text = planet.research.toString()
 
-        val energyInfo: TextView = findViewById(R.id.energyInfo)
-        energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
-        energyInfo.text = planet.research.toString()
+        binding.energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
+        binding.energyInfo.text = planet.research.toString()
 
-        val popInfo: TextView = findViewById(R.id.popInfo)
-        popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
-        popInfo.text = planet.population.toString()
+        binding.popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
+        binding.popInfo.text = planet.population.toString()
     }
 
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 3) dialog.showTutorial(3)
         if(tutorial == 5) dialog.showTutorial(5)
@@ -145,8 +139,7 @@ class PlanetActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        val file = "game_data"
-        val data = this.getSharedPreferences(file, Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         val edit = data.edit()
         if(tutorial == 3) edit.putInt("tutorial", 4)

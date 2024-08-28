@@ -41,26 +41,26 @@
             energía y población, observa que los colonos que viajaban en tu nave han bajado a la colonia.
             Sin embargo no tenemos alimentos, debemos alimentar a los colonos para que puedan sobrevivir.
             \n\n
-            Pulsa el botón de la llave inglesa para construir un agriplot.
+            Pulsa el botón de la llave inglesa.
         </item>
 
         <item>Los edificios que puedes construir dependen de la tecnología que hayas investigado.
             El número a la derecha te indica los días que tardarás en construirlos.
             \n\n
-            Toca el agriplot para comenzar su construcción.
+            Toca el agriplot.
         </item>
 
-        <item>Tu agriplot ha empezado a construirse. Ahora tienes un agriplot, a la derecha te indica
+        <item>Tu agriplot ha empezado a construirse. El número a la derecha te indica
             los días restantes para construirlo. Ahora sería interesante explorar otros planetas.
             \n\n
-            Toca tu nave para acceder a los dispositivos.
+            Toca tu nave.
         </item>
 
         <item>Tu nave dispone de un Motor Kotlin, podemos poner en marcha el motor y salir de órbita,
             como no disponemos de un navegador estelar sólo podremos viajar a otros planetas en
             nuestro sistema. El generador suministra la energía para tus motores y dispositivos.
             \n\n
-            Toca el motor Kotlin para seleccionar un destino
+            Toca el motor Kotlin.
         </item>
 
         <item>El ordenador de navegación te permite seleccionar la ruta hacia un planeta o estrella.
@@ -69,9 +69,9 @@
             Toca el cuarto planeta
         </item>
 
-        <item>La pantalla de naves te indica todas tus naves contruidasa, su nombre, si están orbitando
+        <item>La pantalla de naves te indica todas tus naves construidas, su nombre, si están orbitando
             un planeta, si están en ruta hacia una planeta o estrella y los dias que faltan para llegar
-            al destino. Siempre puedes acceder desde el menú de la nave.
+            al destino. Siempre puedes acceder desde el menú de naves.
             \n\n
             Desliza el dedo por el lateral izquierdo para abrir el menú y abre la pantalla de planetas.
         </item>

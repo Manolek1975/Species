@@ -28,7 +28,8 @@ class SystemActivity : AppCompatActivity() {
         binding = ActivitySystemBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val star = StarDAO(this).getStarById(data.getInt("star", 0))
         val starInfo: TextView = findViewById(R.id.starInfo)
         val drawableId = resources.getIdentifier(star.image, "drawable", packageName)
@@ -46,7 +47,7 @@ class SystemActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         val dialog = Dialog(this)
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 2){
                 dialog.showTutorial(2)
@@ -55,7 +56,7 @@ class SystemActivity : AppCompatActivity() {
 
     override fun onPause(){
         super.onPause()
-        val data = this.getSharedPreferences("game_data", Context.MODE_PRIVATE)
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data.getInt("tutorial", 0)
         if(tutorial == 2)
             data.edit().putInt("tutorial", 3).apply()
