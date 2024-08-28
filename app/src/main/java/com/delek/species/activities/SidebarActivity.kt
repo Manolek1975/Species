@@ -2,6 +2,8 @@ package com.delek.species.activities
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.WindowManager
+import androidx.activity.enableEdgeToEdge
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,8 +13,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
 import com.delek.species.databinding.ActivitySidebarBinding
+import com.google.android.material.internal.ContextUtils.getActivity
+
 
 class SidebarActivity : AppCompatActivity() {
 
@@ -23,13 +29,8 @@ class SidebarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySidebarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        hideSystemBars()
 
-        //setSupportActionBar(binding.appBarSidebar.toolbar)
-/*        binding.appBarSidebar.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
-        }*/
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_sidebar)
@@ -40,7 +41,7 @@ class SidebarActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_system
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
@@ -53,5 +54,15 @@ class SidebarActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_sidebar)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun hideSystemBars() {
+        enableEdgeToEdge()
+        val controller = WindowInsetsControllerCompat(
+            window, window.decorView
+        )
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
 }

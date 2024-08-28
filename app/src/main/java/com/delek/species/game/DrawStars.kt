@@ -12,7 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.delek.species.R
-import com.delek.species.activities.SystemActivity
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Star
@@ -84,7 +84,7 @@ class DrawStars(context: Context): View(context) {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
                     println(it.name)
-                    val intent = Intent(context, SystemActivity::class.java).apply {
+                    val intent = Intent(context, SidebarActivity::class.java).apply {
                         data.edit().putInt("star", it.id).apply()
                     }
                     context.startActivity(intent)
