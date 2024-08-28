@@ -1,13 +1,17 @@
 package com.delek.species.ui.sector
 
+import android.R
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.delek.species.database.dao.SpecieDAO
+import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSectorBinding
+import com.delek.species.game.DrawStars
+
 
 class SectorFragment : Fragment() {
 
@@ -22,17 +26,35 @@ class SectorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(SectorViewModel::class.java)
 
         _binding = FragmentSectorBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textSector
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        val context = requireContext()
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val specie = SpecieDAO(context).getSpecieById(data.getInt("specie", 0))
+        val origin = StarDAO(context).getStarById(specie.origin)
+        StarDAO(context).setStarExplored(origin.id) // Set origin star Explored
+        data.edit().putInt("sector", origin.sector).apply()
+
+        val drawStars = DrawStars(context)
+        return drawStars
+
+        //setContentView(drawStars)
+
+        // Exit to MainActivity
+/*        val i = Intent(context, MainActivity::class.java)
+        var backTime = 0L
+        onBackPressedDispatcher.addCallback(this) {
+            if (backTime + 2000 > System.currentTimeMillis()) {
+                startActivity(i)
+            } else {
+                Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
+            }
+            backTime = System.currentTimeMillis()
+        }*/
+
+        //val root: View = binding.root
+        //return root
     }
 
     override fun onDestroyView() {

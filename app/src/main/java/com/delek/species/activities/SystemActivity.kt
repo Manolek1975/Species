@@ -40,7 +40,7 @@ class SystemActivity : AppCompatActivity() {
             adapter = PlanetsAdapter(PlanetDAO(this).getPlanetsByStarId(star.id), this)
             binding.systemRecyclerView.layoutManager = LinearLayoutManager(this)
             binding.systemRecyclerView.adapter = adapter
-            binding.explored.visibility = GONE
+
         }
     }
 

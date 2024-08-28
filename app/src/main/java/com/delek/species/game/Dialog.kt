@@ -7,6 +7,7 @@ import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.PlanetActivity
 import com.delek.species.activities.SectorActivity
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
@@ -43,7 +44,7 @@ class Dialog(context: Context) : AlertDialog.Builder(context) {
         dialogBuilder.setMessage(specie.desc)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            val i = Intent(context, SectorActivity::class.java).apply {
+            val i = Intent(context, SidebarActivity::class.java).apply {
                 data.edit().putInt("specie", specie.id).apply()
                 data.edit().putInt("turn", 1).apply()
             }
