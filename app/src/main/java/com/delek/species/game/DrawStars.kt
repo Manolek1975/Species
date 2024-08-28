@@ -35,7 +35,7 @@ class DrawStars(context: Context): View(context) {
         super.onDraw(canvas)
 
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val sector = data.getInt("sector", 0)
+        val sector = data.getInt("com/delek/species/ui/sector", 0)
 
         canvas.drawBitmap(background, 0f, 0f, p)
 

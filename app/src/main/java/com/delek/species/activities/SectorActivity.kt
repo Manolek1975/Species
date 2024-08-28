@@ -31,7 +31,7 @@ class SectorActivity : AppCompatActivity() {
         val specie = SpecieDAO(this).getSpecieById(data.getInt("specie", 0))
         val origin = StarDAO(this).getStarById(specie.origin)
         StarDAO(this).setStarExplored(origin.id) // Set origin star Explored
-        data.edit().putInt("sector", origin.sector).apply()
+        data.edit().putInt("com/delek/species/ui/sector", origin.sector).apply()
 
         val drawStars = DrawStars(this)
         setContentView(drawStars)

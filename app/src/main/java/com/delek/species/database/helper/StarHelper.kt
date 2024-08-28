@@ -29,5 +29,4 @@ class StarHelper {
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
 
-
 }
