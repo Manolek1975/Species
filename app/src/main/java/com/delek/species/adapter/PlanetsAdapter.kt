@@ -1,15 +1,17 @@
 package com.delek.species.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.activities.PlanetActivity
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dataclass.Planet
+import com.google.android.material.navigation.NavigationView
 
 class PlanetsAdapter(private var planets: List<Planet>,
                      private val context: Context):
@@ -32,9 +34,14 @@ class PlanetsAdapter(private var planets: List<Planet>,
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
         holder.planetItem.setOnClickListener{
-            val intent = Intent(context, PlanetActivity::class.java)
             data.edit().putInt("planet", planet.id).apply()
-            context.startActivity(intent)
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(2)
+            val navController = context.findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+/*            val intent = Intent(context, PlanetActivity::class.java)
+            data.edit().putInt("planet", planet.id).apply()
+            context.startActivity(intent)*/
         }
     }
 

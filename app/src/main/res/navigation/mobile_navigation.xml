@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_system" />
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.delek.species.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_planet"
+        android:name="com.delek.species.ui.planet.PlanetFragment"
+        android:label="@string/planet"
+        tools:layout="@layout/fragment_planet" />
 
     <fragment
         android:id="@+id/nav_gallery"
