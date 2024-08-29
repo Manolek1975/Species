@@ -1,7 +1,7 @@
 package com.delek.species.game
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -11,11 +11,14 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Star
+import com.google.android.material.navigation.NavigationView
 
 
 class DrawStars(context: Context): View(context) {
@@ -23,7 +26,6 @@ class DrawStars(context: Context): View(context) {
     private val species = SpecieDAO(context)
     private val stars = StarDAO(context)
     private val p = Paint()
-
     private val bar = getActionBarHeight()
     private val dm: DisplayMetrics = resources.displayMetrics
     private var bitmap = BitmapFactory.decodeResource(resources, R.drawable.fondo_sector)
@@ -35,7 +37,7 @@ class DrawStars(context: Context): View(context) {
         super.onDraw(canvas)
 
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val sector = data.getInt("com/delek/species/ui/sector", 0)
+        val sector = data.getInt("sector", 0)
 
         canvas.drawBitmap(background, 0f, 0f, p)
 
@@ -77,17 +79,20 @@ class DrawStars(context: Context): View(context) {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
                     println(it.name)
-                    val intent = Intent(context, SidebarActivity::class.java).apply {
-                        data.edit().putInt("star", it.id).apply()
-                    }
-                    context.startActivity(intent)
+                    data.edit().putInt("star", it.id).apply()
+                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                    val item = nv.menu.getItem(1)
+                    val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+                    onNavDestinationSelected(item, navController)
                 }
                 return true
             }

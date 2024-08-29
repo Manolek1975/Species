@@ -2,10 +2,7 @@ package com.delek.species.activities
 
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
@@ -31,22 +28,11 @@ class SectorActivity : AppCompatActivity() {
         val specie = SpecieDAO(this).getSpecieById(data.getInt("specie", 0))
         val origin = StarDAO(this).getStarById(specie.origin)
         StarDAO(this).setStarExplored(origin.id) // Set origin star Explored
-        data.edit().putInt("com/delek/species/ui/sector", origin.sector).apply()
+        data.edit().putInt("sector", origin.sector).apply()
 
         val drawStars = DrawStars(this)
         setContentView(drawStars)
 
-        // Exit to MainActivity
-        val i = Intent(this, MainActivity::class.java)
-        var backTime = 0L
-        onBackPressedDispatcher.addCallback(this) {
-            if (backTime + 2000 > System.currentTimeMillis()) {
-                startActivity(i)
-            } else {
-                Toast.makeText(this@SectorActivity, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show()
-            }
-            backTime = System.currentTimeMillis()
-        }
     }
 
     override fun onResume(){

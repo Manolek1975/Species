@@ -44,5 +44,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="sector">Sector</string>
     <string name="system">System</string>
+    <string name="test_name">Test name</string>
+    <string name="exit">Pulsa de nuevo para salir</string>
 
 </resources>

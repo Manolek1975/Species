@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_sector" />
 
     <fragment
+        android:id="@+id/nav_system"
+        android:name="com.delek.species.ui.system.SystemFragment"
+        android:label="@string/system"
+        tools:layout="@layout/fragment_system" />
+
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.delek.species.ui.home.HomeFragment"
         android:label="@string/menu_home"
@@ -23,9 +29,4 @@
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
-    <fragment
-        android:id="@+id/nav_system"
-        android:name="com.delek.species.ui.system.SystemFragment"
-        android:label="@string/system"
-        tools:layout="@layout/fragment_system" />
 </navigation>
