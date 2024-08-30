@@ -17,6 +17,7 @@ import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentPlanetBinding
+import com.delek.species.game.Dialog
 import com.google.android.material.navigation.NavigationView
 
 class PlanetFragment : Fragment() {
@@ -122,6 +123,27 @@ class PlanetFragment : Fragment() {
 
         binding.popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
         binding.popInfo.text = planet.population.toString()
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(requireContext())
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 3) dialog.showTutorial(3)
+        if(tutorial == 5) dialog.showTutorial(5)
+        if(tutorial == 7) dialog.showTutorial(7)
+        if(tutorial == 9) dialog.showTutorial(9)
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 3) data.edit().putInt("tutorial", 4).apply()
+        if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
+        if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
+        if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
     }
 
     override fun onDestroyView() {

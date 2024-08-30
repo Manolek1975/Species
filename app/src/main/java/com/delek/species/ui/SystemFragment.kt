@@ -11,6 +11,7 @@ import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
+import com.delek.species.game.Dialog
 
 
 class SystemFragment : Fragment() {
@@ -46,6 +47,23 @@ class SystemFragment : Fragment() {
         return root
     }
 
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(requireContext())
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 2){
+            dialog.showTutorial(2)
+        }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 2)
+            data.edit().putInt("tutorial", 3).apply()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.game.Dialog
 import com.delek.species.R
-import com.delek.species.activities.PlanetActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dataclass.Ship
 
@@ -43,8 +42,8 @@ class ShipsAdapter(private var ship: List<Ship>,
 
         holder.shipItem.setOnClickListener{
             if(ship.orbit > 0){
-                val i = Intent(context, PlanetActivity::class.java)
-                context.startActivity(i)
+/*                val i = Intent(context, PlanetActivity::class.java)
+                context.startActivity(i)*/
             }
         }
     }

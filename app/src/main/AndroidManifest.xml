@@ -24,24 +24,11 @@
             android:name=".activities.NavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ShipDevicesActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.OptionsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.BuildActivity"
             android:exported="false" />
-        <activity
-            android:name=".activities.PlanetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SystemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SectorActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.SpecieActivity"
             android:windowSoftInputMode="adjustResize" />

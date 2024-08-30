@@ -12,6 +12,7 @@ import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipDevicesBinding
+import com.delek.species.game.Dialog
 
 
 class ShipDevicesFragment : Fragment() {
@@ -46,6 +47,25 @@ class ShipDevicesFragment : Fragment() {
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
         return root
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val dialog = Dialog(requireContext())
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 4) dialog.showTutorial(4)
+        if(tutorial == 6) dialog.showTutorial(6)
+        if(tutorial == 10) dialog.showTutorial(10)
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val tutorial = data?.getInt("tutorial", 0)
+        if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
+        if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
+        if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
     }
 
     override fun onDestroyView() {
