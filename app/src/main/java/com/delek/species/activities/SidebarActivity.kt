@@ -29,6 +29,7 @@ class SidebarActivity : AppCompatActivity() {
         binding = ActivitySidebarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
+        hideItem()
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -54,6 +55,13 @@ class SidebarActivity : AppCompatActivity() {
             }
             backTime = System.currentTimeMillis()
         }
+    }
+
+    private fun hideItem() {
+        val navigationView: NavigationView = this.findViewById(R.id.nav_view)
+        val navMenu: Menu = navigationView.menu
+        navMenu.findItem(R.id.nav_planet).setVisible(false)
+        navMenu.findItem(R.id.nav_ship_devices).setVisible(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

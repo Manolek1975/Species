@@ -17,9 +17,9 @@
             android:icon="@drawable/menu_planet"
             android:title="@string/menu_planet" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_ship_devices"
+            android:icon="@drawable/menu_ship"
+            android:title="@string/nave" />
 
     </group>
 </menu>

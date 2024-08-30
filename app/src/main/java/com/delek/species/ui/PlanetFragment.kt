@@ -1,4 +1,4 @@
-package com.delek.species.ui.planet
+package com.delek.species.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentPlanetBinding
+import com.google.android.material.navigation.NavigationView
 
 class PlanetFragment : Fragment() {
 
@@ -49,8 +53,10 @@ class PlanetFragment : Fragment() {
                 data.edit().putInt("ship", ship.id).apply()
 
                 binding.shipInfo.setOnClickListener {
-/*                    val i = Intent(this, ShipDevicesActivity::class.java)
-                    startActivity(i)*/
+                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                    val item = nv.menu.getItem(3)
+                    val navController = context.findNavController(R.id.nav_host)
+                    NavigationUI.onNavDestinationSelected(item, navController)
                 }
             }
         }

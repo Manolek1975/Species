@@ -1,4 +1,4 @@
-package com.delek.species.ui.sector
+package com.delek.species.ui
 
 import android.content.Context
 import android.os.Bundle

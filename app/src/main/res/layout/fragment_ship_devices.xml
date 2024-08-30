@@ -2,37 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/systemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sector"
-    tools:context=".ui.SystemFragment">
+    tools:context=".ui.ShipDevicesFragment">
 
     <TextView
-        android:id="@+id/starInfo"
+        android:id="@+id/shipInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:drawablePadding="40dp"
+        android:gravity="center_vertical"
         android:padding="16dp"
-        android:text="@string/test_name"
+        android:text="@string/ship_name"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/explored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="@string/test_name"
-        android:gravity="center_horizontal" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/systemRecyclerView"
+        android:id="@+id/shipDevicesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:paddingBottom="48dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>

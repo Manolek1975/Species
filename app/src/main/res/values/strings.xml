@@ -48,5 +48,7 @@
     <string name="exit">Pulsa de nuevo para salir</string>
     <string name="planet">Planet</string>
     <string name="menu_planet">Planet</string>
+    <string name="menu_nave">Nave</string>
+    <string name="nave">Nave</string>
 
 </resources>

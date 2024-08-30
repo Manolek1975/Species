@@ -7,26 +7,26 @@
 
     <fragment
         android:id="@+id/nav_sector"
-        android:name="com.delek.species.ui.sector.SectorFragment"
+        android:name="com.delek.species.ui.SectorFragment"
         android:label="@string/sector"
         tools:layout="@layout/fragment_sector" />
 
     <fragment
         android:id="@+id/nav_system"
-        android:name="com.delek.species.ui.system.SystemFragment"
+        android:name="com.delek.species.ui.SystemFragment"
         android:label="@string/system"
         tools:layout="@layout/fragment_system" />
 
     <fragment
         android:id="@+id/nav_planet"
-        android:name="com.delek.species.ui.planet.PlanetFragment"
+        android:name="com.delek.species.ui.PlanetFragment"
         android:label="@string/planet"
         tools:layout="@layout/fragment_planet" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.delek.species.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_ship_devices"
+        android:name="com.delek.species.ui.ShipDevicesFragment"
+        android:label="@string/menu_nave"
+        tools:layout="@layout/fragment_ship_devices" />
 
 </navigation>
