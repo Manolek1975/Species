@@ -127,10 +127,10 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun getPlanetBuild(build: Build, planet: Planet): PlanetBuilds {
+    fun getPlanetBuild(build: Int, planet: Planet): PlanetBuilds {
         var planetBuild = PlanetBuilds()
         val db=readableDatabase
-        val query = "SELECT * FROM planet_builds WHERE build_id = ${build.id} AND planet_id = ${planet.id}"
+        val query = "SELECT * FROM planet_builds WHERE build_id = $build AND planet_id = ${planet.id}"
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()) {

@@ -9,10 +9,13 @@ import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.helper.BuildHelper
 import com.delek.species.database.helper.DBHelper
 
+
 class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+    override fun onCreate(p0: SQLiteDatabase?) { }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     fun insertBuilds(build: Build){
         val db = writableDatabase
@@ -32,6 +35,33 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         }
         db.insert(BuildHelper.TABLE_NAME, null, values)
         db.close()
+    }
+
+    fun getBuildById(buildId: Int): Build {
+        var build = Build()
+        val db = readableDatabase
+        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE id = $buildId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_NAME))
+            val desc = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DESC))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_IMAGE))
+            val tech = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_TECH))
+            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_COST))
+            val food = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_FOOD))
+            val industry = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INDUSTRY))
+            val science = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_SCIENCE))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_POPULATION))
+            val offense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_OFFENCE))
+            val defense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DEFENSE))
+            val invader = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INVADER))
+
+            build = Build(id, name, desc, image, tech, cost, food, industry, science, population, offense, defense, invader)
+        }
+        cursor.close()
+        db.close()
+        return build
     }
 
     fun getBuildsByTech(techMax: Int): List<Build> {
@@ -93,11 +123,4 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
 
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
 }

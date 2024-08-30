@@ -36,9 +36,11 @@ class PlanetFragment : Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val specie = data.getInt("specie", 0)
+        val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
+        val buildId = data.getInt("build", 0)
         val planet = PlanetDAO(context).getPlanetById(planetId)
+        val build = BuildDAO(context).getBuildById(buildId)
 
         // Planet Info
         val planetID = resources.getIdentifier(planet.image, "drawable", context.packageName)
@@ -49,7 +51,7 @@ class PlanetFragment : Fragment() {
         val ships = ShipDAO(context).getShipsByPlanet(planet.position)
         for (ship in ships){
             val shipID = resources.getIdentifier(ship.image, "drawable", context.packageName)
-            if (specie == ship.specieId){
+            if (specieId == ship.specieId){
                 binding.shipInfo.setImageResource(shipID)
                 data.edit().putInt("ship", ship.id).apply()
 
@@ -63,12 +65,13 @@ class PlanetFragment : Fragment() {
         }
 
         // Build Info
-/*        if (build != null) {
-            val planetBuild = planetDao.getPlanetBuild(build, planet)
-            if (planetBuild.id != 0) planetDao.setPlanetBuild(planetBuild)
-            else planetDao.insertPlanetBuild(build, planet)
+        //TODO build always true
+        if (build != null) {
+            val planetBuild = PlanetDAO(context).getPlanetBuild(buildId, planet)
+            if (planetBuild.id != 0) PlanetDAO(context).setPlanetBuild(planetBuild)
+            else PlanetDAO(context).insertPlanetBuild(build, planet)
             println("Level: " + planetBuild.level.toString())
-        }*/
+        }
 
         // Builds
         val planetBuilds = PlanetDAO(context).getAllPlanetBuilds(planet)
@@ -92,9 +95,11 @@ class PlanetFragment : Fragment() {
 
         // FAB
         binding.fab.setOnClickListener { _ ->
-/*            val i = Intent(this, BuildActivity::class.java)
-            i.putExtra("planet", planet)
-            startActivity(i)*/
+            data.edit().putInt("planet", planet.id).apply()
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(4)
+            val navController = context.findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
         }
 
         return root

@@ -26,7 +26,13 @@
     <fragment
         android:id="@+id/nav_ship_devices"
         android:name="com.delek.species.ui.ShipDevicesFragment"
-        android:label="@string/menu_nave"
+        android:label="@string/nave"
         tools:layout="@layout/fragment_ship_devices" />
+
+    <fragment
+        android:id="@+id/nav_build"
+        android:name="com.delek.species.ui.BuildFragment"
+        android:label="Estructuras"
+        tools:layout="@layout/fragment_build" />
 
 </navigation>

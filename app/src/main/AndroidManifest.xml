@@ -27,9 +27,6 @@
             android:name=".activities.OptionsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.BuildActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.SpecieActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity

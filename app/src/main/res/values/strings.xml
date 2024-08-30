@@ -47,8 +47,7 @@
     <string name="test_name">Test name</string>
     <string name="exit">Pulsa de nuevo para salir</string>
     <string name="planet">Planet</string>
-    <string name="menu_planet">Planet</string>
-    <string name="menu_nave">Nave</string>
     <string name="nave">Nave</string>
+    <string name="estructuras">Estructuras</string>
 
 </resources>

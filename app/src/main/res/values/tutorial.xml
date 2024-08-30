@@ -11,10 +11,9 @@
             Toca tu estrella para continuar.
         </item>
 
-        <item>Esta es la ventana del sistema, el nombre de la estrella se encuentra en la parte
-            superior y debajo los planetas, los cuatro primeros planetas más cerca de la estrella
-            suelen ser habitables, el tercer planeta es idóneo para la vida. Más allá se encuentran
-            los planetas gaseosos no aptos para la colonización.
+        <item>Esta es la ventana del sistema, al llegar con tu nave se explora automáticamente.
+            La estrella se encuentra en la parte superior y debajo los planetas, los cuatro primeros
+            planetas son habitables, más allá se encuentran los planetas gaseosos.
             \n\n
             Toca el tercer planeta.
         </item>

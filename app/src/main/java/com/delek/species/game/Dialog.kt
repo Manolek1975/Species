@@ -56,6 +56,7 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun showBuild(build: Build, planet: Planet) {
+        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
@@ -63,13 +64,13 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setMessage(build.description)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-/*            val intent = Intent(context, PlanetActivity::class.java).apply {
-                putExtra("build", build)
-                putExtra("planet", planet)
-            }
-            context.startActivity(intent)*/
-        }
-            .show()
+            data.edit().putInt("planet", planet.id).apply()
+            data.edit().putInt("build", build.id).apply()
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(2)
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show()
     }
 
     fun explorePlanet(planet: Planet?) {

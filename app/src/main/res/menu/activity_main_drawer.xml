@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_sector"
-            android:icon="@drawable/menu_sector"
+            android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/sector" />
         <item
             android:id="@+id/nav_system"
@@ -15,11 +15,15 @@
         <item
             android:id="@+id/nav_planet"
             android:icon="@drawable/menu_planet"
-            android:title="@string/menu_planet" />
+            android:title="@string/planet" />
         <item
             android:id="@+id/nav_ship_devices"
             android:icon="@drawable/menu_ship"
             android:title="@string/nave" />
+        <item
+            android:id="@+id/nav_build"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/estructuras" />
 
     </group>
 </menu>
