@@ -60,8 +60,11 @@ class SidebarActivity : AppCompatActivity() {
     private fun hideItem() {
         val navigationView: NavigationView = this.findViewById(R.id.nav_view)
         val navMenu: Menu = navigationView.menu
+        navMenu.findItem(R.id.nav_system).setVisible(false)
         navMenu.findItem(R.id.nav_planet).setVisible(false)
         navMenu.findItem(R.id.nav_ship_devices).setVisible(false)
+        navMenu.findItem(R.id.nav_navigation).setVisible(false)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

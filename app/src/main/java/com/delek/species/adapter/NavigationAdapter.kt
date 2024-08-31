@@ -1,17 +1,19 @@
 package com.delek.species.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.activities.ShipActivity
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
+import com.google.android.material.navigation.NavigationView
 
 class NavigationAdapter(private var planets: List<Planet>,
                         private var ship: Ship,
@@ -39,18 +41,15 @@ class NavigationAdapter(private var planets: List<Planet>,
         val dias = distances(planet)
         holder.daysLeft.text = res.getString(R.string.dias, dias)
         holder.planetItem.setOnClickListener{
-            if (dias == 0) {
-/*                val i = Intent(context, PlanetActivity::class.java)
-                context.startActivity(i)*/
-            } else {
-                val i = Intent(context, ShipActivity::class.java)
-                ShipDAO(context).updateRouteShip(ship.id, planet.id, dias)
-                context.startActivity(i)
-            }
-
             data.edit().putInt("planet", planet.id).apply()
-            //ShipDAO(context).updateOrbitShip(planet.id, data.getInt("specie", 0))
-
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val navController = context.findNavController(R.id.nav_host)
+            var item = nv.menu.getItem(2)
+            if (dias != 0) {
+                item = nv.menu.getItem(6)
+                ShipDAO(context).updateRouteShip(ship.id, planet.id, dias)
+            }
+            NavigationUI.onNavDestinationSelected(item, navController)
         }
     }
 

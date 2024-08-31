@@ -78,7 +78,7 @@ class Dialog(context: Context) : View(context) {
         val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(planet?.name)
-        dialogBuilder.setMessage("EXPLORANDO PLANETA")
+        dialogBuilder.setMessage("EXPLORANDO PLANETA...")
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             PlanetDAO(context).setPlanetExplored(planet?.id ?: 0)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
