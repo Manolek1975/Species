@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sector"
-    tools:context=".activities.NavigationActivity">
+    tools:context=".ui.NavigationFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -23,5 +21,6 @@
         android:id="@+id/navigationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </LinearLayout>

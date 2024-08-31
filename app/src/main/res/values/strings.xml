@@ -49,5 +49,6 @@
     <string name="planet">Planet</string>
     <string name="nave">Nave</string>
     <string name="estructuras">Estructuras</string>
+    <string name="navegacion">Navegación</string>
 
 </resources>

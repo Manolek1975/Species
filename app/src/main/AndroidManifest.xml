@@ -21,9 +21,6 @@
             android:name=".activities.ShipActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.NavigationActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.OptionsActivity"
             android:exported="false" />
         <activity
@@ -34,7 +31,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category
                     android:name="android.intent.category.LAUNCHER"
                     android:theme="@style/AppTheme.SpeciesTheme" />

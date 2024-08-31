@@ -66,7 +66,7 @@ class PlanetFragment : Fragment() {
 
         // Build Info
         //TODO build always true
-        if (build != null) {
+        if (build.id != 0) {
             val planetBuild = PlanetDAO(context).getPlanetBuild(buildId, planet)
             if (planetBuild.id != 0) PlanetDAO(context).setPlanetBuild(planetBuild)
             else PlanetDAO(context).insertPlanetBuild(build, planet)
@@ -145,6 +145,7 @@ class PlanetFragment : Fragment() {
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
+        data?.edit()?.putInt("build", 0)?.apply()
         if(tutorial == 3) data.edit().putInt("tutorial", 4).apply()
         if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
         if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()

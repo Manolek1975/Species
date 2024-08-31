@@ -24,6 +24,10 @@
             android:id="@+id/nav_build"
             android:icon="@android:drawable/ic_menu_manage"
             android:title="@string/estructuras" />
+        <item
+            android:id="@+id/nav_navigation"
+            android:icon="@drawable/menu_ship"
+            android:title="@string/navegacion" />
 
     </group>
 </menu>

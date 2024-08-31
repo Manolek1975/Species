@@ -5,34 +5,41 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_sector">
 
+    <!--0-->
     <fragment
         android:id="@+id/nav_sector"
         android:name="com.delek.species.ui.SectorFragment"
         android:label="@string/sector"
         tools:layout="@layout/fragment_sector" />
-
+    <!--1-->
     <fragment
         android:id="@+id/nav_system"
         android:name="com.delek.species.ui.SystemFragment"
         android:label="@string/system"
         tools:layout="@layout/fragment_system" />
-
+    <!--2-->
     <fragment
         android:id="@+id/nav_planet"
         android:name="com.delek.species.ui.PlanetFragment"
         android:label="@string/planet"
         tools:layout="@layout/fragment_planet" />
-
+    <!--3-->
     <fragment
         android:id="@+id/nav_ship_devices"
         android:name="com.delek.species.ui.ShipDevicesFragment"
         android:label="@string/nave"
         tools:layout="@layout/fragment_ship_devices" />
-
+    <!--4-->
     <fragment
         android:id="@+id/nav_build"
         android:name="com.delek.species.ui.BuildFragment"
         android:label="Estructuras"
         tools:layout="@layout/fragment_build" />
+    <!--5-->
+    <fragment
+        android:id="@+id/nav_navigation"
+        android:name="com.delek.species.ui.NavigationFragment"
+        android:label="Navegación"
+        tools:layout="@layout/fragment_navigation" />
 
 </navigation>
