@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Specie
 

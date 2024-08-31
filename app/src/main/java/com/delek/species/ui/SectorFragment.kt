@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSectorBinding
-import com.delek.species.game.Dialog
-import com.delek.species.game.DrawStars
+import com.delek.species.model.Dialog
+import com.delek.species.model.DrawStars
 
 
 class SectorFragment : Fragment() {

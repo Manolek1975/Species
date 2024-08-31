@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dataclass.Device

@@ -12,7 +12,7 @@ import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipDevicesBinding
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 
 
 class ShipDevicesFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.delek.species.game
+package com.delek.species.model
 
 import android.content.Context
 import android.content.Intent

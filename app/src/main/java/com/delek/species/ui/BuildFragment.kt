@@ -11,7 +11,7 @@ import com.delek.species.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.FragmentBuildBinding
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 
 
 class BuildFragment: Fragment() {

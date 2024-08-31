@@ -11,7 +11,7 @@ import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 
 
 class SystemFragment : Fragment() {

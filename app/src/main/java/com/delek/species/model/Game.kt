@@ -1,10 +1,4 @@
-package com.delek.species.game
-
-import android.content.Context
-import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+package com.delek.species.model
 
 abstract class Game {
 

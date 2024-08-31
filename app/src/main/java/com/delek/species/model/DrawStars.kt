@@ -1,4 +1,4 @@
-package com.delek.species.game
+package com.delek.species.model
 
 import android.annotation.SuppressLint
 import android.content.Context

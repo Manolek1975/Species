@@ -1,12 +1,11 @@
 package com.delek.species.activities
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityOptionsBinding
 

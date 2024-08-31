@@ -39,9 +39,6 @@ class PlanetsAdapter(private var planets: List<Planet>,
             val item = nv.menu.getItem(2)
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
-/*            val intent = Intent(context, PlanetActivity::class.java)
-            data.edit().putInt("planet", planet.id).apply()
-            context.startActivity(intent)*/
         }
     }
 

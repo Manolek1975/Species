@@ -17,7 +17,7 @@ import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentPlanetBinding
-import com.delek.species.game.Dialog
+import com.delek.species.model.Dialog
 import com.google.android.material.navigation.NavigationView
 
 class PlanetFragment : Fragment() {
