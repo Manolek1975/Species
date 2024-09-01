@@ -10,7 +10,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
 
     companion object {
         const val DATABASE_NAME: String = "db_species"
-        const val DATABASE_VERSION: Int = 2
+        const val DATABASE_VERSION: Int = 3
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -23,6 +23,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(ShipHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(ShipDevicesHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(StarExploredHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -35,6 +36,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(ShipDevicesHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(StarExploredHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -49,6 +51,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(ShipHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(DeviceHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(ShipDevicesHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(StarExploredHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 

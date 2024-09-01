@@ -25,6 +25,7 @@ import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
+import com.delek.species.database.dataclass.StarExplored
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityMainBinding
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         loadSpecies()
         loadStarsSector1()
         loadStarsSector2()
+        loadStarsExplored()
         loadPlanets()
         loadBuilds()
         loadTechs()
@@ -117,6 +119,17 @@ class MainActivity : AppCompatActivity() {
             val star = Star(0, name[i], image[i], sector,0,
                 coords[i].x, coords[i].y, type[i].toInt(), 0)
             StarDAO(this).insertStars(star)
+        }
+    }
+
+    private fun loadStarsExplored() {
+        val res = this.resources
+        val star = res.getStringArray(R.array.origin_species)
+
+        for (i in star.indices){
+            val starExplored = StarExplored(0, i+1, star[i].toInt())
+            StarDAO(this).insertStarExplored(starExplored)
+            finish()
         }
     }
 

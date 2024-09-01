@@ -7,31 +7,35 @@
         <item
             android:id="@+id/nav_sector"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/sector" />
+            android:title="@string/menu_sector" />
+        <item
+            android:id="@+id/nav_stars"
+            android:icon="@drawable/menu_star"
+            android:title="@string/menu_stars" />
         <item
             android:id="@+id/nav_system"
             android:icon="@drawable/menu_system"
-            android:title="@string/system" />
+            android:title="@string/menu_system" />
         <item
             android:id="@+id/nav_planet"
             android:icon="@drawable/menu_planet"
-            android:title="@string/planet" />
+            android:title="@string/menu_planet" />
         <item
             android:id="@+id/nav_ship_devices"
             android:icon="@drawable/menu_ship"
-            android:title="@string/ship" />
+            android:title="@string/menu_ship" />
         <item
             android:id="@+id/nav_build"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="@string/estructuras" />
+            android:title="@string/menu_builds" />
         <item
             android:id="@+id/nav_navigation"
             android:icon="@drawable/menu_ship"
-            android:title="@string/navegacion" />
+            android:title="@string/menu_navigation" />
         <item
             android:id="@+id/nav_ship"
             android:icon="@drawable/menu_ship"
-            android:title="@string/ship" />
+            android:title="@string/menu_ship" />
 
     </group>
 </menu>

@@ -5,21 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sistema"
-    tools:context=".ui.BuildFragment">
+    tools:context=".ui.StarFragment">
 
     <TextView
-        android:id="@+id/buildText"
+        android:id="@+id/starText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aclonica"
         android:gravity="center"
         android:padding="20dp"
-        android:text="@string/menu_builds"
+        android:text="@string/menu_stars"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/buildsRecyclerView"
+        android:id="@+id/starRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

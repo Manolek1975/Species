@@ -6,7 +6,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Star
+import com.delek.species.database.dataclass.StarExplored
 import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.helper.StarExploredHelper
 import com.delek.species.database.helper.StarHelper
 
 
@@ -14,6 +16,8 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+    override fun onCreate(p0: SQLiteDatabase?) { }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     fun insertStars(star: Star) {
         val db = writableDatabase
@@ -28,6 +32,16 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
             put(StarHelper.COLUMN_EXPLORE, star.explore)
         }
         db.insert(StarHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertStarExplored(star: StarExplored) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(StarExploredHelper.COLUMN_SPECIE_ID, star.specieId)
+            put(StarExploredHelper.COLUMN_STAR_ID, star.starId)
+        }
+        db.insert(StarExploredHelper.TABLE_NAME, null, values)
         db.close()
     }
 
@@ -122,12 +136,34 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
+    fun getStarsExploredBySpecie(specieId: Int): List<Star> {
+        val starList = mutableListOf<Star>()
+        val db = readableDatabase
+        val query = "SELECT stars.* FROM stars INNER JOIN star_explored " +
+                "ON stars.id = star_explored.star_id " +
+                "WHERE star_explored.specie_id = $specieId"
 
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
+
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
+            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
+            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
+            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
+
+            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
+            starList.add(star)
+        }
+        cursor.close()
+        db.close()
+        return starList
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
+
 }

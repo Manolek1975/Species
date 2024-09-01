@@ -72,9 +72,8 @@ class DrawStars(context: Context): View(context) {
                     canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 30F, p)
                 }
             }
-
             p.textSize = 56f
-            canvas.drawText("SECTOR $sector", dm.widthPixels/2f-100, dm.heightPixels.toFloat(), p)
+            canvas.drawText("SECTOR $sector", dm.widthPixels/2f-100, dm.heightPixels.toFloat()+100, p)
         }
     }
 
@@ -90,7 +89,7 @@ class DrawStars(context: Context): View(context) {
                     println(it.name)
                     data.edit().putInt("star", it.id).apply()
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(1)
+                    val item = nv.menu.getItem(2)
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
                     onNavDestinationSelected(item, navController)
                 }

@@ -36,7 +36,7 @@ class PlanetsAdapter(private var planets: List<Planet>,
         holder.planetItem.setOnClickListener{
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(2)
+            val item = nv.menu.getItem(3)
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }
