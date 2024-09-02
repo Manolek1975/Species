@@ -89,7 +89,7 @@ class DrawStars(context: Context): View(context) {
                     println(it.name)
                     data.edit().putInt("star", it.id).apply()
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(2)
+                    val item = nv.menu.getItem(6) //To System
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
                     onNavDestinationSelected(item, navController)
                 }

@@ -36,7 +36,7 @@
 
     <string name="menu_sector">Sector</string>
     <string name="menu_system">System</string>
-    <string name="menu_planet">Planet</string>
+    <string name="menu_planet">Planetas</string>
     <string name="menu_ship">Naves</string>
     <string name="menu_builds">Estructuras</string>
     <string name="menu_navigation">Navegación</string>
@@ -50,5 +50,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="sin_explorar">Sin Explorar</string>
+    <string name="acelereactor">Acelereactor</string>
 
 </resources>

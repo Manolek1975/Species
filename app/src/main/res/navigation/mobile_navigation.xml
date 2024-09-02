@@ -17,6 +17,12 @@
         android:name="com.delek.species.ui.StarFragment"
         android:label="Stars"
         tools:layout="@layout/fragment_stars" />
+    <!--0-->
+    <fragment
+        android:id="@+id/nav_planets"
+        android:name="com.delek.species.ui.PlanetsFragment"
+        android:label="Planets"
+        tools:layout="@layout/fragment_planets" />
     <!--1-->
     <fragment
         android:id="@+id/nav_system"

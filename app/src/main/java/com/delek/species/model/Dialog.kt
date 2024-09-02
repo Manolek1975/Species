@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AlertDialogLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
@@ -21,10 +20,11 @@ import com.google.android.material.navigation.NavigationView
 
 class Dialog(context: Context) : View(context) {
 
+    private val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle_NoActionBar)
+    val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)!!
+
     fun showRestartDialog(){
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val db = DBHelper(context)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(android.R.drawable.stat_sys_warning)
         dialogBuilder.setTitle("ATENCIÓN")
         dialogBuilder.setMessage("Se borrarán todos los datos de tu partida. ¿Quieres continuar?")
@@ -34,33 +34,28 @@ class Dialog(context: Context) : View(context) {
             context.getSharedPreferences("data", 0).edit().clear().apply()
             val i = Intent(context, MainActivity::class.java)
             data.edit().putInt("tutorial", 1).apply()
-            context.startActivity(i) // To Sector
+            context.startActivity(i) // To Main Activity
         }
         .show()
     }
 
     fun showSpecie(specie: Specie) {
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(specie.name)
         dialogBuilder.setMessage(specie.desc)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            val i = Intent(context, SidebarActivity::class.java).apply {
-                data.edit().putInt("specie", specie.id).apply()
-                data.edit().putInt("turn", 1).apply()
-            }
+            val i = Intent(context, SidebarActivity::class.java)
+            data.edit().putInt("specie", specie.id).apply()
+            data.edit().putInt("turn", 1).apply()
             context.startActivity(i) // To Sector
-        }
+            }
         .show()
     }
 
     fun showBuild(build: Build, planet: Planet) {
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(build.name)
         dialogBuilder.setMessage(build.description)
@@ -69,30 +64,28 @@ class Dialog(context: Context) : View(context) {
             data.edit().putInt("planet", planet.id).apply()
             data.edit().putInt("build", build.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(3) // To Planet
+            val item = nv.menu.getItem(7) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
     }
 
-    fun explorePlanet(planet: Planet?) {
-        val id = context.resources.getIdentifier(planet?.image, "drawable", context.packageName)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
+    fun explorePlanet(planet: Planet) {
+        val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle(planet?.name)
+        dialogBuilder.setTitle(planet.name)
         dialogBuilder.setMessage("EXPLORANDO PLANETA...")
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            PlanetDAO(context).setPlanetExplored(planet?.id ?: 0)
+            PlanetDAO(context).setPlanetExplored(planet.id)
+            PlanetDAO(context).insertPlanetExplored(data.getInt("specie", 0), planet.id)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(3) // To Planet
+            val item = nv.menu.getItem(7) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
     }
 
     fun createColony(planet: Planet?, shipId: Int){
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setIcon(R.drawable.build1)
         dialogBuilder.setTitle(planet?.name)
         dialogBuilder.setMessage("Fundar una nueva colonia")
@@ -102,14 +95,13 @@ class Dialog(context: Context) : View(context) {
             PlanetDAO(context).setPlanetColonized(planet?.id ?: 0, data.getInt("specie", 0))
             ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(3) // To Planet
+            val item = nv.menu.getItem(7) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
     }
 
      fun notExplored() {
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("PLANETA NO EXPLORADO")
         dialogBuilder.setMessage("Usa tu scanner para explorar el planeta")
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
@@ -117,14 +109,12 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun alreadyColony() {
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("YA EXISTE UNA COLONIA")
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
             .show()
     }
 
     fun alreadyExplored() {
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("YA ESTA EXPLORADO")
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
             .show()
@@ -133,7 +123,6 @@ class Dialog(context: Context) : View(context) {
     fun showTutorial(id: Int) {
         val res = context.resources
         val message = res.getStringArray(R.array.tutorial)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
         dialogBuilder.setTitle("Tutorial")
         dialogBuilder.setMessage(message[id])
         dialogBuilder.setNegativeButton("OK") { _, _ -> }

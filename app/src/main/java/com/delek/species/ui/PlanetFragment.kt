@@ -57,7 +57,7 @@ class PlanetFragment : Fragment() {
 
                 binding.shipInfo.setOnClickListener {
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(4) // To Ship devices
+                    val item = nv.menu.getItem(8) // To Ship devices
                     val navController = context.findNavController(R.id.nav_host)
                     NavigationUI.onNavDestinationSelected(item, navController)
                 }
@@ -80,11 +80,13 @@ class PlanetFragment : Fragment() {
         binding.planetBuildsRecyclerView.adapter = adapter
 
         // Manage FAB and Textview Message
+        //TODO Get planetExplored from database
         when (planet.explore) {
             0 -> binding.explored.visibility = View.VISIBLE
             1 -> {
                 binding.planetType.text = setType(planet.type)
             }
+            //TODO Check if Owner is specieId
             2 -> {
                 binding.fab.visibility = View.VISIBLE
                 binding.planetType.text = setType(planet.type)

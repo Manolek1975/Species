@@ -44,9 +44,9 @@ class NavigationAdapter(private var planets: List<Planet>,
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val navController = context.findNavController(R.id.nav_host)
-            var item = nv.menu.getItem(3) // To Planet
+            var item = nv.menu.getItem(7) // To Planet
             if (dias != 0) {
-                item = nv.menu.getItem(7) // To Ships
+                item = nv.menu.getItem(4) // To Ships
                 ShipDAO(context).updateRouteShip(ship.id, planet.id, dias)
             }
             NavigationUI.onNavDestinationSelected(item, navController)

@@ -143,9 +143,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
                 "ON stars.id = star_explored.star_id " +
                 "WHERE star_explored.specie_id = $specieId"
 
-
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
@@ -164,6 +162,5 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return starList
     }
-
 
 }

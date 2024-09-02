@@ -10,7 +10,6 @@ import com.delek.species.database.helper.DBHelper
 import com.delek.species.databinding.ActivityOptionsBinding
 
 
-@Suppress("UNUSED_EXPRESSION")
 class OptionsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOptionsBinding

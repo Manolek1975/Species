@@ -4,38 +4,57 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <!--0-->
+        <item
+            android:id="@+id/nav_acelereactor"
+            android:icon="@android:drawable/ic_media_ff"
+            android:title="@string/acelereactor" />
+        <!--1-->
         <item
             android:id="@+id/nav_sector"
             android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/menu_sector" />
+        <!--2-->
         <item
             android:id="@+id/nav_stars"
             android:icon="@drawable/menu_star"
             android:title="@string/menu_stars" />
+        <!--3-->
         <item
-            android:id="@+id/nav_system"
-            android:icon="@drawable/menu_system"
-            android:title="@string/menu_system" />
-        <item
-            android:id="@+id/nav_planet"
+            android:id="@+id/nav_planets"
             android:icon="@drawable/menu_planet"
             android:title="@string/menu_planet" />
-        <item
-            android:id="@+id/nav_ship_devices"
-            android:icon="@drawable/menu_ship"
-            android:title="@string/menu_ship" />
-        <item
-            android:id="@+id/nav_build"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:title="@string/menu_builds" />
-        <item
-            android:id="@+id/nav_navigation"
-            android:icon="@drawable/menu_ship"
-            android:title="@string/menu_navigation" />
+        <!--4-->
         <item
             android:id="@+id/nav_ship"
             android:icon="@drawable/menu_ship"
             android:title="@string/menu_ship" />
+        <!--5-->
+        <item
+            android:id="@+id/nav_build"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/menu_builds" />
+        <!--6-->
+        <item
+            android:id="@+id/nav_system"
+            android:icon="@drawable/menu_system"
+            android:title="@string/menu_system" />
+        <!--7-->
+        <item
+            android:id="@+id/nav_planet"
+            android:icon="@drawable/menu_planet"
+            android:title="@string/menu_planet" />
+        <!--8-->
+        <item
+            android:id="@+id/nav_ship_devices"
+            android:icon="@drawable/menu_ship"
+            android:title="@string/menu_ship" />
+        <!--9-->
+        <item
+            android:id="@+id/nav_navigation"
+            android:icon="@drawable/menu_ship"
+            android:title="@string/menu_navigation" />
+
 
     </group>
 </menu>

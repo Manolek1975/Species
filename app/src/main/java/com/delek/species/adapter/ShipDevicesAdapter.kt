@@ -45,7 +45,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
             if (device.type == 1){
                 data.edit().putInt("ship", shipId).apply()
                 val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                val item = nv.menu.getItem(6) // To Navigation
+                val item = nv.menu.getItem(9) // To Navigation
                 val navController = context.findNavController(R.id.nav_host)
                 NavigationUI.onNavDestinationSelected(item, navController)
             }
