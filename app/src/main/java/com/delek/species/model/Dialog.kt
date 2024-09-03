@@ -128,6 +128,21 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setNegativeButton("OK") { _, _ -> }
             .show()
     }
+
+    fun buildFinish(planet: Planet) {
+        dialogBuilder.setIcon(R.drawable.build1)
+        dialogBuilder.setTitle(planet.name)
+        dialogBuilder.setMessage("La construcción ha terminado")
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(7) // To Planet
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show()
+    }
+
+
     /*    fun showTutorialSector(specie: Specie, starName: String) {
         val res = context.resources
         val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)

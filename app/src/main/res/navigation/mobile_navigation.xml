@@ -7,6 +7,12 @@
 
     <!--0-->
     <fragment
+        android:id="@+id/nav_acelereactor"
+        android:name="com.delek.species.ui.PlanetFragment"
+        android:label="Acelereactor"
+        tools:layout="@layout/fragment_sector" />
+    <!--0-->
+    <fragment
         android:id="@+id/nav_sector"
         android:name="com.delek.species.ui.SectorFragment"
         android:label="Sector"

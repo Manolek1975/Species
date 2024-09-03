@@ -1,22 +1,27 @@
 package com.delek.species.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.databinding.ActivitySidebarBinding
+import com.google.android.material.navigation.NavigationView
 
 
 class SidebarActivity : AppCompatActivity() {
@@ -31,6 +36,23 @@ class SidebarActivity : AppCompatActivity() {
         hideSystemBars()
         hideItem()
 
+        //Nav Header
+        val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val specieId = data.getInt("specie", 0)
+        val turn = data.getInt("turn", 0)
+        val specie = SpecieDAO(this).getSpecieById(specieId)
+
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val headerView = navigationView.getHeaderView(0)
+        val navIcon: ImageView = headerView.findViewById(R.id.specieIcon)
+        val id = this.resources.getIdentifier(specie.image, "drawable", packageName)
+        navIcon.setImageResource(id)
+        val navSpecieName = headerView.findViewById<View>(R.id.specieName) as TextView
+        navSpecieName.text = specie.name
+        val navDate = headerView.findViewById<View>(R.id.textView) as TextView
+        navDate.text = "Fecha estelar: 2300.$turn"
+
+        //Nav Drawer
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host)
