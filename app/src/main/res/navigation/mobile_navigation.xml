@@ -5,65 +5,66 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_sector">
 
-    <!--0-->
     <fragment
         android:id="@+id/nav_acelereactor"
         android:name="com.delek.species.ui.PlanetFragment"
         android:label="Acelereactor"
         tools:layout="@layout/fragment_sector" />
-    <!--0-->
     <fragment
         android:id="@+id/nav_sector"
         android:name="com.delek.species.ui.SectorFragment"
         android:label="Sector"
         tools:layout="@layout/fragment_sector" />
-    <!--0-->
     <fragment
         android:id="@+id/nav_stars"
         android:name="com.delek.species.ui.StarFragment"
         android:label="Stars"
         tools:layout="@layout/fragment_stars" />
-    <!--0-->
     <fragment
         android:id="@+id/nav_planets"
         android:name="com.delek.species.ui.PlanetsFragment"
         android:label="Planets"
         tools:layout="@layout/fragment_planets" />
-    <!--1-->
     <fragment
         android:id="@+id/nav_system"
         android:name="com.delek.species.ui.SystemFragment"
         android:label="System"
         tools:layout="@layout/fragment_system" />
-    <!--2-->
     <fragment
         android:id="@+id/nav_planet"
         android:name="com.delek.species.ui.PlanetFragment"
         android:label="Planet"
         tools:layout="@layout/fragment_planet" />
-    <!--3-->
-    <fragment
-        android:id="@+id/nav_ship_devices"
-        android:name="com.delek.species.ui.ShipDevicesFragment"
-        android:label="Ship"
-        tools:layout="@layout/fragment_ship_devices" />
-    <!--4-->
-    <fragment
-        android:id="@+id/nav_build"
-        android:name="com.delek.species.ui.BuildFragment"
-        android:label="Builds"
-        tools:layout="@layout/fragment_build" />
-    <!--5-->
-    <fragment
-        android:id="@+id/nav_navigation"
-        android:name="com.delek.species.ui.NavigationFragment"
-        android:label="Navigation"
-        tools:layout="@layout/fragment_navigation" />
-    <!--6-->
     <fragment
         android:id="@+id/nav_ship"
         android:name="com.delek.species.ui.ShipFragment"
         android:label="Ships"
         tools:layout="@layout/fragment_ship" />
+    <fragment
+        android:id="@+id/nav_tech"
+        android:name="com.delek.species.ui.ShipFragment"
+        android:label="Techs"
+        tools:layout="@layout/fragment_ship" />
+    <fragment
+        android:id="@+id/nav_diplomacy"
+        android:name="com.delek.species.ui.ShipFragment"
+        android:label="Diplomacy"
+        tools:layout="@layout/fragment_ship" />
+    <fragment
+        android:id="@+id/nav_ship_devices"
+        android:name="com.delek.species.ui.ShipDevicesFragment"
+        android:label="Ship"
+        tools:layout="@layout/fragment_ship_devices" />
+    <fragment
+        android:id="@+id/nav_build"
+        android:name="com.delek.species.ui.BuildFragment"
+        android:label="Builds"
+        tools:layout="@layout/fragment_build" />
+    <fragment
+        android:id="@+id/nav_navigation"
+        android:name="com.delek.species.ui.NavigationFragment"
+        android:label="Navigation"
+        tools:layout="@layout/fragment_navigation" />
+
 
 </navigation>

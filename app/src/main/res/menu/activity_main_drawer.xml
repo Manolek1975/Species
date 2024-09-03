@@ -31,25 +31,35 @@
             android:title="@string/menu_ship" />
         <!--5-->
         <item
+            android:id="@+id/nav_tech"
+            android:icon="@drawable/menu_tech"
+            android:title="Tecnologías" />
+        <!--6-->
+        <item
+            android:id="@+id/nav_diplomacy"
+            android:icon="@drawable/menu_diplo"
+            android:title="Diplomacia" />
+        <!--7-->
+        <item
             android:id="@+id/nav_build"
             android:icon="@android:drawable/ic_menu_manage"
             android:title="@string/menu_builds" />
-        <!--6-->
+        <!--8-->
         <item
             android:id="@+id/nav_system"
             android:icon="@drawable/menu_system"
             android:title="@string/menu_system" />
-        <!--7-->
+        <!--9-->
         <item
             android:id="@+id/nav_planet"
             android:icon="@drawable/menu_planet"
             android:title="@string/menu_planet" />
-        <!--8-->
+        <!--10-->
         <item
             android:id="@+id/nav_ship_devices"
             android:icon="@drawable/menu_ship"
             android:title="@string/menu_ship" />
-        <!--9-->
+        <!--11-->
         <item
             android:id="@+id/nav_navigation"
             android:icon="@drawable/menu_ship"

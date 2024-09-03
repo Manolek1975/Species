@@ -64,7 +64,7 @@ class Dialog(context: Context) : View(context) {
             data.edit().putInt("planet", planet.id).apply()
             data.edit().putInt("build", build.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(7) // To Planet
+            val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
@@ -79,7 +79,7 @@ class Dialog(context: Context) : View(context) {
             PlanetDAO(context).setPlanetExplored(planet.id)
             PlanetDAO(context).insertPlanetExplored(data.getInt("specie", 0), planet.id)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(7) // To Planet
+            val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
@@ -95,7 +95,7 @@ class Dialog(context: Context) : View(context) {
             PlanetDAO(context).setPlanetColonized(planet?.id ?: 0, data.getInt("specie", 0))
             ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(7) // To Planet
+            val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
@@ -136,7 +136,7 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(7) // To Planet
+            val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()

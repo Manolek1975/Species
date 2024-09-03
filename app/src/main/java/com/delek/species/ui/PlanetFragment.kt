@@ -57,7 +57,7 @@ class PlanetFragment : Fragment() {
 
                 binding.shipInfo.setOnClickListener {
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(8) // To Ship devices
+                    val item = nv.menu.getItem(10) // To Ship devices
                     val navController = context.findNavController(R.id.nav_host)
                     NavigationUI.onNavDestinationSelected(item, navController)
                 }
@@ -98,7 +98,7 @@ class PlanetFragment : Fragment() {
         binding.fab.setOnClickListener { _ ->
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(5) // To Builds
+            val item = nv.menu.getItem(7) // To Builds
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }

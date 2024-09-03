@@ -38,7 +38,7 @@ class StarsAdapter(private var stars: List<Star>,
         holder.starItem.setOnClickListener{
             data.edit().putInt("star", star.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(6) // To System
+            val item = nv.menu.getItem(8) // To System
             val navController = (context).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }
