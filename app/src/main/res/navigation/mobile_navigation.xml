@@ -6,9 +6,9 @@
     app:startDestination="@+id/nav_sector">
 
     <fragment
-        android:id="@+id/nav_acelereactor"
+        android:id="@+id/nav_hipercrono"
         android:name="com.delek.species.ui.PlanetFragment"
-        android:label="Acelereactor"
+        android:label="Hipercrono"
         tools:layout="@layout/fragment_sector" />
     <fragment
         android:id="@+id/nav_sector"
@@ -42,9 +42,9 @@
         tools:layout="@layout/fragment_ship" />
     <fragment
         android:id="@+id/nav_tech"
-        android:name="com.delek.species.ui.ShipFragment"
+        android:name="com.delek.species.ui.TechFragment"
         android:label="Techs"
-        tools:layout="@layout/fragment_ship" />
+        tools:layout="@layout/fragment_tech" />
     <fragment
         android:id="@+id/nav_diplomacy"
         android:name="com.delek.species.ui.ShipFragment"

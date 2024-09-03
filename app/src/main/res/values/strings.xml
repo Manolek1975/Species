@@ -50,6 +50,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="sin_explorar">Sin Explorar</string>
-    <string name="acelereactor">Acelereactor</string>
+    <string name="hipercrono">Hipercrono</string>
+    <string name="tecnologias">Tecnologías</string>
 
 </resources>

@@ -6,9 +6,9 @@
     <group android:checkableBehavior="single">
         <!--0-->
         <item
-            android:id="@+id/nav_acelereactor"
+            android:id="@+id/nav_hipercrono"
             android:icon="@android:drawable/ic_media_ff"
-            android:title="@string/acelereactor" />
+            android:title="@string/hipercrono" />
         <!--1-->
         <item
             android:id="@+id/nav_sector"

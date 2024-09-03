@@ -18,9 +18,6 @@
             android:label="@string/title_activity_sidebar"
             android:theme="@style/AppTheme.SpeciesTheme.NoActionBar" />
         <activity
-            android:name=".activities.ShipActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.OptionsActivity"
             android:exported="false" />
         <activity

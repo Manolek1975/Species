@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         loadShips()
         loadDevices()
         loadShipDevices()
+        loadTechsLearned()
     }
 
     // Load resources from xml files to database
@@ -200,6 +201,14 @@ class MainActivity : AppCompatActivity() {
             val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
             TechDAO(this).insertTechs(tech)
         }
+    }
+
+    private fun loadTechsLearned(){
+        val specieList = SpecieDAO(this).getAllSpecies()
+        for (i in specieList){
+            TechDAO(this).insertTechsLearned(i)
+        }
+
     }
 
     private fun loadShips() {
