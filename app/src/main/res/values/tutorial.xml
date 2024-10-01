@@ -70,9 +70,9 @@
 
         <item>La pantalla de naves te indica todas tus naves construidas, su nombre, si están orbitando
             un planeta, si están en ruta hacia una planeta o estrella y los dias que faltan para llegar
-            al destino. Siempre puedes acceder desde el menú de naves.
+            al destino. Podemos reducir los días activando el hipercrono.
             \n\n
-            Desliza el dedo por el lateral izquierdo para abrir el menú y abre la pantalla de planetas.
+            Desliza el dedo por el lateral izquierdo para abrir el menú y toca el Hipercrono.
         </item>
 
     </string-array>

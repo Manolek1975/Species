@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
@@ -33,7 +34,6 @@ class SystemFragment : Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val star = StarDAO(context).getStarById(data.getInt("star", 0))
 
-        //val starInfo: TextView = findViewById(R.id.starInfo)
         val drawableId = resources.getIdentifier(star.image, "drawable", context.packageName )
         binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
         binding.starInfo.text = star.name
@@ -44,6 +44,17 @@ class SystemFragment : Fragment() {
             binding.systemRecyclerView.adapter = adapter
             binding.explored.visibility = View.GONE
         }
+
+        binding.starInfo.setOnClickListener {
+            val navController = findNavController()
+            navController.popBackStack()
+        }
+
+        binding.explored.setOnClickListener{
+            val navController = findNavController()
+            navController.popBackStack()
+        }
+
         return root
     }
 

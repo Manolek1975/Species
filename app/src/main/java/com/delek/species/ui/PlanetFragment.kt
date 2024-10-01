@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
@@ -92,6 +93,11 @@ class PlanetFragment : Fragment() {
                 binding.planetType.text = setType(planet.type)
                 setResources(planet)
             }
+        }
+
+        binding.planetInfo.setOnClickListener{
+            val navController = findNavController()
+            navController.popBackStack()
         }
 
         // FAB

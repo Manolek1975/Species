@@ -29,6 +29,7 @@ class DrawStars(context: Context): View(context) {
     private val bar = getActionBarHeight()
     private val dm: DisplayMetrics = resources.displayMetrics
     private var bitmap = BitmapFactory.decodeResource(resources, R.drawable.fondo_sector)
+    private var arrow = BitmapFactory.decodeResource(resources, R.drawable.flecha)
     private val background = Bitmap.createScaledBitmap(
         bitmap, dm.widthPixels, dm.heightPixels + bar, true)
 
@@ -38,6 +39,7 @@ class DrawStars(context: Context): View(context) {
 
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val sector = data.getInt("sector", 0)
+        val tutorial = data.getInt("tutorial", 0)
 
         canvas.drawBitmap(background, 0f, 0f, p)
 
@@ -55,6 +57,7 @@ class DrawStars(context: Context): View(context) {
             p.textSize = 36f
             canvas.drawText(star.name, x1-50, y1-40, p)
 
+/*            // Draw line between stars
             if(pairs.getOrNull(stars.indexOf(star)) != null) {
                 val x2 = pairs[stars.indexOf(star)].second.x.toFloat()
                 val y2 = pairs[stars.indexOf(star)].second.y.toFloat()
@@ -62,7 +65,7 @@ class DrawStars(context: Context): View(context) {
                 p.style = Paint.Style.STROKE
                 p.strokeWidth = 3F
                 canvas.drawLine(x1, y1, x2, y2, p)
-            }
+            }*/
 
             for(specie in species){ // Check origin star
                 if(specie.origin == star.id && star.explore != 0){
@@ -70,7 +73,11 @@ class DrawStars(context: Context): View(context) {
                     p.strokeWidth = 5F
                     p.color = Color.parseColor(specie.color)
                     canvas.drawCircle(star.x.toFloat(), star.y.toFloat(), 30F, p)
+                    if(tutorial == 1){
+                        canvas.drawBitmap(arrow, star.x.toFloat()-220, star.y.toFloat()-120, p)
+                    }
                 }
+
             }
             p.textSize = 56f
             canvas.drawText("SECTOR $sector", dm.widthPixels/2f-100, dm.heightPixels.toFloat()+100, p)
