@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 
 class PlanetBuildsAdapter(private var build: List<Build>,
-                          private var planetDao: PlanetDAO,
+                          private var planetDao: PlanetBuildsDAO,
                           private var planet: Planet,
                           private val context: Context):
     RecyclerView.Adapter<PlanetBuildsAdapter.BuildViewHolder>() {

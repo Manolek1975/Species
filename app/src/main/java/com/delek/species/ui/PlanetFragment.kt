@@ -14,6 +14,7 @@ import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
@@ -67,16 +68,16 @@ class PlanetFragment : Fragment() {
 
         // Build Info
         if (build.id != 0) {
-            val planetBuild = PlanetDAO(context).getPlanetBuild(buildId, planet)
-            if (planetBuild.id != 0) PlanetDAO(context).setPlanetBuild(planetBuild)
-            else PlanetDAO(context).insertPlanetBuild(build, planet)
+            val planetBuild = PlanetBuildsDAO(context).getPlanetBuild(buildId, planet)
+            if (planetBuild.id != 0) PlanetBuildsDAO(context).setPlanetBuild(planetBuild)
+            else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
             println("Level: " + planetBuild.level.toString())
         }
 
         // Builds
-        val planetBuilds = PlanetDAO(context).getAllPlanetBuilds(planet)
+        val planetBuilds = PlanetBuildsDAO(context).getAllPlanetBuilds(planet)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
-        adapter = PlanetBuildsAdapter(builds, PlanetDAO(context), planet, context)
+        adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.planetBuildsRecyclerView.adapter = adapter
 
