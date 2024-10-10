@@ -109,14 +109,36 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun getMinDaysLeft() : Int {
+/*    fun getMinDaysLeft() : Int {
         val db = readableDatabase
+        var minDaysLeft = 0
         val query = "SELECT days_left, MIN(days_left) FROM planet_builds GROUP BY days_left HAVING MIN(days_left) > -1"
         val cursor = db.rawQuery(query, null)
-        cursor.moveToFirst()
-        val minDaysLeft = cursor.getInt(0)
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+            minDaysLeft = cursor.getInt(0)
+        }
         cursor.close()
         return minDaysLeft
+    }*/
+
+    fun getMinBuild() : PlanetBuilds {
+        val db = readableDatabase
+        var planetBuild = PlanetBuilds()
+        val query = "SELECT *, MIN(days_left) FROM planet_builds"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
+            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
+
+            planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
+        }
+
+        cursor.close()
+        return planetBuild
     }
 
 

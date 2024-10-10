@@ -52,6 +52,7 @@
     <string name="sin_explorar">Sin Explorar</string>
     <string name="hipercrono">Hipercrono</string>
     <string name="tecnologias">Tecnologías</string>
-    <string name="fecha_estelar">Fecha Estelar</string>
+    <string name="fecha_estelar_text">Fecha Estelar</string>
+    <string name="fecha_estelar">2300.1</string>
 
 </resources>

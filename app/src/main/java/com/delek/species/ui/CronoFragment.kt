@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
@@ -33,32 +34,38 @@ class CronoFragment: Fragment() {
         var fecha = 2300
         var days = turn
 
-        val min = PlanetBuildsDAO(context).getMinDaysLeft().toLong()
+        val planetBuild = PlanetBuildsDAO(context).getMinBuild()
+        val daysLeft = planetBuild.daysLeft.toLong()
 
-        val timer = object: CountDownTimer((min+1) * 100, 100) {
+/*        var smallest: Double = a
+        if (smallest > b) smallest = b
+        if (smallest > c) smallest = c*/
+
+        val timer = object: CountDownTimer(daysLeft * 100, 100) {
             override fun onTick(millisUntilFinished: Long) {
+                ++days
+                if (days > 99) {
+                    fecha++
+                    days = 0
+                }
                 val buildList = PlanetBuildsDAO(context).getBuildsUnderConstruction()
                 for (build in buildList) {
-                    if(build.daysLeft > 0)
-                        PlanetBuildsDAO(context).decrementDays(build)
+/*                    if(build.daysLeft > 0)
+                        PlanetBuildsDAO(context).decrementDays(build)*/
                 }
                 binding.fechaEstelar.text = buildString {
                     append(fecha)
                     append(".")
                     append(days)
                 }
-                println("Days=$days Min=$min")
-                days++
-                if (days > 99) {
-                    fecha++
-                    days = 0
-                }
-
+                println("Days=$days Min=$daysLeft")
                 Log.d("buildList", buildList.toString())
 
             }
             override fun onFinish() {
-                //binding.fechaEstelar.text = "OK"
+                val build = BuildDAO(context).getBuildById(planetBuild.buildId)
+                println("Build=$build")
+                Dialog(context).buildDone(build, planetBuild)
             }
         }
         timer.start()
