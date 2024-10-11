@@ -14,6 +14,7 @@ import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetBuilds
+import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.helper.DBHelper
 import com.google.android.material.navigation.NavigationView
@@ -144,6 +145,23 @@ class Dialog(context: Context) : View(context) {
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show().setCanceledOnTouchOutside(false)
+    }
+
+    fun shipDone(ship: Ship) {
+        val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
+        val planet = PlanetDAO(context).getPlanetById(ship.orbit)
+        data.edit().putInt("planet", ship.orbit).apply()
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("NAVE HA LLEGADO A DESTINO")
+        dialogBuilder.setMessage("$ship.name ha llegado al planeta $planet.name, esperamos ordenes")
+        //dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(9) // To Planet
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show().setCanceledOnTouchOutside(false)
+
     }
 
 
