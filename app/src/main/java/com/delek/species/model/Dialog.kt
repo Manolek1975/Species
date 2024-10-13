@@ -10,10 +10,12 @@ import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetBuilds
+import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.helper.DBHelper
@@ -54,6 +56,25 @@ class Dialog(context: Context) : View(context) {
             context.startActivity(i) // To Sector
             }
         .show()
+    }
+
+    fun insertProd(build: Build, planet: Planet) {
+        val owner = data.getInt("specie", 0)
+        val prod = Prod(0, 1, build.id, planet.id, owner, build.cost)
+        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(build.name)
+        dialogBuilder.setMessage(build.description)
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            data.edit().putInt("planet", planet.id).apply()
+            data.edit().putInt("build", build.id).apply()
+            ProdDAO(context).insertProd(prod)
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(9) // To Planet
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show()
     }
 
     fun showBuild(build: Build, planet: Planet) {
@@ -131,10 +152,10 @@ class Dialog(context: Context) : View(context) {
             .show()
     }
 
-    fun buildDone(build: Build, planetBuild: PlanetBuilds) {
+    fun buildDone(build: Build, planet: Planet) {
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
-        val planet = PlanetDAO(context).getPlanetById(planetBuild.planetId)
-        data.edit().putInt("planet", planetBuild.planetId).apply()
+        //val planetId = PlanetDAO(context).getPlanetById(planet.id)
+        data.edit().putInt("planet", planet.id).apply()
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("CONSTRUCCIÓN FINALIZAZA")
         dialogBuilder.setMessage("Ha finalizado la construcción de un ${build.name} en el planeta ${planet.name}")

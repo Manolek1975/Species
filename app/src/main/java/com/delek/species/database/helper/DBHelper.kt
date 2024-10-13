@@ -26,6 +26,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(StarExploredHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(PlanetExploredHelper.SQL_CREATE_ENTRIES)
         db?.execSQL(TechLearnedHelper.SQL_CREATE_ENTRIES)
+        db?.execSQL(ProdHelper.SQL_CREATE_ENTRIES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -41,6 +42,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(StarExploredHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(PlanetExploredHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(TechLearnedHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ProdHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 
@@ -58,6 +60,7 @@ class DBHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db?.execSQL(StarExploredHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(PlanetExploredHelper.SQL_DELETE_ENTRIES)
         db?.execSQL(TechLearnedHelper.SQL_DELETE_ENTRIES)
+        db?.execSQL(ProdHelper.SQL_DELETE_ENTRIES)
         onCreate(db)
     }
 

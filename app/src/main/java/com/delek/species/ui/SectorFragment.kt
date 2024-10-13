@@ -22,7 +22,7 @@ class SectorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+println("SECTOR")
         _binding = FragmentSectorBinding.inflate(inflater, container, false)
 
         val context = requireContext()

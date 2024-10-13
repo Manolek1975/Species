@@ -123,7 +123,7 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
 
             planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
         }
-
+        db.close()
         cursor.close()
         return planetBuild
     }

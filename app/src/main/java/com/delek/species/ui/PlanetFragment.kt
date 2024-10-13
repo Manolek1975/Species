@@ -14,6 +14,7 @@ import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
@@ -40,9 +41,10 @@ class PlanetFragment : Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
-        val buildId = data.getInt("build", 0)
+        //val buildId = data.getInt("build", 0)
+
         val planet = PlanetDAO(context).getPlanetById(planetId)
-        val build = BuildDAO(context).getBuildById(buildId)
+        //val build = BuildDAO(context).getBuildById(buildId)
 
         // Planet Info
         val planetID = resources.getIdentifier(planet.image, "drawable", context.packageName)
@@ -66,13 +68,24 @@ class PlanetFragment : Fragment() {
             }
         }
 
-        // Build Info
-        if (build.id != 0) {
+        // Prod Info
+        val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
+        val build = BuildDAO(context).getBuildById(prod.typeId)
+        val prodID = resources.getIdentifier(build.image, "drawable", context.packageName)
+        binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
+        binding.prod.text = build.name
+        binding.prodDays.text = prod.days.toString()
+
+        if (prod.typeId == 0)
+            binding.prodDays.text = "SIN PRODUCCION"
+
+        // Build Level
+/*        if (build.id != 0) {
             val planetBuild = PlanetBuildsDAO(context).getPlanetBuild(buildId, planet)
             if (planetBuild.id != 0) PlanetBuildsDAO(context).setPlanetBuild(planetBuild)
             else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
             println("Level: " + planetBuild.level.toString())
-        }
+        }*/
 
         // Builds
         val planetBuilds = PlanetBuildsDAO(context).getAllPlanetBuilds(planet)
@@ -84,13 +97,15 @@ class PlanetFragment : Fragment() {
         // Manage FAB and Textview Message
         //TODO Get planetExplored from database
         when (planet.explore) {
-            0 -> binding.explored.visibility = View.VISIBLE
+            0 -> binding.prod.visibility = View.VISIBLE
             1 -> {
                 binding.planetType.text = setType(planet.type)
             }
             //TODO Check if Owner is specieId
             2 -> {
                 binding.fab.visibility = View.VISIBLE
+                binding.prod.visibility = View.VISIBLE
+                //binding.explored.text = "SIN PRODUCCIÓN"
                 binding.planetType.text = setType(planet.type)
                 setResources(planet)
             }
@@ -103,6 +118,7 @@ class PlanetFragment : Fragment() {
 
         // FAB
         binding.fab.setOnClickListener { _ ->
+            ProdDAO(context).deleteProd(prod.id)
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(7) // To Builds
