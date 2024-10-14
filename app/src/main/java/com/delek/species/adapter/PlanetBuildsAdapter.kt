@@ -30,7 +30,7 @@ class PlanetBuildsAdapter(private var build: List<Build>,
 
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
         val build = build[position]
-        val buildPlanet = planetDao.getPlanetBuild(build.id, planet)
+        val buildPlanet = planetDao.getPlanetBuildById(build.id, planet)
         val level = buildPlanet.level
         holder.buildLevel.text = level.toString()
         holder.buildItem.text = build.name

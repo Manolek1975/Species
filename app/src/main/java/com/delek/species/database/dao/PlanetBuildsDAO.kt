@@ -24,30 +24,9 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
             put(PlanetBuildsHelper.COLUMN_PLANET_ID, planet.id)
             put(PlanetBuildsHelper.COLUMN_BUILD_ID, build.id)
             put(PlanetBuildsHelper.COLUMN_LEVEL, 1)
-            put(PlanetBuildsHelper.COLUMN_DAYSLEFT, build.cost)
         }
         db.insert(PlanetBuildsHelper.TABLE_NAME, null, values)
         db.close()
-    }
-
-    fun getPlanetBuild(build: Int, planet: Planet): PlanetBuilds {
-        var planetBuild = PlanetBuilds()
-        val db=readableDatabase
-        val query = "SELECT * FROM planet_builds WHERE build_id = $build AND planet_id = ${planet.id}"
-        val cursor = db.rawQuery(query, null)
-
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
-
-            planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
-        }
-        cursor.close()
-        db.close()
-        return planetBuild
     }
 
     fun getAllPlanetBuilds(planet: Planet): List<PlanetBuilds> {
@@ -61,9 +40,8 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
             val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
             val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
             val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
 
-            val planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
+            val planetBuild = PlanetBuilds(id, planetId, buildId, level)
             planetBuildList.add(planetBuild)
         }
         cursor.close()
@@ -71,61 +49,31 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         return planetBuildList
     }
 
-    fun setPlanetBuild(planetBuild: PlanetBuilds){
+    fun getPlanetBuildById(build: Int, planet: Planet): PlanetBuilds {
+        var planetBuild = PlanetBuilds()
+        val db=readableDatabase
+        val query = "SELECT * FROM planet_builds WHERE build_id = $build AND planet_id = ${planet.id}"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
+
+            planetBuild = PlanetBuilds(id, planetId, buildId, level)
+        }
+        cursor.close()
+        db.close()
+        return planetBuild
+    }
+
+    fun setBuildLevel(planetBuild: PlanetBuilds){
         val db = readableDatabase
         val values = ContentValues()
         values.put("level", planetBuild.level + 1)
         db.update("planet_builds", values, "id=${planetBuild.id}", null)
         db.close()
-    }
-
-
-    fun getBuildsUnderConstruction() : List<PlanetBuilds> {
-        val planetBuildList = mutableListOf<PlanetBuilds>()
-        val db = readableDatabase
-        val query = "SELECT * FROM planet_builds WHERE days_left > 0"
-        val cursor = db.rawQuery(query, null)
-
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
-
-            val planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
-            planetBuildList.add(planetBuild)
-        }
-        cursor.close()
-        db.close()
-        return planetBuildList
-    }
-
-    fun decrementDays(planetBuild: PlanetBuilds) {
-        val db = readableDatabase
-        val values = ContentValues()
-        values.put("days_left", planetBuild.daysLeft - 1)
-        db.update("planet_builds", values, "id=${planetBuild.id}", null)
-        db.close()
-    }
-
-    fun getMinBuild() : PlanetBuilds {
-        val db = readableDatabase
-        var planetBuild = PlanetBuilds()
-        val query = "SELECT *, MIN(days_left) FROM planet_builds WHERE days_left > 0"
-        val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-            val daysLeft = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_DAYSLEFT))
-
-            planetBuild = PlanetBuilds(id, planetId, buildId, level, daysLeft)
-        }
-        db.close()
-        cursor.close()
-        return planetBuild
     }
 
 

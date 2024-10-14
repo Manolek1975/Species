@@ -13,8 +13,6 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
-import com.delek.species.database.dao.TechDAO
-import com.delek.species.database.helper.ProdHelper
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
 
@@ -47,7 +45,7 @@ class CronoFragment: Fragment() {
         //val minTech = tech.days.toLong()
 
         val minProd = ProdDAO(context).getMinProd()
-        var min: Long = minProd.days.toLong()
+        val min: Long = minProd.days.toLong()
 
         val timer = object: CountDownTimer(min * 100, 100) {
             override fun onTick(millisUntilFinished: Long) {
@@ -84,8 +82,8 @@ class CronoFragment: Fragment() {
                 if (minProd.type == 1){
                     val build = BuildDAO(context).getBuildById(minProd.typeId)
                     val planet = PlanetDAO(context).getPlanetById(minProd.planet)
-                    val planetBuild = PlanetBuildsDAO(context).getPlanetBuild(build.id, planet)
-                    if (planetBuild.id != 0) PlanetBuildsDAO(context).setPlanetBuild(planetBuild)
+                    val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
+                    if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                     else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
                     ProdDAO(context).deleteProd(minProd.id)
                     println("Build=$build")

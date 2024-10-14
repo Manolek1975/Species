@@ -8,15 +8,13 @@ class PlanetBuildsHelper {
         const val COLUMN_PLANET_ID: String = "planet_id"
         const val COLUMN_BUILD_ID: String = "build_id"
         const val COLUMN_LEVEL: String = "level"
-        const val COLUMN_DAYSLEFT: String = "days_left"
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
             append("$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,")
             append("$COLUMN_PLANET_ID TEXT,")
             append("$COLUMN_BUILD_ID TEXT,")
-            append("$COLUMN_LEVEL TEXT,")
-            append("$COLUMN_DAYSLEFT INTEGER)")
+            append("$COLUMN_LEVEL INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"

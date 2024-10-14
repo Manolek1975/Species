@@ -5,5 +5,4 @@ data class PlanetBuilds (
     val planetId: Int = 0,
     val buildId: Int = 0,
     val level: Int = 0,
-    val daysLeft: Int = 0
 )
