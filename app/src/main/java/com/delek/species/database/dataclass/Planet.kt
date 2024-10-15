@@ -15,6 +15,5 @@ data class Planet(
     val production: Int = 0,
     val population: Int = 0,
     val research: Int = 0,
-    val explore: Int = 0
 ) : Serializable
 

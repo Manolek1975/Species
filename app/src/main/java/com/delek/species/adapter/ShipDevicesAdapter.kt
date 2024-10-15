@@ -41,7 +41,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
         holder.deviceItem.compoundDrawablePadding = 50
 
         holder.deviceItem.setOnClickListener{
-            checkDevice(device, planet)
+            //checkDevice(device, planet)
             if (device.type == 1){
                 data.edit().putInt("ship", shipId).apply()
                 val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
@@ -53,7 +53,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
 
     }
 
-    private fun checkDevice(device: Device, planet: Planet){
+/*    private fun checkDevice(device: Device, planet: Planet){
         when (device.type to planet.explore) {
             0 to 0 -> Dialog(context).notExplored()
             0 to 1 -> Dialog(context).createColony(planet, shipId)
@@ -62,7 +62,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
             3 to 1 -> Dialog(context).alreadyExplored()
             3 to 2 -> Dialog(context).alreadyExplored()
         }
-    }
+    }*/
 
     override fun getItemCount(): Int = device.size
 

@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             for (j in 1..rnd){
                 val image = getPlanetImage(j)
                 val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), setType(j),
-                    0,0, 0,0,0,0)
+                    0,0, 0,0,0)
                 PlanetDAO(this).insertPlanets(planet)
             }
         }

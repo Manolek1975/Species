@@ -19,6 +19,7 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.helper.PlanetExploredHelper
 import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.model.Dialog
 import com.google.android.material.navigation.NavigationView
@@ -41,12 +42,9 @@ class PlanetFragment : Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
-        //val buildId = data.getInt("build", 0)
-
-        val planet = PlanetDAO(context).getPlanetById(planetId)
-        //val build = BuildDAO(context).getBuildById(buildId)
 
         // Planet Info
+        val planet = PlanetDAO(context).getPlanetById(planetId)
         val planetID = resources.getIdentifier(planet.image, "drawable", context.packageName)
         binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
         binding.planetInfo.text = planet.name
@@ -57,6 +55,8 @@ class PlanetFragment : Fragment() {
             val shipID = resources.getIdentifier(ship.image, "drawable", context.packageName)
             if (specieId == ship.specieId){
                 binding.shipInfo.setImageResource(shipID)
+                //TODO Planet explored
+                PlanetDAO(context).insertPlanetExplored(specieId, planetId)
                 data.edit().putInt("ship", ship.id).apply()
 
                 binding.shipInfo.setOnClickListener {
@@ -79,14 +79,6 @@ class PlanetFragment : Fragment() {
         if (prod.typeId == 0)
             binding.prodDays.text = "SIN PRODUCCION"
 
-        // Build Level
-/*        if (build.id != 0) {
-            val planetBuild = PlanetBuildsDAO(context).getPlanetBuild(buildId, planet)
-            if (planetBuild.id != 0) PlanetBuildsDAO(context).setPlanetBuild(planetBuild)
-            else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
-            println("Level: " + planetBuild.level.toString())
-        }*/
-
         // Builds
         val planetBuilds = PlanetBuildsDAO(context).getAllPlanetBuilds(planet)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
@@ -95,21 +87,44 @@ class PlanetFragment : Fragment() {
         binding.planetBuildsRecyclerView.adapter = adapter
 
         // Manage FAB and Textview Message
-        //TODO Get planetExplored from database
-        when (planet.explore) {
-            0 -> binding.prod.visibility = View.VISIBLE
+        val explored = PlanetDAO(context).getPlanetExplored(planet.id)
+        val colony = PlanetDAO(context).getPlanetColony(planet.id)
+        if (!explored) {
+            binding.explored.visibility = View.VISIBLE
+        } else if (!colony) {
+            binding.colonyButton.visibility = View.VISIBLE
+        } else {
+            binding.fab.visibility = View.VISIBLE
+            binding.prodLayout.visibility = View.VISIBLE
+            setResources(planet)
+        }
+
+        binding.colonyButton.setOnClickListener{
+            PlanetDAO(context).setPlanetColony(planet.id, specieId)
+            binding.colonyButton.visibility = View.GONE
+            binding.fab.visibility = View.VISIBLE
+            binding.prodLayout.visibility = View.VISIBLE
+            setResources(planet)
+        }
+
+
+
+/*        when (planet.explore) {
+            0 -> {
+                binding.explored.visibility = View.VISIBLE
+            }
             1 -> {
-                binding.planetType.text = setType(planet.type)
+                binding.explored.text = setType(planet.type)
             }
             //TODO Check if Owner is specieId
             2 -> {
                 binding.fab.visibility = View.VISIBLE
-                binding.prod.visibility = View.VISIBLE
+                binding.prodLayout.visibility = View.VISIBLE
                 //binding.explored.text = "SIN PRODUCCIÓN"
-                binding.planetType.text = setType(planet.type)
+                //binding.planetType.text = setType(planet.type)
                 setResources(planet)
             }
-        }
+        }*/
 
         binding.planetInfo.setOnClickListener{
             val navController = findNavController()

@@ -115,7 +115,7 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             PlanetDAO(context).setPlanetExplored(planet?.id ?: 0)
-            PlanetDAO(context).setPlanetColonized(planet?.id ?: 0, data.getInt("specie", 0))
+            PlanetDAO(context).setPlanetColony(planet?.id ?: 0, data.getInt("specie", 0))
             ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) // To Planet

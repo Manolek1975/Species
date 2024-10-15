@@ -54,5 +54,6 @@
     <string name="tecnologias">Tecnologías</string>
     <string name="fecha_estelar_text">Fecha Estelar</string>
     <string name="fecha_estelar">2300.1</string>
+    <string name="create_colony">Fundar Colonia</string>
 
 </resources>

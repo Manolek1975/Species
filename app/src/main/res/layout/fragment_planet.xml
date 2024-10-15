@@ -36,14 +36,16 @@
 
     </LinearLayout>
 
-    <TextView
+<!--    <TextView
         android:id="@+id/planetType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:gravity="start"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp" />-->
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -107,27 +109,47 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/explored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/sin_explorar"
+        android:visibility="gone"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/colonyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/create_colony"
+        android:visibility="gone" />
+
+
     <LinearLayout
+        android:id="@+id/prodLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@drawable/border_layout"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="invisible">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@android:drawable/ic_menu_manage" />
 
-
         <TextView
             android:id="@+id/prod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:paddingBottom="12dp"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="12dp"
             android:text="@string/inexplorado"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -137,9 +159,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textColor="@color/white"
-            android:text="días"
             android:paddingEnd="20dp"
+            android:text="días"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </LinearLayout>
