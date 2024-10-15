@@ -125,8 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/create_colony"
+        android:background="@drawable/dialog_bg"
         android:visibility="gone" />
-
 
     <LinearLayout
         android:id="@+id/prodLayout"
@@ -140,11 +140,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
             app:srcCompat="@android:drawable/ic_menu_manage" />
 
         <TextView
             android:id="@+id/prod"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
@@ -159,8 +160,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:paddingStart="0dp"
             android:paddingEnd="20dp"
-            android:text="días"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

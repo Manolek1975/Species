@@ -33,21 +33,13 @@ class CronoFragment: Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val turn = data.getInt("turn", 0)
-        var fecha = 2300
-        var days = turn
-
-        //val planetBuild = PlanetBuildsDAO(context).getMinBuild()
-        //val ship = ShipDAO(context).getMinShip()
-        //val tech = TechDAO(context).getMinTech()
-        //val minBuild = planetBuild.daysLeft.toLong()
-        //val minShip = ship.days.toLong()
-        //val minTech = tech.days.toLong()
+        var fecha = data.getInt("fecha", 0)
+        var days = data.getInt("days", 0)
 
         val minProd = ProdDAO(context).getMinProd()
         val min: Long = minProd.days.toLong()
 
-        val timer = object: CountDownTimer(min * 100, 100) {
+        val timer = object: CountDownTimer((min+1) * 100, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 //TODO Update Species IA
                 //TODO Update Planet Resources
@@ -78,6 +70,8 @@ class CronoFragment: Fragment() {
 
             }
             override fun onFinish() {
+                data.edit().putInt("fecha", fecha).apply()
+                data.edit().putInt("days", days).apply()
                 //Show Dialog if days are finished
                 if (minProd.type == 1){
                     val build = BuildDAO(context).getBuildById(minProd.typeId)

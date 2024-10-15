@@ -19,7 +19,6 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.helper.PlanetExploredHelper
 import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.model.Dialog
 import com.google.android.material.navigation.NavigationView
@@ -56,7 +55,8 @@ class PlanetFragment : Fragment() {
             if (specieId == ship.specieId){
                 binding.shipInfo.setImageResource(shipID)
                 //TODO Planet explored
-                PlanetDAO(context).insertPlanetExplored(specieId, planetId)
+                val explored = PlanetDAO(context).getPlanetExplored(planetId)
+                if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
                 data.edit().putInt("ship", ship.id).apply()
 
                 binding.shipInfo.setOnClickListener {
@@ -77,7 +77,7 @@ class PlanetFragment : Fragment() {
         binding.prodDays.text = prod.days.toString()
 
         if (prod.typeId == 0)
-            binding.prodDays.text = "SIN PRODUCCION"
+            binding.prodDays.text = getString(R.string.sin_produccion)
 
         // Builds
         val planetBuilds = PlanetBuildsDAO(context).getAllPlanetBuilds(planet)

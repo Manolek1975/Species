@@ -11,10 +11,8 @@ import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
-import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
@@ -53,6 +51,8 @@ class Dialog(context: Context) : View(context) {
             val i = Intent(context, SidebarActivity::class.java)
             data.edit().putInt("specie", specie.id).apply()
             data.edit().putInt("turn", 1).apply()
+            data.edit().putInt("fecha", 2300).apply()
+            data.edit().putInt("days", 0).apply()
             context.startActivity(i) // To Sector
             }
         .show()
@@ -77,73 +77,7 @@ class Dialog(context: Context) : View(context) {
         }.show()
     }
 
-    fun showBuild(build: Build, planet: Planet) {
-        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
-        dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle(build.name)
-        dialogBuilder.setMessage(build.description)
-        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
-        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            data.edit().putInt("planet", planet.id).apply()
-            data.edit().putInt("build", build.id).apply()
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
-        }.show()
-    }
-
-    fun explorePlanet(planet: Planet) {
-        val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
-        dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle(planet.name)
-        dialogBuilder.setMessage("EXPLORANDO PLANETA...")
-        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            PlanetDAO(context).setPlanetExplored(planet.id)
-            PlanetDAO(context).insertPlanetExplored(data.getInt("specie", 0), planet.id)
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
-        }.show()
-    }
-
-    fun createColony(planet: Planet?, shipId: Int){
-        dialogBuilder.setIcon(R.drawable.build1)
-        dialogBuilder.setTitle(planet?.name)
-        dialogBuilder.setMessage("Fundar una nueva colonia")
-        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
-        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            PlanetDAO(context).setPlanetExplored(planet?.id ?: 0)
-            PlanetDAO(context).setPlanetColony(planet?.id ?: 0, data.getInt("specie", 0))
-            ShipDevicesDAO(context).removeColonyDevice(shipId, 1)
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
-        }.show()
-    }
-
-     fun notExplored() {
-        dialogBuilder.setTitle("PLANETA NO EXPLORADO")
-        dialogBuilder.setMessage("Usa tu scanner para explorar el planeta")
-        dialogBuilder.setNegativeButton("OK") { _, _ -> }
-        .show()
-    }
-
-    fun alreadyColony() {
-        dialogBuilder.setTitle("YA EXISTE UNA COLONIA")
-        dialogBuilder.setNegativeButton("OK") { _, _ -> }
-            .show()
-    }
-
-    fun alreadyExplored() {
-        dialogBuilder.setTitle("YA ESTA EXPLORADO")
-        dialogBuilder.setNegativeButton("OK") { _, _ -> }
-            .show()
-    }
-
-    fun showTutorial(id: Int) {
+     fun showTutorial(id: Int) {
         val res = context.resources
         val message = res.getStringArray(R.array.tutorial)
         dialogBuilder.setTitle("Tutorial")

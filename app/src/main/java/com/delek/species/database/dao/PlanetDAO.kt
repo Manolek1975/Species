@@ -146,8 +146,8 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         val planetList = mutableListOf<Planet>()
         val query = "SELECT planets.* FROM planets INNER JOIN planet_explored " +
                 "ON planets.id = planet_explored.planet_id " +
-                "WHERE planet_explored.specie_id = $specieId" +
-                "AND planet_explored.explore = 1"
+                "WHERE planet_explored.specie_id = $specieId " +
+                "AND planet_explored.explored = 1"
 
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
