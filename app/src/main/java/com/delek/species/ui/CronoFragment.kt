@@ -53,6 +53,7 @@ class CronoFragment: Fragment() {
                 val prodList = ProdDAO(context).getALLProd()
                 for (prod in prodList) {
                     ProdDAO(context).decrementDays(prod)
+                    println("Prod=$prod")
                 }
 /*                val shipList = ShipDAO(context).getShipsUnderConstruction()
                 for (ship in shipList) {
@@ -66,7 +67,7 @@ class CronoFragment: Fragment() {
                     append(days)
                 }
                 println("Days=$days Min=$min")
-                Log.d("Prod", prodList.toString())
+                //Log.d("Prod", prodList.toString())
 
             }
             override fun onFinish() {
@@ -79,7 +80,6 @@ class CronoFragment: Fragment() {
                     val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
                     if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                     else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
-                    ProdDAO(context).deleteProd(minProd.id)
                     println("Build=$build")
                     Dialog(context).buildDone(build, planet)
                 } else if (minProd.type == 2) {
@@ -87,6 +87,7 @@ class CronoFragment: Fragment() {
                     println("Ship=$ship")
                     Dialog(context).shipDone(ship)
                 }
+                ProdDAO(context).deleteProd(minProd.id)
             }
         }
         timer.start()

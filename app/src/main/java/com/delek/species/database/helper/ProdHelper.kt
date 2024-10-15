@@ -13,10 +13,10 @@ class ProdHelper {
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
             append("$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,")
-            append("$COLUMN_TYPE TEXT,")
-            append("$COLUMN_TYPE_ID TEXT,")
-            append("$COLUMN_PLANET TEXT,")
-            append("$COLUMN_OWNER TEXT,")
+            append("$COLUMN_TYPE INTEGER,")
+            append("$COLUMN_TYPE_ID INTEGER,")
+            append("$COLUMN_PLANET INTEGER,")
+            append("$COLUMN_OWNER INTEGER,")
             append("$COLUMN_DAYS INTEGER)")
         }
 

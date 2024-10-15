@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
         val orbit = res.getStringArray(R.array.orbit_ships)
 
         for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), orbit[i].toInt(),0, 0)
+            val ship = Ship(0, name[i], image[i], specie[i].toInt(), orbit[i].toInt(),0)
             ShipDAO(this).insertShips(ship)
         }
     }

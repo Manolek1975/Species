@@ -36,7 +36,7 @@ class BuildsAdapter(private var builds: List<Build>,
         holder.buildItem.compoundDrawablePadding = 50
 
         holder.buildItem.setOnClickListener{
-            dialog.insertProd(build, planet)
+            dialog.insertProdBuild(build, planet)
         }
     }
 

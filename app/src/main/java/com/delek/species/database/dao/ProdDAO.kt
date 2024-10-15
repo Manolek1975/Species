@@ -4,12 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
 import com.delek.species.database.helper.ProdHelper
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetBuildsHelper
 
 class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -23,7 +21,6 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     fun insertProd(prod: Prod){
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(ProdHelper.COLUMN_ID, prod.id)
             put(ProdHelper.COLUMN_TYPE, prod.type)
             put(ProdHelper.COLUMN_TYPE_ID, prod.typeId)
             put(ProdHelper.COLUMN_PLANET, prod.planet)
@@ -82,17 +79,19 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getALLProd(): List<Prod> {
-        var prodList = mutableListOf<Prod>()
+        val prodList = mutableListOf<Prod>()
         val query = "SELECT * FROM prod"
         val cursor = db.rawQuery(query, null)
-        if (cursor.moveToFirst()) {
+
+        while (cursor.moveToNext()) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
             val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
+            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
             val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
 
-            val prod = Prod(id, type, typeId, owner, days)
+            val prod = Prod(id, type, typeId, planet, owner, days)
             prodList.add(prod)
         }
         cursor.close()
@@ -106,6 +105,8 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         db.update("prod", values, "id=${prod.id}", null)
         db.close()
     }
+
+
 
 
 }

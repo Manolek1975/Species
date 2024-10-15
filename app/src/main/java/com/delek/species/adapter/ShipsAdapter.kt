@@ -37,7 +37,7 @@ class ShipsAdapter(private var ship: List<Ship>,
         holder.shipItem.compoundDrawablePadding = 20
         holder.nameItem.text = ship.name
         holder.routeItem.text = context.getString(R.string.en_ruta, planetName)
-        holder.daysLeftItem.text = context.getString(R.string.faltan_dias, ship.days.toString())
+        holder.daysLeftItem.text = context.getString(R.string.faltan_dias)
 
         holder.shipItem.setOnClickListener{
             if(ship.orbit > 0){

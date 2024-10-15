@@ -11,6 +11,7 @@ import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Prod
@@ -35,7 +36,7 @@ class Dialog(context: Context) : View(context) {
             db.onDelete()
             context.getSharedPreferences("data", 0).edit().clear().apply()
             val i = Intent(context, MainActivity::class.java)
-            data.edit().putInt("tutorial", 1).apply()
+            data.edit().putInt("tutorial", 0).apply()
             context.startActivity(i) // To Main Activity
         }
         .show()
@@ -58,7 +59,7 @@ class Dialog(context: Context) : View(context) {
         .show()
     }
 
-    fun insertProd(build: Build, planet: Planet) {
+    fun insertProdBuild(build: Build, planet: Planet) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 1, build.id, planet.id, owner, build.cost)
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
@@ -72,6 +73,24 @@ class Dialog(context: Context) : View(context) {
             ProdDAO(context).insertProd(prod)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) // To Planet
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show()
+    }
+
+    fun insertProdShip(ship: Ship, planet: Planet, days: Int) {
+        val owner = data.getInt("specie", 0)
+        val prod = Prod(0, 2, ship.id, planet.id, owner, days)
+        val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(ship.name)
+        dialogBuilder.setMessage("¿Establecer ruta a ${planet.name}?")
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            data.edit().putInt("planet", planet.id).apply()
+            ProdDAO(context).insertProd(prod)
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(4) // To Ships
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
@@ -105,12 +124,14 @@ class Dialog(context: Context) : View(context) {
     fun shipDone(ship: Ship) {
         val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
         val planet = PlanetDAO(context).getPlanetById(ship.orbit)
+        val specieId = data.getInt("specie", 0)
         data.edit().putInt("planet", ship.orbit).apply()
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("NAVE HA LLEGADO A DESTINO")
         dialogBuilder.setMessage("$ship.name ha llegado al planeta $planet.name, esperamos ordenes")
-        //dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
+            ProdDAO(context).deleteProd(ship.id)
+            ShipDAO(context).updateOrbitShip(planet.id, specieId)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)

@@ -1,5 +1,7 @@
 package com.delek.species.database.dataclass
 
+import java.io.Serializable
+
 data class Prod(
     val id: Int = 0,
     val type: Int = 0,
@@ -7,4 +9,4 @@ data class Prod(
     val planet: Int = 0,
     val owner: Int = 0,
     val days: Int = 0
-)
+): Serializable

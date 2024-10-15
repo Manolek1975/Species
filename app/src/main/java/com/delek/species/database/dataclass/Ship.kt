@@ -9,5 +9,4 @@ data class Ship (
     val specieId: Int = 0,
     val orbit: Int = 0,
     val route: Int = 0,
-    val days: Int = 0
 ) : Serializable
