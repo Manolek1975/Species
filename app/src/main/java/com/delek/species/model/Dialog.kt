@@ -88,10 +88,14 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             data.edit().putInt("planet", planet.id).apply()
-            ProdDAO(context).insertProd(prod)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(4) // To Ships
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            var item = nv.menu.getItem(9) // To Planets
+            if (days != 0) {
+                item = nv.menu.getItem(4) // To Ships
+                ProdDAO(context).insertProd(prod)
+                ShipDAO(context).updateRouteShip(ship.id, planet.id)
+            }
             NavigationUI.onNavDestinationSelected(item, navController)
         }.show()
     }
@@ -123,12 +127,13 @@ class Dialog(context: Context) : View(context) {
 
     fun shipDone(ship: Ship) {
         val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
-        val planet = PlanetDAO(context).getPlanetById(ship.orbit)
+        val planet = PlanetDAO(context).getPlanetById(ship.route)
         val specieId = data.getInt("specie", 0)
-        data.edit().putInt("planet", ship.orbit).apply()
+        data.edit().putInt("planet", ship.route).apply()
+        println(ship.route)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("NAVE HA LLEGADO A DESTINO")
-        dialogBuilder.setMessage("$ship.name ha llegado al planeta $planet.name, esperamos ordenes")
+        dialogBuilder.setMessage("${ship.name} ha llegado al planeta ${planet.name}, esperamos ordenes")
         dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
             ProdDAO(context).deleteProd(ship.id)
             ShipDAO(context).updateOrbitShip(planet.id, specieId)

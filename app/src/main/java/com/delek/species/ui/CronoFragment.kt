@@ -3,7 +3,6 @@ package com.delek.species.ui
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,59 +38,59 @@ class CronoFragment: Fragment() {
         val minProd = ProdDAO(context).getMinProd()
         val min: Long = minProd.days.toLong()
 
-        val timer = object: CountDownTimer((min+1) * 100, 100) {
-            override fun onTick(millisUntilFinished: Long) {
-                //TODO Update Species IA
-                //TODO Update Planet Resources
-                //Estelar Date: 365 days = 1 year
-                ++days
-                if (days > 365) {
-                    fecha++
-                    days = 0
+        if (min > 0) {
+            val timer = object : CountDownTimer((min + 1) * 100, 100) {
+                override fun onTick(millisUntilFinished: Long) {
+                    //TODO Update Species IA
+                    //TODO Update Planet Resources
+                    //Estelar Date: 365 days = 1 year
+                    ++days
+                    if (days > 365) {
+                        fecha++
+                        days = 0
+                    }
+                    //Decrement days left on all items
+                    val prodList = ProdDAO(context).getALLProd()
+                    for (prod in prodList) {
+                        ProdDAO(context).decrementDays(prod)
+                    }
+                    //Show Estelar date
+                    binding.fechaEstelar.text = buildString {
+                        append(fecha)
+                        append(".")
+                        append(days)
+                    }
                 }
-                //Decrement days left on all items
-                val prodList = ProdDAO(context).getALLProd()
-                for (prod in prodList) {
-                    ProdDAO(context).decrementDays(prod)
-                    println("Prod=$prod")
-                }
-/*                val shipList = ShipDAO(context).getShipsUnderConstruction()
-                for (ship in shipList) {
-                    if(ship.days > -1)
-                        ShipDAO(context).decrementDays(ship)
-                }*/
-                //Show Estelar date
-                binding.fechaEstelar.text = buildString {
-                    append(fecha)
-                    append(".")
-                    append(days)
-                }
-                println("Days=$days Min=$min")
-                //Log.d("Prod", prodList.toString())
 
-            }
-            override fun onFinish() {
-                data.edit().putInt("fecha", fecha).apply()
-                data.edit().putInt("days", days).apply()
-                //Show Dialog if days are finished
-                if (minProd.type == 1){
-                    val build = BuildDAO(context).getBuildById(minProd.typeId)
-                    val planet = PlanetDAO(context).getPlanetById(minProd.planet)
-                    val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
-                    if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
-                    else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
-                    println("Build=$build")
-                    Dialog(context).buildDone(build, planet)
-                } else if (minProd.type == 2) {
-                    val ship = ShipDAO(context).getShipById(minProd.typeId)
-                    println("Ship=$ship")
-                    Dialog(context).shipDone(ship)
+                override fun onFinish() {
+                    data.edit().putInt("fecha", fecha).apply()
+                    data.edit().putInt("days", days).apply()
+                    //Show Dialog if days are finished
+                    if (minProd.type == 1) {
+                        val build = BuildDAO(context).getBuildById(minProd.typeId)
+                        val planet = PlanetDAO(context).getPlanetById(minProd.planet)
+                        val planetBuild =
+                            PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
+                        if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
+                        else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
+                        println("Build=$build")
+                        Dialog(context).buildDone(build, planet)
+                    } else if (minProd.type == 2) {
+                        val ship = ShipDAO(context).getShipById(minProd.typeId)
+                        println("Ship=$ship")
+                        Dialog(context).shipDone(ship)
+                    }
+                    ProdDAO(context).deleteProd(minProd.id)
                 }
-                ProdDAO(context).deleteProd(minProd.id)
             }
+            timer.start()
         }
-        timer.start()
 
+        binding.fechaEstelar.text = buildString {
+            append(fecha)
+            append(".")
+            append(days)
+        }
         //TODO Perhaps list of build, ships or tech under construction?
 /*        adapter = BuildsAdapter(BuildDAO(context).getBuildsByTech(tech), planet, context)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(context)

@@ -4,10 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.PlanetBuildsHelper
 import com.delek.species.database.helper.ShipHelper
 
 class ShipDAO(context: Context) : SQLiteOpenHelper(context,
@@ -56,27 +54,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         return shipList
     }
 
-    fun getShipBySpecie(specieID: Int?): Ship {
-        var ship = Ship()
-        val query = "SELECT * FROM ships WHERE specie_id = $specieID"
-        val cursor = db.rawQuery(query, null)
-
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            ship = Ship(id, name, image, specieId, orbit, route)
-
-        }
-        cursor.close()
-        db.close()
-        return ship
-    }
-
     fun getShipsBySpecie(specieID: Int): List<Ship> {
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
@@ -99,7 +76,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsByPlanet(planetPosition: Int): List<Ship> {
-        //val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE orbit = $planetPosition"
         val cursor = db.rawQuery(query, null)
@@ -120,7 +96,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipById(shipId: Int): Ship {
-        //val db = readableDatabase
         var ship = Ship()
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
@@ -141,62 +116,19 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun updateRouteShip(shipId: Int, planetId: Int) {
-        //val db = readableDatabase
         val values = ContentValues()
         values.put("route", planetId)
         values.put("orbit", 0)
-
         db.update("ships", values, "id = $shipId", null)
         db.close()
     }
 
     fun updateOrbitShip(planetId: Int, specie: Int) {
-        //val db = readableDatabase
         val values = ContentValues()
         values.put("orbit", planetId)
         values.put("route", 0)
         db.update("ships", values, "id = $specie", null)
         db.close()
-    }
-
-    fun getMinShip(): Ship {
-        //val db = readableDatabase
-        var ship = Ship()
-        val query = "SELECT *, MIN(days) FROM ships WHERE days > 0"
-        val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            ship = Ship(id, name, image, specieId, orbit, route)
-        }
-        cursor.close()
-        return ship
-    }
-
-    fun getShipsUnderConstruction(): List<Ship> {
-        //val db = readableDatabase
-        val shipList = mutableListOf<Ship>()
-        val query = "SELECT * FROM ships WHERE days > 0"
-        val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            val ship = Ship(id, name, image, specieId, orbit, route)
-            shipList.add(ship)
-        }
-        cursor.close()
-        db.close()
-        return shipList
     }
 
 }

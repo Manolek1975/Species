@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
-import com.delek.species.database.helper.ProdHelper
 import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.helper.ProdHelper
 
 class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
@@ -51,14 +51,6 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         return prod
     }
 
-    fun deleteProd(id: Int) {
-        val db = writableDatabase
-        val whereClause = "$COLUMN_ID = ?"
-        val whereArgs = arrayOf(id.toString())
-        db.delete("prod", whereClause, whereArgs);
-        db.close()
-    }
-
     fun getMinProd(): Prod {
         var prod = Prod()
         val query = "SELECT *, MIN(days) FROM prod"
@@ -99,6 +91,25 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         return prodList
     }
 
+    fun getDaysLeft(shipId: Int): Prod {
+        var prod = Prod()
+        val query = "SELECT * FROM prod WHERE type = 2 AND type_id = $shipId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
+            val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
+            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
+            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
+            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
+
+            prod = Prod(id, type, typeId, planet, owner, days)
+        }
+        cursor.close()
+        db.close()
+        return prod
+    }
+
     fun decrementDays(prod: Prod) {
         val values = ContentValues()
         values.put("days", prod.days - 1)
@@ -106,7 +117,11 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-
-
-
+    fun deleteProd(id: Int) {
+        val db = writableDatabase
+        val whereClause = "$COLUMN_ID = ?"
+        val whereArgs = arrayOf(id.toString())
+        db.delete("prod", whereClause, whereArgs)
+        db.close()
+    }
 }
