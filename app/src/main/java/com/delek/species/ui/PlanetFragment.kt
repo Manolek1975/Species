@@ -80,7 +80,7 @@ class PlanetFragment : Fragment() {
             binding.prodDays.text = getString(R.string.sin_produccion)
 
         // Builds
-        val planetBuilds = PlanetBuildsDAO(context).getAllPlanetBuilds(planet)
+        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
         adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)

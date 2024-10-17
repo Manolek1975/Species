@@ -43,10 +43,12 @@ class CronoFragment: Fragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     //TODO Update Species IA
                     //TODO Update Planet Resources
+                    //val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
+
                     //Estelar Date: 365 days = 1 year
                     ++days
                     if (days > 365) {
-                        fecha++
+                        ++fecha
                         days = 0
                     }
                     //Decrement days left on all items

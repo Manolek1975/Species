@@ -12,6 +12,8 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+    override fun onCreate(p0: SQLiteDatabase?) { }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
@@ -30,11 +32,10 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllSpecies(): List<Specie> {
-        val specieList = mutableListOf<Specie>()
         val db = readableDatabase
+        val specieList = mutableListOf<Specie>()
         val query = "SELECT * FROM species"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
@@ -59,27 +60,19 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * from species WHERE id = $specieId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
-
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
-        val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
-        val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
-        val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
-        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
-        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
-
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
+            val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
+            val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
+            val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
+            val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
+            val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
         cursor.close()
         db.close()
         return Specie(id, name, desc, image, skill, type, star, color, origin)
     }
 
-     override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
 }

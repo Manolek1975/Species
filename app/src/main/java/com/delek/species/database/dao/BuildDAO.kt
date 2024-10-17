@@ -17,6 +17,7 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+
     fun insertBuilds(build: Build){
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -38,8 +39,8 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getBuildById(buildId: Int): Build {
-        var build = Build()
         val db = readableDatabase
+        var build = Build()
         val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE id = $buildId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
@@ -65,11 +66,10 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getBuildsByTech(techMax: Int): List<Build> {
-        val buildList = mutableListOf<Build>()
         val db = readableDatabase
+        val buildList = mutableListOf<Build>()
         val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE tech <= $techMax"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_NAME))
@@ -94,8 +94,8 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getBuildsByPlanet(planetBuild: List<PlanetBuilds>): List<Build> {
-        val buildList = mutableListOf<Build>()
         val db = readableDatabase
+        val buildList = mutableListOf<Build>()
         val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE id IN (${planetBuild.joinToString { it.buildId.toString() }})"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
@@ -119,7 +119,6 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return buildList
-
     }
 
 

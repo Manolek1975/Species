@@ -46,11 +46,10 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllStars(): List<Star>{
-        val starList = mutableListOf<Star>()
         val db = readableDatabase
+        val starList = mutableListOf<Star>()
         val query = "SELECT * FROM stars"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
@@ -75,29 +74,29 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM stars WHERE id = $starId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
+            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
+            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
+            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
+            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
+            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
+            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
 
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-        val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-        val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-        val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-        val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-        val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
+            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
 
         cursor.close()
         db.close()
-        return Star(id, name, image, sector, jumps, x, y, type, explore)
+        return star
 
     }
 
     fun getStarBySector(s: Int): List<Star>{
-        val starList = mutableListOf<Star>()
         val db = readableDatabase
+        val starList = mutableListOf<Star>()
         val query = "SELECT * FROM stars WHERE sector = $s"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
@@ -119,17 +118,16 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
 
     fun getStarOrigin(id: Int): Boolean {
         val db = readableDatabase
-        val result: Boolean
         val query = "SELECT * FROM species WHERE origin = $id"
         val cursor = db.rawQuery(query, null)
-        result = cursor.count >= 1
+        val result = cursor.count > 0
         cursor.close()
         db.close()
         return result
     }
 
     fun setStarExplored(id: Int){
-        val db = readableDatabase
+        val db = writableDatabase
         val values = ContentValues()
         values.put("explore", 1)
         db.update("stars", values, "id=$id", null)
@@ -137,12 +135,11 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarsExploredBySpecie(specieId: Int): List<Star> {
-        val starList = mutableListOf<Star>()
         val db = readableDatabase
+        val starList = mutableListOf<Star>()
         val query = "SELECT stars.* FROM stars INNER JOIN star_explored " +
                 "ON stars.id = star_explored.star_id " +
                 "WHERE star_explored.specie_id = $specieId"
-
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))

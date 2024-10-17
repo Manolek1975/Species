@@ -19,7 +19,6 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-    val db = readableDatabase
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
@@ -52,10 +51,10 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
+        val db = readableDatabase
         val planetList = mutableListOf<Planet>()
         val query = "SELECT * FROM planets WHERE star = $starId"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
@@ -79,10 +78,10 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetById(planetId: Int?): Planet {
+        val db = readableDatabase
         var planet = Planet()
         val query = "SELECT * FROM planets where id = $planetId"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
             val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
@@ -104,33 +103,8 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return planet
     }
 
-    fun setPlanetExplored(id: Int){
-        val values = ContentValues()
-        values.put("explore", 1)
-        db.update("planet_explored", values, "id=$id", null)
-        db.close()
-    }
-
-    fun setPlanetColony(id: Int, specieId: Int){
-        val values = ContentValues()
-        values.put("colony", 1)
-        db.update("planet_explored", values, "planet_id=$id", null)
-        values.clear()
-        values.put("owner", specieId)
-        values.put("population", 50)
-        db.update("planets", values, "id=$id", null)
-        db.close()
-    }
-
-    fun setPlanetResources(id: Int, food: Int, production: Int, population: Int, research: Int){
-        val values = ContentValues()
-        values.put("food", food)
-        values.put("production", production)
-        values.put("population", population)
-        values.put("research", research)
-    }
-
     fun getPlanetName(planetId: Int): Any {
+        val db = readableDatabase
         var planetName = ""
         val query = "SELECT name FROM planets WHERE id = $planetId"
         val cursor = db.rawQuery(query, null)
@@ -143,12 +117,12 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetsExploredBySpecie(specieId: Int): List<Planet> {
+        val db = readableDatabase
         val planetList = mutableListOf<Planet>()
         val query = "SELECT planets.* FROM planets INNER JOIN planet_explored " +
                 "ON planets.id = planet_explored.planet_id " +
                 "WHERE planet_explored.specie_id = $specieId " +
                 "AND planet_explored.explored = 1"
-
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
@@ -174,6 +148,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetExplored(planetId: Int): Boolean {
+        val db = readableDatabase
         val query = "SELECT * FROM planet_explored WHERE planet_id = $planetId AND explored = 1"
         val cursor = db.rawQuery(query, null)
         val exists = cursor.count > 0
@@ -183,6 +158,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetColony(planetId: Int): Boolean {
+        val db = readableDatabase
         val query = "SELECT * FROM planet_explored WHERE planet_id = $planetId AND colony = 1"
         val cursor = db.rawQuery(query, null)
         val exists = cursor.count > 0
@@ -191,6 +167,26 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return exists
     }
 
+    fun setPlanetColony(id: Int, specieId: Int){
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("colony", 1)
+        db.update("planet_explored", values, "planet_id=$id", null)
+        values.clear()
+        values.put("owner", specieId)
+        values.put("population", 50)
+        db.update("planets", values, "id=$id", null)
+        db.close()
+    }
+
+    fun setPlanetResources(id: Int, food: Int, production: Int, population: Int, research: Int){
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("food", food)
+        values.put("production", production)
+        values.put("population", population)
+        values.put("research", research)
+    }
 
 
 

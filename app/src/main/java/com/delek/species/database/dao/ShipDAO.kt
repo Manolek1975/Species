@@ -12,7 +12,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
-    val db: SQLiteDatabase = readableDatabase
     override fun onCreate(p0: SQLiteDatabase?) {
         TODO("Not yet implemented")
     }
@@ -34,10 +33,10 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllShips(): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
@@ -55,6 +54,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsBySpecie(specieID: Int): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
@@ -76,6 +76,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsByPlanet(planetPosition: Int): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE orbit = $planetPosition"
         val cursor = db.rawQuery(query, null)
@@ -96,6 +97,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipById(shipId: Int): Ship {
+        val db = readableDatabase
         var ship = Ship()
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
@@ -116,6 +118,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun updateRouteShip(shipId: Int, planetId: Int) {
+        val db = writableDatabase
         val values = ContentValues()
         values.put("route", planetId)
         values.put("orbit", 0)
@@ -124,6 +127,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun updateOrbitShip(planetId: Int, specie: Int) {
+        val db = writableDatabase
         val values = ContentValues()
         values.put("orbit", planetId)
         values.put("route", 0)

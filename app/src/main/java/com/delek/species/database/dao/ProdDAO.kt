@@ -2,6 +2,7 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Prod
@@ -16,8 +17,8 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val db = readableDatabase
-    val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+    val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+
     fun insertProd(prod: Prod){
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -32,6 +33,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetBuildProd(planetId: Int): Prod {
+        val db = readableDatabase
         var prod = Prod()
         val specie = data.getInt("specie", 0)
         val query = "SELECT * FROM prod WHERE type = 1 AND planet = $planetId AND owner = $specie"
@@ -52,6 +54,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getMinProd(): Prod {
+        val db = readableDatabase
         var prod = Prod()
         val query = "SELECT *, MIN(days) FROM prod"
         val cursor = db.rawQuery(query, null)
@@ -71,10 +74,10 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getALLProd(): List<Prod> {
+        val db = readableDatabase
         val prodList = mutableListOf<Prod>()
         val query = "SELECT * FROM prod"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()) {
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
             val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
@@ -91,26 +94,22 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         return prodList
     }
 
-    fun getDaysLeft(shipId: Int): Prod {
-        var prod = Prod()
+    fun getDaysLeft(shipId: Int): Int {
+        val db = readableDatabase
+        var days = 0
         val query = "SELECT * FROM prod WHERE type = 2 AND type_id = $shipId"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
-            val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
-            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
-            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
-
-            prod = Prod(id, type, typeId, planet, owner, days)
+        if(cursor.count > 0) {
+            cursor.moveToFirst()
+            days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
         }
         cursor.close()
         db.close()
-        return prod
+        return days
     }
 
     fun decrementDays(prod: Prod) {
+        val db = writableDatabase
         val values = ContentValues()
         values.put("days", prod.days - 1)
         db.update("prod", values, "id=${prod.id}", null)

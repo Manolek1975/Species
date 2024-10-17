@@ -13,6 +13,9 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
+    override fun onCreate(p0: SQLiteDatabase?) {  }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
+
 
     fun insertDevices(device: Device){
         val db = writableDatabase
@@ -30,11 +33,10 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllDevices(): List<Device> {
-        val deviceList = mutableListOf<Device>()
         val db = readableDatabase
+        val deviceList = mutableListOf<Device>()
         val query = "SELECT * FROM devices"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
@@ -54,13 +56,12 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getDevicesByShip(shipId: Int?): List<Device> {
-        val deviceList = mutableListOf<Device>()
         val db = readableDatabase
+        val deviceList = mutableListOf<Device>()
         val query = "SELECT devices.* FROM devices INNER JOIN ship_devices " +
                 "ON devices.id = ship_devices.device_id " +
                 "WHERE ship_devices.ship_id = $shipId"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
             val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
@@ -78,16 +79,6 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return deviceList
     }
-
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
-
-
 
 
 }

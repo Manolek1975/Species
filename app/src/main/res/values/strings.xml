@@ -29,6 +29,7 @@
     <string name="dias">%1$d días</string>
     <string name="naves">Naves</string>
     <string name="en_ruta">En ruta a %1$s</string>
+    <string name="orbitando">Orbitando planeta %1$s</string>
     <string name="faltan_dias">Faltan %1$s dias</string>
     <string name="creando_galaxia">CREANDO GALAXIA</string>
     <string name="test_name">Test name</string>
@@ -56,5 +57,6 @@
     <string name="fecha_estelar">2300.1</string>
     <string name="create_colony">Fundar Colonia</string>
     <string name="sin_produccion">SIN PRODUCCION</string>
+
 
 </resources>
