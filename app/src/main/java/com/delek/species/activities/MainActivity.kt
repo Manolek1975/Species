@@ -138,10 +138,10 @@ class MainActivity : AppCompatActivity() {
         val star = StarDAO(this).getAllStars()
         var rnd: Int
         for (i in star){
-            if (StarDAO(this).getStarOrigin(i.id))
-                rnd = 8
+            rnd = if (StarDAO(this).getStarOrigin(i.id))
+                8
             else
-                rnd = (1..7).random()
+                (1..7).random()
 
             for (j in 1..rnd){
                 val image = getPlanetImage(j)
@@ -292,9 +292,6 @@ class MainActivity : AppCompatActivity() {
             // generate new coordinates
             val x: Float = random.nextInt(width - diameter) + radius
             val y: Float = random.nextInt(height - diameter) + radius
-
-            System.out.printf("Generated [%3.3f, %3.3f] ... ", x, y)
-
             // verify it does not overlap/touch with previous circles
             var j = 0
             while (j < posX.size) {
@@ -306,10 +303,10 @@ class MainActivity : AppCompatActivity() {
             }
             // generate another pair of coordinates, if it does touch previous
             if (j != posX.size) {
-                println("collided.")
+                //println("collided.")
                 continue
             }
-            println("added.")
+            //println("added.")
             // not overlapping/touch, add as new circle
             posX.add(x)
             posY.add(y)

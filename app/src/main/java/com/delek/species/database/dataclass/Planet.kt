@@ -13,7 +13,8 @@ data class Planet(
     val owner: Int = 0,
     val food: Int = 0,
     val production: Int = 0,
-    val population: Int = 0,
     val research: Int = 0,
+    val defense: Int = 0,
+    val population: Int = 0
 ) : Serializable
 

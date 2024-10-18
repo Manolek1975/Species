@@ -12,6 +12,7 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dataclass.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
 
@@ -42,15 +43,14 @@ class CronoFragment: Fragment() {
             val timer = object : CountDownTimer((min + 1) * 100, 100) {
                 override fun onTick(millisUntilFinished: Long) {
                     //TODO Update Species IA
-                    //TODO Update Planet Resources
-                    //val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
-
                     //Estelar Date: 365 days = 1 year
                     ++days
                     if (days > 365) {
                         ++fecha
                         days = 0
                     }
+                    //TODO Update Planet Resources
+                    updatePlanetResources(context, minProd)
                     //Decrement days left on all items
                     val prodList = ProdDAO(context).getALLProd()
                     for (prod in prodList) {
@@ -71,8 +71,7 @@ class CronoFragment: Fragment() {
                     if (minProd.type == 1) {
                         val build = BuildDAO(context).getBuildById(minProd.typeId)
                         val planet = PlanetDAO(context).getPlanetById(minProd.planet)
-                        val planetBuild =
-                            PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
+                        val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
                         if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                         else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
                         println("Build=$build")
@@ -99,6 +98,30 @@ class CronoFragment: Fragment() {
         binding.buildsRecyclerView.adapter = adapter*/
 
         return root
+    }
+
+    private fun updatePlanetResources(context: Context, minProd: Prod) {
+        val planet = PlanetDAO(context).getPlanetById(minProd.planet)
+        val resList = mutableMapOf(
+            "food" to planet.food,
+            "prod" to planet.production,
+            "res" to planet.research,
+            "def" to planet.defense,
+            "pop" to planet.population
+        )
+        val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
+
+        for (res in planetBuildList) {
+            when (res.buildId) {
+                2 -> resList["prod"] = resList["prod"]!! + 1
+                3 -> resList["food"] = resList["food"]!! + 1
+                4 -> resList["res"] = resList["res"]!! + 1
+            }
+        }
+        val food = planet.food.rem(100) + 1
+        if (food == 50)
+            resList["pop"] = resList["pop"]!! + 1
+        PlanetDAO(context).setPlanetResources(minProd.planet, resList)
     }
 
     override fun onResume(){

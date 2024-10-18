@@ -32,8 +32,9 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             put(PlanetHelper.COLUMN_OWNER, planet.owner)
             put(PlanetHelper.COLUMN_FOOD, planet.food)
             put(PlanetHelper.COLUMN_PRODUCTION, planet.production)
-            put(PlanetHelper.COLUMN_POPULATION, planet.population)
+            put(PlanetHelper.COLUMN_DEFENSE, planet.defense)
             put(PlanetHelper.COLUMN_RESEARCH, planet.research)
+            put(PlanetHelper.COLUMN_POPULATION, planet.population)
         }
         db.insert(PlanetHelper.TABLE_NAME, null, values)
         db.close()
@@ -66,10 +67,11 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
             val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
             val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
-            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
-
-            val planet = Planet(id, star, name, image, position, size, type, owner, food, production, population, research)
+            val defense = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_DEFENSE))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
+            val planet = Planet(id, star, name, image, position, size, type, owner,
+                food, production, research, defense, population)
             planetList.add(planet)
         }
         cursor.close()
@@ -93,10 +95,12 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
             val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
             val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
-            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
+            val defense = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_DEFENSE))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
 
-            planet = Planet(id, star, name, image, position, size, type, owner, food, production, population, research)
+            planet = Planet(id, star, name, image, position, size, type, owner,
+                food, production, research, defense, population)
         }
         cursor.close()
         db.close()
@@ -135,10 +139,12 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
             val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
             val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
-            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
             val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
+            val defense = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_DEFENSE))
+            val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
 
-            val planet = Planet(id, star, name, image, position, size, type, owner, food, production, population, research)
+            val planet = Planet(id, star, name, image, position, size, type, owner,
+                food, production, research, defense, population)
             planetList.add(planet)
         }
         cursor.close()
@@ -179,13 +185,15 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun setPlanetResources(id: Int, food: Int, production: Int, population: Int, research: Int){
+    fun setPlanetResources(id: Int, res: MutableMap<String, Int>){
         val db = writableDatabase
         val values = ContentValues()
-        values.put("food", food)
-        values.put("production", production)
-        values.put("population", population)
-        values.put("research", research)
+        values.put("food", res["food"])
+        values.put("production", res["prod"])
+        values.put("research", res["res"])
+        values.put("population", res["pop"])
+        db.update("planets", values, "id=$id", null)
+        db.close()
     }
 
 

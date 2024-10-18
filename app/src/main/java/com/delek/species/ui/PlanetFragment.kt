@@ -101,30 +101,12 @@ class PlanetFragment : Fragment() {
 
         binding.colonyButton.setOnClickListener{
             PlanetDAO(context).setPlanetColony(planet.id, specieId)
+            val p = PlanetDAO(context).getPlanetById(planetId)
             binding.colonyButton.visibility = View.GONE
             binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
-            setResources(planet)
+            setResources(p)
         }
-
-
-
-/*        when (planet.explore) {
-            0 -> {
-                binding.explored.visibility = View.VISIBLE
-            }
-            1 -> {
-                binding.explored.text = setType(planet.type)
-            }
-            //TODO Check if Owner is specieId
-            2 -> {
-                binding.fab.visibility = View.VISIBLE
-                binding.prodLayout.visibility = View.VISIBLE
-                //binding.explored.text = "SIN PRODUCCIÓN"
-                //binding.planetType.text = setType(planet.type)
-                setResources(planet)
-            }
-        }*/
 
         binding.planetInfo.setOnClickListener{
             val navController = findNavController()
@@ -163,7 +145,7 @@ class PlanetFragment : Fragment() {
         binding.scienceInfo.text = planet.research.toString()
 
         binding.energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
-        binding.energyInfo.text = planet.research.toString()
+        binding.energyInfo.text = planet.defense.toString()
 
         binding.popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
         binding.popInfo.text = planet.population.toString()

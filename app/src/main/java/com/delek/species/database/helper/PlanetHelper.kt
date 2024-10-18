@@ -13,8 +13,10 @@ class PlanetHelper {
         const val COLUMN_OWNER: String = "owner"
         const val COLUMN_FOOD: String = "food"
         const val COLUMN_PRODUCTION: String = "production"
-        const val COLUMN_POPULATION: String = "population"
         const val COLUMN_RESEARCH: String = "research"
+        const val COLUMN_DEFENSE: String = "defense"
+        const val COLUMN_POPULATION: String = "population"
+
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
@@ -28,8 +30,9 @@ class PlanetHelper {
             append("$COLUMN_OWNER INTEGER,")
             append("$COLUMN_FOOD INTEGER,")
             append("$COLUMN_PRODUCTION INTEGER,")
-            append("$COLUMN_POPULATION INTEGER,")
-            append("$COLUMN_RESEARCH INTEGER)")
+            append("$COLUMN_RESEARCH INTEGER,")
+            append("$COLUMN_DEFENSE INTEGER,")
+            append("$COLUMN_POPULATION INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
