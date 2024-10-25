@@ -57,6 +57,7 @@
     <string name="fecha_estelar">2300.1</string>
     <string name="create_colony">Fundar Colonia</string>
     <string name="sin_produccion">SIN PRODUCCION</string>
+    <string name="multiplier">x%1$s </string>
 
 
 </resources>

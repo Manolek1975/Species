@@ -36,7 +36,7 @@ class Dialog(context: Context) : View(context) {
             db.onDelete()
             context.getSharedPreferences("data", 0).edit().clear().apply()
             val i = Intent(context, MainActivity::class.java)
-            data.edit().putInt("tutorial", 0).apply()
+            data.edit().putInt("tutorial", 1).apply()
             context.startActivity(i) // To Main Activity
         }
         .show()
@@ -110,6 +110,7 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun buildDone(build: Build, planet: Planet) {
+        PlanetDAO(context).decrementPopulation(planet)
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
         //val planetId = PlanetDAO(context).getPlanetById(planet.id)
         data.edit().putInt("planet", planet.id).apply()

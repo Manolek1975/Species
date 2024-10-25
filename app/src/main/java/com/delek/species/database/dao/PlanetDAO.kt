@@ -2,6 +2,7 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Planet
@@ -18,7 +19,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+    val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
@@ -196,6 +197,13 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
+    fun decrementPopulation(planet: Planet) {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("population", planet.population -1)
+        db.update("planets", values, "id=${planet.id}", null)
+        db.close()
+    }
 
 
 }

@@ -106,6 +106,10 @@ class PlanetFragment : Fragment() {
             binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             setResources(p)
+            val dialog = Dialog(requireContext())
+            dialog.showTutorial(4)
+            data.edit().putInt("tutorial", 4).apply()
+
         }
 
         binding.planetInfo.setOnClickListener{
@@ -153,13 +157,13 @@ class PlanetFragment : Fragment() {
 
     override fun onResume(){
         super.onResume()
-        val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val dialog = Dialog(requireContext())
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 3) dialog.showTutorial(3)
-        if(tutorial == 5) dialog.showTutorial(5)
-        if(tutorial == 7) dialog.showTutorial(7)
-        if(tutorial == 9) dialog.showTutorial(9)
+        if(tutorial == 6) dialog.showTutorial(6)
+        if(tutorial == 10) dialog.showTutorial(10)
+        if(tutorial == 12) dialog.showTutorial(12)
     }
 
     override fun onPause(){
@@ -167,10 +171,10 @@ class PlanetFragment : Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         data?.edit()?.putInt("build", 0)?.apply()
-        if(tutorial == 3) data.edit().putInt("tutorial", 4).apply()
-        if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
-        if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
-        if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
+        if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
+        if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
+        if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
+        if(tutorial == 12) data.edit().putInt("tutorial", 13).apply()
     }
 
     override fun onDestroyView() {

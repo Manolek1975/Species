@@ -34,7 +34,8 @@ class PlanetBuildsAdapter(private var build: List<Build>,
         val level = buildPlanet.level
         holder.buildLevel.text = level.toString()
         holder.buildItem.text = build.name
-        //holder.buildDays.text = build.cost.toString()
+        holder.buildDays.text = context.getString(R.string.multiplier, level.toString())
+        holder.buildDays.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.human,0)
         val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
         holder.buildItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.buildItem.compoundDrawablePadding = 50

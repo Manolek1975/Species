@@ -74,8 +74,11 @@ class CronoFragment: Fragment() {
                         val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
                         if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                         else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
+                        //TODO Decrement population
+
                         println("Build=$build")
                         Dialog(context).buildDone(build, planet)
+
                     } else if (minProd.type == 2) {
                         val ship = ShipDAO(context).getShipById(minProd.typeId)
                         println("Ship=$ship")

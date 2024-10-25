@@ -4,75 +4,93 @@
     <string-array name="tutorial">
         <item>Tutorial Deshabilitado</item>
 
+        <!-- TUTORIAL 1 -->
         <item>Saludos comandante, hemos llegado a nuestro destino, la estrella tiene un planeta apto
             para la vida, comenzamos a finalizar la hibernación de nuestros colonos, la estrella
             se indica en nuestro mapa galáctico por un circulo.
             \n\n
-            Toca tu estrella para continuar.
+            TOCA TU ESTRELLA
         </item>
 
-        <item>Esta es la ventana del sistema, al llegar con tu nave se explora automáticamente.
-            La estrella se encuentra en la parte superior y debajo los planetas, los cuatro primeros
-            planetas son habitables, más allá se encuentran los planetas gaseosos.
+        <!-- TUTORIAL 2 -->
+        <item>Esta es la ventana del sistema, la estrella se encuentra en la parte superior,
+            si no ves planetas, debes explorar la estrella con una nave,
             \n\n
-            Toca el tercer planeta.
+            TOCA EL TERCER PLANETA
         </item>
 
-        <item>Tu nave está orbitando el planeta, observa que está sin explorar, toca tu nave para ver
-            que dispositivos tienes a bordo.
-        </item>
-
-        <item>Para explorar el planeta necesitas utilizar un scanner. Toca el analizador Kotlin para
-            rastrear la superficie del planeta.
-        </item>
-
-        <item>Ahora que has explorado el planeta necesitas crear una colonia, tu nave tiene un
-            módulo de colonia listo para descender al planeta, toca en tu nave para volver a la
-            pantalla de disposivos.
-        </item>
-
-        <item>Ciertos dispositivo se pierden al utilizarlos, el módulo es uno de ellos.
+        <!-- TUTORIAL 3 -->
+        <item>Tu nave está orbitando el planeta, si tienes un modulo de colonia podras crear una colonia.
             \n\n
-            Toca el Módulo de Colonia
+            CREA UNA COLONIA
         </item>
 
+        <!-- TUTORIAL 4 -->
         <item>Ahora puedes gestionar tu planeta. Los recursos son comida, producción, ciencia,
-            energía y población, observa que los colonos que viajaban en tu nave han bajado a la colonia.
+            defensa y población, observa que los colonos que viajaban en tu nave han bajado a la colonia.
             Sin embargo no tenemos alimentos, debemos alimentar a los colonos para que puedan sobrevivir.
             \n\n
-            Pulsa el botón de la llave inglesa.
+            TOCA LA LLAVE INGLESA
         </item>
 
+        <!-- TUTORIAL 5 -->
         <item>Los edificios que puedes construir dependen de la tecnología que hayas investigado.
             El número a la derecha te indica los días que tardarás en construirlos.
             \n\n
-            Toca el agriplot.
+            TOCA EL AGRIPLOT
         </item>
 
+        <!-- TUTORIAL 6 -->
         <item>Tu agriplot ha empezado a construirse. El número a la derecha te indica
             los días restantes para construirlo. Ahora sería interesante explorar otros planetas.
             \n\n
-            Toca tu nave.
+            TOCA TU NAVE
         </item>
 
+        <!-- TUTORIAL 7 -->
         <item>Tu nave dispone de un Motor Kotlin, podemos poner en marcha el motor y salir de órbita,
             como no disponemos de un navegador estelar sólo podremos viajar a otros planetas en
             nuestro sistema. El generador suministra la energía para tus motores y dispositivos.
             \n\n
-            Toca el motor Kotlin.
+            TOCA EL MOTOR KOTLIN
         </item>
 
-        <item>El ordenador de navegación te permite seleccionar la ruta hacia un planeta o estrella.
+        <!-- TUTORIAL 8 -->
+        <item>El ordenador de navegación te permite seleccionar la ruta hacia un planeta.
             Vamos a explorar los planetas más cercanos, el cuarto planeta parece interesante.
             \n\n
-            Toca el cuarto planeta
+            TOCA EL CUARTO PLANETA
         </item>
 
+        <!-- TUTORIAL 9 -->
         <item>La pantalla de naves te indica todas tus naves construidas, su nombre, si están orbitando
             un planeta, si están en ruta hacia una planeta o estrella y los dias que faltan para llegar
-            al destino. Podemos reducir los días activando el hipercrono.
+            al destino. Ahora pongamos en marcha el hipercrono.
             \n\n
-            Desliza el dedo por el lateral izquierdo para abrir el menú y toca el Hipercrono.
+            Desliza el dedo por el lateral izquierdo para abrir el menú y toca el HIPERCRONO.
+        </item>
+
+        <!-- TUTORIAL 10 -->
+        <item>
+            Se ha construido un agriplot y hay un colono trabajando, ahora deberíamos construir un
+            laboratorio para investigar tecnologías.
+            \n\n
+            TOCA LA LLAVE INGLESA
+        </item>
+
+        <!-- TUTORIAL 11 -->
+        <item>
+            CONSTRUYE UN LABORATOTIO
+        </item>
+
+        <!-- TUTORIAL 12 -->
+        <item>
+            ABRE EL MENU Y TOCA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 13 -->
+        <item>
+
         </item>
 
     </string-array>
