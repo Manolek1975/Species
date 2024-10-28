@@ -14,10 +14,12 @@ import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.model.Dialog
@@ -50,6 +52,7 @@ class PlanetFragment : Fragment() {
 
         // Ship Info
         val ships = ShipDAO(context).getShipsByPlanet(planet.position)
+        var colonyModule = false
         for (ship in ships){
             val shipID = resources.getIdentifier(ship.image, "drawable", context.packageName)
             if (specieId == ship.specieId){
@@ -58,6 +61,8 @@ class PlanetFragment : Fragment() {
                 val explored = PlanetDAO(context).getPlanetExplored(planetId)
                 if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
                 data.edit().putInt("ship", ship.id).apply()
+
+                colonyModule = DeviceDAO(context).getColonyDevice(ship.id)
 
                 binding.shipInfo.setOnClickListener {
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
@@ -91,15 +96,16 @@ class PlanetFragment : Fragment() {
         val colony = PlanetDAO(context).getPlanetColony(planet.id)
         if (!explored) {
             binding.explored.visibility = View.VISIBLE
-        } else if (!colony) {
+        } else if (!colony && colonyModule) {
             binding.colonyButton.visibility = View.VISIBLE
-        } else {
+        } else if(colony) {
             binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             setResources(planet)
         }
 
         binding.colonyButton.setOnClickListener{
+            ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
             PlanetDAO(context).setPlanetColony(planet.id, specieId)
             val p = PlanetDAO(context).getPlanetById(planetId)
             binding.colonyButton.visibility = View.GONE
@@ -109,7 +115,6 @@ class PlanetFragment : Fragment() {
             val dialog = Dialog(requireContext())
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
-
         }
 
         binding.planetInfo.setOnClickListener{

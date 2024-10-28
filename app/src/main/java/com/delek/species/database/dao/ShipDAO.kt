@@ -114,7 +114,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return ship
-
     }
 
     fun updateRouteShip(shipId: Int, planetId: Int) {

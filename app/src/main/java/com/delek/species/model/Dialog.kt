@@ -52,8 +52,8 @@ class Dialog(context: Context) : View(context) {
             val i = Intent(context, SidebarActivity::class.java)
             data.edit().putInt("specie", specie.id).apply()
             data.edit().putInt("turn", 1).apply()
-            data.edit().putInt("fecha", 2300).apply()
-            data.edit().putInt("days", 0).apply()
+            data.edit().putInt("year", 2300).apply()
+            data.edit().putInt("day", 0).apply()
             context.startActivity(i) // To Sector
             }
         .show()

@@ -39,7 +39,6 @@ class ShipsAdapter(private var ship: List<Ship>,
         val planetOrbits = PlanetDAO(context).getPlanetName(ship.orbit)
         val planetName = PlanetDAO(context).getPlanetName(ship.route)
         val daysLeft = ProdDAO(context).getDaysLeft(ship.id)
-        println(daysLeft)
         val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
         holder.shipItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0,0)
         holder.shipItem.compoundDrawablePadding = 20

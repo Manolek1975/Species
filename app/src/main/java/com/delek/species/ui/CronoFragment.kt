@@ -33,8 +33,8 @@ class CronoFragment: Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        var fecha = data.getInt("fecha", 0)
-        var days = data.getInt("days", 0)
+        var year = data.getInt("year", 0)
+        var day = data.getInt("day", 0)
 
         val minProd = ProdDAO(context).getMinProd()
         val min: Long = minProd.days.toLong()
@@ -44,10 +44,10 @@ class CronoFragment: Fragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     //TODO Update Species IA
                     //Estelar Date: 365 days = 1 year
-                    ++days
-                    if (days > 365) {
-                        ++fecha
-                        days = 0
+                    ++day
+                    if (day > 365) {
+                        ++year
+                        day = 0
                     }
                     //TODO Update Planet Resources
                     updatePlanetResources(context, minProd)
@@ -58,15 +58,15 @@ class CronoFragment: Fragment() {
                     }
                     //Show Estelar date
                     binding.fechaEstelar.text = buildString {
-                        append(fecha)
+                        append(year)
                         append(".")
-                        append(days)
+                        append(day)
                     }
                 }
 
                 override fun onFinish() {
-                    data.edit().putInt("fecha", fecha).apply()
-                    data.edit().putInt("days", days).apply()
+                    data.edit().putInt("year", year).apply()
+                    data.edit().putInt("day", day).apply()
                     //Show Dialog if days are finished
                     if (minProd.type == 1) {
                         val build = BuildDAO(context).getBuildById(minProd.typeId)
@@ -75,11 +75,9 @@ class CronoFragment: Fragment() {
                         if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                         else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
                         //TODO Decrement population
-
                         println("Build=$build")
                         Dialog(context).buildDone(build, planet)
-
-                    } else if (minProd.type == 2) {
+                    } else if (minProd.type == 2 && minProd.typeId != 0) {
                         val ship = ShipDAO(context).getShipById(minProd.typeId)
                         println("Ship=$ship")
                         Dialog(context).shipDone(ship)
@@ -91,9 +89,9 @@ class CronoFragment: Fragment() {
         }
 
         binding.fechaEstelar.text = buildString {
-            append(fecha)
+            append(year)
             append(".")
-            append(days)
+            append(day)
         }
         //TODO Perhaps list of build, ships or tech under construction?
 /*        adapter = BuildsAdapter(BuildDAO(context).getBuildsByTech(tech), planet, context)
