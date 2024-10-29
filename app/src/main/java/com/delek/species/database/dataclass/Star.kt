@@ -11,5 +11,6 @@ data class Star(
     val x: Int,
     val y: Int,
     val type: Int,
-    val explore: Int
+    val explore: Int,
+    val owner: Int
 ) : Serializable

@@ -51,7 +51,7 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             val i = Intent(context, SidebarActivity::class.java)
             data.edit().putInt("specie", specie.id).apply()
-            data.edit().putInt("turn", 1).apply()
+            data.edit().putInt("ship", 0).apply()
             data.edit().putInt("year", 2300).apply()
             data.edit().putInt("day", 0).apply()
             context.startActivity(i) // To Sector

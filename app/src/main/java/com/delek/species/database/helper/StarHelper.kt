@@ -12,6 +12,7 @@ class StarHelper {
         const val COLUMN_Y: String = "y"
         const val COLUMN_TYPE: String = "type"
         const val COLUMN_EXPLORE: String = "explore"
+        const val COLUMN_OWNER: String = "owner"
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
@@ -23,7 +24,8 @@ class StarHelper {
             append("$COLUMN_X INTEGER,")
             append("$COLUMN_Y INTEGER,")
             append("$COLUMN_TYPE INTEGER,")
-            append("$COLUMN_EXPLORE INTEGER)")
+            append("$COLUMN_EXPLORE INTEGER,")
+            append("$COLUMN_OWNER INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"

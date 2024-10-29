@@ -35,14 +35,14 @@
     </string-array>
 
     <string-array name="orbit_ships">
+        <item>115</item>
+        <item>70</item>
         <item>3</item>
-        <item>3</item>
-        <item>3</item>
-        <item>3</item>
-        <item>3</item>
-        <item>3</item>
-        <item>3</item>
-        <item>3</item>
+        <item>118</item>
+        <item>187</item>
+        <item>39</item>
+        <item>30</item>
+        <item>167</item>
     </string-array>
 
 </resources>

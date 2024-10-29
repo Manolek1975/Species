@@ -3,6 +3,7 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Star
@@ -30,6 +31,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
             put(StarHelper.COLUMN_Y, star.y)
             put(StarHelper.COLUMN_TYPE, star.type)
             put(StarHelper.COLUMN_EXPLORE, star.explore)
+            put(StarHelper.COLUMN_OWNER, star.owner)
         }
         db.insert(StarHelper.TABLE_NAME, null, values)
         db.close()
@@ -51,18 +53,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM stars"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
-
-            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
-            starList.add(star)
+            starList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -74,18 +65,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM stars WHERE id = $starId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
-
-            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
-
+            val star = getColumns(cursor)
         cursor.close()
         db.close()
         return star
@@ -98,18 +78,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM stars WHERE sector = $s"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
-
-            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
-            starList.add(star)
+            starList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -142,22 +111,27 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
                 "WHERE star_explored.specie_id = $specieId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-            val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-            val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-            val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-            val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-            val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
-
-            val star = Star(id, name, image, sector, jumps, x, y, type, explore)
-            starList.add(star)
+            starList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
         return starList
+    }
+
+    private fun getColumns(cursor: Cursor): Star {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
+        val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+        val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
+        val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
+        val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
+        val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
+        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_OWNER))
+
+        val star = Star(id, name, image, sector, jumps, x, y, type, explore, owner)
+        return star
     }
 
 }

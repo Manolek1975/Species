@@ -19,6 +19,8 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         TODO("Not yet implemented")
     }
 
+    val db: SQLiteDatabase = readableDatabase
+
     fun insertShips(ship: Ship) {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -33,7 +35,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllShips(): List<Ship> {
-        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
@@ -54,7 +55,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsBySpecie(specieID: Int): List<Ship> {
-        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
@@ -75,10 +75,9 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         return shipList
     }
 
-    fun getShipsByPlanet(planetPosition: Int): List<Ship> {
-        val db = readableDatabase
+    fun getShipsByPlanet(planetId: Int): List<Ship> {
         val shipList = mutableListOf<Ship>()
-        val query = "SELECT * FROM ships WHERE orbit = $planetPosition"
+        val query = "SELECT * FROM ships WHERE orbit = $planetId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
@@ -97,7 +96,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipById(shipId: Int): Ship {
-        val db = readableDatabase
         var ship = Ship()
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
@@ -117,7 +115,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun updateRouteShip(shipId: Int, planetId: Int) {
-        val db = writableDatabase
         val values = ContentValues()
         values.put("route", planetId)
         values.put("orbit", 0)

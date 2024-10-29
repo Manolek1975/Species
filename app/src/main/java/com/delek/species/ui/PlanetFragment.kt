@@ -51,7 +51,7 @@ class PlanetFragment : Fragment() {
         binding.planetInfo.text = planet.name
 
         // Ship Info
-        val ships = ShipDAO(context).getShipsByPlanet(planet.position)
+        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
         var colonyModule = false
         for (ship in ships){
             val shipID = resources.getIdentifier(ship.image, "drawable", context.packageName)
@@ -103,6 +103,10 @@ class PlanetFragment : Fragment() {
             binding.prodLayout.visibility = View.VISIBLE
             setResources(planet)
         }
+        else {
+            binding.explored.visibility = View.VISIBLE
+            binding.explored.text = setType(planet.type)
+        }
 
         binding.colonyButton.setOnClickListener{
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
@@ -137,10 +141,10 @@ class PlanetFragment : Fragment() {
 
     private fun setType(type: Int): CharSequence {
         when (type) {
-            in 1..4 -> return "Planeta Rocoso"
-            in 5..7 -> return "Planeta Gaseoso"
+            in 5..7 -> return "Gigante Gaseoso"
+            8 -> return "Planeta Enano"
         }
-        return "Planeta Helado"
+        return "Planeta Terrestre"
     }
 
     private fun setResources(planet: Planet) {

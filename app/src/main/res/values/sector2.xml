@@ -79,4 +79,30 @@
         <item>4</item>
     </string-array>
 
+    <string-array name="owner_stars_s2">
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>4</item>
+
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>8</item>
+
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>5</item>
+        <item>0</item>
+    </string-array>
+
 </resources>

@@ -100,11 +100,12 @@ class MainActivity : AppCompatActivity() {
         val name = res.getStringArray(R.array.name_stars_s1)
         val image = res.getStringArray(R.array.image_stars_s1)
         val type = res.getStringArray(R.array.type_stars_s1)
+        val owner = res.getStringArray(R.array.owner_stars_s1)
         val sector = 1
         val coords = getCoords()
         for (i in name.indices){
             val star = Star(0, name[i], image[i], sector,0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
+                coords[i].x, coords[i].y, type[i].toInt(), 0, owner[i].toInt())
             StarDAO(this).insertStars(star)
         }
     }
@@ -114,11 +115,12 @@ class MainActivity : AppCompatActivity() {
         val name = res.getStringArray(R.array.name_stars_s2)
         val image = res.getStringArray(R.array.image_stars_s2)
         val type = res.getStringArray(R.array.type_stars_s2)
+        val owner = res.getStringArray(R.array.owner_stars_s2)
         val sector = 2
         val coords = getCoords()
         for (i in name.indices){
             val star = Star(0, name[i], image[i], sector,0,
-                coords[i].x, coords[i].y, type[i].toInt(), 0)
+                coords[i].x, coords[i].y, type[i].toInt(), 0, owner[i].toInt())
             StarDAO(this).insertStars(star)
         }
     }
@@ -190,36 +192,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadTechs() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_techs)
-        val cost = res.getStringArray(R.array.cost_techs)
-        val require = res.getStringArray(R.array.require_techs)
-        val unlock = res.getStringArray(R.array.unlock_techs)
-
-        for (i in name.indices){
-            val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
-            TechDAO(this).insertTechs(tech)
-        }
-    }
-
-    private fun loadTechsLearned(){
-        val specieList = SpecieDAO(this).getAllSpecies()
-        for (i in specieList){
-            TechDAO(this).insertTechsLearned(i)
-        }
-
-    }
-
     private fun loadShips() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_ships)
         val image = res.getStringArray(R.array.image_ships)
         val specie = res.getStringArray(R.array.specie_ships)
-        val orbit = res.getStringArray(R.array.orbit_ships)
 
         for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), orbit[i].toInt(),0)
+            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 3,0)
             ShipDAO(this).insertShips(ship)
         }
     }
@@ -250,6 +230,26 @@ class MainActivity : AppCompatActivity() {
                     ShipDevicesDAO(this).insertShipDevices(shipDevice)
                 }
             }
+        }
+    }
+
+    private fun loadTechs() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.name_techs)
+        val cost = res.getStringArray(R.array.cost_techs)
+        val require = res.getStringArray(R.array.require_techs)
+        val unlock = res.getStringArray(R.array.unlock_techs)
+
+        for (i in name.indices){
+            val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
+            TechDAO(this).insertTechs(tech)
+        }
+    }
+
+    private fun loadTechsLearned(){
+        val specieList = SpecieDAO(this).getAllSpecies()
+        for (i in specieList){
+            TechDAO(this).insertTechsLearned(i)
         }
     }
 
