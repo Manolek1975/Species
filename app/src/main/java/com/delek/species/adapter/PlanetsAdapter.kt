@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.ShipDAO
-import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dataclass.Planet
 import com.google.android.material.navigation.NavigationView
 
@@ -33,18 +32,14 @@ class PlanetsAdapter(private var planets: List<Planet>,
         val specie = data.getInt("specie", 0)
         val ship = data.getInt("ship", 0)
         val planet = planets[position]
-        //val star = StarDAO(context).getStarById(planet.star)
         holder.planetItem.text = planet.name
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
 
-        println(planet.star)
-
         holder.planetItem.setOnClickListener{
-            if (ship==0){
+            if (ship==0)
                 ShipDAO(context).updateOrbitShip(planet.id, specie)
-            }
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) //To Planet

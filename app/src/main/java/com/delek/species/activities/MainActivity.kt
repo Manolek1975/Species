@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         val specie = res.getStringArray(R.array.specie_ships)
 
         for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 3,0)
+            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 0,0)
             ShipDAO(this).insertShips(ship)
         }
     }

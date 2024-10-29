@@ -35,20 +35,22 @@ class NavigationAdapter(private var planets: List<Planet>,
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
-        //val dias = distances(planet)
-        val dias = planet.position * 100
+        val dias = distances(planet)
         holder.daysLeft.text = res.getString(R.string.dias, dias)
         holder.planetItem.setOnClickListener{
             dialog.insertProdShip(ship, planet, dias)
         }
     }
 
-/*    private fun distances(planet: Planet): Int {
-        if (planet.position <= ship.orbit){
-            return (ship.orbit - planet.position)*100
-        } else
-            return (planet.position - ship.orbit)*100
-    }*/
+    private fun distances(planet: Planet): Int {
+        val pos: Int
+        if (ship.orbit > planet.id){
+            pos = ship.orbit - planet.id
+        } else {
+            pos = planet.id - ship.orbit
+        }
+        return pos * 100
+    }
 
     override fun getItemCount(): Int = planets.size
 
