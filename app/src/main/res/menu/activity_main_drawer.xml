@@ -33,12 +33,12 @@
         <item
             android:id="@+id/nav_tech"
             android:icon="@drawable/menu_tech"
-            android:title="Tecnologías" />
+            android:title="@string/menu_tecnologias"  />
         <!--6-->
         <item
             android:id="@+id/nav_diplomacy"
             android:icon="@drawable/menu_diplo"
-            android:title="Diplomacia" />
+            android:title="@string/diplomacia" />
         <!--7-->
         <item
             android:id="@+id/nav_build"

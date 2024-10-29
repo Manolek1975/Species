@@ -48,6 +48,7 @@ class BuildFragment: Fragment() {
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 5) dialog.showTutorial(5)
         if(tutorial == 11) dialog.showTutorial(11)
+        if(tutorial == 14) dialog.showTutorial(14)
     }
 
     override fun onPause(){
@@ -56,6 +57,7 @@ class BuildFragment: Fragment() {
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
         if(tutorial == 11) data.edit().putInt("tutorial", 12).apply()
+        if(tutorial == 14) data.edit().putInt("tutorial", 15).apply()
     }
 
     override fun onDestroyView() {

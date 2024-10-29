@@ -49,6 +49,7 @@ class NavigationFragment : Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 8) dialog.showTutorial(8)
+        if(tutorial == 18) dialog.showTutorial(18)
     }
 
     override fun onPause() {
@@ -56,6 +57,7 @@ class NavigationFragment : Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         if (tutorial == 8) data.edit().putInt("tutorial", 9).apply()
+        if (tutorial == 18) data.edit().putInt("tutorial", 19).apply()
     }
 
     override fun onDestroyView() {

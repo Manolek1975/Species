@@ -101,12 +101,21 @@ class Dialog(context: Context) : View(context) {
     }
 
      fun showTutorial(id: Int) {
-        val res = context.resources
-        val message = res.getStringArray(R.array.tutorial)
-        dialogBuilder.setTitle("Tutorial")
-        dialogBuilder.setMessage(message[id])
-        dialogBuilder.setNegativeButton("OK") { _, _ -> }
-            .show()
+         val res = context.resources
+         val message = res.getStringArray(R.array.tutorial)
+         dialogBuilder.setTitle("Tutorial")
+         dialogBuilder.setMessage(message[id])
+         if (data.getInt("tutorial", 0) == 20){
+             dialogBuilder.setPositiveButton("Ir a Tecnologías") { _, _ ->
+                 val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                 val item = nv.menu.getItem(5) // To Tech
+                 val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+                 NavigationUI.onNavDestinationSelected(item, navController)
+             }.show()
+         } else {
+             dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+         }
+
     }
 
     fun buildDone(build: Build, planet: Planet) {

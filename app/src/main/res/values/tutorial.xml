@@ -22,7 +22,7 @@
         <!-- TUTORIAL 3 -->
         <item>Tu nave está orbitando el planeta, si tienes un modulo de colonia podras crear una colonia.
             \n\n
-            CREA UNA COLONIA
+            FUNDA UNA COLONIA
         </item>
 
         <!-- TUTORIAL 4 -->
@@ -90,8 +90,67 @@
 
         <!-- TUTORIAL 13 -->
         <item>
-
+            Para construir dispositivos necesitamos factorías.
+            \n\n
+            TOCA LA LLAVE INGLESA
         </item>
+
+        <!-- TUTORIAL 14 -->
+        <item>
+            CONSTRUYE UNA FACTORÍA
+        </item>
+
+        <!-- TUTORIAL 15 -->
+        <item>
+            ABRE EL MENU Y TOCA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 16 -->
+        <item>
+            Nuestra nave a llegado a su destino, al explorar el planeta nos indica el tipo de planeta.
+            Los planetas terrestres pueden ser colonizados, pero no tenemos un modulo de colonia.
+            Los planetas gaseosos no pueden ser colonizados.
+            Volvamos al planeta de origen para crear un módulo de colonia.
+            \n\n
+            TOCA TU NAVE
+        </item>
+
+        <!-- TUTORIAL 17 -->
+        <item>
+            TOCA EL MOTOR KOTLIN
+        </item>
+
+        <!-- TUTORIAL 18 -->
+        <item>
+            Con el menú lateral puedes comprobar rápidamente tu imperio galáctico, aparte del
+            HIPERCRONO, el menú SECTOR muestra el mapa galáctico, desde ESTRELLAS accedes a tus
+            estrellas exploradas, en PLANETAS se muestran tus planetas explorados y colonizados,
+            NAVES te detalla todas tus naves, TECNOLOGÍAS las tecnologías investigadas y por investigar.
+            Finalmente el menú diplomacio te mostrará las relaciones con otras cilivizaciones de la
+            galaxia y el menú ESTRUCTURAS los edificios que puedes construir.
+            Puedes ver rápidamente tu planeta colonizado desde el menú PLANETAS
+            Cuando acabes de ver los menús vuelve a tocar el Hipercrono.
+            \n\n
+            VUELVE A TU PLANETA
+        </item>
+
+        <!-- TUTORIAL 19 -->
+        <item>
+            TOCA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 20 -->
+        <item>
+            Ahora disponemos de suficiente ciencia para investigar una tecnología
+            \n\n
+            ABRE TECNOLOGÍAS
+        </item>
+
+        <!-- TUTORIAL 21 -->
+        <item>
+            TECNOLOGÍAS
+        </item>
+
 
     </string-array>
 

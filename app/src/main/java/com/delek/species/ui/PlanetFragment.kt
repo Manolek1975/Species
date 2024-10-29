@@ -173,6 +173,10 @@ class PlanetFragment : Fragment() {
         if(tutorial == 6) dialog.showTutorial(6)
         if(tutorial == 10) dialog.showTutorial(10)
         if(tutorial == 12) dialog.showTutorial(12)
+        if(tutorial == 13) dialog.showTutorial(13)
+        if(tutorial == 15) dialog.showTutorial(15)
+        if(tutorial == 16) dialog.showTutorial(16)
+        if(tutorial == 20) dialog.showTutorial(20)
     }
 
     override fun onPause(){
@@ -184,6 +188,10 @@ class PlanetFragment : Fragment() {
         if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
         if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
         if(tutorial == 12) data.edit().putInt("tutorial", 13).apply()
+        if(tutorial == 13) data.edit().putInt("tutorial", 14).apply()
+        if(tutorial == 15) data.edit().putInt("tutorial", 16).apply()
+        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
+        if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
     }
 
     override fun onDestroyView() {

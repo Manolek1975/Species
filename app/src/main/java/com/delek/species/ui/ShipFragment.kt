@@ -44,6 +44,8 @@ class ShipFragment: Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 9) dialog.showTutorial(9)
+        if(tutorial == 19) dialog.showTutorial(19)
+
     }
 
     override fun onPause(){
@@ -51,6 +53,8 @@ class ShipFragment: Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
+        if(tutorial == 19) data.edit().putInt("tutorial", 20).apply()
+
     }
 
     override fun onDestroyView() {
