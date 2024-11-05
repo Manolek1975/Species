@@ -2,9 +2,15 @@
 <resources>
 
     <string-array name="name_techs">
+        <item>Espectro de onda</item>
+        <item>Propulsión iónica</item>
         <item>Estación espacial</item>
-        <item>Motor Kotlin</item>
-        <item>Célula solar Kotlin</item>
+    </string-array>
+
+    <string-array name="image_techs">
+        <item>t1</item>
+        <item>t2</item>
+        <item>t3</item>
     </string-array>
 
     <string-array name="cost_techs">

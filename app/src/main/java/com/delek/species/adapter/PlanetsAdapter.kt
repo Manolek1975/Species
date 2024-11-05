@@ -1,6 +1,7 @@
 package com.delek.species.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,8 @@ class PlanetsAdapter(private var planets: List<Planet>,
         val specie = data.getInt("specie", 0)
         val ship = data.getInt("ship", 0)
         val planet = planets[position]
+        if (position == 2)
+            holder.planetItem.setBackgroundResource(R.drawable.border_layout)
         holder.planetItem.text = planet.name
         val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)

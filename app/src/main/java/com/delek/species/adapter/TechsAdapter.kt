@@ -25,11 +25,15 @@ class TechsAdapter(private var tech: List<Tech>,
 
     override fun onBindViewHolder(holder: TechViewHolder, position: Int) {
         val dialog = Dialog(context)
+
         val tech = tech[position]
         holder.techItem.text = tech.name
+        val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)
+        holder.techItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
+        holder.techItem.compoundDrawablePadding = 50
 
         holder.techItem.setOnClickListener{
-            //dialog.showBuild(build, planet)
+            dialog.showTech(tech)
         }
     }
 

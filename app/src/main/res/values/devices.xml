@@ -55,9 +55,9 @@
 
     <string-array name="image_devices">
         <item>s40</item>
-        <item>e1</item>
-        <item>g1</item>
-        <item>a1</item>
+        <item>d2</item>
+        <item>d3</item>
+        <item>d1</item>
         <item></item>
 
         <item></item>

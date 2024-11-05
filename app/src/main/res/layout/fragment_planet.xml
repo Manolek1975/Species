@@ -125,7 +125,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/create_colony"
-        android:background="@drawable/dialog_bg"
         android:visibility="gone" />
 
     <LinearLayout

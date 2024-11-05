@@ -236,20 +236,23 @@ class MainActivity : AppCompatActivity() {
     private fun loadTechs() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_techs)
+        val image = res.getStringArray(R.array.image_techs)
         val cost = res.getStringArray(R.array.cost_techs)
         val require = res.getStringArray(R.array.require_techs)
         val unlock = res.getStringArray(R.array.unlock_techs)
 
         for (i in name.indices){
-            val tech = Tech(0, name[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
+            val tech = Tech(0, name[i], image[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
             TechDAO(this).insertTechs(tech)
         }
     }
 
     private fun loadTechsLearned(){
         val specieList = SpecieDAO(this).getAllSpecies()
+        val techList = TechDAO(this).getAllTechs()
         for (i in specieList){
-            TechDAO(this).insertTechsLearned(i)
+            for (j in 1..3)
+                TechDAO(this).insertTechsLearned(i, j)
         }
     }
 

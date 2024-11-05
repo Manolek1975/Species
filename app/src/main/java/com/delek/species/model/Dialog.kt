@@ -2,7 +2,9 @@ package com.delek.species.model
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -17,6 +19,7 @@ import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.Specie
+import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
 import com.google.android.material.navigation.NavigationView
 
@@ -151,6 +154,19 @@ class Dialog(context: Context) : View(context) {
             val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
+        }.show().setCanceledOnTouchOutside(false)
+
+    }
+
+    fun showTech(tech: Tech) {
+        val iv = ImageView(context)
+        iv.setImageResource(R.drawable.d1)
+        val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(tech.name)
+        dialogBuilder.setView(iv)
+        //dialogBuilder.setMessage()
+        dialogBuilder.setNegativeButton("OK") { _, _ ->
         }.show().setCanceledOnTouchOutside(false)
 
     }
