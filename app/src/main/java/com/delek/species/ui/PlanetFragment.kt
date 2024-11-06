@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
@@ -15,9 +14,9 @@ import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.DeviceDAO
-import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Planet
@@ -25,6 +24,7 @@ import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
+
 
 class PlanetFragment : Fragment() {
 
@@ -79,9 +79,12 @@ class PlanetFragment : Fragment() {
         val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
         val build = BuildDAO(context).getBuildById(prod.typeId)
         val prodID = Game.getResId(build.image, R.drawable::class.java)
-        binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
-        binding.prod.text = build.name
-        binding.prodDays.text = prod.days.toString()
+        if (prodID != -1){
+            binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
+            binding.prod.text = build.name
+            binding.prodDays.text = prod.days.toString()
+        }
+
 
         if (prod.typeId == 0)
             binding.prodDays.text = getString(R.string.sin_produccion)
@@ -124,8 +127,8 @@ class PlanetFragment : Fragment() {
         }
 
         binding.planetInfo.setOnClickListener{
-            val navController = findNavController()
-            navController.popBackStack()
+            (activity as SidebarActivity).openDrawer()
+
         }
 
         // FAB
@@ -137,6 +140,10 @@ class PlanetFragment : Fragment() {
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }
+
+
+
+        //TODO Open sidebar when click on planet
 
         return root
     }

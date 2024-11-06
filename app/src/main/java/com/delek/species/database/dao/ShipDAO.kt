@@ -15,7 +15,6 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val db: SQLiteDatabase = readableDatabase
 
     fun insertShips(ship: Ship) {
         val db = writableDatabase
@@ -31,6 +30,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllShips(): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
@@ -51,6 +51,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsBySpecie(specieID: Int): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
@@ -72,6 +73,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipsByPlanet(planetId: Int): List<Ship> {
+        val db = readableDatabase
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE orbit = $planetId"
         val cursor = db.rawQuery(query, null)
@@ -92,6 +94,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getShipById(shipId: Int): Ship {
+        val db = readableDatabase
         var ship = Ship()
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
@@ -111,6 +114,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun updateRouteShip(shipId: Int, planetId: Int) {
+        val db = writableDatabase
         val values = ContentValues()
         values.put("route", planetId)
         values.put("orbit", 0)

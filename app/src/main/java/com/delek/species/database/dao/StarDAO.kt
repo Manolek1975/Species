@@ -20,7 +20,6 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val db: SQLiteDatabase = readableDatabase
 
     fun insertStars(star: Star) {
         val db = writableDatabase
@@ -49,7 +48,8 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun getAllStars(): List<Star>{
+    fun getAllStars(): List<Star> {
+        val db = readableDatabase
         val starList = mutableListOf<Star>()
         val query = "SELECT * FROM stars"
         val cursor = db.rawQuery(query, null)
@@ -62,6 +62,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarById(starId: Int): Star{
+        val db = readableDatabase
         val query = "SELECT * FROM stars WHERE id = $starId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
@@ -73,6 +74,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarBySector(s: Int): List<Star>{
+        val db = readableDatabase
         val starList = mutableListOf<Star>()
         val query = "SELECT * FROM stars WHERE sector = $s"
         val cursor = db.rawQuery(query, null)
@@ -85,6 +87,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarOrigin(id: Int): Boolean {
+        val db = readableDatabase
         val query = "SELECT * FROM species WHERE origin = $id"
         val cursor = db.rawQuery(query, null)
         val result = cursor.count > 0
@@ -102,6 +105,7 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getStarsExploredBySpecie(specieId: Int): List<Star> {
+        val db = readableDatabase
         val starList = mutableListOf<Star>()
         val query = "SELECT stars.* FROM stars INNER JOIN star_explored " +
                 "ON stars.id = star_explored.star_id " +

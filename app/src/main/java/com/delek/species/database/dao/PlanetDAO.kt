@@ -20,7 +20,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-    val db: SQLiteDatabase = readableDatabase
+
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
@@ -54,6 +54,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
+        val db = readableDatabase
         val planetList = mutableListOf<Planet>()
         val query = "SELECT * FROM planets WHERE star = $starId"
         val cursor = db.rawQuery(query, null)
@@ -81,6 +82,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetById(planetId: Int?): Planet {
+        val db = readableDatabase
         var planet = Planet()
         val query = "SELECT * FROM planets where id = $planetId"
         val cursor = db.rawQuery(query, null)
@@ -108,6 +110,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetName(planetId: Int): Any {
+        val db = readableDatabase
         var planetName = ""
         val query = "SELECT name FROM planets WHERE id = $planetId"
         val cursor = db.rawQuery(query, null)
@@ -120,6 +123,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetsExploredBySpecie(specieId: Int): List<Planet> {
+        val db = readableDatabase
         val planetList = mutableListOf<Planet>()
         val query = "SELECT planets.* FROM planets INNER JOIN planet_explored " +
                 "ON planets.id = planet_explored.planet_id " +
@@ -152,6 +156,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetExplored(planetId: Int): Boolean {
+        val db = readableDatabase
         val query = "SELECT * FROM planet_explored WHERE planet_id = $planetId AND explored = 1"
         val cursor = db.rawQuery(query, null)
         val exists = cursor.count > 0
