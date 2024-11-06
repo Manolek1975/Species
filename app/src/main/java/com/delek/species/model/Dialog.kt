@@ -46,7 +46,7 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun showSpecie(specie: Specie) {
-        val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
+        val id = Game.getResId(specie.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(specie.name)
         dialogBuilder.setMessage(specie.desc)
@@ -65,7 +65,7 @@ class Dialog(context: Context) : View(context) {
     fun insertProdBuild(build: Build, planet: Planet) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 1, build.id, planet.id, owner, build.cost)
-        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
+        val id = Game.getResId(build.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(build.name)
         dialogBuilder.setMessage(build.description)
@@ -84,7 +84,7 @@ class Dialog(context: Context) : View(context) {
     fun insertProdShip(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 2, ship.id, planet.id, owner, days)
-        val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
+        val id = Game.getResId(ship.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(ship.name)
         dialogBuilder.setMessage("¿Establecer ruta a ${planet.name}?")
@@ -123,8 +123,7 @@ class Dialog(context: Context) : View(context) {
 
     fun buildDone(build: Build, planet: Planet) {
         PlanetDAO(context).decrementPopulation(planet)
-        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
-        //val planetId = PlanetDAO(context).getPlanetById(planet.id)
+        val id = Game.getResId(build.image, R.drawable::class.java)
         data.edit().putInt("planet", planet.id).apply()
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("CONSTRUCCIÓN FINALIZAZA")
@@ -139,7 +138,7 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun shipDone(ship: Ship) {
-        val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
+        val id = Game.getResId(ship.image, R.drawable::class.java)
         val planet = PlanetDAO(context).getPlanetById(ship.route)
         val specieId = data.getInt("specie", 0)
         data.edit().putInt("planet", ship.route).apply()
@@ -173,7 +172,6 @@ class Dialog(context: Context) : View(context) {
         }.show().setCanceledOnTouchOutside(false)
 
     }
-
 
     /*    fun showTutorialSector(specie: Specie, starName: String) {
         val res = context.resources

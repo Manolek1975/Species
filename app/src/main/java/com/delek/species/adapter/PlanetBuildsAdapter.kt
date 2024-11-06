@@ -10,6 +10,7 @@ import com.delek.species.R
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.model.Game
 
 class PlanetBuildsAdapter(private var build: List<Build>,
                           private var planetDao: PlanetBuildsDAO,
@@ -36,7 +37,7 @@ class PlanetBuildsAdapter(private var build: List<Build>,
         holder.buildItem.text = build.name
         holder.buildDays.text = context.getString(R.string.multiplier, level.toString())
         holder.buildDays.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.human,0)
-        val id = context.resources.getIdentifier(build.image, "drawable", context.packageName)
+        val id = Game.getResId(build.image, R.drawable::class.java)
         holder.buildItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.buildItem.compoundDrawablePadding = 50
 

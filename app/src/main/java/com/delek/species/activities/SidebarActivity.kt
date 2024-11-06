@@ -21,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.delek.species.R
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.databinding.ActivitySidebarBinding
+import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 
@@ -45,7 +46,7 @@ class SidebarActivity : AppCompatActivity() {
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         val headerView = navigationView.getHeaderView(0)
         val navIcon: ImageView = headerView.findViewById(R.id.specieIcon)
-        val id = this.resources.getIdentifier(specie.image, "drawable", packageName)
+        val id = Game.getResId(specie.image, R.drawable::class.java)
         navIcon.setImageResource(id)
         val navSpecieName = headerView.findViewById<View>(R.id.specieName) as TextView
         navSpecieName.text = specie.name

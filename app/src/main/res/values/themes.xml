@@ -31,7 +31,8 @@
         <!-- Used for the title and text -->
         <item name="android:textColorPrimary">#FFFFFF</item>
         <!-- Used for the background -->
-        <item name="android:background">@color/light_blue_900</item>
+        <item name="android:background">@color/blue_dialog</item>
+
     </style>
 
     <style name="Theme.Species.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

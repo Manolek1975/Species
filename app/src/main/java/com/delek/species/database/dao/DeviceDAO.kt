@@ -16,7 +16,7 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) {  }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val db = readableDatabase
+    val db: SQLiteDatabase = readableDatabase
 
     fun insertDevices(device: Device){
         val db = writableDatabase

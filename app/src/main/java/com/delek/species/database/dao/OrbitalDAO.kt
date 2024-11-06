@@ -16,6 +16,7 @@ class OrbitalDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    val db: SQLiteDatabase = readableDatabase
 
     fun insertOrbital(orbital: Orbital){
         val db = writableDatabase

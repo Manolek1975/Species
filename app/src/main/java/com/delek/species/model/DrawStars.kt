@@ -45,7 +45,7 @@ class DrawStars(context: Context): View(context) {
 
         val species = species.getAllSpecies()
         val stars = stars.getStarBySector(sector).sortedBy { it.y }
-        val pairs = stars.zipWithNext()
+        //val pairs = stars.zipWithNext()
 
         for (star in stars){
             val x1 = star.x.toFloat()

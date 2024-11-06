@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Specie
+import com.delek.species.model.Game
 
 class SpeciesAdapter(private var species: List<Specie>,
                      private val context: Context):
@@ -27,7 +28,7 @@ class SpeciesAdapter(private var species: List<Specie>,
         val dialog = Dialog(context)
         val specie = species[position]
         holder.specieItem.text = specie.name
-        val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
+        val id = Game.getResId(specie.image, R.drawable::class.java)
         holder.specieItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.specieItem.compoundDrawablePadding = 50
         holder.specieItem.setOnClickListener{

@@ -15,6 +15,8 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    val db: SQLiteDatabase = readableDatabase
+
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -32,7 +34,6 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getAllSpecies(): List<Specie> {
-        val db = readableDatabase
         val specieList = mutableListOf<Specie>()
         val query = "SELECT * FROM species"
         val cursor = db.rawQuery(query, null)
@@ -56,7 +57,6 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getSpecieById(specieId: Int): Specie {
-        val db = readableDatabase
         val query = "SELECT * from species WHERE id = $specieId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.R
 import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
 import com.delek.species.model.Dialog
+import com.delek.species.model.Game
 
 
 class SystemFragment : Fragment() {
@@ -34,8 +36,8 @@ class SystemFragment : Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val star = StarDAO(context).getStarById(data.getInt("star", 0))
 
-        val drawableId = resources.getIdentifier(star.image, "drawable", context.packageName )
-        binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
+        val id = Game.getResId(star.image, R.drawable::class.java)
+        binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         binding.starInfo.text = star.name
 
         if (star.explore != 0) {

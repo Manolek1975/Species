@@ -17,6 +17,7 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    val db: SQLiteDatabase = readableDatabase
 
     fun insertPlanetBuild(build: Build, planet: Planet) {
         val db = writableDatabase
@@ -30,7 +31,6 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetBuildsByPlanet(id: Int): List<PlanetBuilds> {
-        val db = readableDatabase
         val planetBuildList = mutableListOf<PlanetBuilds>()
         val query = "SELECT * FROM planet_builds WHERE planet_id = $id"
         val cursor = db.rawQuery(query, null)
@@ -49,7 +49,6 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun getPlanetBuildById(build: Int, planet: Planet): PlanetBuilds {
-        val db = readableDatabase
         var planetBuild = PlanetBuilds()
         val query = "SELECT * FROM planet_builds WHERE build_id = $build AND planet_id = ${planet.id}"
         val cursor = db.rawQuery(query, null)

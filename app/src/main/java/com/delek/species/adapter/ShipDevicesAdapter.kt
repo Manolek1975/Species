@@ -8,15 +8,13 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Planet
+import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 class ShipDevicesAdapter(private var device: List<Device>,
-                         private var planet: Planet,
                          private var shipId: Int,
                          private val context: Context):
     RecyclerView.Adapter<ShipDevicesAdapter.BuildViewHolder>() {
@@ -36,7 +34,7 @@ class ShipDevicesAdapter(private var device: List<Device>,
         val device = device[position]
         holder.deviceItem.text = device.name
         holder.deviceType.text = device.type.toString()
-        val id = context.resources.getIdentifier(device.image, "drawable", context.packageName)
+        val id = Game.getResId(device.image, R.drawable::class.java)
         holder.deviceItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.deviceItem.compoundDrawablePadding = 50
 

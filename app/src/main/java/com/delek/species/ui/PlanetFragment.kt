@@ -23,6 +23,7 @@ import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.model.Dialog
+import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 class PlanetFragment : Fragment() {
@@ -46,17 +47,18 @@ class PlanetFragment : Fragment() {
 
         // Planet Info
         val planet = PlanetDAO(context).getPlanetById(planetId)
-        val planetID = resources.getIdentifier(planet.image, "drawable", context.packageName)
-        binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(planetID, 0, 0, 0)
+        val id = Game.getResId(planet.image, R.drawable::class.java)
+        binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         binding.planetInfo.text = planet.name
 
         // Ship Info
         val ships = ShipDAO(context).getShipsByPlanet(planet.id)
         var colonyModule = false
         for (ship in ships){
-            val shipID = resources.getIdentifier(ship.image, "drawable", context.packageName)
+            val shipId = Game.getResId(ship.image, R.drawable::class.java)
+
             if (specieId == ship.specieId){
-                binding.shipInfo.setImageResource(shipID)
+                binding.shipInfo.setImageResource(shipId)
                 //TODO Planet explored
                 val explored = PlanetDAO(context).getPlanetExplored(planetId)
                 if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
@@ -76,7 +78,7 @@ class PlanetFragment : Fragment() {
         // Prod Info
         val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
         val build = BuildDAO(context).getBuildById(prod.typeId)
-        val prodID = resources.getIdentifier(build.image, "drawable", context.packageName)
+        val prodID = Game.getResId(build.image, R.drawable::class.java)
         binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
         binding.prod.text = build.name
         binding.prodDays.text = prod.days.toString()

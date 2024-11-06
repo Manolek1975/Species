@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dataclass.Ship
+import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 
@@ -39,7 +39,7 @@ class ShipsAdapter(private var ship: List<Ship>,
         val planetOrbits = PlanetDAO(context).getPlanetName(ship.orbit)
         val planetName = PlanetDAO(context).getPlanetName(ship.route)
         val daysLeft = ProdDAO(context).getDaysLeft(ship.id)
-        val id = context.resources.getIdentifier(ship.image, "drawable", context.packageName)
+        val id = Game.getResId(ship.image, R.drawable::class.java)
         holder.shipItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0,0)
         holder.shipItem.compoundDrawablePadding = 20
         holder.nameItem.text = ship.name

@@ -10,6 +10,7 @@ import com.delek.species.R
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.model.Dialog
+import com.delek.species.model.Game
 
 
 class NavigationAdapter(private var planets: List<Planet>,
@@ -32,7 +33,7 @@ class NavigationAdapter(private var planets: List<Planet>,
         val res = context.resources
         val planet = planets[position]
         holder.planetItem.text = planet.name
-        val id = context.resources.getIdentifier(planet.image, "drawable", context.packageName)
+        val id = Game.getResId(planet.image, R.drawable::class.java)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
         val dias = distances(planet)

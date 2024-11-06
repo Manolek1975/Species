@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Tech
+import com.delek.species.model.Game
 
 class TechsAdapter(private var tech: List<Tech>,
                    private val context: Context):
@@ -27,7 +28,7 @@ class TechsAdapter(private var tech: List<Tech>,
         val dialog = Dialog(context)
         val tech = tech[position]
         holder.techItem.text = tech.name
-        val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)
+        val id = Game.getResId(tech.image, R.drawable::class.java)
         holder.techItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.techItem.compoundDrawablePadding = 50
 

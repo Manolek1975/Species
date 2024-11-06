@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dataclass.Star
+import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 class StarsAdapter(private var stars: List<Star>,
@@ -31,7 +32,7 @@ class StarsAdapter(private var stars: List<Star>,
         val star = stars[position]
         holder.starItem.text = star.name
         //holder.starItem.text = star.sector.toString()
-        val id = context.resources.getIdentifier(star.image, "drawable", context.packageName)
+        val id = Game.getResId(star.image, R.drawable::class.java)
         holder.starItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.starItem.compoundDrawablePadding = 50
 

@@ -20,7 +20,7 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-    val db = readableDatabase
+    val db: SQLiteDatabase = readableDatabase
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
