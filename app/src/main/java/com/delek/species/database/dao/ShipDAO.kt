@@ -12,12 +12,8 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
-    override fun onCreate(p0: SQLiteDatabase?) {
-        TODO("Not yet implemented")
-    }
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun onCreate(p0: SQLiteDatabase?) { }
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     val db: SQLiteDatabase = readableDatabase
 

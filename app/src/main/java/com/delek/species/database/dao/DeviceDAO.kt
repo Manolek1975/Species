@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
 
@@ -91,5 +90,22 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         return exists
     }
 
+    fun getDeviceById(deviceId: Int): Device {
+        val query = "SELECT * FROM devices WHERE id = $deviceId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
+        val desc = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DESC))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_IMAGE))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TYPE))
+        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_COST))
+        val power = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_POWER))
+        val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
 
+        val device = Device(id, name, desc, image, type, cost, power, techId)
+        cursor.close()
+        db.close()
+        return device
+    }
 }

@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
+import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
@@ -159,12 +160,15 @@ class Dialog(context: Context) : View(context) {
 
     fun showTech(tech: Tech) {
         val iv = ImageView(context)
-        iv.setImageResource(R.drawable.d1)
+        val device = DeviceDAO(context).getDeviceById(tech.id)
+        val image = context.resources.getIdentifier(device.image, "drawable", context.packageName)
+        iv.setImageResource(image)
         val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
+        dialogBuilder.setMessage("Permite construir ${device.name}")
         dialogBuilder.setView(iv)
-        dialogBuilder.setMessage("Permite construir motores iónicos")
+
         dialogBuilder.setNegativeButton("OK") { _, _ ->
         }.show().setCanceledOnTouchOutside(false)
 
