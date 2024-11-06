@@ -17,16 +17,20 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
-    val db = readableDatabase
+    val db: SQLiteDatabase = readableDatabase
 
     fun insertTechs(tech: Tech){
         val db = writableDatabase
         val values = ContentValues().apply {
             put(TechHelper.COLUMN_NAME, tech.name)
             put(TechHelper.COLUMN_IMAGE, tech.image)
-            put(TechHelper.COLUMN_COST, tech.cost)
             put(TechHelper.COLUMN_REQUIRE, tech.require)
             put(TechHelper.COLUMN_UNLOCK, tech.unlock)
+            put(TechHelper.COLUMN_COST, tech.cost)
+            put(TechHelper.COLUMN_BUILD, tech.build)
+            put(TechHelper.COLUMN_ORBITAL, tech.orbital)
+            put(TechHelper.COLUMN_DEVICE, tech.device)
+
         }
         db.insert(TechHelper.TABLE_NAME, null, values)
         db.close()
@@ -40,27 +44,6 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         }
         db.insert(TechLearnedHelper.TABLE_NAME, null, values)
         db.close()
-    }
-
-    fun getAllTechs(): Any {
-        val techList = mutableListOf<Tech>()
-        val query = "SELECT * FROM techs"
-        val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
-            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
-            val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
-            val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
-
-            val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
-            techList.add(tech)
-        }
-        cursor.close()
-        db.close()
-        return techList
-
     }
 
     fun getTechsBySpecie(specieId: Int): List<Tech> {

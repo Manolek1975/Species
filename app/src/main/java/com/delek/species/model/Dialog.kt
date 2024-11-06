@@ -2,7 +2,6 @@ package com.delek.species.model
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -165,7 +164,7 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
         dialogBuilder.setView(iv)
-        //dialogBuilder.setMessage()
+        dialogBuilder.setMessage("Permite construir motores iónicos")
         dialogBuilder.setNegativeButton("OK") { _, _ ->
         }.show().setCanceledOnTouchOutside(false)
 

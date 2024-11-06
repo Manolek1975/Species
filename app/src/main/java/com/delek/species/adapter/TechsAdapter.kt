@@ -25,7 +25,6 @@ class TechsAdapter(private var tech: List<Tech>,
 
     override fun onBindViewHolder(holder: TechViewHolder, position: Int) {
         val dialog = Dialog(context)
-
         val tech = tech[position]
         holder.techItem.text = tech.name
         val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)

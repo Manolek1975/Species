@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="orbital_name">
+        <item>Astillero</item>
+        <item>Hangar</item>
+        <item>Capa orbital</item>
+    </string-array>
+
+    <string-array name="orbital_description">
+        <item>Permite construir naves</item>
+        <item>Permite reparar y modificar naves</item>
+        <item>Oculta las estructuras del planeta</item>
+    </string-array>
+
+    <string-array name="orbital_image">
+        <item>o1</item>
+        <item>o2</item>
+        <item>o3</item>
+    </string-array>
+
+    <string-array name="orbital_tech">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="orbital_cost">
+        <item>240</item>
+        <item>170</item>
+        <item>40</item>
+    </string-array>
+
+    <string-array name="orbital_offense">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="orbital_defense">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </string-array>
+
+</resources>

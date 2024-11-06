@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.OrbitalDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
@@ -20,6 +21,7 @@ import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
+import com.delek.species.database.dataclass.Orbital
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.ShipDevices
@@ -70,9 +72,10 @@ class MainActivity : AppCompatActivity() {
         loadStarsExplored()
         loadPlanets()
         loadBuilds()
+        loadOrbital()
+        loadDevices()
         loadTechs()
         loadShips()
-        loadDevices()
         loadShipDevices()
         loadTechsLearned()
     }
@@ -192,6 +195,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadOrbital() {
+        val res = this.getResources()
+        val name = res.getStringArray(R.array.orbital_name)
+        val description = res.getStringArray(R.array.orbital_description)
+        val image = res.getStringArray(R.array.orbital_image)
+        val tech = res.getStringArray(R.array.orbital_tech)
+        val cost = res.getStringArray(R.array.orbital_cost)
+        val offense = res.getStringArray(R.array.orbital_offense)
+        val defense = res.getStringArray(R.array.orbital_defense)
+
+        for (i in name.indices){
+            val orbital = Orbital(0, name[i], description[i], image[i], tech[i].toInt(),
+                cost[i].toInt(), offense[i].toInt(), defense[i].toInt())
+            OrbitalDAO(this).insertOrbital(orbital)
+        }
+
+    }
+
     private fun loadShips() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_ships)
@@ -237,19 +258,21 @@ class MainActivity : AppCompatActivity() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.name_techs)
         val image = res.getStringArray(R.array.image_techs)
-        val cost = res.getStringArray(R.array.cost_techs)
         val require = res.getStringArray(R.array.require_techs)
         val unlock = res.getStringArray(R.array.unlock_techs)
-
+        val cost = res.getStringArray(R.array.cost_techs)
+        val build = res.getStringArray(R.array.build_techs)
+        val orbital = res.getStringArray(R.array.orbital_techs)
+        val device = res.getStringArray(R.array.device_techs)
         for (i in name.indices){
-            val tech = Tech(0, name[i], image[i], cost[i].toInt(), require[i].toInt(), unlock[i].toInt())
+            val tech = Tech(0, name[i], image[i], require[i].toInt(), unlock[i].toInt(),
+                    cost[i].toInt(), build[i].toInt(), orbital[i].toInt(), device[i].toInt())
             TechDAO(this).insertTechs(tech)
         }
     }
 
     private fun loadTechsLearned(){
         val specieList = SpecieDAO(this).getAllSpecies()
-        val techList = TechDAO(this).getAllTechs()
         for (i in specieList){
             for (j in 1..3)
                 TechDAO(this).insertTechsLearned(i, j)
