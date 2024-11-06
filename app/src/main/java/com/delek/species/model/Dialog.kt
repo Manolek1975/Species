@@ -161,9 +161,9 @@ class Dialog(context: Context) : View(context) {
     fun showTech(tech: Tech) {
         val iv = ImageView(context)
         val device = DeviceDAO(context).getDeviceById(tech.id)
-        val image = context.resources.getIdentifier(device.image, "drawable", context.packageName)
+        val image = Game.getResId(device.image, R.drawable::class.java)
+        val id = Game.getResId(tech.image, R.drawable::class.java)
         iv.setImageResource(image)
-        val id = context.resources.getIdentifier(tech.image, "drawable", context.packageName)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
         dialogBuilder.setMessage("Permite construir ${device.name}")
@@ -189,3 +189,6 @@ class Dialog(context: Context) : View(context) {
     }*/
 
 }
+
+
+
