@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.delek.species.R
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
@@ -35,6 +36,7 @@ class CronoFragment: Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         var year = data.getInt("year", 0)
         var day = data.getInt("day", 0)
+        binding.fechaEstelar.text = getString(R.string.fecha_estelar_text, year.toString(), day.toString())
 
         val minProd = ProdDAO(context).getMinProd()
         val min: Long = minProd.days.toLong()

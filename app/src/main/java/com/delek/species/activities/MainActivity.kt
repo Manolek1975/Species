@@ -245,11 +245,10 @@ class MainActivity : AppCompatActivity() {
         val unlock = res.getStringArray(R.array.unlock_techs)
         val cost = res.getStringArray(R.array.cost_techs)
         val build = res.getStringArray(R.array.build_techs)
-        val orbital = res.getStringArray(R.array.orbital_techs)
         val device = res.getStringArray(R.array.device_techs)
         for (i in name.indices){
             val tech = Tech(0, name[i], image[i], require[i].toInt(), unlock[i].toInt(),
-                    cost[i].toInt(), build[i].toInt(), orbital[i].toInt(), device[i].toInt())
+                    cost[i].toInt(), build[i].toInt(), device[i].toInt())
             TechDAO(this).insertTechs(tech)
         }
     }

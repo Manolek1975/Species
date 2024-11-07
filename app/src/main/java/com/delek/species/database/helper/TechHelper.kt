@@ -10,7 +10,6 @@ class TechHelper {
         const val COLUMN_UNLOCK: String = "unlock"
         const val COLUMN_COST: String = "cost"
         const val COLUMN_BUILD: String = "build"
-        const val COLUMN_ORBITAL: String = "orbital"
         const val COLUMN_DEVICE: String = "device"
 
         val SQL_CREATE_ENTRIES = buildString {
@@ -22,7 +21,6 @@ class TechHelper {
             append("$COLUMN_REQUIRE INTEGER,")
             append("$COLUMN_UNLOCK INTEGER,")
             append("$COLUMN_BUILD INTEGER,")
-            append("$COLUMN_ORBITAL INTEGER,")
             append("$COLUMN_DEVICE INTEGER)")
         }
 

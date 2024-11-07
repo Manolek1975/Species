@@ -53,13 +53,13 @@
     <string name="sin_explorar">Sin Explorar</string>
     <string name="hipercrono">Hipercrono</string>
     <string name="tecnologias">Tecnologías</string>
-    <string name="fecha_estelar_text">Fecha Estelar</string>
-    <string name="fecha_estelar">2300.1</string>
     <string name="create_colony">Fundar Colonia</string>
     <string name="sin_produccion">SIN PRODUCCION</string>
     <string name="multiplier">x%1$s </string>
     <string name="menu_tecnologias">Tecnologías</string>
     <string name="diplomacia">Diplomacia</string>
+    <string name="fecha_estelar_text">Fecha Estelar</string>
+    <string name="fecha_estelar">Fecha estelar: %1$s.%2$s</string>
 
 
 </resources>

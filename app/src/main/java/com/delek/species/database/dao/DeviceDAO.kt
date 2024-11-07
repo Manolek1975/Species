@@ -76,10 +76,12 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
 
     fun getDeviceById(deviceId: Int): Device {
         val db = readableDatabase
+        var device = Device()
         val query = "SELECT * FROM devices WHERE id = $deviceId"
         val cursor = db.rawQuery(query, null)
-        cursor.moveToFirst()
-            val device = getColumns(cursor)
+        while (cursor.moveToNext()) {
+            device = getColumns(cursor)
+        }
         cursor.close()
         db.close()
         return device

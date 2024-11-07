@@ -64,7 +64,5 @@
             android:id="@+id/nav_navigation"
             android:icon="@drawable/menu_ship"
             android:title="@string/menu_navigation" />
-
-
     </group>
 </menu>

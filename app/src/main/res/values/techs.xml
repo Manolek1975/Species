@@ -32,19 +32,13 @@
     </string-array>
 
     <string-array name="build_techs">
-        <item>0</item>
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-
-    <string-array name="orbital_techs">
-        <item>1</item>
+        <item>30</item>
         <item>0</item>
         <item>0</item>
     </string-array>
 
     <string-array name="device_techs">
-        <item>3</item>
+        <item>0</item>
         <item>2</item>
         <item>1</item>
     </string-array>

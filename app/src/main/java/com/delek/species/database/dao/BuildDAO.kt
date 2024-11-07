@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.PlanetBuilds
-import com.delek.species.database.dataclass.Star
 import com.delek.species.database.helper.BuildHelper
 import com.delek.species.database.helper.DBHelper
 

@@ -10,6 +10,5 @@ data class Tech(
     val unlock: Int = 0,
     val cost: Int = 0,
     val build: Int = 0,
-    val orbital: Int = 0,
     val device: Int = 0
 ) : Serializable

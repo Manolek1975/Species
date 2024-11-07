@@ -41,7 +41,8 @@ class SidebarActivity : AppCompatActivity() {
         //Nav Header
         val data = this.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
-        val turn = data.getInt("turn", 0)
+        val year = data.getInt("year", 0)
+        val day = data.getInt("day", 0)
         val specie = SpecieDAO(this).getSpecieById(specieId)
 
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
@@ -52,7 +53,7 @@ class SidebarActivity : AppCompatActivity() {
         val navSpecieName = headerView.findViewById<View>(R.id.specieName) as TextView
         navSpecieName.text = specie.name
         val navDate = headerView.findViewById<View>(R.id.textView) as TextView
-        navDate.text = "Fecha estelar: 2300.$turn"
+        navDate.text = getString(R.string.fecha_estelar, year.toString(), day.toString())
 
         //Nav Drawer
         val drawerLayout: DrawerLayout = binding.drawerLayout

@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
@@ -29,7 +28,6 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
             put(TechHelper.COLUMN_UNLOCK, tech.unlock)
             put(TechHelper.COLUMN_COST, tech.cost)
             put(TechHelper.COLUMN_BUILD, tech.build)
-            put(TechHelper.COLUMN_ORBITAL, tech.orbital)
             put(TechHelper.COLUMN_DEVICE, tech.device)
 
         }
@@ -82,8 +80,11 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
         val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
         val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
+        val build = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_BUILD))
+        val device = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_DEVICE))
 
-        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
+        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt(),
+                build.toInt(), device.toInt())
         return tech
     }
 

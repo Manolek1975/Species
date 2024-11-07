@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
+import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
@@ -159,17 +160,30 @@ class Dialog(context: Context) : View(context) {
 
     fun showTech(tech: Tech) {
         val iv = ImageView(context)
-        val device = DeviceDAO(context).getDeviceById(tech.id)
-        val image = Game.getResId(device.image, R.drawable::class.java)
+        var message = ""
+
+        if (tech.build != 0) {
+            val build = BuildDAO(context).getBuildById(tech.build)
+            val imgBuild = Game.getResId(build.image, R.drawable::class.java)
+            iv.setImageResource(imgBuild)
+            message = build.name
+        }
+        if (tech.device != 0){
+            val device = DeviceDAO(context).getDeviceById(tech.device)
+            val imgDevice = Game.getResId(device.image, R.drawable::class.java)
+            iv.setImageResource(imgDevice)
+            message = device.name
+        }
+
         val id = Game.getResId(tech.image, R.drawable::class.java)
-        iv.setImageResource(image)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
-        dialogBuilder.setMessage("Permite construir ${device.name}")
         dialogBuilder.setView(iv)
+        dialogBuilder.setMessage("Permite construir $message")
 
-        dialogBuilder.setNegativeButton("OK") { _, _ ->
-        }.show().setCanceledOnTouchOutside(false)
+        dialogBuilder.setNegativeButton("Salir") { _, _ -> }
+        dialogBuilder.setPositiveButton("Investigar") { _, _ ->
+        }.show()
 
     }
 
