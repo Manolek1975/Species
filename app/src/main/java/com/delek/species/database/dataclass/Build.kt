@@ -15,5 +15,6 @@ data class Build (
     val population: Int = 0,
     val offense: Int = 0,
     val defense: Int = 0,
-    val invader: Int = 0
+    val invader: Int = 0,
+    val orbital: Int = 0
 ) : Serializable

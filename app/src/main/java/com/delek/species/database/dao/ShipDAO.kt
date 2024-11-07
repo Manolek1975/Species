@@ -2,8 +2,10 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.ShipHelper
@@ -35,15 +37,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            val ship = Ship(id, name, image, specieId, orbit, route)
-            shipList.add(ship)
+            shipList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -55,17 +49,8 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
-
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            val ship = Ship(id, name, image, specieId, orbit, route)
-            shipList.add(ship)
+            shipList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -78,16 +63,8 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM ships WHERE orbit = $planetId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            val ship = Ship(id, name, image, specieId, orbit, route)
-            shipList.add(ship)
-            }
+            shipList.add(getColumns(cursor))
+        }
         cursor.close()
         db.close()
         return shipList
@@ -99,14 +76,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
-            val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
-            val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
-            val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
-
-            ship = Ship(id, name, image, specieId, orbit, route)
+            ship = getColumns(cursor)
         }
         cursor.close()
         db.close()
@@ -129,6 +99,18 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         values.put("route", 0)
         db.update("ships", values, "id = $specie", null)
         db.close()
+    }
+
+    private fun getColumns(cursor: Cursor): Ship {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_IMAGE))
+        val specieId = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_SPECIE_ID))
+        val orbit = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ORBIT))
+        val route = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ROUTE))
+
+        val ship = Ship(id, name, image, specieId, orbit, route)
+        return ship
     }
 
 }

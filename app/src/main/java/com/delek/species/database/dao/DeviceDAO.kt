@@ -2,8 +2,10 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
@@ -38,17 +40,7 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM devices"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
-            val desc = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DESC))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_IMAGE))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TYPE))
-            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_COST))
-            val power = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_POWER))
-            val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
-
-            val device = Device(id, name, desc, image, type, cost, power, techId)
-            deviceList.add(device)
+            deviceList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -63,17 +55,7 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
                 "WHERE ship_devices.ship_id = $shipId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
-            val desc = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DESC))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_IMAGE))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TYPE))
-            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_COST))
-            val power = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_POWER))
-            val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
-
-            val device = Device(id, name, desc, image, type, cost, power, techId)
-            deviceList.add(device)
+            deviceList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -97,6 +79,13 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM devices WHERE id = $deviceId"
         val cursor = db.rawQuery(query, null)
         cursor.moveToFirst()
+            val device = getColumns(cursor)
+        cursor.close()
+        db.close()
+        return device
+    }
+
+    private fun getColumns(cursor: Cursor): Device {
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_ID))
         val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_NAME))
         val desc = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DESC))
@@ -107,8 +96,6 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
 
         val device = Device(id, name, desc, image, type, cost, power, techId)
-        cursor.close()
-        db.close()
         return device
     }
 }

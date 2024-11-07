@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.DeviceDAO
-import com.delek.species.database.dao.OrbitalDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
@@ -21,7 +20,6 @@ import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Orbital
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.ShipDevices
@@ -47,12 +45,15 @@ class MainActivity : AppCompatActivity() {
 
         db = DBHelper(this)
         binding.playButton.setOnClickListener {
-            if(db.isEmpty("species")) {
+            if (db.isEmpty("species")){
+                val i = Intent(this, SpecieActivity::class.java)
                 Toast.makeText(this, "Creando Galaxia...", Toast.LENGTH_LONG).show()
                 loadTables()
+                startActivity(i)
+            } else {
+                val i = Intent(this, SidebarActivity::class.java)
+                startActivity(i)
             }
-            val i = Intent(this, SpecieActivity::class.java)
-            startActivity(i)
         }
 
         binding.optionsButton.setOnClickListener {
@@ -72,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         loadStarsExplored()
         loadPlanets()
         loadBuilds()
-        loadOrbital()
         loadDevices()
         loadTechs()
         loadShips()
@@ -186,31 +186,14 @@ class MainActivity : AppCompatActivity() {
         val food = res.getStringArray(R.array.builds_food)
         val industry = res.getStringArray(R.array.builds_industry)
         val science = res.getStringArray(R.array.builds_science)
+        val orbital = res.getStringArray(R.array.builds_orbital)
 
         for (i in name.indices){
             val build = Build(0, name[i], description[i], image[i], tech[i].toInt(),
                 cost[i].toInt(), food[i].toInt(), industry[i].toInt(), science[i].toInt(),
-                0, 0, 0, 0)
+                0, 0, 0, 0, orbital[i].toInt())
             BuildDAO(this).insertBuilds(build)
         }
-    }
-
-    private fun loadOrbital() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.orbital_name)
-        val description = res.getStringArray(R.array.orbital_description)
-        val image = res.getStringArray(R.array.orbital_image)
-        val tech = res.getStringArray(R.array.orbital_tech)
-        val cost = res.getStringArray(R.array.orbital_cost)
-        val offense = res.getStringArray(R.array.orbital_offense)
-        val defense = res.getStringArray(R.array.orbital_defense)
-
-        for (i in name.indices){
-            val orbital = Orbital(0, name[i], description[i], image[i], tech[i].toInt(),
-                cost[i].toInt(), offense[i].toInt(), defense[i].toInt())
-            OrbitalDAO(this).insertOrbital(orbital)
-        }
-
     }
 
     private fun loadShips() {

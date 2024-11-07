@@ -16,6 +16,7 @@ class BuildHelper {
         const val COLUMN_OFFENCE: String = "offence"
         const val COLUMN_DEFENSE: String = "defense"
         const val COLUMN_INVADER: String = "invader"
+        const val COLUMN_ORBITAL: String = "orbital"
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
@@ -31,7 +32,8 @@ class BuildHelper {
             append("$COLUMN_POPULATION INTEGER,")
             append("$COLUMN_OFFENCE INTEGER,")
             append("$COLUMN_DEFENSE INTEGER,")
-            append("$COLUMN_INVADER INTEGER)")
+            append("$COLUMN_INVADER INTEGER,")
+            append("$COLUMN_ORBITAL INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"

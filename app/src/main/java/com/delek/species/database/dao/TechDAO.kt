@@ -2,8 +2,10 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
@@ -53,15 +55,7 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
                 "WHERE tech_learned.specie_id = $specieId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
-            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
-            val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
-            val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
-
-            val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
-            techList.add(tech)
+            techList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -74,22 +68,24 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM techs WHERE required = 0"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
-            val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
-            val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
-            val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
-            val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
-
-            val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
-            techList.add(tech)
+            techList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
         return techList
     }
 
+    private fun getColumns(cursor: Cursor): Tech {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
+        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
+        val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
+        val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
 
+        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
+        return tech
+    }
 
 
 }

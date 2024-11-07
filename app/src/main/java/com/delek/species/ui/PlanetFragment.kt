@@ -77,14 +77,13 @@ class PlanetFragment : Fragment() {
 
         // Prod Info
         val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
-        val build = BuildDAO(context).getBuildById(prod.typeId)
-        val prodID = Game.getResId(build.image, R.drawable::class.java)
-        if (prodID != -1){
+        if (prod.id > 0){
+            val build = BuildDAO(context).getBuildById(prod.typeId)
+            val prodID = Game.getResId(build.image, R.drawable::class.java)
             binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
             binding.prod.text = build.name
             binding.prodDays.text = prod.days.toString()
         }
-
 
         if (prod.typeId == 0)
             binding.prodDays.text = getString(R.string.sin_produccion)
@@ -128,7 +127,6 @@ class PlanetFragment : Fragment() {
 
         binding.planetInfo.setOnClickListener{
             (activity as SidebarActivity).openDrawer()
-
         }
 
         // FAB
@@ -140,10 +138,6 @@ class PlanetFragment : Fragment() {
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }
-
-
-
-        //TODO Open sidebar when click on planet
 
         return root
     }

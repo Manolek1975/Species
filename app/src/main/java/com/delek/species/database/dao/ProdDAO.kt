@@ -3,8 +3,10 @@ package com.delek.species.database.dao
 import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
 import com.delek.species.database.helper.DBHelper
@@ -39,14 +41,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM prod WHERE type = 1 AND planet = $planetId AND owner = $specie"
         val cursor = db.rawQuery(query, null)
         if (cursor.moveToFirst()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
-            val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
-            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
-            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
-
-            prod = Prod(id, type, typeId, planet, owner, days)
+            prod = getColumns(cursor)
         }
         cursor.close()
         db.close()
@@ -59,14 +54,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT *, MIN(days) FROM prod"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
-            val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
-            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
-            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
-
-            prod = Prod(id, type, typeId, planet, owner, days)
+            prod = getColumns(cursor)
         }
         cursor.close()
         db.close()
@@ -79,15 +67,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM prod"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
-            val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
-            val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
-            val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
-            val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
-            val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
-
-            val prod = Prod(id, type, typeId, planet, owner, days)
-            prodList.add(prod)
+            prodList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -122,5 +102,17 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val whereArgs = arrayOf(id.toString())
         db.delete("prod", whereClause, whereArgs)
         db.close()
+    }
+
+    private fun getColumns(cursor: Cursor): Prod {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
+        val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
+        val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
+        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
+        val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
+
+        val prod = Prod(id, type, typeId, planet, owner, days)
+        return prod
     }
 }

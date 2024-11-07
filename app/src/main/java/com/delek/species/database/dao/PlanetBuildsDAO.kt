@@ -2,9 +2,11 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.helper.DBHelper
@@ -35,13 +37,7 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM planet_builds WHERE planet_id = $id"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()) {
-            val planetBuildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-
-            val planetBuild = PlanetBuilds(planetBuildId, planetId, buildId, level)
-            planetBuildList.add(planetBuild)
+            planetBuildList.add(getColumns(cursor))
         }
         cursor.close()
         db.close()
@@ -54,12 +50,7 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         val query = "SELECT * FROM planet_builds WHERE build_id = $build AND planet_id = ${planet.id}"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-            val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-            val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-            val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
-
-            planetBuild = PlanetBuilds(id, planetId, buildId, level)
+            planetBuild = getColumns(cursor)
         }
         cursor.close()
         db.close()
@@ -74,5 +65,13 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
+    private fun getColumns(cursor: Cursor): PlanetBuilds {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+        val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+        val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+        val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
 
+        val planetBuild = PlanetBuilds(id, planetId, buildId, level)
+        return planetBuild
+    }
 }
