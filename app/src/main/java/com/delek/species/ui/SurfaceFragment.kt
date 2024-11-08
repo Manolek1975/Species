@@ -20,15 +20,15 @@ import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Planet
-import com.delek.species.databinding.FragmentPlanetBinding
+import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 
 
-class PlanetFragment : Fragment() {
+class SurfaceFragment : Fragment() {
 
-    private var _binding: FragmentPlanetBinding? = null
+    private var _binding: FragmentSurfaceBinding? = null
     private lateinit var adapter: PlanetBuildsAdapter
     private val binding get() = _binding!!
 
@@ -37,7 +37,7 @@ class PlanetFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPlanetBinding.inflate(inflater, container, false)
+        _binding = FragmentSurfaceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val context = requireContext()
@@ -56,7 +56,6 @@ class PlanetFragment : Fragment() {
         var colonyModule = false
         for (ship in ships){
             val shipId = Game.getResId(ship.image, R.drawable::class.java)
-
             if (specieId == ship.specieId){
                 binding.shipInfo.setImageResource(shipId)
                 //TODO Planet explored
@@ -85,8 +84,10 @@ class PlanetFragment : Fragment() {
             binding.prodDays.text = prod.days.toString()
         }
 
-        if (prod.typeId == 0)
-            binding.prodDays.text = getString(R.string.sin_produccion)
+        if (prod.typeId == 0){
+            binding.prod.text = getString(R.string.sin_produccion)
+        }
+
 
         // Builds
         val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)

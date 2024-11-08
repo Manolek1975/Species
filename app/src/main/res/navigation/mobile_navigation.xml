@@ -32,9 +32,9 @@
         tools:layout="@layout/fragment_system" />
     <fragment
         android:id="@+id/nav_planet"
-        android:name="com.delek.species.ui.PlanetFragment"
+        android:name="com.delek.species.ui.SurfaceFragment"
         android:label="Planet"
-        tools:layout="@layout/fragment_planet" />
+        tools:layout="@layout/fragment_surface" />
     <fragment
         android:id="@+id/nav_ship"
         android:name="com.delek.species.ui.ShipFragment"
