@@ -8,13 +8,14 @@
     tools:context=".ui.ShipFragment">
 
     <TextView
-        android:id="@+id/navesText"
-        android:layout_width="match_parent"
+        android:id="@+id/shipHeader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/aclonica"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="@string/naves"
+        android:layout_gravity="center"
+        android:gravity="end"
+        android:drawablePadding="10dp"
+        android:padding="16dp"
+        android:text="@string/menu_ships"
         android:textColor="@color/white"
         android:textSize="24sp" />
 

@@ -10,11 +10,12 @@
 
     <TextView
         android:id="@+id/starInfo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:drawablePadding="40dp"
-        android:padding="16dp"
+        android:layout_gravity="center"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
         android:text="@string/test_name"
         android:textColor="@color/white"
         android:textSize="20sp" />
@@ -23,6 +24,7 @@
         android:id="@+id/explored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:text="@string/sin_explorar"

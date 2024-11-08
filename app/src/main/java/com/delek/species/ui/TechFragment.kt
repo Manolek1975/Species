@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.TechsAdapter
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.databinding.FragmentTechBinding
@@ -27,6 +32,13 @@ class TechFragment: Fragment() {
         _binding = FragmentTechBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Header
+        val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_tech, null)
+        val bitmap = res?.toBitmap(30, 30)
+        val scale = bitmap?.toDrawable(resources)
+        binding.techHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
+        binding.techHeader.text = getString(R.string.menu_tecnologias)
+
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
@@ -35,6 +47,10 @@ class TechFragment: Fragment() {
         adapter = TechsAdapter(tech, context)
         binding.techsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.techsRecyclerView.adapter = adapter
+
+        binding.techHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
 
         return root
     }

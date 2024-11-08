@@ -6,8 +6,10 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
@@ -32,12 +34,16 @@ class CronoFragment: Fragment() {
         _binding = FragmentCronoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Header
+        val res = ResourcesCompat.getDrawable(resources, android.R.drawable.ic_media_ff, null)
+        binding.hipercronoHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
+        binding.hipercronoHeader.text = getString(R.string.hipercrono)
+        binding.fechaHeader.text = getString(R.string.fecha_estelar_text)
+
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         var year = data.getInt("year", 0)
         var day = data.getInt("day", 0)
-        binding.fechaEstelar.text = getString(R.string.fecha_estelar_text, year.toString(), day.toString())
-
         val minProd = ProdDAO(context).getMinProd()
         val min: Long = minProd.days.toLong()
 
@@ -94,6 +100,10 @@ class CronoFragment: Fragment() {
             append(year)
             append(".")
             append(day)
+        }
+
+        binding.hipercronoHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
         }
         //TODO Perhaps list of build, ships or tech under construction?
 /*        adapter = BuildsAdapter(BuildDAO(context).getBuildsByTech(tech), planet, context)

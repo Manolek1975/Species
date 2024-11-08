@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.ShipsAdapter
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipBinding
@@ -27,6 +32,13 @@ class ShipFragment: Fragment() {
         _binding = FragmentShipBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Header
+        val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_ship, null)
+        val bitmap = res?.toBitmap(30, 30)
+        val scale = bitmap?.toDrawable(resources)
+        binding.shipHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
+        binding.shipHeader.text = getString(R.string.menu_ships)
+
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
@@ -34,6 +46,10 @@ class ShipFragment: Fragment() {
         adapter = ShipsAdapter(ship, context)
         binding.shipsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipsRecyclerView.adapter = adapter
+
+        binding.shipHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
 
         return root
     }

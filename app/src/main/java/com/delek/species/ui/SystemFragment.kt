@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
@@ -48,8 +49,7 @@ class SystemFragment : Fragment() {
         }
 
         binding.starInfo.setOnClickListener {
-            val navController = findNavController()
-            navController.popBackStack()
+            (activity as SidebarActivity).openDrawer()
         }
 
         binding.explored.setOnClickListener{

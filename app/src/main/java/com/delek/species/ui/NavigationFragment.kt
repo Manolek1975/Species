@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.NavigationAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
@@ -39,6 +40,10 @@ class NavigationFragment : Fragment() {
         adapter = NavigationAdapter(planet, ship,context)
         binding.navigationRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.navigationRecyclerView.adapter = adapter
+
+        binding.navigationHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
 
         return root
     }

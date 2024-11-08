@@ -8,12 +8,13 @@
     tools:context=".ui.BuildFragment">
 
     <TextView
-        android:id="@+id/buildText"
-        android:layout_width="match_parent"
+        android:id="@+id/buildHeader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/aclonica"
-        android:gravity="center"
-        android:padding="20dp"
+        android:layout_gravity="center"
+        android:gravity="right"
+        android:drawablePadding="10dp"
+        android:padding="16dp"
         android:text="@string/menu_builds"
         android:textColor="@color/white"
         android:textSize="20sp" />

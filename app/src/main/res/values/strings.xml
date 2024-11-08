@@ -36,7 +36,7 @@
     <string name="menu_sector">Sector</string>
     <string name="menu_system">System</string>
     <string name="menu_planet">Planetas</string>
-    <string name="menu_ship">Naves</string>
+    <string name="menu_ships">Naves</string>
     <string name="menu_builds">Estructuras</string>
     <string name="menu_navigation">Navegación</string>
     <string name="menu_stars">Estrellas</string>
@@ -58,6 +58,7 @@
     <string name="diplomacia">Diplomacia</string>
     <string name="fecha_estelar_text">Fecha Estelar</string>
     <string name="fecha_estelar">Fecha estelar: %1$s.%2$s</string>
+    <string name="estrella_principal">Estrella: %1$s</string>
 
 
 </resources>

@@ -53,7 +53,7 @@ class SidebarActivity : AppCompatActivity() {
         val navSpecieName = headerView.findViewById<View>(R.id.specieName) as TextView
         navSpecieName.text = specie.name
         val navDate = headerView.findViewById<View>(R.id.textView) as TextView
-        navDate.text = star.name
+        navDate.text = getString(R.string.estrella_principal, star.name)
 
         //Nav Drawer
         val drawerLayout: DrawerLayout = binding.drawerLayout

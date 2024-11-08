@@ -88,7 +88,6 @@ class SurfaceFragment : Fragment() {
             binding.prod.text = getString(R.string.sin_produccion)
         }
 
-
         // Builds
         val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)

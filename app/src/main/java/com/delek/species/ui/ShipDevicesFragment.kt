@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.ShipDevicesAdapter
 import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.ShipDAO
@@ -45,6 +46,10 @@ class ShipDevicesFragment : Fragment() {
         adapter = ShipDevicesAdapter(devices, ship.id, context)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
+
+        binding.shipInfo.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
         return root
     }
 

@@ -7,14 +7,14 @@
         <!-- TUTORIAL 1 -->
         <item>Saludos comandante, hemos llegado a nuestro destino, la estrella tiene un planeta apto
             para la vida, comenzamos a finalizar la hibernación de nuestros colonos, la estrella
-            se indica en nuestro mapa galáctico por un circulo %s.
+            se indica en nuestro mapa galáctico por un circulo.
             \n\n
             TOCA TU ESTRELLA
         </item>
 
         <!-- TUTORIAL 2 -->
         <item>Esta es la ventana del sistema, la estrella se encuentra en la parte superior,
-            si no ves planetas, debes explorar la estrella con una nave. %s
+            si no ves planetas, debes explorar la estrella con una nave.
             \n\n
             TOCA EL TERCER PLANETA
         </item>

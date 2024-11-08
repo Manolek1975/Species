@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.delek.species.R
+import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
@@ -34,9 +37,18 @@ class BuildFragment: Fragment() {
         val tech = data.getInt("tech", 0)
         val planet = PlanetDAO(context).getPlanetById(planetId)
 
+        // Header
+        val res = ResourcesCompat.getDrawable(resources, android.R.drawable.ic_menu_manage, null)
+        binding.buildHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
+        binding.buildHeader.text = getString(R.string.menu_builds)
+
         adapter = BuildsAdapter(BuildDAO(context).getBuildsByTech(tech), planet, context)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.buildsRecyclerView.adapter = adapter
+
+        binding.buildHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
 
         return root
     }

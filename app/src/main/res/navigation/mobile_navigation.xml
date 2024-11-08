@@ -24,7 +24,7 @@
         android:id="@+id/nav_planets"
         android:name="com.delek.species.ui.PlanetsFragment"
         android:label="Planets"
-        tools:layout="@layout/fragment_planets" />
+        tools:layout="@layout/fragment_planet" />
     <fragment
         android:id="@+id/nav_system"
         android:name="com.delek.species.ui.SystemFragment"
