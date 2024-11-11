@@ -77,8 +77,8 @@ class DrawStars(context: Context): View(context) {
                         canvas.drawBitmap(arrow, star.x.toFloat()-220, star.y.toFloat()-120, p)
                     }
                 }
-
             }
+            p.color = ResourcesCompat.getColor(resources, R.color.white, null)
             p.textSize = 56f
             canvas.drawText("SECTOR $sector", dm.widthPixels/2f-100, dm.heightPixels.toFloat()+100, p)
         }
@@ -93,8 +93,8 @@ class DrawStars(context: Context): View(context) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
-                    println(it.name)
                     data.edit().putInt("star", it.id).apply()
+                    println(it.name)
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
                     val item = nv.menu.getItem(8) //To System
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)

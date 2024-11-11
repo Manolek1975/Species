@@ -15,6 +15,7 @@ import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Prod
@@ -218,10 +219,16 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setView(iv)
         dialogBuilder.setMessage("Permite construir $message")
 
-        dialogBuilder.setNegativeButton("Salir") { _, _ -> }
-        dialogBuilder.setPositiveButton("Investigar") { _, _ ->
-            ProdDAO(context).insertProdTech(tech)
-        }.show()
+        val learned = TechDAO(context).isLearned(tech.id)
+        if (learned) {
+            dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+        } else {
+            dialogBuilder.setNegativeButton("Salir") { _, _ -> }
+            dialogBuilder.setPositiveButton("Investigar") { _, _ ->
+                ProdDAO(context).insertProdTech(tech)
+            }.show()
+        }
+
 
     }
 

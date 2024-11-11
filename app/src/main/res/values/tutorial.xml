@@ -65,9 +65,10 @@
         <!-- TUTORIAL 9 -->
         <item>La pantalla de naves te indica todas tus naves construidas, su nombre, si están orbitando
             un planeta, si están en ruta hacia una planeta o estrella y los dias que faltan para llegar
-            al destino. Ahora pongamos en marcha el hipercrono.
+            al destino. Ahora pongamos en marcha el hipercrono. Puedes abrir el menú por el lateral
+            izquierdo o tocando el título superior
             \n\n
-            Desliza el dedo por el lateral izquierdo para abrir el menú y toca el HIPERCRONO.
+             Toca NAVES y abre el HIPERCRONO.
         </item>
 
         <!-- TUTORIAL 10 -->
@@ -148,7 +149,15 @@
 
         <!-- TUTORIAL 21 -->
         <item>
-            TECNOLOGÍAS
+            En la pantalla de tecnologías puedes gestionar tus descubrimientos, las rojas no están
+            descubiertas, las verdes ya las conoces. Investiga la propulsión Kotlin
+            \n\n
+            Investiga la PROPULSIÓN KOTLIN
+        </item>
+
+        <!-- TUTORIAL 22 -->
+        <item>
+            TOCA EL HIPERCRONO
         </item>
 
 

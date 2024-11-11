@@ -2,10 +2,10 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.TechHelper
@@ -18,6 +18,7 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
 
     fun insertTechs(tech: Tech){
         val db = writableDatabase
@@ -34,11 +35,12 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun insertTechsLearned(specie: Specie, tech: Int){
+    fun insertTechsLearned(specieId: Int, tech: Int){
         val db = writableDatabase
         val values = ContentValues().apply {
-            put(TechLearnedHelper.COLUMN_SPECIE_ID, specie.id)
+            put(TechLearnedHelper.COLUMN_SPECIE_ID, specieId)
             put(TechLearnedHelper.COLUMN_TECH_ID, tech)
+            put(TechLearnedHelper.COLUMN_LEARNED, 0)
         }
         db.insert(TechLearnedHelper.TABLE_NAME, null, values)
         db.close()
@@ -70,17 +72,36 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         return techList
     }
 
-    fun getTechsLearned(): List<Tech> {
-        val techList = mutableListOf<Tech>()
+    fun getTechLearned(techId: Int): Int {
+        val specie = data.getInt("specie", 0)
         val db = readableDatabase
-        val query = "SELECT * FROM techs WHERE required = 0"
+        val query = "SELECT * FROM tech_learned WHERE specie_id=$specie AND tech_id = $techId"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
-            techList.add(getColumns(cursor))
-        }
+        cursor.moveToFirst()
+            val learned = cursor.getInt(cursor.getColumnIndexOrThrow(TechLearnedHelper.COLUMN_ID))
         cursor.close()
         db.close()
-        return techList
+        return learned
+    }
+
+    fun setLearned(id: Int) {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("learned", 1)
+        db.update("tech_learned", values, "id=$id", null)
+        db.close()
+
+    }
+
+    fun isLearned(techId: Int): Boolean {
+        val specie = data.getInt("specie", 0)
+        val db = readableDatabase
+        val query = "SELECT * FROM tech_learned WHERE specie_id=$specie AND tech_id = $techId AND learned = 1"
+        val cursor = db.rawQuery(query, null)
+        val exists = cursor.count > 0
+        cursor.close()
+        db.close()
+        return exists
     }
 
     private fun getColumns(cursor: Cursor): Tech {
@@ -97,6 +118,8 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
                 build.toInt(), device.toInt())
         return tech
     }
+
+
 
 
 }

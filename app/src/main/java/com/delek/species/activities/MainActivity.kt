@@ -257,7 +257,7 @@ class MainActivity : AppCompatActivity() {
         val specieList = SpecieDAO(this).getAllSpecies()
         for (i in specieList){
             for (j in 1..3)
-                TechDAO(this).insertTechsLearned(i, j)
+                TechDAO(this).insertTechsLearned(i.id, j)
         }
     }
 

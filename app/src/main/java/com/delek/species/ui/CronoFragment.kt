@@ -43,6 +43,7 @@ class CronoFragment: Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val specie = data.getInt("specie", 0)
         var year = data.getInt("year", 0)
         var day = data.getInt("day", 0)
         val minProd = ProdDAO(context).getMinProd()
@@ -90,7 +91,10 @@ class CronoFragment: Fragment() {
                         println("Ship=$ship")
                         Dialog(context).shipDone(ship)
                     } else if (minProd.type == 3 && minProd.typeId != 0) {
+                        val learned = TechDAO(context).getTechLearned(minProd.typeId)
+                        TechDAO(context).setLearned(specie, learned)
                         val tech = TechDAO(context).getTechById(minProd.typeId)
+                        TechDAO(context).insertTechsLearned(specie, tech.unlock)
                         println("Tech=$tech")
                         Dialog(context).techDone(tech)
                     }
