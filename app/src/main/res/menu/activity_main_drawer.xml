@@ -21,7 +21,7 @@
             android:title="@string/menu_stars" />
         <!--3-->
         <item
-            android:id="@+id/nav_planets"
+            android:id="@+id/nav_planet"
             android:icon="@drawable/menu_planet"
             android:title="@string/menu_planet" />
         <!--4-->
@@ -33,12 +33,12 @@
         <item
             android:id="@+id/nav_tech"
             android:icon="@drawable/menu_tech"
-            android:title="@string/menu_tecnologias"  />
+            android:title="@string/menu_tech"  />
         <!--6-->
         <item
             android:id="@+id/nav_diplomacy"
             android:icon="@drawable/menu_diplo"
-            android:title="@string/diplomacia" />
+            android:title="@string/menu_diplomacy" />
         <!--7-->
         <item
             android:id="@+id/nav_build"
@@ -51,9 +51,9 @@
             android:title="@string/menu_system" />
         <!--9-->
         <item
-            android:id="@+id/nav_planet"
+            android:id="@+id/nav_surface"
             android:icon="@drawable/menu_planet"
-            android:title="@string/menu_planet" />
+            android:title="@string/surface" />
         <!--10-->
         <item
             android:id="@+id/nav_ship_devices"

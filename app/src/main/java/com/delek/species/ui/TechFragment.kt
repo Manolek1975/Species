@@ -37,7 +37,7 @@ class TechFragment: Fragment() {
         val bitmap = res?.toBitmap(30, 30)
         val scale = bitmap?.toDrawable(resources)
         binding.techHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
-        binding.techHeader.text = getString(R.string.menu_tecnologias)
+        binding.techHeader.text = getString(R.string.menu_tech)
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)

@@ -15,6 +15,7 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
@@ -57,7 +58,6 @@ class CronoFragment: Fragment() {
                         ++year
                         day = 0
                     }
-                    //TODO Update Planet Resources
                     updatePlanetResources(context, minProd)
                     //Decrement days left on all items
                     val prodList = ProdDAO(context).getALLProd()
@@ -89,6 +89,10 @@ class CronoFragment: Fragment() {
                         val ship = ShipDAO(context).getShipById(minProd.typeId)
                         println("Ship=$ship")
                         Dialog(context).shipDone(ship)
+                    } else if (minProd.type == 3 && minProd.typeId != 0) {
+                        val tech = TechDAO(context).getTechById(minProd.typeId)
+                        println("Tech=$tech")
+                        Dialog(context).techDone(tech)
                     }
                     ProdDAO(context).deleteProd(minProd.id)
                 }

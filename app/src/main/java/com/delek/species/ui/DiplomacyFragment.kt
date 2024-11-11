@@ -9,19 +9,16 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.PlanetsAdapter
-import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.databinding.FragmentPlanetBinding
+import com.delek.species.databinding.FragmentDiplomacyBinding
 import com.delek.species.model.Dialog
 
 
-class PlanetFragment : Fragment() {
+class DiplomacyFragment: Fragment() {
 
-    private var _binding: FragmentPlanetBinding? = null
-    private lateinit var adapter: PlanetsAdapter
+    private var _binding: FragmentDiplomacyBinding? = null
+    //private lateinit var adapter: TechsAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,25 +26,25 @@ class PlanetFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPlanetBinding.inflate(inflater, container, false)
+        _binding = FragmentDiplomacyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         // Header
-        val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_planet, null)
+        val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_diplo, null)
         val bitmap = res?.toBitmap(30, 30)
         val scale = bitmap?.toDrawable(resources)
-        binding.planetHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
-        binding.planetHeader.text = getString(R.string.menu_planet)
+        binding.diploHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
+        binding.diploHeader.text = getString(R.string.menu_diplomacy)
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val specie = data.getInt("specie", 0)
-        val planet = PlanetDAO(context).getPlanetsExploredBySpecie(specie)
-        adapter = PlanetsAdapter(planet, context)
-        binding.planetRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.planetRecyclerView.adapter = adapter
+        val specieId = data.getInt("specie", 0)
 
-        binding.planetHeader.setOnClickListener {
+/*        adapter = TechsAdapter(tech, context)
+        binding.techsRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.techsRecyclerView.adapter = adapter*/
+
+        binding.diploHeader.setOnClickListener {
             (activity as SidebarActivity).openDrawer()
         }
 
@@ -59,16 +56,14 @@ class PlanetFragment : Fragment() {
         val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 8) dialog.showTutorial(8)
-        if(tutorial == 18) dialog.showTutorial(18)
+        if(tutorial == 21) dialog.showTutorial(21)
     }
 
-    override fun onPause() {
+    override fun onPause(){
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if (tutorial == 8) data.edit().putInt("tutorial", 9).apply()
-        if (tutorial == 18) data.edit().putInt("tutorial", 19).apply()
+        if(tutorial == 21) data.edit().putInt("tutorial", 22).apply()
     }
 
     override fun onDestroyView() {

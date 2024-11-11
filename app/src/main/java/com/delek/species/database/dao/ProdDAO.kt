@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.PlanetBuilds
 import com.delek.species.database.dataclass.Prod
+import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.ProdHelper
@@ -29,6 +29,20 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
             put(ProdHelper.COLUMN_PLANET, prod.planet)
             put(ProdHelper.COLUMN_OWNER, prod.owner)
             put(ProdHelper.COLUMN_DAYS, prod.days)
+        }
+        db.insert(ProdHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertProdTech(tech: Tech) {
+        val db = writableDatabase
+        val specie = data.getInt("specie", 0)
+        val values = ContentValues().apply {
+            put(ProdHelper.COLUMN_TYPE, 3)
+            put(ProdHelper.COLUMN_TYPE_ID, tech.id)
+            put(ProdHelper.COLUMN_PLANET, 0)
+            put(ProdHelper.COLUMN_OWNER, specie)
+            put(ProdHelper.COLUMN_DAYS, tech.cost)
         }
         db.insert(ProdHelper.TABLE_NAME, null, values)
         db.close()
@@ -115,4 +129,6 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val prod = Prod(id, type, typeId, planet, owner, days)
         return prod
     }
+
+
 }

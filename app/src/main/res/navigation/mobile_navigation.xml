@@ -21,8 +21,8 @@
         android:label="Stars"
         tools:layout="@layout/fragment_stars" />
     <fragment
-        android:id="@+id/nav_planets"
-        android:name="com.delek.species.ui.PlanetsFragment"
+        android:id="@+id/nav_planet"
+        android:name="com.delek.species.ui.PlanetFragment"
         android:label="Planets"
         tools:layout="@layout/fragment_planet" />
     <fragment
@@ -31,7 +31,7 @@
         android:label="System"
         tools:layout="@layout/fragment_system" />
     <fragment
-        android:id="@+id/nav_planet"
+        android:id="@+id/nav_surface"
         android:name="com.delek.species.ui.SurfaceFragment"
         android:label="Planet"
         tools:layout="@layout/fragment_surface" />
@@ -47,9 +47,9 @@
         tools:layout="@layout/fragment_tech" />
     <fragment
         android:id="@+id/nav_diplomacy"
-        android:name="com.delek.species.ui.ShipFragment"
+        android:name="com.delek.species.ui.DiplomacyFragment"
         android:label="Diplomacy"
-        tools:layout="@layout/fragment_ship" />
+        tools:layout="@layout/fragment_diplomacy" />
     <fragment
         android:id="@+id/nav_ship_devices"
         android:name="com.delek.species.ui.ShipDevicesFragment"

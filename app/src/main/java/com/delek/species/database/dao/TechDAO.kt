@@ -24,12 +24,11 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         val values = ContentValues().apply {
             put(TechHelper.COLUMN_NAME, tech.name)
             put(TechHelper.COLUMN_IMAGE, tech.image)
+            put(TechHelper.COLUMN_COST, tech.cost)
             put(TechHelper.COLUMN_REQUIRE, tech.require)
             put(TechHelper.COLUMN_UNLOCK, tech.unlock)
-            put(TechHelper.COLUMN_COST, tech.cost)
             put(TechHelper.COLUMN_BUILD, tech.build)
             put(TechHelper.COLUMN_DEVICE, tech.device)
-
         }
         db.insert(TechHelper.TABLE_NAME, null, values)
         db.close()
@@ -43,6 +42,17 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         }
         db.insert(TechLearnedHelper.TABLE_NAME, null, values)
         db.close()
+    }
+
+    fun getTechById(typeId: Int): Tech {
+        val db = readableDatabase
+        val query = "SELECT * FROM techs WHERE id = $typeId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+            val tech = getColumns(cursor)
+        cursor.close()
+        db.close()
+        return tech
     }
 
     fun getTechsBySpecie(specieId: Int): List<Tech> {

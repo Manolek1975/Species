@@ -6,9 +6,9 @@ class TechHelper {
         const val COLUMN_ID: String = "id"
         const val COLUMN_NAME: String = "name"
         const val COLUMN_IMAGE: String = "image"
+        const val COLUMN_COST: String = "cost"
         const val COLUMN_REQUIRE: String = "require"
         const val COLUMN_UNLOCK: String = "unlock"
-        const val COLUMN_COST: String = "cost"
         const val COLUMN_BUILD: String = "build"
         const val COLUMN_DEVICE: String = "device"
 
