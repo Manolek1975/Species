@@ -144,8 +144,8 @@ class SurfaceFragment : Fragment() {
             dialog.descTech()
         }
 
-        binding.energyInfo.setOnClickListener {
-            dialog.descEnergy()
+        binding.defInfo.setOnClickListener {
+            dialog.descDef()
         }
 
         binding.popInfo.setOnClickListener {
@@ -183,8 +183,8 @@ class SurfaceFragment : Fragment() {
         binding.techInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
         binding.techInfo.text = planet.research.toString()
 
-        binding.energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
-        binding.energyInfo.text = planet.defense.toString()
+        binding.defInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
+        binding.defInfo.text = planet.defense.toString()
 
         binding.popInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos5, 0, 0)
         binding.popInfo.text = planet.population.toString()

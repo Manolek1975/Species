@@ -255,11 +255,11 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
     }
 
-    fun descEnergy() {
+    fun descDef() {
         val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos4, null)
         dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle("Energía")
-        dialogBuilder.setMessage(R.string.desc_energy)
+        dialogBuilder.setTitle("Defensa")
+        dialogBuilder.setMessage(R.string.desc_def)
         dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
     }
 

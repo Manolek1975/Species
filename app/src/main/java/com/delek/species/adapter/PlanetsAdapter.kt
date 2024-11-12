@@ -33,8 +33,8 @@ class PlanetsAdapter(private var planets: List<Planet>,
         val specie = data.getInt("specie", 0)
         val ship = data.getInt("ship", 0)
         val planet = planets[position]
-        if (position == 2)
-            holder.planetItem.setBackgroundResource(R.drawable.border_layout)
+/*        if (position == 2)
+            holder.planetItem.setBackgroundResource(R.drawable.border_layout)*/
         holder.planetItem.text = planet.name
         val id = Game.getResId(planet.image, R.drawable::class.java)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)

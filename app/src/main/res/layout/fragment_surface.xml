@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo_sistema"
+    android:background="@drawable/fondo_surface"
     tools:context=".ui.SurfaceFragment">
 
     <TextView
@@ -88,7 +88,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/energyInfo"
+            android:id="@+id/defInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
