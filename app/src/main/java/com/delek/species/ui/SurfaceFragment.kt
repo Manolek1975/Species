@@ -41,6 +41,7 @@ class SurfaceFragment : Fragment() {
         val root: View = binding.root
 
         val context = requireContext()
+        val dialog = Dialog(requireContext())
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
@@ -103,8 +104,9 @@ class SurfaceFragment : Fragment() {
         } else if (!colony && colonyModule) {
             binding.colonyButton.visibility = View.VISIBLE
         } else if(colony) {
-            binding.fab.visibility = View.VISIBLE
+            binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
             setResources(planet)
         }
         else {
@@ -116,17 +118,38 @@ class SurfaceFragment : Fragment() {
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
             PlanetDAO(context).setPlanetColony(planet.id, specieId)
             val p = PlanetDAO(context).getPlanetById(planetId)
+            binding.resLayout.visibility = View.VISIBLE
             binding.colonyButton.visibility = View.GONE
             binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             setResources(p)
-            val dialog = Dialog(requireContext())
+
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
         }
 
         binding.planetInfo.setOnClickListener{
             (activity as SidebarActivity).openDrawer()
+        }
+
+        binding.foodInfo.setOnClickListener {
+            dialog.descFood()
+        }
+
+        binding.prodInfo.setOnClickListener {
+            dialog.descProd()
+        }
+
+        binding.techInfo.setOnClickListener {
+            dialog.descTech()
+        }
+
+        binding.energyInfo.setOnClickListener {
+            dialog.descEnergy()
+        }
+
+        binding.popInfo.setOnClickListener {
+            dialog.descPop()
         }
 
         // FAB
@@ -157,8 +180,8 @@ class SurfaceFragment : Fragment() {
         binding.prodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos2, 0, 0)
         binding.prodInfo.text = planet.production.toString()
 
-        binding.scienceInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
-        binding.scienceInfo.text = planet.research.toString()
+        binding.techInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos3, 0, 0)
+        binding.techInfo.text = planet.research.toString()
 
         binding.energyInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos4, 0, 0)
         binding.energyInfo.text = planet.defense.toString()

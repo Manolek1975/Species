@@ -92,7 +92,7 @@ class CronoFragment: Fragment() {
                         Dialog(context).shipDone(ship)
                     } else if (minProd.type == 3 && minProd.typeId != 0) {
                         val learned = TechDAO(context).getTechLearned(minProd.typeId)
-                        TechDAO(context).setLearned(specie, learned)
+                        TechDAO(context).setLearned(learned)
                         val tech = TechDAO(context).getTechById(minProd.typeId)
                         TechDAO(context).insertTechsLearned(specie, tech.unlock)
                         println("Tech=$tech")

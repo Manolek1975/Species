@@ -133,11 +133,12 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     fun setPlanetColony(id: Int, specieId: Int){
         val db = writableDatabase
         val values = ContentValues()
+        values.put("specie_id", specieId)
         values.put("colony", 1)
         db.update("planet_explored", values, "planet_id=$id", null)
         values.clear()
         values.put("owner", specieId)
-        values.put("population", 50)
+        values.put("population", 20)
         db.update("planets", values, "id=$id", null)
         db.close()
     }

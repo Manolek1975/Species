@@ -60,6 +60,13 @@
     <string name="fecha_estelar">Fecha estelar: %1$s.%2$s</string>
     <string name="estrella_principal">Estrella: %1$s</string>
     <string name="surface">Surface</string>
+    <string name="desc_food">Necesarios para el crecimiento de la población, cada año se incrementarán
+            los colonos en función al número de toneladas acumuladas.</string>
+    <string name="desc_prod">La producción acelera la construcción de estructuras y de naves espaciales.</string>
+    <string name="desc_tech">La ciencia influye en la velocidad con la que puedes investigar tecnologías</string>
+    <string name="desc_energy">Para el correcto funcionamiento de tus instalaciones, necesitas energía.</string>
+    <string name="desc_pop">La población es necesaria para el funcionamiento de la colonia.</string>
+
 
 
 </resources>

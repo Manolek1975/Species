@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
@@ -228,9 +229,48 @@ class Dialog(context: Context) : View(context) {
                 ProdDAO(context).insertProdTech(tech)
             }.show()
         }
-
-
     }
+
+    fun descFood() {
+        val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos1, null)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Alimentos")
+        dialogBuilder.setMessage(R.string.desc_food)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
+    fun descProd() {
+        val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos2, null)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Producción")
+        dialogBuilder.setMessage(R.string.desc_prod)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
+    fun descTech() {
+        val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos3, null)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Ciencia")
+        dialogBuilder.setMessage(R.string.desc_tech)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
+    fun descEnergy() {
+        val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos4, null)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Energía")
+        dialogBuilder.setMessage(R.string.desc_energy)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
+    fun descPop() {
+        val id = ResourcesCompat.getDrawable(resources, R.drawable.recursos5, null)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Población")
+        dialogBuilder.setMessage(R.string.desc_pop)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
 
 
 
