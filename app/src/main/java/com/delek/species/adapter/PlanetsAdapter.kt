@@ -21,6 +21,7 @@ class PlanetsAdapter(private var planets: List<Planet>,
 
     class PlanetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val planetItem: TextView = itemView.findViewById(R.id.planetItem)
+        val planetType: TextView = itemView.findViewById(R.id.planetType)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanetViewHolder {
@@ -36,6 +37,7 @@ class PlanetsAdapter(private var planets: List<Planet>,
 /*        if (position == 2)
             holder.planetItem.setBackgroundResource(R.drawable.border_layout)*/
         holder.planetItem.text = planet.name
+        holder.planetType.text = planet.type.toString()
         val id = Game.getResId(planet.image, R.drawable::class.java)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50

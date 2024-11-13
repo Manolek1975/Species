@@ -7,9 +7,11 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.PlanetTypes
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.PlanetHelper
 import com.delek.species.database.helper.PlanetExploredHelper
+import com.delek.species.database.helper.PlanetTypesHelper
 
 
 class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
@@ -40,6 +42,18 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             put(PlanetHelper.COLUMN_POPULATION, planet.population)
         }
         db.insert(PlanetHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertPlanetTypes(types: PlanetTypes) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(PlanetTypesHelper.COLUMN_NAME, types.name)
+            put(PlanetTypesHelper.COLUMN_FOOD, types.food)
+            put(PlanetTypesHelper.COLUMN_PROD, types.prod)
+            put(PlanetTypesHelper.COLUMN_TECH, types.tech)
+        }
+        db.insert(PlanetTypesHelper.TABLE_NAME, null, values)
         db.close()
     }
 

@@ -41,7 +41,7 @@ class SystemFragment : Fragment() {
         binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         binding.starInfo.text = star.name
 
-        if (star.explore != 0) {
+        if (star.explore != -1) {
             adapter = PlanetsAdapter(PlanetDAO(context).getPlanetsByStarId(star.id), context)
             binding.systemRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.systemRecyclerView.adapter = adapter

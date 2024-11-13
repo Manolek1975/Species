@@ -21,6 +21,7 @@ import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.dataclass.PlanetTypes
 import com.delek.species.database.dataclass.Ship
 import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         loadStarsSector2()
         loadStarsExplored()
         loadPlanets()
+        loadPlanetTypes()
         loadBuilds()
         loadDevices()
         loadTechs()
@@ -142,18 +144,48 @@ class MainActivity : AppCompatActivity() {
     private fun loadPlanets() {
         val star = StarDAO(this).getAllStars()
         var rnd: Int
+        var rndTypes: Int
         for (i in star){
-            rnd = if (StarDAO(this).getStarOrigin(i.id))
-                8
-            else
-                (1..7).random()
-
+            rnd = (1..8).random()
             for (j in 1..rnd){
-                val image = getPlanetImage(j)
-                val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), setType(j),
+                rndTypes = (1..12).random()
+                val image = getPlanetImage(rndTypes)
+                val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), rndTypes,
                     0,0, 0,0,0)
                 PlanetDAO(this).insertPlanets(planet)
             }
+        }
+    }
+
+    private fun loadPlanetTypes() {
+        val res = this.resources
+        val name = res.getStringArray(R.array.name_types)
+        val food = res.getStringArray(R.array.food_types)
+        val prod = res.getStringArray(R.array.prod_types)
+        val tech = res.getStringArray(R.array.tech_types)
+
+        for (i in name.indices) {
+            val types = PlanetTypes(0, name[i], food[i].toInt(), prod[i].toInt(), tech[i].toInt())
+            PlanetDAO(this).insertPlanetTypes(types)
+        }
+    }
+
+    private fun getPlanetImage(image: Int): String {
+        return when (image) {
+            1 -> return "planet1_arido"
+            2 -> return "planet2_primordial"
+            3 -> return "planet3_agricola"
+            4 -> return "planet4_eden"
+            5 -> return "planet5_mineral"
+            6 -> return "planet6_supermineral"
+            7 -> return "planet7_experimental"
+            8 -> return "planet8_peculiar"
+            9 -> return "planet9_especial"
+            10 -> return "planet10_singular"
+            11 -> return "planet11_cornucopia"
+            12 -> return "planet12_helado"
+
+            else -> ({}).toString()
         }
     }
 
@@ -167,14 +199,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setType(j: Int): Int {
+/*    private fun setType(j: Int): Int {
         return when (j) {
             in 1..4 -> 1
             in 5..7 -> 2
             8 -> 3
             else -> 0
         }
-    }
+    }*/
 
     private fun loadBuilds() {
         val res = this.getResources()
@@ -259,27 +291,6 @@ class MainActivity : AppCompatActivity() {
             for (j in 1..3)
                 TechDAO(this).insertTechsLearned(i.id, j)
         }
-    }
-
-    private fun getPlanetImage(j: Int): String {
-        var image = j
-        val rnd = (0..1).random()
-        if (rnd == 1 && j <= 4 ) image = j + 8
-        when (image) {
-            1 -> return "icon_planet1"
-            2 -> return "icon_planet2"
-            3 -> return "icon_planet3"
-            4 -> return "icon_planet4"
-            5 -> return "icon_planet5"
-            6 -> return "icon_planet6"
-            7 -> return "icon_planet7"
-            8 -> return "icon_planet8"
-            9 -> return "icon_planet9"
-            10 -> return "icon_planet10"
-            11 -> return "icon_planet11"
-            12 -> return "icon_planet12"
-        }
-        return "planet12"
     }
 
     // Insert random coordinates to stars
