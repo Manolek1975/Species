@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.model.Game
@@ -33,11 +34,13 @@ class PlanetsAdapter(private var planets: List<Planet>,
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
         val ship = data.getInt("ship", 0)
+
         val planet = planets[position]
+        val type = PlanetDAO(context).getType(planet.type)
 /*        if (position == 2)
             holder.planetItem.setBackgroundResource(R.drawable.border_layout)*/
         holder.planetItem.text = planet.name
-        holder.planetType.text = planet.type.toString()
+        holder.planetType.text = type.name
         val id = Game.getResId(planet.image, R.drawable::class.java)
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50

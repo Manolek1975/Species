@@ -68,6 +68,25 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
+    fun getType(typeId: Int): PlanetTypes {
+        val db = readableDatabase
+        var type = PlanetTypes()
+        val query = "SELECT * FROM planet_types WHERE id = $typeId"
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetTypesHelper.COLUMN_ID))
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetTypesHelper.COLUMN_NAME))
+            val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetTypesHelper.COLUMN_FOOD))
+            val prod = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetTypesHelper.COLUMN_PROD))
+            val tech = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetTypesHelper.COLUMN_TECH))
+
+            type = PlanetTypes(id, name, food, prod, tech)
+        }
+        cursor.close()
+        db.close()
+        return type
+    }
+
     fun getPlanetsByStarId(starId: Int?): List<Planet> {
         val db = readableDatabase
         val planetList = mutableListOf<Planet>()

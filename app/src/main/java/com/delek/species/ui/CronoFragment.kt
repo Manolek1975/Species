@@ -19,6 +19,7 @@ import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
+import com.delek.species.model.Game
 
 
 class CronoFragment: Fragment() {
@@ -59,7 +60,6 @@ class CronoFragment: Fragment() {
                         ++year
                         day = 0
                     }
-                    updatePlanetResources(context, minProd)
                     //Decrement days left on all items
                     val prodList = ProdDAO(context).getALLProd()
                     for (prod in prodList) {
@@ -85,6 +85,7 @@ class CronoFragment: Fragment() {
                         else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
                         //TODO Decrement population
                         println("Build=$build")
+                        updatePlanetResources(context, minProd)
                         Dialog(context).buildDone(build, planet)
                     } else if (minProd.type == 2 && minProd.typeId != 0) {
                         val ship = ShipDAO(context).getShipById(minProd.typeId)
@@ -123,26 +124,32 @@ class CronoFragment: Fragment() {
 
     private fun updatePlanetResources(context: Context, minProd: Prod) {
         val planet = PlanetDAO(context).getPlanetById(minProd.planet)
+        val type = PlanetDAO(context).getType(planet.type)
+        val build = BuildDAO(context).getBuildById(minProd.typeId)
+
         val resList = mutableMapOf(
-            "food" to planet.food,
-            "prod" to planet.production,
-            "res" to planet.research,
-            "def" to planet.defense,
-            "pop" to planet.population
+            "food" to planet.food + build.food * type.food,
+            "prod" to planet.production + build.industry * type.prod,
+            "res" to planet.research + build.science * type.tech,
+            "def" to planet.defense + build.defense,
+            "pop" to planet.population + build.population
         )
-        val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
+
+        PlanetDAO(context).setPlanetResources(minProd.planet, resList)
+
+/*        val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
 
         for (res in planetBuildList) {
             when (res.buildId) {
-                2 -> resList["prod"] = resList["prod"]!! + 1
-                3 -> resList["food"] = resList["food"]!! + 1
-                4 -> resList["res"] = resList["res"]!! + 1
+                2 -> resList["prod"] = resList["prod"]!! + build.industry
+                3 -> resList["food"] = resList["food"]!! + build.food
+                4 -> resList["res"] = resList["res"]!! + build.science
             }
         }
         val food = planet.food.rem(100) + 1
         if (food == 50)
             resList["pop"] = resList["pop"]!! + 1
-        PlanetDAO(context).setPlanetResources(minProd.planet, resList)
+        PlanetDAO(context).setPlanetResources(minProd.planet, resList)*/
     }
 
     override fun onResume(){

@@ -174,6 +174,8 @@ class SurfaceFragment : Fragment() {
     }
 
     private fun setResources(planet: Planet) {
+        //var type = PlanetDAO(context!!).getType(planet.type)
+        //val food = (planet.food + 1)* type.food
         binding.foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
         binding.foodInfo.text = planet.food.toString()
 

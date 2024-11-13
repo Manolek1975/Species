@@ -147,8 +147,10 @@ class MainActivity : AppCompatActivity() {
         var rndTypes: Int
         for (i in star){
             rnd = (1..8).random()
+            if (i.owner !=0) rnd = 3 // Limit origin star to 3 planets
             for (j in 1..rnd){
                 rndTypes = (1..12).random()
+                if (i.owner !=0) rndTypes = (1..3).random() // Limit origin type to 1..3
                 val image = getPlanetImage(rndTypes)
                 val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), rndTypes,
                     0,0, 0,0,0)
