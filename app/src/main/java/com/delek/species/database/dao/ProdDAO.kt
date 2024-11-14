@@ -6,7 +6,10 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.delek.species.database.dataclass.Build
+import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Prod
+import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
 import com.delek.species.database.helper.DBHelper
@@ -129,6 +132,22 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         db.delete("prod", whereClause, whereArgs)
         db.close()
     }
+
+    fun getBuildProd(): Boolean {
+        val db = readableDatabase
+        var prod = false
+        val specie = data.getInt("specie", 0)
+        val query = "SELECT * FROM prod WHERE type = 1 AND owner = $specie"
+        val cursor = db.rawQuery(query, null)
+        if (cursor.count == 0) {
+            prod = true
+        }
+        cursor.close()
+        db.close()
+        return prod
+    }
+
+
 
 
 }

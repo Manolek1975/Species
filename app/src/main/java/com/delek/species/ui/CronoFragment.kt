@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dao.BuildDAO
@@ -20,6 +22,7 @@ import com.delek.species.database.dataclass.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
+import com.google.android.material.navigation.NavigationView
 
 
 class CronoFragment: Fragment() {
@@ -48,7 +51,26 @@ class CronoFragment: Fragment() {
         var year = data.getInt("year", 0)
         var day = data.getInt("day", 0)
         val minProd = ProdDAO(context).getMinProd()
-        val min: Long = minProd.days.toLong()
+        var min: Long = minProd.days.toLong()
+
+        // Planets without production
+        val exist = ProdDAO(context).getBuildProd()
+        val noProd = PlanetDAO(context).getNoProd(specie)
+        println(noProd)
+        if (exist){
+            min = 0
+            val id = Game.getResId(noProd[0].image, R.drawable::class.java)
+            binding.noProd.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
+            binding.noProd.text = noProd[0].name
+            binding.noProdMessage.visibility = View.VISIBLE
+            binding.noProd.setOnClickListener {
+                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                val item = nv.menu.getItem(9) //To Planet
+                val navController = context.findNavController(R.id.nav_host)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+        }
+        //TODO Perhaps list of build, ships or tech under construction?
 
         if (min > 0) {
             val timer = object : CountDownTimer((min + 1) * 100, 100) {

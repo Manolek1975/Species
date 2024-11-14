@@ -38,5 +38,30 @@
         android:textColor="@color/green"
         android:text="@string/fecha_estelar" />
 
+    <TextView
+        android:id="@+id/noProdMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="HAY PLANETAS SIN PRODUCCION"
+        android:textSize="16sp"
+        android:textColor="@color/red"/>
+
+
+    <TextView
+        android:id="@+id/noProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

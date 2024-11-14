@@ -245,4 +245,19 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return planetList
     }
 
+    fun getNoProd(specieId: Int): List<Planet> {
+        val db = readableDatabase
+        val planetList = mutableListOf<Planet>()
+        val query = " SELECT planets.* FROM planets LEFT JOIN prod " +
+                "ON planets.id = prod.type_id " +
+                "WHERE planets.owner = $specieId AND prod.type_id IS NULL"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            planetList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return planetList
+    }
+
 }

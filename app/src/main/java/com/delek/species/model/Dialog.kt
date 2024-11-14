@@ -199,6 +199,7 @@ class Dialog(context: Context) : View(context) {
     }
 
     fun showTech(tech: Tech) {
+        val tutorial = data.getInt("tutorial", 0)
         val iv = ImageView(context)
         var message = ""
 
@@ -221,6 +222,7 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setView(iv)
         dialogBuilder.setMessage("Permite construir $message")
 
+
         val learned = TechDAO(context).isLearned(tech.id)
         if (learned) {
             dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
@@ -228,6 +230,12 @@ class Dialog(context: Context) : View(context) {
             dialogBuilder.setNegativeButton("Salir") { _, _ -> }
             dialogBuilder.setPositiveButton("Investigar") { _, _ ->
                 ProdDAO(context).insertProdTech(tech)
+                if (tutorial == 10) {
+                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                    val item = nv.menu.getItem(0) // To Hipercrono
+                    val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
             }.show()
         }
     }
