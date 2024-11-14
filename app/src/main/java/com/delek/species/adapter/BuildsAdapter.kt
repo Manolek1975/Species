@@ -30,8 +30,9 @@ class BuildsAdapter(private var builds: List<Build>,
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
         val dialog = Dialog(context)
         val build = builds[position]
+        val days = build.cost / planet.production
         holder.buildItem.text = build.name
-        holder.buildDays.text = build.cost.toString()
+        holder.buildDays.text = days.toString()
         val id = Game.getResId(build.image, R.drawable::class.java)
         holder.buildItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.buildItem.compoundDrawablePadding = 50

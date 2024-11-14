@@ -60,14 +60,14 @@ class TechFragment: Fragment() {
         val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 21) dialog.showTutorial(21)
+        if(tutorial == 10) dialog.showTutorial(10)
     }
 
     override fun onPause(){
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 21) data.edit().putInt("tutorial", 22).apply()
+        if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
     }
 
     override fun onDestroyView() {

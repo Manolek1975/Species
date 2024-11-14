@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
         loadPlanetBuilds()
         loadDevices()
         loadTechs()
-        loadShips()
-        loadShipDevices()
+        //loadShips()
+        //loadShipDevices()
         loadTechsLearned()
     }
 
@@ -151,13 +151,15 @@ class MainActivity : AppCompatActivity() {
             rnd = (1..8).random()
             if (i.owner !=0) rnd = 3 // Limit origin star to 3 planets
             for (j in 1..rnd){
-                var owner = 0
+                var owner = 0; var food = 0; var prod = 0; var pop = 0
                 rndTypes = (1..12).random()
                 if (i.owner !=0) rndTypes = j // Limit origin type to 1..3
-                if (j == 2) owner = i.owner
+                if (j == 2) {
+                    owner = i.owner; food = 1; prod = 1; pop = 20 // Set values to Origin planet
+                }
                 val image = getPlanetImage(rndTypes)
                 val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), rndTypes,
-                    owner,0, 0,0,0)
+                    owner, food, prod,0,0, pop)
                 PlanetDAO(this).insertPlanets(planet)
             }
         }

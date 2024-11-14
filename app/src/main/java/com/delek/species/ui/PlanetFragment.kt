@@ -42,7 +42,7 @@ class PlanetFragment : Fragment() {
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
-        val planet = PlanetDAO(context).getPlanetsExploredBySpecie(specie)
+        val planet = PlanetDAO(context).getPlanetsColonized(specie)
         adapter = PlanetsAdapter(planet, context)
         binding.planetRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.planetRecyclerView.adapter = adapter

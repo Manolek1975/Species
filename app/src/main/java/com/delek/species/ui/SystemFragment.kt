@@ -41,7 +41,7 @@ class SystemFragment : Fragment() {
         binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         binding.starInfo.text = star.name
 
-        if (star.explore != -1) {
+        if (star.explore != -1) { // TODO Cambiar a 0 para ocultar planetas
             adapter = PlanetsAdapter(PlanetDAO(context).getPlanetsByStarId(star.id), context)
             binding.systemRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.systemRecyclerView.adapter = adapter

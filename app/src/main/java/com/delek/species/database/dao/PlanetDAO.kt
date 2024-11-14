@@ -56,8 +56,8 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
             put(PlanetHelper.COLUMN_OWNER, planet.owner)
             put(PlanetHelper.COLUMN_FOOD, planet.food)
             put(PlanetHelper.COLUMN_PRODUCTION, planet.production)
-            put(PlanetHelper.COLUMN_DEFENSE, planet.defense)
             put(PlanetHelper.COLUMN_RESEARCH, planet.research)
+            put(PlanetHelper.COLUMN_DEFENSE, planet.defense)
             put(PlanetHelper.COLUMN_POPULATION, planet.population)
         }
         db.insert(PlanetHelper.TABLE_NAME, null, values)
@@ -199,6 +199,8 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
     }
 
     fun setPlanetResources(id: Int, res: MutableMap<String, Int>){
+        val science = data.getInt("science", 0)
+        data.edit().putInt("science", science + res["res"]!!).apply()
         val db = writableDatabase
         val values = ContentValues()
         values.put("food", res["food"])
@@ -228,6 +230,19 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return planet
+    }
+
+    fun getPlanetsColonized(specie: Int): List<Planet> {
+        val db = readableDatabase
+        val planetList = mutableListOf<Planet>()
+        val query = "SELECT * FROM planets WHERE owner = $specie"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            planetList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return planetList
     }
 
 }

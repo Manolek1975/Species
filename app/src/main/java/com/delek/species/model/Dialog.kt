@@ -60,6 +60,7 @@ class Dialog(context: Context) : View(context) {
             data.edit().putInt("ship", 0).apply()
             data.edit().putInt("year", 2300).apply()
             data.edit().putInt("day", 0).apply()
+            data.edit().putInt("science", 0).apply()
             context.startActivity(i) // To Sector
             }
         .show()
@@ -67,7 +68,7 @@ class Dialog(context: Context) : View(context) {
 
     fun insertProdBuild(build: Build, planet: Planet) {
         val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 1, build.id, planet.id, owner, build.cost)
+        val prod = Prod(0, 1, build.id, planet.id, owner, build.cost/planet.production)
         val id = Game.getResId(build.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(build.name)
@@ -133,7 +134,7 @@ class Dialog(context: Context) : View(context) {
          val message = res.getStringArray(R.array.tutorial)
          dialogBuilder.setTitle("Tutorial")
          dialogBuilder.setMessage(message[id])
-         if (data.getInt("tutorial", 0) == 20){
+         if (data.getInt("tutorial", 0) == 9){
              dialogBuilder.setPositiveButton("Ir a Tecnologías") { _, _ ->
                  val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
                  val item = nv.menu.getItem(5) // To Tech

@@ -58,18 +58,18 @@ class BuildFragment: Fragment() {
         val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 5) dialog.showTutorial(5)
-        if(tutorial == 11) dialog.showTutorial(11)
-        if(tutorial == 14) dialog.showTutorial(14)
+        if(tutorial == 4) dialog.showTutorial(4)
+        if(tutorial == 7) dialog.showTutorial(7)
+
     }
 
     override fun onPause(){
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
-        if(tutorial == 11) data.edit().putInt("tutorial", 12).apply()
-        if(tutorial == 14) data.edit().putInt("tutorial", 15).apply()
+        if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
+        if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
+
     }
 
     override fun onDestroyView() {

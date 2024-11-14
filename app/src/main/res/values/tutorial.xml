@@ -6,61 +6,86 @@
 
         <!-- TUTORIAL 1 -->
         <item>Saludos comandante, hemos llegado a nuestro destino, la estrella tiene un planeta apto
-            para la vida, comenzamos a finalizar la hibernación de nuestros colonos, la estrella
-            se indica en nuestro mapa galáctico por un circulo.
+            para la vida, la estrella se indica en nuestro mapa galáctico por un circulo del color
+            de tu especie.
             \n\n
             TOCA TU ESTRELLA
         </item>
 
         <!-- TUTORIAL 2 -->
-        <item>Esta es la ventana del sistema, la estrella se encuentra en la parte superior,
-            si no ves planetas, debes explorar la estrella con una nave.
+        <item>Esta es la ventana del sistema, la estrella se encuentra en la parte superior, los
+            planetas colonizados se muestran con el color de tu especie.
             \n\n
-            TOCA EL TERCER PLANETA
+            TOCA EL PLANETA COLONIZADO
         </item>
 
         <!-- TUTORIAL 3 -->
-        <item>Tu nave está orbitando el planeta, si tienes un modulo de colonia podras crear una colonia.
-            \n\n
-            FUNDA UNA COLONIA
-        </item>
-
-        <!-- TUTORIAL 4 -->
-        <item>Ahora puedes gestionar tu planeta. Toca los recursos para ver su descripción. Una colonia
-            con éxito necesita al menos veinte personas. Sin embargo no tenemos alimentos, debemos alimentar
-            a los colonos para que puedan sobrevivir.
+        <item>En la ventana del planeta puedes gestionar la producción, para construir toca la
+            llave inglesa. Toca los recursos para ver su descripción.
             \n\n
             TOCA LA LLAVE INGLESA
         </item>
 
-        <!-- TUTORIAL 5 -->
+        <!-- TUTORIAL 4 -->
         <item>Los edificios que puedes construir dependen de la tecnología que hayas investigado.
             El número a la derecha te indica los días que tardarás en construirlos.
             \n\n
-            TOCA EL AGRIPLOT
+            TOCA LA FACTORÍA
+        </item>
+
+        <!-- TUTORIAL 5 -->
+        <item>Tu factoría ha empezado a construirse, abre el menú deslizando el borde izquierdo o
+            tocando la parte superior en el nombre del planeta.
+            Después toca el HIPERCRONO
+            \n\n
+            ABRE EL MENÚ \n  TOCA EL HIPERCRONO.
         </item>
 
         <!-- TUTORIAL 6 -->
-        <item>Tu agriplot ha empezado a construirse. El número a la derecha te indica
-            los días restantes para construirlo. Ahora sería interesante explorar otros planetas.
+        <item>Se ha construido la factoría y hay un colono trabajando, ahora deberíamos construir un
+            laboratorio para investigar tecnologías.
             \n\n
-            TOCA TU NAVE
+            TOCA LA LLAVE INGLESA
         </item>
 
         <!-- TUTORIAL 7 -->
-        <item>Tu nave dispone de un Motor Kotlin, podemos poner en marcha el motor y salir de órbita,
-            como no disponemos de un navegador estelar sólo podremos viajar a otros planetas en
-            nuestro sistema. El generador suministra la energía para tus motores y dispositivos.
+        <item>Para la construcción de naves estelares necesitamos un astillero, un generador, un motor
+            y un controlador estelar. Para investigar necesitamos ciencia, que proporciona un laboratorio.
             \n\n
-            TOCA EL MOTOR KOTLIN
+            CONSTRUYE UN LABORATORIO
         </item>
 
         <!-- TUTORIAL 8 -->
-        <item>El ordenador de navegación te permite seleccionar la ruta hacia un planeta.
-            Vamos a explorar los planetas más cercanos, el cuarto planeta parece interesante.
+        <item>Observa que al construir la factoria se han reducido los tiempos, es debido a que el
+            planeta ahora genera dos puntos de producción.
             \n\n
-            TOCA EL CUARTO PLANETA
+            ABRE EL MENÚ \n  TOCA EL HIPERCRONO.
         </item>
+
+        <!-- TUTORIAL 9 -->
+        <item>
+            Ahora disponemos de suficiente ciencia para investigar una tecnología
+            \n\n
+            ABRE TECNOLOGÍAS
+        </item>
+
+        <!-- TUTORIAL 10 -->
+        <item>
+            En la pantalla de tecnologías puedes gestionar tus descubrimientos, las rojas no están
+            descubiertas, las verdes ya las conoces. Investiga las Estructuras Orbitales.
+            \n\n
+            Investiga ESTRUCTURAS ORBITALES
+        </item>
+
+        <!-- TUTORIAL 11 -->
+        <item>
+            Antes de activar el hipercrono volvamos al planeta,
+            \n\n
+            Investiga ESTRUCTURAS ORBITALES
+        </item>
+
+
+
 
         <!-- TUTORIAL 9 -->
         <item>La pantalla de naves te indica todas tus naves construidas, su nombre, si están orbitando
@@ -71,41 +96,6 @@
              Toca NAVES y abre el HIPERCRONO.
         </item>
 
-        <!-- TUTORIAL 10 -->
-        <item>
-            Se ha construido un agriplot y hay un colono trabajando, ahora deberíamos construir un
-            laboratorio para investigar tecnologías.
-            \n\n
-            TOCA LA LLAVE INGLESA
-        </item>
-
-        <!-- TUTORIAL 11 -->
-        <item>
-            CONSTRUYE UN LABORATORIO
-        </item>
-
-        <!-- TUTORIAL 12 -->
-        <item>
-            ABRE EL MENU Y TOCA EL HIPERCRONO
-        </item>
-
-        <!-- TUTORIAL 13 -->
-        <item>
-            Para construir dispositivos necesitamos factorías.
-            \n\n
-            TOCA LA LLAVE INGLESA
-        </item>
-
-        <!-- TUTORIAL 14 -->
-        <item>
-            CONSTRUYE UNA FACTORÍA
-        </item>
-
-        <!-- TUTORIAL 15 -->
-        <item>
-            ABRE EL MENU Y TOCA EL HIPERCRONO
-        </item>
-
         <!-- TUTORIAL 16 -->
         <item>
             Nuestra nave a llegado a su destino, al explorar el planeta nos indica el tipo de planeta.
@@ -114,11 +104,6 @@
             Volvamos al planeta de origen para crear un módulo de colonia.
             \n\n
             TOCA TU NAVE
-        </item>
-
-        <!-- TUTORIAL 17 -->
-        <item>
-            TOCA EL MOTOR KOTLIN
         </item>
 
         <!-- TUTORIAL 18 -->
@@ -133,31 +118,6 @@
             Cuando acabes de ver los menús vuelve a tocar el Hipercrono.
             \n\n
             VUELVE A TU PLANETA
-        </item>
-
-        <!-- TUTORIAL 19 -->
-        <item>
-            TOCA EL HIPERCRONO
-        </item>
-
-        <!-- TUTORIAL 20 -->
-        <item>
-            Ahora disponemos de suficiente ciencia para investigar una tecnología
-            \n\n
-            ABRE TECNOLOGÍAS
-        </item>
-
-        <!-- TUTORIAL 21 -->
-        <item>
-            En la pantalla de tecnologías puedes gestionar tus descubrimientos, las rojas no están
-            descubiertas, las verdes ya las conoces. Investiga la propulsión Kotlin
-            \n\n
-            Investiga la PROPULSIÓN KOTLIN
-        </item>
-
-        <!-- TUTORIAL 22 -->
-        <item>
-            TOCA EL HIPERCRONO
         </item>
 
 

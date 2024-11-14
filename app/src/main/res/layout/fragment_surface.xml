@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/resLayout"
@@ -60,7 +60,7 @@
             android:padding="5dp"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/prodInfo"
@@ -108,7 +108,7 @@
 
     </LinearLayout>
 
-    <TextView
+<!--    <TextView
         android:id="@+id/explored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:textColor="@color/white"
         android:text="@string/sin_explorar"
         android:visibility="gone"
-        android:textSize="24sp" />
+        android:textSize="24sp" />-->
 
     <Button
         android:id="@+id/colonyButton"
@@ -136,6 +136,7 @@
         android:visibility="invisible">
 
         <ImageView
+            android:id="@+id/prodImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/todo"

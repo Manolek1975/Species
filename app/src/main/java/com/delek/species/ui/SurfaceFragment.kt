@@ -100,22 +100,22 @@ class SurfaceFragment : Fragment() {
         binding.planetBuildsRecyclerView.adapter = adapter*/
 
         // Manage FAB and Textview Message
-        val explored = PlanetDAO(context).getPlanetExplored(planet.id)
+        //val explored = PlanetDAO(context).getPlanetExplored(planet.id)
         val colony = PlanetDAO(context).getPlanetColony(planet.id)
-        if (!explored) {
-            binding.explored.visibility = View.VISIBLE
-        } else if (!colony && colonyModule) {
+/*        if (!explored) {
+            binding.explored.visibility = View.VISIBLE*/
+        if (planet.owner == 0 && colonyModule) {
             binding.colonyButton.visibility = View.VISIBLE
-        } else if(colony) {
+        } else if (planet.owner != 0) {
             binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             binding.fab.visibility = View.VISIBLE
             showResources(planet)
         }
-        else {
+/*        else {
             binding.explored.visibility = View.VISIBLE
             binding.explored.text = setType(planet.type)
-        }
+        }*/
 
         binding.colonyButton.setOnClickListener{
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
@@ -161,6 +161,14 @@ class SurfaceFragment : Fragment() {
             dialog.descPop()
         }
 
+        binding.prodImg.setOnClickListener {
+            ProdDAO(context).deleteProd(prod.id)
+            data.edit().putInt("planet", planet.id).apply()
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(7) // To Builds
+            val navController = context.findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }
         // FAB
         binding.fab.setOnClickListener { _ ->
             ProdDAO(context).deleteProd(prod.id)
@@ -218,13 +226,11 @@ class SurfaceFragment : Fragment() {
         val dialog = Dialog(requireContext())
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 3) dialog.showTutorial(3)
+        if(tutorial == 5) dialog.showTutorial(5)
         if(tutorial == 6) dialog.showTutorial(6)
-        if(tutorial == 10) dialog.showTutorial(10)
-        if(tutorial == 12) dialog.showTutorial(12)
-        if(tutorial == 13) dialog.showTutorial(13)
-        if(tutorial == 15) dialog.showTutorial(15)
-        if(tutorial == 16) dialog.showTutorial(16)
-        if(tutorial == 20) dialog.showTutorial(20)
+        if(tutorial == 8) dialog.showTutorial(8)
+        if(tutorial == 9) dialog.showTutorial(9)
+
     }
 
     override fun onPause(){
@@ -232,14 +238,12 @@ class SurfaceFragment : Fragment() {
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         data?.edit()?.putInt("build", 0)?.apply()
-        if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
+        if(tutorial == 3) data.edit().putInt("tutorial", 4).apply()
+        if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
         if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
-        if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
-        if(tutorial == 12) data.edit().putInt("tutorial", 13).apply()
-        if(tutorial == 13) data.edit().putInt("tutorial", 14).apply()
-        if(tutorial == 15) data.edit().putInt("tutorial", 16).apply()
-        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
-        if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
+        if(tutorial == 8) data.edit().putInt("tutorial", 9).apply()
+        if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
+
     }
 
     override fun onDestroyView() {
