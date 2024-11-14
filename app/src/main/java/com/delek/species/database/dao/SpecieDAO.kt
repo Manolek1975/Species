@@ -16,6 +16,20 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    private fun getColumns(cursor: Cursor): Specie {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
+        val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
+        val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
+        val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
+        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
+        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
+
+        val specie = Specie(id, name, desc, image, skill, type, star, color, origin)
+        return specie
+    }
 
     fun insertSpecies(specie: Specie) {
         val db = writableDatabase
@@ -57,19 +71,5 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         return specie
     }
 
-    private fun getColumns(cursor: Cursor): Specie {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_NAME))
-        val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
-        val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
-        val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
-        val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
-        val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
-
-        val specie = Specie(id, name, desc, image, skill, type, star, color, origin)
-        return specie
-    }
 
 }

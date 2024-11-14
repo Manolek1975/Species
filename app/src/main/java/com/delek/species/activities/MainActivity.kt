@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.delek.species.R
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         loadPlanets()
         loadPlanetTypes()
         loadBuilds()
+        loadPlanetBuilds()
         loadDevices()
         loadTechs()
         loadShips()
@@ -149,11 +151,13 @@ class MainActivity : AppCompatActivity() {
             rnd = (1..8).random()
             if (i.owner !=0) rnd = 3 // Limit origin star to 3 planets
             for (j in 1..rnd){
+                var owner = 0
                 rndTypes = (1..12).random()
-                if (i.owner !=0) rndTypes = (1..3).random() // Limit origin type to 1..3
+                if (i.owner !=0) rndTypes = j // Limit origin type to 1..3
+                if (j == 2) owner = i.owner
                 val image = getPlanetImage(rndTypes)
                 val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), rndTypes,
-                    0,0, 0,0,0)
+                    owner,0, 0,0,0)
                 PlanetDAO(this).insertPlanets(planet)
             }
         }
@@ -201,15 +205,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-/*    private fun setType(j: Int): Int {
-        return when (j) {
-            in 1..4 -> 1
-            in 5..7 -> 2
-            8 -> 3
-            else -> 0
-        }
-    }*/
-
     private fun loadBuilds() {
         val res = this.getResources()
         val name = res.getStringArray(R.array.builds_name)
@@ -227,6 +222,16 @@ class MainActivity : AppCompatActivity() {
                 cost[i].toInt(), food[i].toInt(), industry[i].toInt(), science[i].toInt(),
                 0, 0, 0, 0, orbital[i].toInt())
             BuildDAO(this).insertBuilds(build)
+        }
+    }
+
+    private fun loadPlanetBuilds() {
+        val species = SpecieDAO(this).getAllSpecies()
+        val build = BuildDAO(this).getBuildById(1)
+        for (s in species){
+            val star = StarDAO(this).getStarById(s.origin)
+            val planet = PlanetDAO(this).getOriginPlanet(star.id)
+            PlanetBuildsDAO(this).insertPlanetBuild(build, planet)
         }
     }
 

@@ -24,6 +24,25 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
 
     val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
 
+    private fun getColumns(cursor: Cursor): Planet {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
+        val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
+        val position = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POSITION))
+        val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
+        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
+        val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
+        val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
+        val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
+        val defense = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_DEFENSE))
+        val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
+
+        val planet = Planet(id, star, name, image, position, size, type, owner,
+            food, production, research, defense, population)
+        return planet
+    }
 
     fun insertPlanets(planet: Planet){
         val db = writableDatabase
@@ -163,16 +182,19 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         return exists
     }
 
-    fun setPlanetColony(id: Int, specieId: Int){
+    fun setPlanetColony(planet: Planet, specieId: Int){
+        val type = getType(planet.type)
         val db = writableDatabase
         val values = ContentValues()
         values.put("specie_id", specieId)
         values.put("colony", 1)
-        db.update("planet_explored", values, "planet_id=$id", null)
+        db.update("planet_explored", values, "planet_id=${planet.id}", null)
         values.clear()
         values.put("owner", specieId)
+        values.put("food", type.food)
+        values.put("production", type.prod)
         values.put("population", 20)
-        db.update("planets", values, "id=$id", null)
+        db.update("planets", values, "id=${planet.id}", null)
         db.close()
     }
 
@@ -195,25 +217,17 @@ class PlanetDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    private fun getColumns(cursor: Cursor): Planet {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_ID))
-        val star = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_STAR))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_NAME))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_IMAGE))
-        val position = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POSITION))
-        val size = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_SIZE))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_TYPE))
-        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_OWNER))
-        val food = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_FOOD))
-        val production = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_PRODUCTION))
-        val research = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_RESEARCH))
-        val defense = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_DEFENSE))
-        val population = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetHelper.COLUMN_POPULATION))
-
-        val planet = Planet(id, star, name, image, position, size, type, owner,
-            food, production, research, defense, population)
+    fun getOriginPlanet(id: Int): Planet {
+        val db = readableDatabase
+        var planet = Planet()
+        val query = "SELECT * FROM planets WHERE star = $id AND position = 2"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            planet = getColumns(cursor)
+        }
+        cursor.close()
+        db.close()
         return planet
     }
-
 
 }

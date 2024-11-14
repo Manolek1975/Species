@@ -20,6 +20,21 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    private fun getColumns(cursor: Cursor): Star {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
+        val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
+        val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
+        val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
+        val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
+        val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
+        val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
+        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_OWNER))
+
+        val star = Star(id, name, image, sector, jumps, x, y, type, explore, owner)
+        return star
+    }
 
     fun insertStars(star: Star) {
         val db = writableDatabase
@@ -86,14 +101,17 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return starList
     }
 
-    fun getStarOrigin(id: Int): Boolean {
+    fun getStarOrigin(): List<Star> {
         val db = readableDatabase
-        val query = "SELECT * FROM species WHERE origin = $id"
+        val starList = mutableListOf<Star>()
+        val query = "SELECT * FROM stars WHERE origin > 0"
         val cursor = db.rawQuery(query, null)
-        val result = cursor.count > 0
+        while (cursor.moveToNext()){
+            starList.add(getColumns(cursor))
+        }
         cursor.close()
         db.close()
-        return result
+        return starList
     }
 
     fun setStarExplored(id: Int){
@@ -119,20 +137,5 @@ class StarDAO(context: Context) : SQLiteOpenHelper(context,
         return starList
     }
 
-    private fun getColumns(cursor: Cursor): Star {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_NAME))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_IMAGE))
-        val sector = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_SECTOR))
-        val jumps = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_JUMPS))
-        val x = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_X))
-        val y = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_Y))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_TYPE))
-        val explore = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_EXPLORE))
-        val owner = cursor.getInt(cursor.getColumnIndexOrThrow(StarHelper.COLUMN_OWNER))
-
-        val star = Star(id, name, image, sector, jumps, x, y, type, explore, owner)
-        return star
-    }
 
 }

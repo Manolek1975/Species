@@ -18,6 +18,25 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    private fun getColumns(cursor: Cursor): Build {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_NAME))
+        val desc = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DESC))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_IMAGE))
+        val tech = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_TECH))
+        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_COST))
+        val food = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_FOOD))
+        val industry = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INDUSTRY))
+        val science = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_SCIENCE))
+        val population = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_POPULATION))
+        val offense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_OFFENCE))
+        val defense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DEFENSE))
+        val invader = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INVADER))
+        val orbital = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ORBITAL))
+
+        val build = Build(id, name, desc, image, tech, cost, food, industry, science, population, offense, defense, invader, orbital)
+        return build
+    }
 
     fun insertBuilds(build: Build){
         val db = writableDatabase
@@ -77,26 +96,5 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return buildList
     }
-
-    private fun getColumns(cursor: Cursor): Build {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_NAME))
-        val desc = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DESC))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_IMAGE))
-        val tech = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_TECH))
-        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_COST))
-        val food = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_FOOD))
-        val industry = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INDUSTRY))
-        val science = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_SCIENCE))
-        val population = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_POPULATION))
-        val offense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_OFFENCE))
-        val defense = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_DEFENSE))
-        val invader = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_INVADER))
-        val orbital = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ORBITAL))
-
-        val build = Build(id, name, desc, image, tech, cost, food, industry, science, population, offense, defense, invader, orbital)
-        return build
-    }
-
 
 }

@@ -48,9 +48,11 @@ class SurfaceFragment : Fragment() {
 
         // Planet Info
         val planet = PlanetDAO(context).getPlanetById(planetId)
+        val type = PlanetDAO(context).getType(planet.type)
         val id = Game.getResId(planet.image, R.drawable::class.java)
         binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         binding.planetInfo.text = planet.name
+        binding.planetType.text = getString(R.string.planet_type, type.name)
 
         // Ship Info
         val ships = ShipDAO(context).getShipsByPlanet(planet.id)
@@ -90,11 +92,12 @@ class SurfaceFragment : Fragment() {
         }
 
         // Builds
-        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
+        setAdapter(planetId, context)
+/*        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
         adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.planetBuildsRecyclerView.adapter = adapter
+        binding.planetBuildsRecyclerView.adapter = adapter*/
 
         // Manage FAB and Textview Message
         val explored = PlanetDAO(context).getPlanetExplored(planet.id)
@@ -107,7 +110,7 @@ class SurfaceFragment : Fragment() {
             binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             binding.fab.visibility = View.VISIBLE
-            setResources(planet)
+            showResources(planet)
         }
         else {
             binding.explored.visibility = View.VISIBLE
@@ -116,16 +119,22 @@ class SurfaceFragment : Fragment() {
 
         binding.colonyButton.setOnClickListener{
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
-            PlanetDAO(context).setPlanetColony(planet.id, specieId)
-            val p = PlanetDAO(context).getPlanetById(planetId)
+            PlanetDAO(context).setPlanetColony(planet, specieId)
+            val build = BuildDAO(context).getBuildById(1) // Get colony build
+            PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
             binding.resLayout.visibility = View.VISIBLE
             binding.colonyButton.visibility = View.GONE
             binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
-            setResources(p)
-
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
+/*            val p = PlanetDAO(context).getPlanetById(planetId)
+            val pb = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
+            val b = BuildDAO(context).getBuildsByPlanet(pb)
+            adapter = PlanetBuildsAdapter(b, PlanetBuildsDAO(context), planet, context)
+            binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
+            binding.planetBuildsRecyclerView.adapter = adapter*/
+            setAdapter(planetId, context)
         }
 
         binding.planetInfo.setOnClickListener{
@@ -165,6 +174,17 @@ class SurfaceFragment : Fragment() {
         return root
     }
 
+    private fun setAdapter(planetId: Int, context: Context) {
+        val planet = PlanetDAO(context).getPlanetById(planetId)
+        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
+        val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
+        adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
+        adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
+        binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.planetBuildsRecyclerView.adapter = adapter
+        showResources(planet)
+    }
+
     private fun setType(type: Int): CharSequence {
         when (type) {
             in 5..7 -> return "Gigante Gaseoso"
@@ -173,7 +193,7 @@ class SurfaceFragment : Fragment() {
         return "Planeta Terrestre"
     }
 
-    private fun setResources(planet: Planet) {
+    private fun showResources(planet: Planet) {
         //var type = PlanetDAO(context!!).getType(planet.type)
         //val food = (planet.food + 1)* type.food
         binding.foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)

@@ -18,6 +18,15 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
+    private fun getColumns(cursor: Cursor): PlanetBuilds {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
+        val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
+        val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
+        val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
+
+        val planetBuild = PlanetBuilds(id, planetId, buildId, level)
+        return planetBuild
+    }
 
     fun insertPlanetBuild(build: Build, planet: Planet) {
         val db = writableDatabase
@@ -64,13 +73,5 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    private fun getColumns(cursor: Cursor): PlanetBuilds {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_ID))
-        val planetId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_PLANET_ID))
-        val buildId = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_BUILD_ID))
-        val level = cursor.getInt(cursor.getColumnIndexOrThrow(PlanetBuildsHelper.COLUMN_LEVEL))
 
-        val planetBuild = PlanetBuilds(id, planetId, buildId, level)
-        return planetBuild
-    }
 }

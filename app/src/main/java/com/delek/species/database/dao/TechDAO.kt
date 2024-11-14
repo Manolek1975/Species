@@ -20,6 +20,21 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
 
     val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
 
+    private fun getColumns(cursor: Cursor): Tech {
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
+        val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
+        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
+        val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
+        val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
+        val build = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_BUILD))
+        val device = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_DEVICE))
+
+        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt(),
+            build.toInt(), device.toInt())
+        return tech
+    }
+
     fun insertTechs(tech: Tech){
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -103,23 +118,6 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return exists
     }
-
-    private fun getColumns(cursor: Cursor): Tech {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_NAME))
-        val image = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_IMAGE))
-        val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
-        val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
-        val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
-        val build = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_BUILD))
-        val device = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_DEVICE))
-
-        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt(),
-                build.toInt(), device.toInt())
-        return tech
-    }
-
-
 
 
 }
