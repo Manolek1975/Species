@@ -13,6 +13,7 @@ import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.TechDAO
 import com.delek.species.databinding.FragmentBuildBinding
 import com.delek.species.model.Dialog
 
@@ -34,7 +35,7 @@ class BuildFragment: Fragment() {
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val planetId = data.getInt("planet", 0)
-        val tech = data.getInt("tech", 0)
+        //val tech = data.getInt("tech", 0)
         val planet = PlanetDAO(context).getPlanetById(planetId)
 
         // Header
@@ -42,7 +43,14 @@ class BuildFragment: Fragment() {
         binding.buildHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
         binding.buildHeader.text = getString(R.string.menu_builds)
 
-        adapter = BuildsAdapter(BuildDAO(context).getBuildsByTech(tech), planet, context)
+        val list1 = BuildDAO(context).getBuildsTechLearned()
+
+        for(build in BuildDAO(context).getBuildsTechLearned())
+            println(build)
+
+        val list2 = BuildDAO(context).getBuildsByTech()
+
+        adapter = BuildsAdapter(list1 + list2, planet, context)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.buildsRecyclerView.adapter = adapter
 
@@ -63,6 +71,7 @@ class BuildFragment: Fragment() {
         if(tutorial == 13) dialog.showTutorial(13)
         if(tutorial == 16) dialog.showTutorial(16)
         if(tutorial == 19) dialog.showTutorial(19)
+        if(tutorial == 23) dialog.showTutorial(23)
 
     }
 
@@ -75,7 +84,7 @@ class BuildFragment: Fragment() {
         if(tutorial == 13) data.edit().putInt("tutorial", 14).apply()
         if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
         if(tutorial == 19) data.edit().putInt("tutorial", 20).apply()
-
+        if(tutorial == 23) data.edit().putInt("tutorial", 24).apply()
     }
 
     override fun onDestroyView() {

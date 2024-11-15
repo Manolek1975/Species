@@ -43,6 +43,7 @@
         <item>Mega Escudo Orbital</item>
         <item>Capa Orbital</item>
         <item>Base Orbital de Misiles</item>
+
         <item>Paralizador Orbital Corto</item>
         <item>Paralizador Orbital Largo</item>
     </string-array>
@@ -53,40 +54,45 @@
         <item>b3</item>
         <item>b4</item>
         <item>b5</item>
+
         <item>b6</item>
         <item>b7</item>
         <item>b8</item>
         <item>b9</item>
         <item>b10</item>
+
         <item>b11</item>
         <item>b12</item>
         <item>b13</item>
         <item>b14</item>
         <item>b15</item>
+
         <item>b16</item>
         <item>b17</item>
         <item>b18</item>
         <item>b19</item>
         <item>b20</item>
+
         <item>b21</item>
         <item>b22</item>
         <item>b23</item>
         <item>b24</item>
         <item>b25</item>
+
         <item>b26</item>
         <item>b27</item>
         <item>b28</item>
         <item>b29</item>
         <item>b30</item>
-        <item>b31</item>
 
+        <item>b31</item>
         <item>b32</item>
         <item>b33</item>
         <item>b34</item>
         <item>b35</item>
+
         <item>b36</item>
         <item>b37</item>
-        <item>b38</item>
     </string-array>
 
     <string-array name="builds_description">
@@ -170,44 +176,50 @@
     </string-array>
 
     <string-array name="builds_tech">
-        <item>1</item>
+        <item>91</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
         <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
+
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+        <item>91</item>
+
+        <item>91</item>
+        <item>91</item>
     </string-array>
 
     <string-array name="builds_industry">

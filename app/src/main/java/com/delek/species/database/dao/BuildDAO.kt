@@ -2,6 +2,7 @@ package com.delek.species.database.dao
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -17,6 +18,8 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
 ) {
     override fun onCreate(p0: SQLiteDatabase?) { }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
+
+    val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
 
     private fun getColumns(cursor: Cursor): Build {
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(BuildHelper.COLUMN_ID))
@@ -71,10 +74,11 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         return build
     }
 
-    fun getBuildsByTech(techMax: Int): List<Build> {
+    fun getBuildsByPlanet(planetBuild: List<PlanetBuilds>): List<Build> {
         val db = readableDatabase
         val buildList = mutableListOf<Build>()
-        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE tech <= $techMax"
+        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} " +
+                "WHERE id IN (${planetBuild.joinToString { it.buildId.toString() }})"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             buildList.add(getColumns(cursor))
@@ -84,10 +88,27 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         return buildList
     }
 
-    fun getBuildsByPlanet(planetBuild: List<PlanetBuilds>): List<Build> {
+    fun getBuildsByTech(): List<Build> {
         val db = readableDatabase
         val buildList = mutableListOf<Build>()
-        val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} WHERE id IN (${planetBuild.joinToString { it.buildId.toString() }})"
+        val query = "SELECT * FROM builds WHERE builds.tech = 0"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            buildList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return buildList
+    }
+
+    fun getBuildsTechLearned(): List<Build> {
+        val specie = data.getInt("specie", 0)
+        val db = readableDatabase
+        val buildList = mutableListOf<Build>()
+        val query = "SELECT builds.* FROM builds INNER JOIN tech_learned " +
+                "ON builds.tech = tech_learned.tech_id " +
+                "WHERE tech_learned.specie_id = $specie " +
+                "AND tech_learned.learned = 1"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             buildList.add(getColumns(cursor))

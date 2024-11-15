@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.database.dataclass.Specie
+import com.delek.species.model.Dialog
 import com.delek.species.model.Game
+
 
 class SpeciesAdapter(private var species: List<Specie>,
                      private val context: Context):

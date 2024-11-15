@@ -218,6 +218,7 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 17) dialog.showTutorial(17)
         if(tutorial == 18) dialog.showTutorial(18)
         if(tutorial == 20) dialog.showTutorial(20)
+        if(tutorial == 22) dialog.showTutorial(22)
 
     }
 
@@ -238,6 +239,7 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 17) data.edit().putInt("tutorial", 18).apply()
         if(tutorial == 18) data.edit().putInt("tutorial", 19).apply()
         if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
+        if(tutorial == 22) data.edit().putInt("tutorial", 23).apply()
     }
 
     override fun onDestroyView() {
