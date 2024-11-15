@@ -100,10 +100,6 @@ class SurfaceFragment : Fragment() {
         binding.planetBuildsRecyclerView.adapter = adapter*/
 
         // Manage FAB and Textview Message
-        //val explored = PlanetDAO(context).getPlanetExplored(planet.id)
-        val colony = PlanetDAO(context).getPlanetColony(planet.id)
-/*        if (!explored) {
-            binding.explored.visibility = View.VISIBLE*/
         if (planet.owner == 0 && colonyModule) {
             binding.colonyButton.visibility = View.VISIBLE
         } else if (planet.owner != 0) {
@@ -112,10 +108,6 @@ class SurfaceFragment : Fragment() {
             binding.fab.visibility = View.VISIBLE
             showResources(planet)
         }
-/*        else {
-            binding.explored.visibility = View.VISIBLE
-            binding.explored.text = setType(planet.type)
-        }*/
 
         binding.colonyButton.setOnClickListener{
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
@@ -193,17 +185,7 @@ class SurfaceFragment : Fragment() {
         showResources(planet)
     }
 
-    private fun setType(type: Int): CharSequence {
-        when (type) {
-            in 5..7 -> return "Gigante Gaseoso"
-            8 -> return "Planeta Enano"
-        }
-        return "Planeta Terrestre"
-    }
-
     private fun showResources(planet: Planet) {
-        //var type = PlanetDAO(context!!).getType(planet.type)
-        //val food = (planet.food + 1)* type.food
         binding.foodInfo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.recursos1, 0, 0)
         binding.foodInfo.text = planet.food.toString()
 
@@ -230,6 +212,12 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 6) dialog.showTutorial(6)
         if(tutorial == 8) dialog.showTutorial(8)
         if(tutorial == 9) dialog.showTutorial(9)
+        if(tutorial == 12) dialog.showTutorial(12)
+        if(tutorial == 14) dialog.showTutorial(14)
+        if(tutorial == 15) dialog.showTutorial(15)
+        if(tutorial == 17) dialog.showTutorial(17)
+        if(tutorial == 18) dialog.showTutorial(18)
+        if(tutorial == 20) dialog.showTutorial(20)
 
     }
 
@@ -243,7 +231,13 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
         if(tutorial == 8) data.edit().putInt("tutorial", 9).apply()
         if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
-
+        if(tutorial == 12) data.edit().putInt("tutorial", 13).apply()
+        if(tutorial == 14) data.edit().putInt("tutorial", 15).apply()
+        if(tutorial == 15) data.edit().putInt("tutorial", 16).apply()
+        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
+        if(tutorial == 17) data.edit().putInt("tutorial", 18).apply()
+        if(tutorial == 18) data.edit().putInt("tutorial", 19).apply()
+        if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
     }
 
     override fun onDestroyView() {

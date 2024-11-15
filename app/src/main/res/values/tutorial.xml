@@ -79,10 +79,88 @@
 
         <!-- TUTORIAL 11 -->
         <item>
-            Antes de activar el hipercrono volvamos al planeta,
+            El hipercrono nos avisará si hay algún planeta sin producción, alguna nave sin ordenes o
+            tecnologías sin investigar.
             \n\n
-            TOCA TU PLANETA
+            TOCA EL PLANETA SIN PRODUCCIÓN
         </item>
+
+        <!-- TUTORIAL 12 -->
+        <item>
+            Para aumentar la población necesitamos alimentos, si hay excedente más rápido aumentará.
+            \n\n
+            TOCA LA LLAVE INGLESA
+        </item>
+
+        <!-- TUTORIAL 13 -->
+        <item>
+            El agriplot aumenta los alimentos y acelera el crecimiento de la población.
+            \n\n
+            CONSTRUYE UN AGRIPLOT
+        </item>
+
+        <!-- TUTORIAL 14 -->
+        <item>
+            En los planetas Agrícolas se obtienen 2 puntos por cada agriplot, los planetas Eden
+            generan 3 puntos por cada uno.
+            \n\n
+            ACTIVA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 15 -->
+        <item>
+            Los planetas primordiales producen 1 punto de alimentos, producción y ciencia.
+            \n\n
+            TOCA LA LLAVE INGLESA
+        </item>
+
+        <!-- TUTORIAL 16 -->
+        <item>
+            Construye otro laboratorio para acelerar la investigación.
+            \n\n
+            CONSTRUYE OTRO LABORATORIO
+        </item>
+
+        <!-- TUTORIAL 17 -->
+        <item>
+            Los planetas experimentales y peculiares duplican o triplican la investigación por
+            cada laboratorio.
+            \n\n
+            TOCA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 18 -->
+        <item>
+            Ahora tenemos un laboratorio en nivel 2, como estamos en un planeta primordial produce
+            2 puntos de ciencia,
+            \n\n
+            TOCA LA LLAVE INGLESA
+        </item>
+
+        <!-- TUTORIAL 19 -->
+        <item>
+            Los laboratorios aún tardan mucho en construirse, aumentemos el nivel de nuestras
+            factorias para acelerar la producción.
+            \n\n
+            CONSTRUYE OTRA FACTORÍA
+        </item>
+
+        <!-- TUTORIAL 20 -->
+        <item>
+            Los planetas minerales se producen 2 puntos por cada factoría, en los planetas
+            superminerales obtendremos 3 puntos.
+            \n\n
+            TOCA EL HIPERCRONO
+        </item>
+
+        <!-- TUTORIAL 21 -->
+        <item>
+            Ahora podemos construir un astillero, nuestro siguiente paso será fabricar los motores
+            de nuestras naves.
+            \n\n
+            INVESTIGA EXPLORACIÓN PLANETARIA
+        </item>
+
 
 
 

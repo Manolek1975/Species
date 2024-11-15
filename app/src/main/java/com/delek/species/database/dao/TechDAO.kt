@@ -65,7 +65,7 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         val db = readableDatabase
         val query = "SELECT * FROM techs WHERE id = $typeId"
         val cursor = db.rawQuery(query, null)
-        cursor.moveToFirst()
+        cursor.moveToNext()
             val tech = getColumns(cursor)
         cursor.close()
         db.close()

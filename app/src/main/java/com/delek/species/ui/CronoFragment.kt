@@ -1,6 +1,7 @@
 package com.delek.species.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -72,6 +73,7 @@ class CronoFragment: Fragment() {
         }
         //TODO Perhaps list of build, ships or tech under construction?
 
+        //Advance crono
         if (min > 0) {
             val timer = object : CountDownTimer((min + 1) * 100, 100) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -149,6 +151,10 @@ class CronoFragment: Fragment() {
         val type = PlanetDAO(context).getType(planet.type)
         val build = BuildDAO(context).getBuildById(minProd.typeId)
 
+        val data: SharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val science = data.getInt("science", 0) + build.science * type.tech
+        data.edit().putInt("science", science).apply()
+
         val resList = mutableMapOf(
             "food" to planet.food + build.food * type.food,
             "prod" to planet.production + build.industry * type.prod,
@@ -158,20 +164,6 @@ class CronoFragment: Fragment() {
         )
 
         PlanetDAO(context).setPlanetResources(minProd.planet, resList)
-
-/*        val planetBuildList = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(minProd.planet)
-
-        for (res in planetBuildList) {
-            when (res.buildId) {
-                2 -> resList["prod"] = resList["prod"]!! + build.industry
-                3 -> resList["food"] = resList["food"]!! + build.food
-                4 -> resList["res"] = resList["res"]!! + build.science
-            }
-        }
-        val food = planet.food.rem(100) + 1
-        if (food == 50)
-            resList["pop"] = resList["pop"]!! + 1
-        PlanetDAO(context).setPlanetResources(minProd.planet, resList)*/
     }
 
     override fun onResume(){
@@ -179,14 +171,14 @@ class CronoFragment: Fragment() {
         val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 8) dialog.showTutorial(8)
+        if(tutorial == 11) dialog.showTutorial(11)
     }
 
     override fun onPause(){
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 8) data.edit().putInt("tutorial", 9).apply()
+        if(tutorial == 11) data.edit().putInt("tutorial", 12).apply()
     }
 
     override fun onDestroyView() {

@@ -60,6 +60,9 @@ class BuildFragment: Fragment() {
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 4) dialog.showTutorial(4)
         if(tutorial == 7) dialog.showTutorial(7)
+        if(tutorial == 13) dialog.showTutorial(13)
+        if(tutorial == 16) dialog.showTutorial(16)
+        if(tutorial == 19) dialog.showTutorial(19)
 
     }
 
@@ -69,6 +72,9 @@ class BuildFragment: Fragment() {
         val tutorial = data?.getInt("tutorial", 0)
         if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
         if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
+        if(tutorial == 13) data.edit().putInt("tutorial", 14).apply()
+        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
+        if(tutorial == 19) data.edit().putInt("tutorial", 20).apply()
 
     }
 

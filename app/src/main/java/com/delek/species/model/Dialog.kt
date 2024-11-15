@@ -152,7 +152,7 @@ class Dialog(context: Context) : View(context) {
         val id = Game.getResId(build.image, R.drawable::class.java)
         data.edit().putInt("planet", planet.id).apply()
         dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle("CONSTRUCCIÓN FINALIZADA")
+        dialogBuilder.setTitle("Construcción finalizada")
         dialogBuilder.setMessage("Ha finalizado la construcción de un ${build.name} en el planeta ${planet.name}")
         //dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
@@ -185,12 +185,10 @@ class Dialog(context: Context) : View(context) {
 
     fun techDone(tech: Tech) {
         val id = Game.getResId(tech.image, R.drawable::class.java)
-        val specieId = data.getInt("specie", 0)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("Investigación finalizada")
         dialogBuilder.setMessage("Ha finalizado la investigación en ${tech.name}")
         dialogBuilder.setPositiveButton("Ver Tecnologías") { _, _: Int ->
-            //ProdDAO(context).deleteProd(tech.id)
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(5) // To Techs
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
@@ -200,6 +198,7 @@ class Dialog(context: Context) : View(context) {
 
     fun showTech(tech: Tech) {
         val tutorial = data.getInt("tutorial", 0)
+        val science = data.getInt("science", 0)
         val iv = ImageView(context)
         var message = ""
 
@@ -216,21 +215,22 @@ class Dialog(context: Context) : View(context) {
             message = device.name
         }
 
+        val days = tech.cost / science
         val id = Game.getResId(tech.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
         dialogBuilder.setView(iv)
-        dialogBuilder.setMessage("Permite construir $message")
-
 
         val learned = TechDAO(context).isLearned(tech.id)
         if (learned) {
+            dialogBuilder.setMessage("Permite construir $message ")
             dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
         } else {
+            dialogBuilder.setMessage("Finalizará en $days días \nPermite construir $message ")
             dialogBuilder.setNegativeButton("Salir") { _, _ -> }
             dialogBuilder.setPositiveButton("Investigar") { _, _ ->
                 ProdDAO(context).insertProdTech(tech)
-                if (tutorial == 10) {
+                if (tutorial == 10 || tutorial == 21) {
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
                     val item = nv.menu.getItem(0) // To Hipercrono
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
