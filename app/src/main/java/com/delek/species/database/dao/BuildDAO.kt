@@ -56,6 +56,7 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
             put(BuildHelper.COLUMN_OFFENCE, build.offense)
             put(BuildHelper.COLUMN_DEFENSE, build.defense)
             put(BuildHelper.COLUMN_INVADER, build.invader)
+            put(BuildHelper.COLUMN_ORBITAL, build.orbital)
         }
         db.insert(BuildHelper.TABLE_NAME, null, values)
         db.close()
@@ -78,7 +79,23 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         val db = readableDatabase
         val buildList = mutableListOf<Build>()
         val query = "SELECT * FROM ${BuildHelper.TABLE_NAME} " +
-                "WHERE id IN (${planetBuild.joinToString { it.buildId.toString() }})"
+                "WHERE id IN (${planetBuild.joinToString { it.buildId.toString() }}) " +
+                "AND orbital = 0"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            buildList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return buildList
+    }
+
+    fun getOrbitalBuildsByPlanet(orbital: List<PlanetBuilds>): List<Build> {
+        val db = readableDatabase
+        val buildList = mutableListOf<Build>()
+        val query = "SELECT * FROM builds " +
+                "WHERE id IN (${orbital.joinToString { it.buildId.toString() }}) " +
+                "AND orbital = 1"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             buildList.add(getColumns(cursor))
@@ -117,5 +134,6 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
         return buildList
     }
+
 
 }

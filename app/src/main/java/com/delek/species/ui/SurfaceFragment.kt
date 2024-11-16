@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
+import com.delek.species.adapter.PlanetOrbitalAdapter
 import com.delek.species.database.dao.BuildDAO
-import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
-import com.delek.species.database.dao.ShipDAO
 import com.delek.species.database.dao.ShipDevicesDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
@@ -29,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 class SurfaceFragment : Fragment() {
 
     private var _binding: FragmentSurfaceBinding? = null
+    private lateinit var orbitalAdapter: PlanetOrbitalAdapter
     private lateinit var adapter: PlanetBuildsAdapter
     private val binding get() = _binding!!
 
@@ -54,14 +54,20 @@ class SurfaceFragment : Fragment() {
         binding.planetInfo.text = planet.name
         binding.planetType.text = getString(R.string.planet_type, type.name)
 
+        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
+        val orbitalBuilds = BuildDAO(context).getOrbitalBuildsByPlanet(planetBuilds)
+        orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds)
+        orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds)
+        binding.planetOrbitalRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.planetOrbitalRecyclerView.adapter = orbitalAdapter
+
         // Ship Info
-        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
+/*        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
         var colonyModule = false
         for (ship in ships){
             val shipId = Game.getResId(ship.image, R.drawable::class.java)
             if (specieId == ship.specieId){
                 binding.shipInfo.setImageResource(shipId)
-                //TODO Planet explored
                 val explored = PlanetDAO(context).getPlanetExplored(planetId)
                 if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
                 data.edit().putInt("ship", ship.id).apply()
@@ -75,7 +81,7 @@ class SurfaceFragment : Fragment() {
                     NavigationUI.onNavDestinationSelected(item, navController)
                 }
             }
-        }
+        }*/
 
         // Prod Info
         val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
@@ -92,17 +98,17 @@ class SurfaceFragment : Fragment() {
         }
 
         // Builds
-        setAdapter(planetId, context)
-/*        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
+        //setAdapter(planetId, context)
+        //val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
         adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.planetBuildsRecyclerView.adapter = adapter*/
+        binding.planetBuildsRecyclerView.adapter = adapter
 
         // Manage FAB and Textview Message
-        if (planet.owner == 0 && colonyModule) {
-            binding.colonyButton.visibility = View.VISIBLE
-        } else if (planet.owner != 0) {
+/*        if (planet.owner == 0 && colonyModule) {
+            binding.colonyButton.visibility = View.VISIBLE*/
+        if (planet.owner != 0) {
             binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             binding.fab.visibility = View.VISIBLE
@@ -120,13 +126,14 @@ class SurfaceFragment : Fragment() {
             binding.prodLayout.visibility = View.VISIBLE
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
+            showResources(planet)
 /*            val p = PlanetDAO(context).getPlanetById(planetId)
             val pb = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
             val b = BuildDAO(context).getBuildsByPlanet(pb)
             adapter = PlanetBuildsAdapter(b, PlanetBuildsDAO(context), planet, context)
             binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.planetBuildsRecyclerView.adapter = adapter*/
-            setAdapter(planetId, context)
+            //setAdapter(planetId, context)
         }
 
         binding.planetInfo.setOnClickListener{
@@ -172,17 +179,6 @@ class SurfaceFragment : Fragment() {
         }
 
         return root
-    }
-
-    private fun setAdapter(planetId: Int, context: Context) {
-        val planet = PlanetDAO(context).getPlanetById(planetId)
-        val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
-        val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
-        adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
-        adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
-        binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.planetBuildsRecyclerView.adapter = adapter
-        showResources(planet)
     }
 
     private fun showResources(planet: Planet) {
