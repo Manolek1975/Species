@@ -3,12 +3,14 @@
 
     <string-array name="name_techs">
         <item>Estructuras orbitales</item>
-        <item>Análisis espectral</item>
-        <item>Encapsulación ambiental</item>
+        <item>Diario Kotlin</item>
+        <item>Xenobiología</item>
         <item>Exploración planetaria</item>
+        <item>Encapsulamiento ambiental</item>
+
+        <item>Análisis espectral</item>
         <item>Superconductividad</item>
-        <item>Medidas de corto alcance</item>
-        <item>Tecnología WARP</item>
+        <item>Defensa planetaria</item>
     </string-array>
 
     <string-array name="image_techs">
@@ -19,6 +21,7 @@
         <item>t5</item>
         <item>t6</item>
         <item>t7</item>
+        <item>t8</item>
 
     </string-array>
 
@@ -28,6 +31,8 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+
+        <item>9</item>
         <item>9</item>
         <item>9</item>
     </string-array>
@@ -38,6 +43,8 @@
         <item>6</item>
         <item>7</item>
         <item>8</item>
+
+        <item>9</item>
         <item>9</item>
         <item>9</item>
     </string-array>
@@ -45,31 +52,13 @@
     <string-array name="cost_techs">
         <item>50</item>
         <item>50</item>
+        <item>90</item>
         <item>50</item>
-        <item>90</item>
-        <item>90</item>
-        <item>90</item>
-        <item>90</item>
-    </string-array>
+        <item>50</item>
 
-    <string-array name="build_techs">
-        <item>30</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-    </string-array>
-
-    <string-array name="device_techs">
-        <item>1</item>
-        <item>4</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>7</item>
-        <item>5</item>
+        <item>120</item>
+        <item>100</item>
+        <item>90</item>
     </string-array>
 
 </resources>

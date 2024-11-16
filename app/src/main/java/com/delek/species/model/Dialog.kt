@@ -157,7 +157,6 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle("Construcción finalizada")
         dialogBuilder.setMessage("Ha finalizado la construcción de un ${build.name} en el planeta ${planet.name}")
-        //dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) // To Planet
@@ -205,28 +204,48 @@ class Dialog(context: Context) : View(context) {
         vg.gravity = Gravity.CENTER
         vg.orientation = LinearLayout.HORIZONTAL
 
-        var message1 = ""; var message2 = ""
+        var message = "Permite construir:"
 
-        if (tech.build != 0) {
+        val build = BuildDAO(context).getBuildsByTech(tech.id)
+        for (b in build) {
+            val imgBuild = Game.getResId(b.image, R.drawable::class.java)
+            val iv = ImageView(context)
+            iv.setPadding(50)
+            iv.setImageResource(imgBuild)
+            vg.addView(iv)
+            message += "\n${b.name}"
+        }
+
+        val devices = DeviceDAO(context).getDevicesByTech(tech.id)
+        for (d in devices) {
+            val imgBuild = Game.getResId(d.image, R.drawable::class.java)
+            val iv = ImageView(context)
+            iv.setPadding(50)
+            iv.setImageResource(imgBuild)
+            vg.addView(iv)
+            message += "\n${d.name}"
+        }
+
+/*        if (tech.build != 0) {
             val build = BuildDAO(context).getBuildById(tech.build)
             val imgBuild = Game.getResId(build.image, R.drawable::class.java)
-            val iv1 = ImageView(context)
-            iv1.setPadding(50)
-            iv1.setImageResource(imgBuild)
-            vg.addView(iv1)
+            val iv = ImageView(context)
+            iv.setPadding(50)
+            iv.setImageResource(imgBuild)
+            vg.addView(iv)
             message1 = "\n${build.name}"
         }
         if (tech.device != 0){
             val device = DeviceDAO(context).getDeviceById(tech.device)
             val imgDevice = Game.getResId(device.image, R.drawable::class.java)
-            val iv2 = ImageView(context)
-            iv2.setPadding(50)
-            iv2.setImageResource(imgDevice)
-            vg.addView(iv2)
+            val iv = ImageView(context)
+            iv.setPadding(50)
+            iv.setImageResource(imgDevice)
+            vg.addView(iv)
             message2 = "\n${device.name}"
-        }
+        }*/
 
-        val message = "Permite construir:${message1}${message2}\n"
+        //val message = "Permite construir:${message1}${message2}\n"
         val id = Game.getResId(tech.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)

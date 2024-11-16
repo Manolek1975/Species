@@ -100,5 +100,19 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         return device
     }
 
+    fun getDevicesByTech(techId: Int): List<Device> {
+        val db = readableDatabase
+        val deviceList = mutableListOf<Device>()
+        val query = "SELECT devices.* FROM devices INNER JOIN techs " +
+                "ON devices.tech_id = techs.id WHERE techs.id = $techId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            deviceList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return deviceList
+    }
+
 
 }

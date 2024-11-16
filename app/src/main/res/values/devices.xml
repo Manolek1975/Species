@@ -3,28 +3,31 @@
 
     <string-array name="name_devices">
         <item>Módulo de colonia</item>
-        <item>Motor Kotlin</item>
-        <item>Generador Kotlin</item>
-        <item>Analizador Kotlin</item>
+        <item>Motor protónico</item>
+        <item>Generador protónico</item>
+        <item>Analizador Frecuencial</item>
         <item>Controlador estelar</item>
 
+        <item>Escudo Iónico</item>
         <item>Detonador Iónico</item>
-        <item>Cañon de protones</item>
+        <item>Misiles Fourier</item>
         <item>Quark Express</item>
         <item>Hipermezclador Van Creeg</item>
-        <item>Nanorrotador</item>
 
+        <item>Nanorrotador</item>
         <item>Proyector Gavitrón</item>
         <item>Cadena Subespacial</item>
         <item>Constructor de Nubes Aural</item>
         <item>Tímpano de Microondas</item>
-        <item>Murgatroyd</item>
 
+        <item>Murgatroyd</item>
         <item>Negador Inercial</item>
         <item>Hipercontrolador Estelar</item>
         <item>Megaprisma de Rayos X</item>
         <item>Encapotador</item>
+
         <item>Restaurador</item>
+
     </string-array>
 
     <string-array name="desc_devices">
@@ -51,6 +54,8 @@
         <item></item>
         <item></item>
         <item></item>
+
+        <item></item>
     </string-array>
 
     <string-array name="image_devices">
@@ -62,6 +67,12 @@
 
         <item>d6</item>
         <item>d7</item>
+        <item>d8</item>
+        <item></item>
+        <item></item>
+
+        <item></item>
+        <item></item>
         <item></item>
         <item></item>
         <item></item>
@@ -72,10 +83,6 @@
         <item></item>
         <item></item>
 
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
         <item></item>
     </string-array>
 
@@ -103,6 +110,8 @@
         <item>4</item>
         <item>4</item>
         <item>4</item>
+
+        <item>4</item>
     </string-array>
 
     <string-array name="cost_devices">
@@ -128,6 +137,8 @@
         <item>0</item>
         <item>0</item>
         <item>0</item>
+        <item>0</item>
+
         <item>0</item>
     </string-array>
 
@@ -155,13 +166,21 @@
         <item>0</item>
         <item>0</item>
         <item>0</item>
+
+        <item>0</item>
     </string-array>
 
     <string-array name="tech_devices">
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
+        <item>5</item>
+        <item>2</item>
+        <item>4</item>
+        <item>2</item>
+        <item>4</item>
+
+        <item>5</item>
+        <item>7</item>
+        <item>6</item>
+        <item>0</item>
         <item>0</item>
 
         <item>0</item>
@@ -176,10 +195,6 @@
         <item>0</item>
         <item>0</item>
 
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
         <item>0</item>
     </string-array>
 

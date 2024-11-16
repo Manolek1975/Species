@@ -43,12 +43,8 @@ class BuildFragment: Fragment() {
         binding.buildHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
         binding.buildHeader.text = getString(R.string.menu_builds)
 
-        val list1 = BuildDAO(context).getBuildsTechLearned()
-
-        for(build in BuildDAO(context).getBuildsTechLearned())
-            println(build)
-
-        val list2 = BuildDAO(context).getBuildsByTech()
+        val list1 = BuildDAO(context).getInitialBuilds()
+        val list2 = BuildDAO(context).getBuildsTechLearned()
 
         adapter = BuildsAdapter(list1 + list2, planet, context)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(context)

@@ -105,7 +105,7 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
         return buildList
     }
 
-    fun getBuildsByTech(): List<Build> {
+    fun getInitialBuilds(): List<Build> {
         val db = readableDatabase
         val buildList = mutableListOf<Build>()
         val query = "SELECT * FROM builds WHERE builds.tech = 0"
@@ -126,6 +126,20 @@ class BuildDAO(context: Context) : SQLiteOpenHelper(context,
                 "ON builds.tech = tech_learned.tech_id " +
                 "WHERE tech_learned.specie_id = $specie " +
                 "AND tech_learned.learned = 1"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            buildList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return buildList
+    }
+
+    fun getBuildsByTech(techId: Int): List<Build> {
+        val db = readableDatabase
+        val buildList = mutableListOf<Build>()
+        val query = "SELECT builds.* FROM builds INNER JOIN techs " +
+                "ON builds.tech = techs.id WHERE techs.id = $techId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             buildList.add(getColumns(cursor))

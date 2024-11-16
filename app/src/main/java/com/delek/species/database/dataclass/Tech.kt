@@ -9,6 +9,4 @@ data class Tech(
     val cost: Int = 0,
     val require: Int = 0,
     val unlock: Int = 0,
-    val build: Int = 0,
-    val device: Int = 0
 ) : Serializable

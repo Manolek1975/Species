@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetBuildsAdapter
@@ -57,8 +58,8 @@ class SurfaceFragment : Fragment() {
         val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val orbitalBuilds = BuildDAO(context).getOrbitalBuildsByPlanet(planetBuilds)
         orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds)
-        orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds)
-        binding.planetOrbitalRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.planetOrbitalRecyclerView.setHasFixedSize(true)
+        binding.planetOrbitalRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.planetOrbitalRecyclerView.adapter = orbitalAdapter
 
         // Ship Info

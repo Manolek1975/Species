@@ -27,11 +27,8 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
         val cost = cursor.getInt(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_COST))
         val require = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_REQUIRE))
         val unlock = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_UNLOCK))
-        val build = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_BUILD))
-        val device = cursor.getString(cursor.getColumnIndexOrThrow(TechHelper.COLUMN_DEVICE))
 
-        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt(),
-            build.toInt(), device.toInt())
+        val tech = Tech(id, name, image, cost, require.toInt(), unlock.toInt())
         return tech
     }
 
@@ -43,8 +40,6 @@ class TechDAO(context: Context) : SQLiteOpenHelper(context,
             put(TechHelper.COLUMN_COST, tech.cost)
             put(TechHelper.COLUMN_REQUIRE, tech.require)
             put(TechHelper.COLUMN_UNLOCK, tech.unlock)
-            put(TechHelper.COLUMN_BUILD, tech.build)
-            put(TechHelper.COLUMN_DEVICE, tech.device)
         }
         db.insert(TechHelper.TABLE_NAME, null, values)
         db.close()

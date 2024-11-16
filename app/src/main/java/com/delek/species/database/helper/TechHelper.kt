@@ -9,8 +9,6 @@ class TechHelper {
         const val COLUMN_COST: String = "cost"
         const val COLUMN_REQUIRE: String = "require"
         const val COLUMN_UNLOCK: String = "unlock"
-        const val COLUMN_BUILD: String = "build"
-        const val COLUMN_DEVICE: String = "device"
 
         val SQL_CREATE_ENTRIES = buildString {
             append("CREATE TABLE $TABLE_NAME (")
@@ -19,9 +17,7 @@ class TechHelper {
             append("$COLUMN_IMAGE TEXT,")
             append("$COLUMN_COST INTEGER,")
             append("$COLUMN_REQUIRE INTEGER,")
-            append("$COLUMN_UNLOCK INTEGER,")
-            append("$COLUMN_BUILD INTEGER,")
-            append("$COLUMN_DEVICE INTEGER)")
+            append("$COLUMN_UNLOCK INTEGER)")
         }
 
         const val SQL_DELETE_ENTRIES: String = "DROP TABLE IF EXISTS $TABLE_NAME"
