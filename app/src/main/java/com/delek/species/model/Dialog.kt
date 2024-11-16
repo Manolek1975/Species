@@ -2,10 +2,13 @@ package com.delek.species.model
 
 import android.content.Context
 import android.content.Intent
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.setPadding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
@@ -198,35 +201,42 @@ class Dialog(context: Context) : View(context) {
 
     fun showTech(tech: Tech) {
         val tutorial = data.getInt("tutorial", 0)
-        val science = data.getInt("science", 0)
-        val iv = ImageView(context)
-        var message = ""
+        val vg = LinearLayout(context)
+        vg.gravity = Gravity.CENTER
+        vg.orientation = LinearLayout.HORIZONTAL
+
+        var message1 = ""; var message2 = ""
 
         if (tech.build != 0) {
             val build = BuildDAO(context).getBuildById(tech.build)
             val imgBuild = Game.getResId(build.image, R.drawable::class.java)
-            iv.setImageResource(imgBuild)
-            message = build.name
+            val iv1 = ImageView(context)
+            iv1.setPadding(50)
+            iv1.setImageResource(imgBuild)
+            vg.addView(iv1)
+            message1 = "\n${build.name}"
         }
         if (tech.device != 0){
             val device = DeviceDAO(context).getDeviceById(tech.device)
             val imgDevice = Game.getResId(device.image, R.drawable::class.java)
-            iv.setImageResource(imgDevice)
-            message = device.name
+            val iv2 = ImageView(context)
+            iv2.setPadding(50)
+            iv2.setImageResource(imgDevice)
+            vg.addView(iv2)
+            message2 = "\n${device.name}"
         }
 
-        val days = tech.cost / science
+        val message = "Permite construir:${message1}${message2}\n"
         val id = Game.getResId(tech.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
-        dialogBuilder.setView(iv)
+        dialogBuilder.setMessage(message)
+        dialogBuilder.setView(vg)
 
         val learned = TechDAO(context).isLearned(tech.id)
         if (learned) {
-            dialogBuilder.setMessage("Permite construir $message ")
             dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
         } else {
-            dialogBuilder.setMessage("Finalizará en $days días \nPermite construir $message ")
             dialogBuilder.setNegativeButton("Salir") { _, _ -> }
             dialogBuilder.setPositiveButton("Investigar") { _, _ ->
                 ProdDAO(context).insertProdTech(tech)
