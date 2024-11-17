@@ -43,7 +43,7 @@ class ShipDevicesFragment : Fragment() {
 
         // Devices
         val devices = DeviceDAO(context).getDevicesByShip(ship.id)
-        adapter = ShipDevicesAdapter(devices, ship.id, context)
+        adapter = ShipDevicesAdapter(devices)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
 

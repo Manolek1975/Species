@@ -1,6 +1,5 @@
 package com.delek.species.ui
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
+import com.delek.species.adapter.ShipDevicesAdapter
+import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.databinding.FragmentBuildShipBinding
 import com.delek.species.model.Dialog
@@ -18,7 +20,7 @@ import com.delek.species.model.Game
 class BuildShipFragment : Fragment() {
 
     private var _binding: FragmentBuildShipBinding? = null
-    //private lateinit var adapter: BuildShipAdapter
+    private lateinit var adapter: ShipDevicesAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,15 +36,11 @@ class BuildShipFragment : Fragment() {
         val speciesId = data.getInt("specie", 0)
         val specie = SpecieDAO(context).getSpecieById(speciesId)
 
-        // Ship Info
+        // Header
         val id = Game.getResId(specie.ship, R.drawable::class.java)
         binding.shipImage.setImageResource(id)
         binding.shipName.hint = specie.ship
         binding.shipName.setText(specie.ship)
-
-        binding.engineInfo.setOnClickListener {
-            binding.engineInfo.setImageResource(R.drawable.d2)
-        }
 
         binding.editButton.setOnClickListener {
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -50,12 +48,22 @@ class BuildShipFragment : Fragment() {
             binding.shipName.clearFocus()
         }
 
-/*        // Devices
-        val devices = DeviceDAO(context).getDevicesByShip(ship.id)
-        adapter = ShipDevicesAdapter(devices, ship.id, context)
+        // Devices
+        val devices = DeviceDAO(context).getDevicesByType(2)
+        adapter = ShipDevicesAdapter(devices)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.shipDevicesRecyclerView.adapter = adapter*/
+        binding.shipDevicesRecyclerView.adapter = adapter
 
+
+        binding.engineInfo.setOnClickListener {
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+
+        adapter.setOnItemClickListener {
+            val resId = Game.getResId(it.image, R.drawable::class.java)
+            binding.engineInfo.setImageResource(resId)
+            binding.shipDevicesRecyclerView.visibility = View.GONE
+        }
 /*
         binding.imageShip.setOnClickListener {
             (activity as SidebarActivity).openDrawer()

@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
@@ -105,6 +104,19 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val deviceList = mutableListOf<Device>()
         val query = "SELECT devices.* FROM devices INNER JOIN techs " +
                 "ON devices.tech_id = techs.id WHERE techs.id = $techId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            deviceList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return deviceList
+    }
+
+    fun getDevicesByType(typeId: Int): List<Device> {
+        val db = readableDatabase
+        val deviceList = mutableListOf<Device>()
+        val query = "SELECT * FROM devices WHERE type = $typeId"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             deviceList.add(getColumns(cursor))

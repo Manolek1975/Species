@@ -61,7 +61,7 @@ class SurfaceFragment : Fragment() {
 
         val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val orbitalBuilds = BuildDAO(context).getOrbitalBuildsByPlanet(planetBuilds)
-        orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds)
+        orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds, context)
         binding.planetOrbitalRecyclerView.setHasFixedSize(true)
         binding.planetOrbitalRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.planetOrbitalRecyclerView.adapter = orbitalAdapter

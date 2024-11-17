@@ -21,7 +21,7 @@
     <string name="go_back">go_back</string>
     <string name="opciones">Opciones</string>
     <string name="ship_name">ship_name</string>
-    <string name="todo">TODO</string>
+    <string name="TODO">TODO</string>
     <string name="planeta">Planeta %1$s</string>
     <string name="navegador">Navegador</string>
     <string name="dias">%1$d días</string>
@@ -69,7 +69,7 @@
     <string name="desc_pop">La población es necesaria para el funcionamiento de la colonia.</string>
     <string name="planet_type">Planeta %1$s</string>
     <string name="out_production_planets">HAY PLANETAS SIN PRODUCCION</string>
-    <string name="engines">Motores</string>
+    <string name="engines">Motores*</string>
     <string name="energy">Generadores</string>
     <string name="warp">WARP</string>
     <string name="sensors">Sensorers</string>
@@ -77,7 +77,7 @@
     <string name="weapons">Armas</string>
     <string name="shield">Escudos</string>
     <string name="others">Varios</string>
-
+    <string name="todo">TODO</string>
 
 
 </resources>

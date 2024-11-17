@@ -1,27 +1,21 @@
 package com.delek.species.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
 import com.delek.species.database.dataclass.Device
 import com.delek.species.model.Game
-import com.google.android.material.navigation.NavigationView
 
-class ShipDevicesAdapter(private var device: List<Device>,
-                         private var shipId: Int,
-                         private val context: Context):
+
+class ShipDevicesAdapter(private var device: List<Device>):
     RecyclerView.Adapter<ShipDevicesAdapter.BuildViewHolder>() {
 
     class BuildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val deviceItem: TextView = itemView.findViewById(R.id.deviceItem)
-        val deviceType: TextView = itemView.findViewById(R.id.deviceType)
+        val rootView: View = itemView.rootView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
@@ -30,26 +24,27 @@ class ShipDevicesAdapter(private var device: List<Device>,
     }
 
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val device = device[position]
         holder.deviceItem.text = device.name
-        holder.deviceType.text = device.type.toString()
         val id = Game.getResId(device.image, R.drawable::class.java)
         holder.deviceItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.deviceItem.compoundDrawablePadding = 50
 
-        holder.deviceItem.setOnClickListener{
-            //checkDevice(device, planet)
-            if (device.type == 1){
-                data.edit().putInt("ship", shipId).apply()
-                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                val item = nv.menu.getItem(11) // To Navigation
-                val navController = context.findNavController(R.id.nav_host)
-                NavigationUI.onNavDestinationSelected(item, navController)
+        holder.rootView.setOnClickListener {
+            onItemClickListener?.let{
+                it(device)
             }
         }
-
     }
+
+    override fun getItemCount(): Int = device.size
+
+    private var onItemClickListener:((Device)->Unit)? = null
+    fun setOnItemClickListener(listener: (Device)->Unit) {
+        onItemClickListener = listener
+    }
+}
+
 
 /*    private fun checkDevice(device: Device, planet: Planet){
         when (device.type to planet.explore) {
@@ -62,6 +57,6 @@ class ShipDevicesAdapter(private var device: List<Device>,
         }
     }*/
 
-    override fun getItemCount(): Int = device.size
 
-}
+
+
