@@ -4,6 +4,9 @@ import java.lang.reflect.Field
 
 abstract class Game {
 
+    //TODO Continuar tutorial, asignar builds a techs
+    //TODO Estudiar corutinas Kotlin
+
     companion object {
         fun getResId(resName: String?, c: Class<*>): Int {
             try {
@@ -14,6 +17,8 @@ abstract class Game {
                 return -1
             }
         }
+
+
 
 
 

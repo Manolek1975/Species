@@ -4,12 +4,12 @@
     <string-array name="name_devices">
         <item>Módulo de colonia</item>
         <item>Motor protónico</item>
-        <item>Generador protónico</item>
+        <item>Generador WARP</item>
         <item>Analizador Frecuencial</item>
-        <item>Controlador estelar</item>
+        <item>Motor WARP</item>
 
         <item>Escudo Iónico</item>
-        <item>Detonador Iónico</item>
+        <item>Torreta Iónica</item>
         <item>Misiles Fourier</item>
         <item>Quark Express</item>
         <item>Hipermezclador Van Creeg</item>

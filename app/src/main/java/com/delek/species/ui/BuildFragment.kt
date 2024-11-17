@@ -13,7 +13,6 @@ import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.database.dao.TechDAO
 import com.delek.species.databinding.FragmentBuildBinding
 import com.delek.species.model.Dialog
 
@@ -68,6 +67,7 @@ class BuildFragment: Fragment() {
         if(tutorial == 16) dialog.showTutorial(16)
         if(tutorial == 19) dialog.showTutorial(19)
         if(tutorial == 23) dialog.showTutorial(23)
+        if(tutorial == 27) dialog.showTutorial(27)
 
     }
 
@@ -81,6 +81,7 @@ class BuildFragment: Fragment() {
         if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
         if(tutorial == 19) data.edit().putInt("tutorial", 20).apply()
         if(tutorial == 23) data.edit().putInt("tutorial", 24).apply()
+        if(tutorial == 27) data.edit().putInt("tutorial", 28).apply()
     }
 
     override fun onDestroyView() {

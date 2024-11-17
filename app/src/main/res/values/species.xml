@@ -56,12 +56,12 @@
     <string-array name="color_species">
         <item>#D27E00</item>
         <item>#00FFFF</item>
-        <item>#4CAF50</item>
-        <item>#8B5442</item>
-        <item>#1C67B3</item>
+        <item>#80FF00</item>
+        <item>#B78271</item>
+        <item>#28A1F2</item>
         <item>#B9C10D</item>
-        <item>#F200FF</item>
-        <item>#FF0000</item>
+        <item>#D17FD6</item>
+        <item>#C65151</item>
     </string-array>
 
     <string-array name="origin_species">

@@ -226,26 +226,6 @@ class Dialog(context: Context) : View(context) {
             message += "\n${d.name}"
         }
 
-/*        if (tech.build != 0) {
-            val build = BuildDAO(context).getBuildById(tech.build)
-            val imgBuild = Game.getResId(build.image, R.drawable::class.java)
-            val iv = ImageView(context)
-            iv.setPadding(50)
-            iv.setImageResource(imgBuild)
-            vg.addView(iv)
-            message1 = "\n${build.name}"
-        }
-        if (tech.device != 0){
-            val device = DeviceDAO(context).getDeviceById(tech.device)
-            val imgDevice = Game.getResId(device.image, R.drawable::class.java)
-            val iv = ImageView(context)
-            iv.setPadding(50)
-            iv.setImageResource(imgDevice)
-            vg.addView(iv)
-            message2 = "\n${device.name}"
-        }*/
-
-        //val message = "Permite construir:${message1}${message2}\n"
         val id = Game.getResId(tech.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(tech.name)
@@ -259,7 +239,7 @@ class Dialog(context: Context) : View(context) {
             dialogBuilder.setNegativeButton("Salir") { _, _ -> }
             dialogBuilder.setPositiveButton("Investigar") { _, _ ->
                 ProdDAO(context).insertProdTech(tech)
-                if (tutorial == 10 || tutorial == 21) {
+                if (tutorial == 10 || tutorial == 21 || tutorial in 25..27) {
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
                     val item = nv.menu.getItem(0) // To Hipercrono
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
@@ -308,22 +288,6 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setMessage(R.string.desc_pop)
         dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
     }
-
-
-
-
-    /*    fun showTutorialSector(specie: Specie, starName: String) {
-        val res = context.resources
-        val id = context.resources.getIdentifier(specie.image, "drawable", context.packageName)
-        val color = getSpecieColor(specie.id)
-        val message = res.getString(R.string.tutorial, specie.name, starName, color)
-        val dialogBuilder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialogStyle)
-        dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle(specie.name)
-        dialogBuilder.setMessage(message)
-        dialogBuilder.setNegativeButton("OK") { _, _ -> }
-        .show()
-    }*/
 
 }
 

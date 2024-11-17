@@ -13,10 +13,13 @@
     <color name="orange">#D27E00</color>
     <color name="red">#FF0000</color>
     <color name="green">#4CAF50</color>
-    <color name="brown">#8B5442</color>
-    <color name="pink">#F200FF</color>
+    <color name="brown">#B78271</color>
+    <color name="pink">#D17FD6</color>
     <color name="dark_blue">#0447AC</color>
     <color name="light_green">#80FF00</color>
+    <color name="light_brown">#B78271</color>
+    <color name="light_blue">#28A1F2</color>
+    <color name="light_red">#C65151</color>
     <color name="dark_green">#005300</color>
 
     <color name="transparent">#80000000</color>

@@ -1,6 +1,7 @@
 package com.delek.species.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDevicesDAO
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.model.Dialog
@@ -48,10 +50,12 @@ class SurfaceFragment : Fragment() {
         val planetId = data.getInt("planet", 0)
 
         // Planet Info
+        val specie = SpecieDAO(context).getSpecieById(specieId)
         val planet = PlanetDAO(context).getPlanetById(planetId)
         val type = PlanetDAO(context).getType(planet.type)
         val id = Game.getResId(planet.image, R.drawable::class.java)
         binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
+        binding.planetInfo.setTextColor(Color.parseColor(specie.color))
         binding.planetInfo.text = planet.name
         binding.planetType.text = getString(R.string.planet_type, type.name)
 
@@ -216,6 +220,8 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 18) dialog.showTutorial(18)
         if(tutorial == 20) dialog.showTutorial(20)
         if(tutorial == 22) dialog.showTutorial(22)
+        if(tutorial == 24) dialog.showTutorial(24)
+        if(tutorial == 28) dialog.showTutorial(28)
 
     }
 
@@ -237,6 +243,9 @@ class SurfaceFragment : Fragment() {
         if(tutorial == 18) data.edit().putInt("tutorial", 19).apply()
         if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
         if(tutorial == 22) data.edit().putInt("tutorial", 23).apply()
+        if(tutorial == 24) data.edit().putInt("tutorial", 25).apply()
+        if(tutorial == 26) data.edit().putInt("tutorial", 27).apply()
+        if(tutorial == 28) data.edit().putInt("tutorial", 29).apply()
     }
 
     override fun onDestroyView() {

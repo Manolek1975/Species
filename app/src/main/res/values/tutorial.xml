@@ -57,7 +57,7 @@
 
         <!-- TUTORIAL 8 -->
         <item>Observa que al construir la factoria se han reducido los tiempos, es debido a que el
-            planeta ahora genera dos puntos de producción.
+            planeta ahora genera dos recursos de producción.
             \n\n
             ABRE EL MENÚ \n  TOCA EL HIPERCRONO.
         </item>
@@ -101,8 +101,8 @@
 
         <!-- TUTORIAL 14 -->
         <item>
-            En los planetas Agrícolas se obtienen 2 puntos por cada agriplot, los planetas Eden
-            generan 3 puntos por cada uno.
+            En los planetas Agrícolas se obtienen 2 recursos por cada agriplot, los planetas Eden
+            generan 3 recursos por cada uno.
             \n\n
             ACTIVA EL HIPERCRONO
         </item>
@@ -148,29 +148,29 @@
         <!-- TUTORIAL 20 -->
         <item>
             Los planetas minerales se producen 2 recursos por cada factoría, en los planetas
-            superminerales obtendremos 3 puntos.
+            superminerales obtendremos 3 recursos.
             \n\n
             TOCA EL HIPERCRONO
         </item>
 
         <!-- TUTORIAL 21 -->
         <item>
-            Ahora podemos construir un astillero, nuestro siguiente paso será fabricar los motores
-            de nuestras naves.
+            Observa que al tener dos laboratorios los tiempos de investigación se han reducdo
+            significativamente. Ahora investigaremos los motores y sensores de las naves.
             \n\n
-            INVESTIGA EXPLORACIÓN PLANETARIA
+            INVESTIGA DIARIO KOTLIN
         </item>
 
         <!-- TUTORIAL 22 -->
         <item>
-            Abre la producción y construye un astillero
+            Para construir naves necesitamos un astillero, un generador, un motor y el impulso WARP.
             \n\n
             TOCA LA LLAVE INGLESA
         </item>
 
         <!-- TUTORIAL 23 -->
         <item>
-            Un astillero nos permite construir naves
+            El astillero nos permite construir naves.
             \n\n
             CONSTRUYE UN ASTILLERO
         </item>
@@ -186,8 +186,60 @@
         <item>
             Los controladores estelares nos permiten viajar a otras estrellas
             \n\n
-            INVESTIGA LA TECNOLOGÍA WARP
+            INVESTIGA EL IMPULSO WARP
         </item>
+
+        <!-- TUTORIAL 26 -->
+        <item>
+            Ahora disponemos de motores, generadores y sensores para crear una nave, aunque sería
+            interesante equiparla tambien con un módulo de colonia.
+            \n\n
+            INVESTIGA ENCAPSULAMIENTO AMBIENTAL
+        </item>
+
+        <!-- TUTORIAL 27 -->
+        <item>
+            La Xenobiología es el estudio de culturas extraterrestres, nos facilitará el estudio de
+            las ruinas que nos encontremos en nuestros viajes.
+            \n\n
+            INVESTIGA XENOBIOLOGÍA
+        </item>
+
+        <!-- TUTORIAL 28 -->
+        <item>
+            Ahora que hemos finalizado el astillero, podemos contruir nuestras naves.
+            \n\n
+            TOCA EL ASTILLERO
+        </item>
+
+
+
+
+        <!-- TUTORIAL 28 -->
+        <item>
+            El outpost proporciona dos espacios adicionales para nuestros colonos.
+            \n\n
+            CONSTRUYE UN OUTPOST
+        </item>
+
+        <!-- TUTORIAL 29 -->
+        <item>
+            El primer número en el recursos de población muestra los colonos, el segundo el
+            espacio disponible.
+            \n\n
+            TOCA LA LLAVE INGLESA
+        </item>
+
+        <!-- TUTORIAL 31 -->
+        <item>
+            Las torretas iónicas son una defensa adecuada para enfrentamiento a corto alcance.
+            \n\n
+            INVESTIGA SUPERCONDUCTIVIDAD>
+        </item>
+
+
+
+
 
 
         <!-- TUTORIAL 9 -->

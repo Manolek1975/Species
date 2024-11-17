@@ -2,6 +2,7 @@ package com.delek.species.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ProdDAO
 import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.dataclass.Prod
 import com.delek.species.databinding.FragmentCronoBinding
@@ -29,7 +31,7 @@ import com.google.android.material.navigation.NavigationView
 class CronoFragment: Fragment() {
 
     private var _binding: FragmentCronoBinding? = null
-    //private lateinit var adapter: CronosAdapter
+    //private lateinit var adapter: CronoAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -48,7 +50,7 @@ class CronoFragment: Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val specie = data.getInt("specie", 0)
+        val specieId = data.getInt("specie", 0)
         var year = data.getInt("year", 0)
         var day = data.getInt("day", 0)
         val minProd = ProdDAO(context).getMinProd()
@@ -56,12 +58,14 @@ class CronoFragment: Fragment() {
 
         // Planets without production
         val exist = ProdDAO(context).getBuildProd()
-        val noProd = PlanetDAO(context).getNoProd(specie)
+        val noProd = PlanetDAO(context).getNoProd(specieId)
+        val specie = SpecieDAO(context).getSpecieById(specieId)
         println(noProd)
         if (exist){
             min = 0
             val id = Game.getResId(noProd[0].image, R.drawable::class.java)
             binding.noProd.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
+            binding.noProd.setTextColor(Color.parseColor(specie.color))
             binding.noProd.text = noProd[0].name
             binding.noProdMessage.visibility = View.VISIBLE
             binding.noProd.setOnClickListener {
@@ -119,7 +123,7 @@ class CronoFragment: Fragment() {
                         val learned = TechDAO(context).getTechLearned(minProd.typeId)
                         TechDAO(context).setLearned(learned)
                         val tech = TechDAO(context).getTechById(minProd.typeId)
-                        TechDAO(context).insertTechsLearned(specie, tech.unlock)
+                        TechDAO(context).insertTechsLearned(specieId, tech.unlock)
                         println("Tech=$tech")
                         Dialog(context).techDone(tech)
                     }
