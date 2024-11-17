@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_sistema"
+    tools:context=".ui.BuildShipFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/shipImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ship_101" />
+
+        <EditText
+            android:id="@+id/shipName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:autofillHints="Input"
+            android:hint="@string/ship_name"
+            android:inputType="text"
+            android:maxLength="16"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:drawable/ic_menu_edit"
+            android:importantForAccessibility="no"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/engineText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:text="@string/engines"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/engineInfo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/square_layout"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</LinearLayout>

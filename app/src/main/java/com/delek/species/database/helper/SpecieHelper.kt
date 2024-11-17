@@ -9,7 +9,7 @@ class SpecieHelper {
         const val COLUMN_DESC: String = "description"
         const val COLUMN_IMAGE: String = "image"
         const val COLUMN_SKILL: String = "skill"
-        const val COLUMN_TYPE: String = "type"
+        const val COLUMN_SHIP: String = "ship"
         const val COLUMN_STAR: String = "star"
         const val COLUMN_COLOR: String = "color"
         const val COLUMN_ORIGIN: String = "origin"
@@ -21,8 +21,8 @@ class SpecieHelper {
             append("$COLUMN_DESC TEXT,")
             append("$COLUMN_IMAGE TEXT,")
             append("$COLUMN_SKILL TEXT,")
-            append("$COLUMN_TYPE INTEGER,")
-            append("$COLUMN_STAR TEXT,")
+            append("$COLUMN_SHIP TEXT,")
+            append("$COLUMN_STAR INTEGER,")
             append("$COLUMN_COLOR TEXT,")
             append("$COLUMN_ORIGIN INTEGER)")
         }

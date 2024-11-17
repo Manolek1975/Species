@@ -88,14 +88,15 @@ class MainActivity : AppCompatActivity() {
     private fun loadSpecies(){
         val res = this.resources
         val name = res.getStringArray(R.array.name_species)
-        val image = res.getStringArray(R.array.image_species)
         val desc = res.getStringArray(R.array.description_species)
+        val image = res.getStringArray(R.array.image_species)
+        val ship = res.getStringArray(R.array.ship_species)
         val star = res.getStringArray(R.array.origin_species)
         val color = res.getStringArray(R.array.color_species)
         val origin = res.getStringArray(R.array.origin_species)
 
         for (i in name.indices){
-            val specie = Specie(0, name[i], desc[i], image[i], type = 0, skill = "",
+            val specie = Specie(0, name[i], desc[i], image[i], skill = "", ship[i],
                 star = star[i].toInt(), color = color[i], origin = origin[i].toInt())
             SpecieDAO(this).insertSpecies(specie)
             finish()

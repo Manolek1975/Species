@@ -33,6 +33,7 @@
     <string name="test_name">Test name</string>
     <string name="exit">Pulsa de nuevo para salir</string>
 
+    <!-- Menu -->
     <string name="menu_sector">Sector</string>
     <string name="menu_system">System</string>
     <string name="menu_planet">Planetas</string>
@@ -42,6 +43,7 @@
     <string name="menu_stars">Estrellas</string>
     <string name="menu_tech">Tecnologías</string>
     <string name="menu_diplomacy">Diplomacia</string>
+    <string name="menu_build_ship">Build Ship</string>
 
     <string name="title_activity_sidebar">SidebarActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -66,6 +68,16 @@
     <string name="desc_def">Muestra la defensa del planeta contra bombardeos e invasiones.</string>
     <string name="desc_pop">La población es necesaria para el funcionamiento de la colonia.</string>
     <string name="planet_type">Planeta %1$s</string>
+    <string name="out_production_planets">HAY PLANETAS SIN PRODUCCION</string>
+    <string name="engines">Motores</string>
+    <string name="energy">Generadores</string>
+    <string name="warp">WARP</string>
+    <string name="sensors">Sensorers</string>
+    <string name="modules">Módulos</string>
+    <string name="weapons">Armas</string>
+    <string name="shield">Escudos</string>
+    <string name="others">Varios</string>
+
 
 
 </resources>

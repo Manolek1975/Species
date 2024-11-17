@@ -22,12 +22,12 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
         val desc = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_DESC))
         val image = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_IMAGE))
         val skill = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SKILL))
-        val type = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_TYPE))
+        val ship = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_SHIP))
         val star = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_STAR))
         val color = cursor.getString(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_COLOR))
         val origin = cursor.getInt(cursor.getColumnIndexOrThrow(SpecieHelper.COLUMN_ORIGIN))
 
-        val specie = Specie(id, name, desc, image, skill, type, star, color, origin)
+        val specie = Specie(id, name, desc, image, skill, ship, star, color, origin)
         return specie
     }
 
@@ -38,7 +38,7 @@ class SpecieDAO(context: Context) : SQLiteOpenHelper(context,
             put(SpecieHelper.COLUMN_DESC, specie.desc)
             put(SpecieHelper.COLUMN_IMAGE, specie.image)
             put(SpecieHelper.COLUMN_SKILL, specie.skill)
-            put(SpecieHelper.COLUMN_TYPE, specie.type)
+            put(SpecieHelper.COLUMN_SHIP, specie.ship)
             put(SpecieHelper.COLUMN_STAR, specie.star)
             put(SpecieHelper.COLUMN_COLOR, specie.color)
             put(SpecieHelper.COLUMN_ORIGIN, specie.origin)

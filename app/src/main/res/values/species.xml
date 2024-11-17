@@ -53,10 +53,21 @@
         <item>Conquistadores</item>
     </string-array>
 
+    <string-array name="ship_species">
+        <item>ship_101</item>
+        <item>ship_201</item>
+        <item>ship_301</item>
+        <item>ship_401</item>
+        <item>ship_501</item>
+        <item>ship_601</item>
+        <item>ship_701</item>
+        <item>ship_801</item>
+    </string-array>
+
     <string-array name="color_species">
         <item>#D27E00</item>
         <item>#00FFFF</item>
-        <item>#80FF00</item>
+        <item>#2FFF00</item>
         <item>#B78271</item>
         <item>#28A1F2</item>
         <item>#B9C10D</item>
