@@ -20,6 +20,8 @@ import com.delek.species.model.Game
 class BuildShipFragment : Fragment() {
 
     private var _binding: FragmentBuildShipBinding? = null
+    //private lateinit var engineItem: EngineItemBinding  //merge_layout.xml layout
+
     private lateinit var adapter: ShipDevicesAdapter
     private val binding get() = _binding!!
 
@@ -29,6 +31,7 @@ class BuildShipFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBuildShipBinding.inflate(inflater, container, false)
+
         val root: View = binding.root
 
         val context = requireContext()
@@ -54,21 +57,43 @@ class BuildShipFragment : Fragment() {
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
 
-
-        binding.engineInfo.setOnClickListener {
+        var engine = 0
+        binding.engineLayout.engineView1.setOnClickListener {
             binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+            engine = 1
+        }
+
+        binding.engineLayout.engineView2.setOnClickListener {
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+            engine = 2
+        }
+
+        binding.engineLayout.engineView3.setOnClickListener {
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+            engine = 3
+        }
+
+        binding.engineLayout.engineView4.setOnClickListener {
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+            engine = 4
         }
 
         adapter.setOnItemClickListener {
             val resId = Game.getResId(it.image, R.drawable::class.java)
-            binding.engineInfo.setImageResource(resId)
+            when(engine){
+                1 -> binding.engineLayout.engineView1.setImageResource(resId)
+                2 -> binding.engineLayout.engineView2.setImageResource(resId)
+                3 -> binding.engineLayout.engineView3.setImageResource(resId)
+                4 -> binding.engineLayout.engineView4.setImageResource(resId)
+            }
             binding.shipDevicesRecyclerView.visibility = View.GONE
         }
-/*
-        binding.imageShip.setOnClickListener {
+
+
+/*        binding.imageShip.setOnClickListener {
             (activity as SidebarActivity).openDrawer()
-        }
-*/
+        }*/
+
         return root
     }
 
