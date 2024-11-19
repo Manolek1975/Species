@@ -15,8 +15,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.database.dao.SpecieDAO
-import com.delek.species.database.dao.StarDAO
+import com.delek.species.dao.SpecieDAO
+import com.delek.species.dao.StarDAO
 import com.delek.species.database.dataclass.Star
 import com.google.android.material.navigation.NavigationView
 

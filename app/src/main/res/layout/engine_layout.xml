@@ -55,5 +55,101 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/energyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/energy"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/energyView1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/energyView2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/energyView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/energyView4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/warpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/warp"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/warpView1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/warpView2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/warpView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+        <ImageView
+            android:id="@+id/warpView4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/square_layout"
+            android:contentDescription="@string/todo" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -14,12 +14,12 @@ import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
 import com.delek.species.activities.MainActivity
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.database.dao.BuildDAO
-import com.delek.species.database.dao.DeviceDAO
-import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.database.dao.ProdDAO
-import com.delek.species.database.dao.ShipDAO
-import com.delek.species.database.dao.TechDAO
+import com.delek.species.dao.BuildDAO
+import com.delek.species.dao.DeviceDAO
+import com.delek.species.dao.PlanetDAO
+import com.delek.species.dao.ProdDAO
+import com.delek.species.dao.ShipDAO
+import com.delek.species.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.Prod
@@ -288,6 +288,14 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setMessage(R.string.desc_pop)
         dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
     }
+
+    fun showAlert(s: String) {
+        dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert)
+        dialogBuilder.setTitle("NO PERMITIDO")
+        dialogBuilder.setMessage(s)
+        dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+    }
+
 
 }
 

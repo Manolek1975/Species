@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.PlanetsAdapter
-import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.database.dao.StarDAO
+import com.delek.species.dao.PlanetDAO
+import com.delek.species.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game

@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.delek.species.database.dao.SpecieDAO
-import com.delek.species.database.dao.StarDAO
+import com.delek.species.dao.SpecieDAO
+import com.delek.species.dao.StarDAO
 import com.delek.species.databinding.FragmentSectorBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.DrawStars

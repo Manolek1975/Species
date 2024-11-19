@@ -1,4 +1,4 @@
-package com.delek.species.database.dao
+package com.delek.species.dao
 
 
 import android.content.ContentValues

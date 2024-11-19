@@ -20,8 +20,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.delek.species.R
-import com.delek.species.database.dao.SpecieDAO
-import com.delek.species.database.dao.StarDAO
+import com.delek.species.dao.SpecieDAO
+import com.delek.species.dao.StarDAO
 import com.delek.species.databinding.ActivitySidebarBinding
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView

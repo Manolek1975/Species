@@ -69,15 +69,18 @@
     <string name="desc_pop">La población es necesaria para el funcionamiento de la colonia.</string>
     <string name="planet_type">Planeta %1$s</string>
     <string name="out_production_planets">HAY PLANETAS SIN PRODUCCION</string>
+
+    <!--Device Types-->
     <string name="engines">Motores*</string>
-    <string name="energy">Generadores</string>
-    <string name="warp">WARP</string>
+    <string name="energy">Energía*</string>
+    <string name="warp">WARP*</string>
     <string name="sensors">Sensorers</string>
     <string name="modules">Módulos</string>
     <string name="weapons">Armas</string>
     <string name="shield">Escudos</string>
     <string name="others">Varios</string>
     <string name="todo">TODO</string>
+
 
 
 </resources>

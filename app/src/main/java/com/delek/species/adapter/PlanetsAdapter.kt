@@ -11,9 +11,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.database.dao.PlanetDAO
-import com.delek.species.database.dao.ShipDAO
-import com.delek.species.database.dao.SpecieDAO
+import com.delek.species.dao.PlanetDAO
+import com.delek.species.dao.ShipDAO
+import com.delek.species.dao.SpecieDAO
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView

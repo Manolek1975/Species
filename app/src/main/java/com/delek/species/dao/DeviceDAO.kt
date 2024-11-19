@@ -1,4 +1,4 @@
-package com.delek.species.database.dao
+package com.delek.species.dao
 
 import android.content.ContentValues
 import android.content.Context
@@ -104,6 +104,21 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val deviceList = mutableListOf<Device>()
         val query = "SELECT devices.* FROM devices INNER JOIN techs " +
                 "ON devices.tech_id = techs.id WHERE techs.id = $techId"
+        val cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()){
+            deviceList.add(getColumns(cursor))
+        }
+        cursor.close()
+        db.close()
+        return deviceList
+    }
+
+    fun getDevicesByTechLearned(): List<Device> {
+        val db = readableDatabase
+        val deviceList = mutableListOf<Device>()
+        val query = "SELECT devices.* FROM devices INNER JOIN tech_learned " +
+                "ON devices.tech_id = tech_learned.tech_id " +
+                "WHERE tech_learned.learned = 1"
         val cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()){
             deviceList.add(getColumns(cursor))

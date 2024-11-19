@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.adapter.BuildsAdapter
-import com.delek.species.database.dao.BuildDAO
-import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.dao.BuildDAO
+import com.delek.species.dao.PlanetDAO
 import com.delek.species.databinding.FragmentBuildBinding
 import com.delek.species.model.Dialog
 
