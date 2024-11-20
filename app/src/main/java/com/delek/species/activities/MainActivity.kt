@@ -21,6 +21,7 @@ import com.delek.species.dao.StarDAO
 import com.delek.species.dao.TechDAO
 import com.delek.species.database.dataclass.Build
 import com.delek.species.database.dataclass.Device
+import com.delek.species.database.dataclass.DeviceTypes
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetTypes
 import com.delek.species.database.dataclass.Ship
@@ -78,10 +79,21 @@ class MainActivity : AppCompatActivity() {
         loadBuilds()
         loadPlanetBuilds()
         loadDevices()
+        loadDeviceTypes()
         loadTechs()
         //loadShips()
         //loadShipDevices()
         loadTechsLearned()
+    }
+
+    private fun loadDeviceTypes() {
+        val res = this.resources
+        val name = res.getStringArray(R.array.device_types_name)
+        for (i in name.indices){
+            val deviceType = DeviceTypes(0, name[i])
+            DeviceDAO(this).insertDeviceTypes(deviceType)
+            finish()
+        }
     }
 
     // Load resources from xml files to database

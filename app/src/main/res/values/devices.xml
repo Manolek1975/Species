@@ -6,7 +6,7 @@
         <item>Motor protónico</item>
         <item>Generador protónico</item>
         <item>Analizador Frecuencial</item>
-        <item>WARP</item>
+        <item>Impulsor WARP</item>
 
         <item>Escudo Iónico</item>
         <item>Torreta Iónica</item>
@@ -37,7 +37,7 @@
         <item>Escanea radiaciónes electromagnéticas para ver el estado de una nave enemiga</item>
         <item>Permite el salto WARP hacia otras estrellas </item>
 
-        <item></item>
+        <item>Defensa de bajo grado contra partículas ligeras</item>
         <item></item>
         <item></item>
         <item></item>
@@ -87,33 +87,31 @@
     </string-array>
 
     <string-array name="type_devices">
+        <item>5</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
         <item>4</item>
-        <item>5</item>
+        <item>3</item>
 
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
+        <item>7</item>
+        <item>6</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
 
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
 
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
 
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-        <item>99</item>
-
-
-        <item>99</item>
+        <item>8</item>
     </string-array>
 
     <string-array name="cost_devices">
@@ -123,7 +121,7 @@
         <item>20</item>
         <item>25</item>
 
-        <item>0</item>
+        <item>10</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>

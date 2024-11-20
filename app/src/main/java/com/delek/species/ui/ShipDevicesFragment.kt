@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.ShipDevicesAdapter
+import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipDevicesBinding
@@ -20,7 +20,7 @@ import com.delek.species.model.Game
 class ShipDevicesFragment : Fragment() {
 
     private var _binding: FragmentShipDevicesBinding? = null
-    private lateinit var adapter: ShipDevicesAdapter
+    private lateinit var adapter: DevicesAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class ShipDevicesFragment : Fragment() {
 
         // Devices
         val devices = DeviceDAO(context).getDevicesByShip(ship.id)
-        adapter = ShipDevicesAdapter(devices)
+        adapter = DevicesAdapter(devices, context)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
 

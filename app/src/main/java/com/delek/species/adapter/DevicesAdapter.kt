@@ -1,34 +1,47 @@
 package com.delek.species.adapter
 
+import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
+import com.delek.species.dao.DeviceDAO
 import com.delek.species.database.dataclass.Device
 import com.delek.species.model.Game
 
 
-class ShipDevicesAdapter(private var device: List<Device>):
-    RecyclerView.Adapter<ShipDevicesAdapter.BuildViewHolder>() {
+class DevicesAdapter(private var device: List<Device>, private val context: Context):
+    RecyclerView.Adapter<DevicesAdapter.BuildViewHolder>() {
 
     class BuildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val deviceItem: TextView = itemView.findViewById(R.id.deviceItem)
+        val deviceView: ImageView = itemView.findViewById(R.id.deviceView)
+        val deviceType: TextView = itemView.findViewById(R.id.deviceType)
+        val deviceName: TextView = itemView.findViewById(R.id.deviceName)
+        val deviceDescription: TextView = itemView.findViewById(R.id.deviceDescription)
+        val deviceDays: TextView = itemView.findViewById(R.id.deviceDays)
+
         val rootView: View = itemView.rootView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ship_device_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.device_item, parent, false)
         return BuildViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
         val device = device[position]
-        holder.deviceItem.text = device.name
+        val typeName = DeviceDAO(context).getTypeName(device.type)
         val id = Game.getResId(device.image, R.drawable::class.java)
-        holder.deviceItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
-        holder.deviceItem.compoundDrawablePadding = 50
+        holder.deviceView.setImageResource(id)
+        holder.deviceType.text = typeName
+        holder.deviceType.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        holder.deviceName.text = device.name
+        holder.deviceDescription.text = device.desc
+        holder.deviceDays.text = device.cost.toString()
 
         holder.rootView.setOnClickListener {
             onItemClickListener?.let{

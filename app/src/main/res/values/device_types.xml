@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="device_types_name">
+        <item>Motor</item>
+        <item>Generador</item>
+        <item>WARP</item>
+        <item>Sensor</item>
+        <item>Módulo</item>
+        <item>Misil</item>
+        <item>Escudo</item>
+        <item>Varios</item>
+    </string-array>
+</resources>

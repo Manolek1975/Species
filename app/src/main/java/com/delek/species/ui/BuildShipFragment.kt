@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.adapter.ShipDevicesAdapter
+import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.database.dataclass.Device
@@ -22,7 +22,7 @@ import com.delek.species.model.Game
 class BuildShipFragment : Fragment() {
 
     private var _binding: FragmentBuildShipBinding? = null
-    private lateinit var adapter: ShipDevicesAdapter
+    private lateinit var adapter: DevicesAdapter
     private var device: Int = 0
     private var days: Int = 0
     private val binding get() = _binding!!
@@ -58,7 +58,7 @@ class BuildShipFragment : Fragment() {
 
         // Devices
         val devices = DeviceDAO(context).getDevicesByTechLearned()
-        adapter = ShipDevicesAdapter(devices)
+        adapter = DevicesAdapter(devices, context)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
 
@@ -74,15 +74,15 @@ class BuildShipFragment : Fragment() {
     private fun discardType(device: Int, type: Int): Boolean {
         val dialog = Dialog(requireContext())
         when (device) {
-            in 1..4 -> if (type != 2) {
+            in 1..4 -> if (type != 1) {
                 dialog.showAlert("Sólo admite motores")
                 return false
             }
-            in 5..8 -> if (type != 3) {
+            in 5..8 -> if (type != 2) {
                 dialog.showAlert("Sólo admite generadores")
                 return false
             }
-            in 9..12 -> if (type != 5) {
+            in 9..12 -> if (type != 3) {
                 dialog.showAlert("Sólo admite WARP")
                 return false
             }

@@ -6,8 +6,10 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.delek.species.database.dataclass.Device
+import com.delek.species.database.dataclass.DeviceTypes
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
+import com.delek.species.database.helper.DeviceTypesHelper
 
 
 class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
@@ -43,6 +45,15 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
             put(DeviceHelper.COLUMN_TECH_ID, device.techId)
         }
         db.insert(DeviceHelper.TABLE_NAME, null, values)
+        db.close()
+    }
+
+    fun insertDeviceTypes(deviceType: DeviceTypes) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(DeviceTypesHelper.COLUMN_NAME, deviceType.name)
+        }
+        db.insert(DeviceTypesHelper.TABLE_NAME, null, values)
         db.close()
     }
 
@@ -139,6 +150,17 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         cursor.close()
         db.close()
         return deviceList
+    }
+
+    fun getTypeName(typeId: Int): String {
+        val db = readableDatabase
+        val query = "SELECT name FROM device_types WHERE id = $typeId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(DeviceTypesHelper.COLUMN_NAME))
+        cursor.close()
+        db.close()
+        return name
     }
 
 
