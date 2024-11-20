@@ -1,12 +1,12 @@
 package com.delek.species.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
@@ -24,6 +24,7 @@ class BuildShipFragment : Fragment() {
     private var _binding: FragmentBuildShipBinding? = null
     private lateinit var adapter: ShipDevicesAdapter
     private var device: Int = 0
+    private var days: Int = 0
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -46,7 +47,8 @@ class BuildShipFragment : Fragment() {
         binding.shipImage.setImageResource(id)
         binding.shipName.hint = specie.ship
         binding.shipName.setText(specie.ship)
-
+        binding.shipName.setTextColor(Color.parseColor(specie.color))
+        binding.daysLeft.text = getString(R.string.dias, days)
         binding.editButton.setOnClickListener {
             val imm =
                 requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -54,16 +56,11 @@ class BuildShipFragment : Fragment() {
             binding.shipName.clearFocus()
         }
 
-
-
         // Devices
         val devices = DeviceDAO(context).getDevicesByTechLearned()
         adapter = ShipDevicesAdapter(devices)
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
-
-/*        if (device !=0)
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE*/
 
         adapter.setOnItemClickListener {
             if (discardType(device, it.type))
@@ -71,15 +68,8 @@ class BuildShipFragment : Fragment() {
             binding.shipDevicesRecyclerView.visibility = View.GONE
         }
 
-        /*        binding.imageShip.setOnClickListener {
-                    (activity as SidebarActivity).openDrawer()
-                }*/
         return root
-
     }
-
-
-
 
     private fun discardType(device: Int, type: Int): Boolean {
         val dialog = Dialog(requireContext())
@@ -118,6 +108,80 @@ class BuildShipFragment : Fragment() {
         }
     }
 
+    private fun initListeners() {
+        binding.devicesLayout.engineView1.setOnClickListener {
+            device = 1
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.engineView2.setOnClickListener {
+            device = 2
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.engineView3.setOnClickListener {
+            device = 3
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.engineView4.setOnClickListener {
+            device = 4
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.energyView1.setOnClickListener {
+            device = 5
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.energyView2.setOnClickListener {
+            device = 6
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.energyView3.setOnClickListener {
+            device = 7
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.energyView4.setOnClickListener {
+            device = 8
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.warpView1.setOnClickListener {
+            device = 9
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.warpView2.setOnClickListener {
+            device = 10
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.warpView3.setOnClickListener {
+            device = 11
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+        binding.devicesLayout.warpView4.setOnClickListener {
+            device = 12
+            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        }
+
+
+
+        binding.devicesLayout.engineView1.setOnLongClickListener {
+            binding.devicesLayout.engineView1.setImageResource(R.drawable.square_layout)
+            true
+        }
+
+        binding.devicesLayout.engineView2.setOnLongClickListener {
+            binding.devicesLayout.engineView2.setImageResource(R.drawable.square_layout)
+            true
+        }
+
+        binding.devicesLayout.engineView3.setOnLongClickListener {
+            binding.devicesLayout.engineView3.setImageResource(R.drawable.square_layout)
+            true
+        }
+
+        binding.devicesLayout.engineView4.setOnLongClickListener {
+            binding.devicesLayout.engineView4.setImageResource(R.drawable.square_layout)
+            true
+        }
+
+    }
+
     private fun showAdapter(engine: Int, context: Context): List<Device> {
         return when (engine) {
             1 -> DeviceDAO(context).getDevicesByType(2)
@@ -126,34 +190,6 @@ class BuildShipFragment : Fragment() {
             4 -> DeviceDAO(context).getDevicesByType(5)
             else -> DeviceDAO(context).getDevicesByType(0)
         }
-    }
-
-    private fun initListeners() {
-        binding.devicesLayout.engineView1.setOnClickListener {device = 1
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.engineView2.setOnClickListener {device = 2
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.engineView3.setOnClickListener {device = 3
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.engineView4.setOnClickListener {device = 4
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.energyView1.setOnClickListener {device = 5
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.energyView2.setOnClickListener {device = 6
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.energyView3.setOnClickListener {device = 7
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.energyView4.setOnClickListener {device = 8
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.warpView1.setOnClickListener {device = 9
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.warpView2.setOnClickListener {device = 10
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.warpView3.setOnClickListener {device = 11
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-        binding.devicesLayout.warpView4.setOnClickListener {device = 12
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE}
-
     }
 
     override fun onResume() {
@@ -178,3 +214,5 @@ class BuildShipFragment : Fragment() {
         _binding = null
     }
 }
+
+

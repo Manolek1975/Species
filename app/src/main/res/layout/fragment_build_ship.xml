@@ -57,6 +57,16 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/daysLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="15dp"
+        android:text="@string/dias"
+        android:textSize="16sp"
+        android:textColor="@color/yellow"/>
+
     <include
         android:id="@+id/devicesLayout"
         layout="@layout/engine_layout" />

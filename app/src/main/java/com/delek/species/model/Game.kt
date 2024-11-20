@@ -4,8 +4,14 @@ import java.lang.reflect.Field
 
 abstract class Game {
 
-    //TODO Continuar tutorial, asignar builds a techs
-    //TODO Estudiar corutinas Kotlin
+    //Borrar imagen al hacer click de nuevo en el adapter o al hacer onDrag o long click
+    //TODO Mostrar nombre, descripción y coste en el adapter
+    //TODO Asignar coste de los devices a la construcción de la nave, mostrar total
+    //TODO Comprobar que cada nave tiene un motor, un generador y un warp
+    //TODO Guardar todos los datos de la nave y almacenar en BD
+    //TODO (Posterior) Crear un filtro segun el tipo de device en el adapter
+
+    //TODO Estudiar corutinas Kotlin para IA
 
     companion object {
         fun getResId(resName: String?, c: Class<*>): Int {
