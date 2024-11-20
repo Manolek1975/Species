@@ -5,7 +5,7 @@ import java.lang.reflect.Field
 abstract class Game {
 
     //Borrar imagen al hacer click de nuevo en el adapter o al hacer onDrag o long click
-    //TODO Mostrar nombre, descripción y coste en el adapter
+    //Mostrar nombre, descripción y coste en el adapter
     //TODO Asignar coste de los devices a la construcción de la nave, mostrar total
     //TODO Mostrar power, strengh y speed de cada bloque
     //TODO Comprobar que cada nave tiene un motor, un generador y un warp

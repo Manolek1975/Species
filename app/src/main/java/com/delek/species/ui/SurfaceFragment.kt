@@ -116,7 +116,7 @@ class SurfaceFragment : Fragment() {
         if (planet.owner != 0) {
             binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
-            binding.fab.visibility = View.VISIBLE
+            //binding.fab.visibility = View.VISIBLE
             showResources(planet)
         }
 
@@ -127,18 +127,11 @@ class SurfaceFragment : Fragment() {
             PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
             binding.resLayout.visibility = View.VISIBLE
             binding.colonyButton.visibility = View.GONE
-            binding.fab.visibility = View.VISIBLE
+            //binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
             showResources(planet)
-/*            val p = PlanetDAO(context).getPlanetById(planetId)
-            val pb = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
-            val b = BuildDAO(context).getBuildsByPlanet(pb)
-            adapter = PlanetBuildsAdapter(b, PlanetBuildsDAO(context), planet, context)
-            binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
-            binding.planetBuildsRecyclerView.adapter = adapter*/
-            //setAdapter(planetId, context)
         }
 
         binding.planetInfo.setOnClickListener{
@@ -174,14 +167,14 @@ class SurfaceFragment : Fragment() {
             NavigationUI.onNavDestinationSelected(item, navController)
         }
         // FAB
-        binding.fab.setOnClickListener { _ ->
+/*        binding.fab.setOnClickListener { _ ->
             ProdDAO(context).deleteProd(prod.id)
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(7) // To Builds
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
-        }
+        }*/
 
         return root
     }

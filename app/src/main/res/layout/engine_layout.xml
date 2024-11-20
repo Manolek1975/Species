@@ -24,6 +24,7 @@
 
         <ImageView
             android:id="@+id/engineView1"
+            android:tag="engineView1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -32,6 +33,7 @@
 
         <ImageView
             android:id="@+id/engineView2"
+            android:tag="engineView2"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -40,6 +42,7 @@
 
         <ImageView
             android:id="@+id/engineView3"
+            android:tag="engineView3"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -48,6 +51,7 @@
 
         <ImageView
             android:id="@+id/engineView4"
+            android:tag="engineView4"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"

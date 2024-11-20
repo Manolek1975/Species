@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
@@ -33,9 +34,9 @@ class BuildShipFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBuildShipBinding.inflate(inflater, container, false)
-
         val root: View = binding.root
-        initListeners()
+
+        viewListener()
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
@@ -69,6 +70,44 @@ class BuildShipFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun viewListener() {
+        val engineView1 = binding.devicesLayout.engineView1
+        val engineView2 = binding.devicesLayout.engineView2
+        val engineView3 = binding.devicesLayout.engineView3
+        val engineView4 = binding.devicesLayout.engineView4
+
+        val engineView = arrayListOf(
+            engineView1, engineView2, engineView3, engineView4
+        )
+
+        engineView.forEach { view ->
+            view.setOnClickListener {
+                viewSelected(view)
+            }
+            view.setOnLongClickListener {
+                viewDelete(view)
+            }
+        }
+    }
+
+    private fun viewSelected(view: ImageView) {
+        binding.shipDevicesRecyclerView.visibility = View.VISIBLE
+        println(view.tag)
+        when (view.tag) {
+            "engineView1" -> device = 1
+            "engineView2" -> device = 2
+            "engineView3" -> device = 3
+            "engineView4" -> device = 4
+        }
+
+    }
+
+    private fun viewDelete(view: ImageView): Boolean {
+        println("DELETE $(view.tag)")
+        view.setImageResource(R.drawable.square_layout)
+        return true
     }
 
     private fun discardType(device: Int, type: Int): Boolean {
@@ -106,80 +145,6 @@ class BuildShipFragment : Fragment() {
             11 -> binding.devicesLayout.warpView3.setImageResource(resId)
             12 -> binding.devicesLayout.warpView4.setImageResource(resId)
         }
-    }
-
-    private fun initListeners() {
-        binding.devicesLayout.engineView1.setOnClickListener {
-            device = 1
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.engineView2.setOnClickListener {
-            device = 2
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.engineView3.setOnClickListener {
-            device = 3
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.engineView4.setOnClickListener {
-            device = 4
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.energyView1.setOnClickListener {
-            device = 5
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.energyView2.setOnClickListener {
-            device = 6
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.energyView3.setOnClickListener {
-            device = 7
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.energyView4.setOnClickListener {
-            device = 8
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.warpView1.setOnClickListener {
-            device = 9
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.warpView2.setOnClickListener {
-            device = 10
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.warpView3.setOnClickListener {
-            device = 11
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-        binding.devicesLayout.warpView4.setOnClickListener {
-            device = 12
-            binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        }
-
-
-
-        binding.devicesLayout.engineView1.setOnLongClickListener {
-            binding.devicesLayout.engineView1.setImageResource(R.drawable.square_layout)
-            true
-        }
-
-        binding.devicesLayout.engineView2.setOnLongClickListener {
-            binding.devicesLayout.engineView2.setImageResource(R.drawable.square_layout)
-            true
-        }
-
-        binding.devicesLayout.engineView3.setOnLongClickListener {
-            binding.devicesLayout.engineView3.setImageResource(R.drawable.square_layout)
-            true
-        }
-
-        binding.devicesLayout.engineView4.setOnLongClickListener {
-            binding.devicesLayout.engineView4.setImageResource(R.drawable.square_layout)
-            true
-        }
-
     }
 
     private fun showAdapter(engine: Int, context: Context): List<Device> {
