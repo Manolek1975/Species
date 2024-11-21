@@ -23,7 +23,7 @@ class BuildsAdapter(private var builds: List<Build>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.build_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_build, parent, false)
         return BuildViewHolder(view)
     }
 

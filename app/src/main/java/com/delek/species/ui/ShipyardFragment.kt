@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
+import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.SpecieDAO
+import com.delek.species.database.dataclass.Device
+import com.delek.species.database.dataclass.Planet
 import com.delek.species.databinding.FragmentShipyardBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
@@ -24,7 +27,8 @@ class ShipyardFragment : Fragment() {
     private var _binding: FragmentShipyardBinding? = null
     private lateinit var adapter: DevicesAdapter
     private lateinit var v: ImageView
-    private var days: Int = 0
+    private lateinit var deviceList: MutableMap<String, Device>
+    private lateinit var planet: Planet
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,22 +41,28 @@ class ShipyardFragment : Fragment() {
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val speciesId = data.getInt("specie", 0)
-        val specie = SpecieDAO(context).getSpecieById(speciesId)
+        val specieId = data.getInt("specie", 0)
+        val planetId = data.getInt("planet", 0)
+        val specie = SpecieDAO(context).getSpecieById(specieId)
+        planet = PlanetDAO(context).getPlanetById(planetId)
 
         // Header
         val id = Game.getResId(specie.ship, R.drawable::class.java)
         binding.shipImage.setImageResource(id)
-        binding.shipName.hint = specie.ship
-        binding.shipName.setText(specie.ship)
-        binding.shipName.setTextColor(Color.parseColor(specie.color))
-        binding.daysLeft.text = getString(R.string.dias, days)
-        binding.editButton.setOnClickListener {
-            val imm =
-                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().applicationWindowToken, 0)
-            binding.shipName.clearFocus()
+        binding.editNameShip.hint = specie.ship
+        binding.editNameShip.setText(specie.ship)
+        binding.editNameShip.setTextColor(Color.parseColor(specie.color))
+        binding.daysLeft.text = getString(R.string.dias, 0)
+        binding.editNameShip.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                binding.editNameShip.clearFocus()
+            false
         }
+        binding.editButton.setOnClickListener {
+            //TODO Insert Ship and Ship devices on DB
+            binding.editNameShip.clearFocus()
+        }
+
 
         // Devices
         val devices = DeviceDAO(context).getDevicesByTechLearned()
@@ -61,14 +71,26 @@ class ShipyardFragment : Fragment() {
         binding.shipDevicesRecyclerView.adapter = adapter
 
         viewListener()
+        deviceList = mutableMapOf()
 
         adapter.setOnItemClickListener {
             val resId = Game.getResId(it.image, R.drawable::class.java)
-            if (discardType(v, it.type)) v.setImageResource(resId)
+            if (discardType(v, it.type)) {
+                v.setImageResource(resId)
+                deviceList[v.tag.toString()] = it
+                addDays()
+            }
             binding.shipDevicesRecyclerView.visibility = View.GONE
         }
 
         return root
+    }
+
+    private fun addDays()  {
+        var totalDays = 0
+        for (device in deviceList)
+            totalDays += device.value.cost / planet.production
+        binding.daysLeft.text = getString(R.string.dias, totalDays)
     }
 
     private fun viewListener() {
@@ -109,6 +131,9 @@ class ShipyardFragment : Fragment() {
 
     private fun viewDelete(view: ImageView): Boolean {
         view.setImageResource(R.drawable.square_layout)
+        deviceList.remove(view.tag)
+        addDays()
+        if (deviceList.isEmpty()) binding.shipDevicesRecyclerView.visibility = View.GONE
         return true
     }
 

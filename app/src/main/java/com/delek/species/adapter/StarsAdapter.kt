@@ -23,7 +23,7 @@ class StarsAdapter(private var stars: List<Star>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StarViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.star_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_star, parent, false)
         return StarViewHolder(view)
     }
 

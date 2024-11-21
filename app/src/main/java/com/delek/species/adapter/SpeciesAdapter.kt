@@ -21,7 +21,7 @@ class SpeciesAdapter(private var species: List<Specie>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.specie_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_specie, parent, false)
         return SpecieViewHolder(view)
     }
 

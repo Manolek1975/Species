@@ -25,7 +25,7 @@ class PlanetBuildsAdapter(private var build: List<Build>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.planet_build_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_planet_build, parent, false)
         return BuildViewHolder(view)
     }
 

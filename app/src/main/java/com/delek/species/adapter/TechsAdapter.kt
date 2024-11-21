@@ -26,7 +26,7 @@ class TechsAdapter(private var tech: List<Tech>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TechViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.tech_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tech, parent, false)
         return TechViewHolder(view)
     }
 

@@ -29,7 +29,7 @@ class ShipsAdapter(private var ship: List<Ship>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShipViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.ship_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ship, parent, false)
         return ShipViewHolder(view)
     }
 

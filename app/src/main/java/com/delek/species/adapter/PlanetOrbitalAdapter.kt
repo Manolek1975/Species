@@ -23,7 +23,7 @@ class PlanetOrbitalAdapter(private var build: List<Build>, private val context: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.orbital_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_orbital, parent, false)
         return BuildViewHolder(view)
     }
 
@@ -35,7 +35,7 @@ class PlanetOrbitalAdapter(private var build: List<Build>, private val context: 
 
         holder.orbitalItem.setOnClickListener {
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(12) // To BuildShip
+            val item = nv.menu.getItem(12) // To Shipyard
             val navController = (context).findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }

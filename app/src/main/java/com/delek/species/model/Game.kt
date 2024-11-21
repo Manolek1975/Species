@@ -6,7 +6,7 @@ abstract class Game {
 
     //Borrar imagen al hacer click de nuevo en el adapter o al hacer onDrag o long click
     //Mostrar nombre, descripción y coste en el adapter
-    //TODO Asignar coste de los devices a la construcción de la nave, mostrar total
+    //Asignar coste de los devices a la construcción de la nave, mostrar total
     //TODO Mostrar power, strengh y speed de cada bloque
     //TODO Comprobar que cada nave tiene un motor, un generador y un warp
     //TODO Guardar todos los datos de la nave y almacenar en BD

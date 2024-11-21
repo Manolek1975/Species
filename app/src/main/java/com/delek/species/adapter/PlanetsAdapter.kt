@@ -28,7 +28,7 @@ class PlanetsAdapter(private var planets: List<Planet>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanetViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.planet_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_planet, parent, false)
         return PlanetViewHolder(view)
     }
 
