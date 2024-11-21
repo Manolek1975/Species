@@ -14,17 +14,16 @@ import com.delek.species.R
 import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.SpecieDAO
-import com.delek.species.database.dataclass.Device
-import com.delek.species.databinding.FragmentBuildShipBinding
+import com.delek.species.databinding.FragmentShipyardBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
 
 
-class BuildShipFragment : Fragment() {
+class ShipyardFragment : Fragment() {
 
-    private var _binding: FragmentBuildShipBinding? = null
+    private var _binding: FragmentShipyardBinding? = null
     private lateinit var adapter: DevicesAdapter
-    private var device: Int = 0
+    private lateinit var v: ImageView
     private var days: Int = 0
     private val binding get() = _binding!!
 
@@ -33,10 +32,8 @@ class BuildShipFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBuildShipBinding.inflate(inflater, container, false)
+        _binding = FragmentShipyardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        viewListener()
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
@@ -63,9 +60,11 @@ class BuildShipFragment : Fragment() {
         binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.shipDevicesRecyclerView.adapter = adapter
 
+        viewListener()
+
         adapter.setOnItemClickListener {
-            if (discardType(device, it.type))
-                checkDevice(device, it)
+            val resId = Game.getResId(it.image, R.drawable::class.java)
+            if (discardType(v, it.type)) v.setImageResource(resId)
             binding.shipDevicesRecyclerView.visibility = View.GONE
         }
 
@@ -77,42 +76,46 @@ class BuildShipFragment : Fragment() {
         val engineView2 = binding.devicesLayout.engineView2
         val engineView3 = binding.devicesLayout.engineView3
         val engineView4 = binding.devicesLayout.engineView4
+        val powerView1 = binding.devicesLayout.powerView1
+        val powerView2 = binding.devicesLayout.powerView2
+        val powerView3 = binding.devicesLayout.powerView3
+        val powerView4 = binding.devicesLayout.powerView4
+        val warpView1 = binding.devicesLayout.warpView1
+        val warpView2 = binding.devicesLayout.warpView2
+        val warpView3 = binding.devicesLayout.warpView3
+        val warpView4 = binding.devicesLayout.warpView4
 
         val engineView = arrayListOf(
-            engineView1, engineView2, engineView3, engineView4
+            engineView1, engineView2, engineView3, engineView4,
+            powerView1, powerView2, powerView3, powerView4,
+            warpView1, warpView2, warpView3, warpView4
         )
 
-        engineView.forEach { view ->
-            view.setOnClickListener {
-                viewSelected(view)
+        engineView.forEach { v ->
+            v.setOnClickListener {
+                viewSelected(v)
             }
-            view.setOnLongClickListener {
-                viewDelete(view)
+            v.setOnLongClickListener {
+                viewDelete(v)
             }
         }
     }
 
-    private fun viewSelected(view: ImageView) {
+    private fun viewSelected(view: ImageView): ImageView {
         binding.shipDevicesRecyclerView.visibility = View.VISIBLE
-        println(view.tag)
-        when (view.tag) {
-            "engineView1" -> device = 1
-            "engineView2" -> device = 2
-            "engineView3" -> device = 3
-            "engineView4" -> device = 4
-        }
-
+        v = view
+        return v
     }
 
     private fun viewDelete(view: ImageView): Boolean {
-        println("DELETE $(view.tag)")
         view.setImageResource(R.drawable.square_layout)
         return true
     }
 
-    private fun discardType(device: Int, type: Int): Boolean {
+    private fun discardType(v: ImageView, type: Int): Boolean {
         val dialog = Dialog(requireContext())
-        when (device) {
+        val range: Int = v.tag.toString().toInt()
+        when (range) {
             in 1..4 -> if (type != 1) {
                 dialog.showAlert("Sólo admite motores")
                 return false
@@ -127,34 +130,6 @@ class BuildShipFragment : Fragment() {
             }
         }
         return true
-    }
-
-    private fun checkDevice(device: Int, it: Device) {
-        val resId = Game.getResId(it.image, R.drawable::class.java)
-        when (device) {
-            1 -> binding.devicesLayout.engineView1.setImageResource(resId)
-            2 -> binding.devicesLayout.engineView2.setImageResource(resId)
-            3 -> binding.devicesLayout.engineView3.setImageResource(resId)
-            4 -> binding.devicesLayout.engineView4.setImageResource(resId)
-            5 -> binding.devicesLayout.energyView1.setImageResource(resId)
-            6 -> binding.devicesLayout.energyView2.setImageResource(resId)
-            7 -> binding.devicesLayout.energyView3.setImageResource(resId)
-            8 -> binding.devicesLayout.energyView4.setImageResource(resId)
-            9 -> binding.devicesLayout.warpView1.setImageResource(resId)
-            10 -> binding.devicesLayout.warpView2.setImageResource(resId)
-            11 -> binding.devicesLayout.warpView3.setImageResource(resId)
-            12 -> binding.devicesLayout.warpView4.setImageResource(resId)
-        }
-    }
-
-    private fun showAdapter(engine: Int, context: Context): List<Device> {
-        return when (engine) {
-            1 -> DeviceDAO(context).getDevicesByType(2)
-            2 -> DeviceDAO(context).getDevicesByType(3)
-            3 -> DeviceDAO(context).getDevicesByType(4)
-            4 -> DeviceDAO(context).getDevicesByType(5)
-            else -> DeviceDAO(context).getDevicesByType(0)
-        }
     }
 
     override fun onResume() {

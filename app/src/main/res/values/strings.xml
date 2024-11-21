@@ -5,9 +5,7 @@
     <string name="fondo" />
     <string name="elige_tu_specie">Elige tu specie</string>
     <string name="sector_centauri">SECTOR CENTAURI</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="todo">TODO</string>
 
     <string name="planet_name">Planet Name</string>
     <string name="tutorial_text">Tutorial</string>
@@ -43,7 +41,7 @@
     <string name="menu_stars">Estrellas</string>
     <string name="menu_tech">Tecnologías</string>
     <string name="menu_diplomacy">Diplomacia</string>
-    <string name="menu_build_ship">Build Ship</string>
+    <string name="menu_shipyard">Astillero</string>
 
     <string name="title_activity_sidebar">SidebarActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -79,7 +77,6 @@
     <string name="weapons">Armas</string>
     <string name="shield">Escudos</string>
     <string name="others">Varios</string>
-    <string name="todo">TODO</string>
 
 
 

@@ -67,8 +67,8 @@
         tools:layout="@layout/fragment_navigation" />
     <fragment
         android:id="@+id/nav_build_ship"
-        android:name="com.delek.species.ui.BuildShipFragment"
+        android:name="com.delek.species.ui.ShipyardFragment"
         android:label="BuildShip"
-        tools:layout="@layout/fragment_build_ship" />
+        tools:layout="@layout/fragment_shipyard" />
 
 </navigation>

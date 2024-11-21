@@ -8,7 +8,7 @@
     app:cardBackgroundColor="@android:color/transparent">
 
     <TextView
-        android:id="@+id/engineText"
+        android:id="@+id/engineHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/engineView1"
-            android:tag="engineView1"
+            android:tag="1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -33,7 +33,7 @@
 
         <ImageView
             android:id="@+id/engineView2"
-            android:tag="engineView2"
+            android:tag="2"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -42,7 +42,7 @@
 
         <ImageView
             android:id="@+id/engineView3"
-            android:tag="engineView3"
+            android:tag="3"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -51,7 +51,7 @@
 
         <ImageView
             android:id="@+id/engineView4"
-            android:tag="engineView4"
+            android:tag="4"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -59,7 +59,7 @@
             android:contentDescription="@string/todo" />
 
         <TextView
-            android:id="@+id/powerEngine"
+            android:id="@+id/engineText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/energyText"
+        android:id="@+id/powerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -85,7 +85,8 @@
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/energyView1"
+            android:id="@+id/powerView1"
+            android:tag="5"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -93,7 +94,8 @@
             android:contentDescription="@string/todo" />
 
         <ImageView
-            android:id="@+id/energyView2"
+            android:id="@+id/powerView2"
+            android:tag="6"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -101,7 +103,8 @@
             android:contentDescription="@string/todo" />
 
         <ImageView
-            android:id="@+id/energyView3"
+            android:id="@+id/powerView3"
+            android:tag="7"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -109,7 +112,8 @@
             android:contentDescription="@string/todo" />
 
         <ImageView
-            android:id="@+id/energyView4"
+            android:id="@+id/powerView4"
+            android:tag="8"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -135,6 +139,7 @@
 
         <ImageView
             android:id="@+id/warpView1"
+            android:tag="9"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -143,6 +148,7 @@
 
         <ImageView
             android:id="@+id/warpView2"
+            android:tag="10"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -151,6 +157,7 @@
 
         <ImageView
             android:id="@+id/warpView3"
+            android:tag="11"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -159,6 +166,7 @@
 
         <ImageView
             android:id="@+id/warpView4"
+            android:tag="12"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
