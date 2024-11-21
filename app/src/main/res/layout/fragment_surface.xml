@@ -144,7 +144,7 @@
             android:id="@+id/prodImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/TODO"
             app:srcCompat="@android:drawable/ic_menu_manage" />
 
         <TextView

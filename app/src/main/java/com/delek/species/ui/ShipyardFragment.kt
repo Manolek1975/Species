@@ -52,7 +52,7 @@ class ShipyardFragment : Fragment() {
         binding.editNameShip.hint = specie.ship
         binding.editNameShip.setText(specie.ship)
         binding.editNameShip.setTextColor(Color.parseColor(specie.color))
-        binding.daysLeft.text = getString(R.string.dias, 0)
+        binding.daysLeft.text = getString(R.string.total_dias, 0)
         binding.editNameShip.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE)
                 binding.editNameShip.clearFocus()
@@ -88,9 +88,24 @@ class ShipyardFragment : Fragment() {
 
     private fun addDays()  {
         var totalDays = 0
-        for (device in deviceList)
+        var totalSpeed = 0
+        var totalPower = 0
+        var totalOffense = 0
+        var totalDefense = 0
+        for (device in deviceList) {
             totalDays += device.value.cost / planet.production
-        binding.daysLeft.text = getString(R.string.dias, totalDays)
+            totalSpeed += device.value.speed
+            totalPower += device.value.power
+            totalOffense += device.value.offense
+            totalDefense += device.value.defense
+
+
+        }
+        binding.daysLeft.text = getString(R.string.total_dias, totalDays)
+        binding.devicesLayout.speedTotalText.text = getString(R.string.total_speed, totalSpeed)
+        binding.devicesLayout.powerTotalText.text = getString(R.string.total_power, totalPower)
+        binding.devicesLayout.offenseTotalText.text = getString(R.string.total_offense, totalOffense)
+        //binding.devicesLayout.defenseTotalText.text = getString(R.string.total_defense, totalDefense)
     }
 
     private fun viewListener() {

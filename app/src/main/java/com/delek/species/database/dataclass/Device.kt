@@ -7,7 +7,9 @@ data class Device (
     val image: String = "",
     val type: Int = 0,
     val cost: Int = 0,
+    val speed: Int = 0,
     val power: Int = 0,
+    val offense: Int,
+    val defense: Int,
     val techId: Int = 0
-){
-}
+)

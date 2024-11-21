@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">Species</string>
-    <string name="jugar">Jugar</string>
-    <string name="ayuda">Ayuda</string>
     <string name="fondo" />
     <string name="elige_tu_specie">Elige tu specie</string>
     <string name="sector_centauri">SECTOR CENTAURI</string>
-    <string name="todo">TODO</string>
+    <string name="TODO">TODO</string>
+
+
+    <!-- MENU & OPTONS ACTIVITY-->
+    <string name="jugar">Jugar</string>
+    <string name="opciones">Opciones</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="music_text">Música</string>
+    <string name="sound_text">Sonido</string>
+    <string name="reload">Reiniciar</string>
+
 
     <string name="planet_name">Planet Name</string>
     <string name="tutorial_text">Tutorial</string>
@@ -13,16 +21,11 @@
     <string name="inexplorado">Sin explorar</string>
     <string name="description">description</string>
 
-    <string name="music_text">Musica</string>
-    <string name="sound_text">Sonido</string>
-    <string name="reiniciar">Reiniciar</string>
-    <string name="go_back">go_back</string>
-    <string name="opciones">Opciones</string>
-    <string name="ship_name">ship_name</string>
-    <string name="TODO">TODO</string>
+
+
     <string name="planeta">Planeta %1$s</string>
     <string name="navegador">Navegador</string>
-    <string name="dias">%1$d días</string>
+
     <string name="naves">Naves</string>
     <string name="en_ruta">En ruta a %1$s</string>
     <string name="orbitando">Orbitando planeta %1$s</string>
@@ -68,7 +71,15 @@
     <string name="planet_type">Planeta %1$s</string>
     <string name="out_production_planets">HAY PLANETAS SIN PRODUCCION</string>
 
-    <!--Device Types-->
+
+    <!--SHIPTARD FRAGMENT-->
+    <string name="ship_name">ship_name</string>
+    <string name="total_dias">%1$d días</string>
+    <string name="total_speed">Speed\n %1$d\n Kms</string>
+    <string name="total_power">Power\n %1$d\n Nms</string>
+    <string name="total_offense">Ofense\n %1$d\n Qmv</string>
+    <string name="total_deffense">Defense\n %1$d\n Qmv</string>
+
     <string name="engines">Motores*</string>
     <string name="energy">Energía*</string>
     <string name="warp">WARP*</string>

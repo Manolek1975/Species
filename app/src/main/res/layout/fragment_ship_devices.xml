@@ -15,7 +15,7 @@
         android:drawablePadding="40dp"
         android:gravity="center_vertical"
         android:padding="16dp"
-        android:text="@string/ship_name"
+        tools:text="@string/ship_name"
         android:textColor="@color/white"
         android:textSize="20sp" />
 

@@ -26,10 +26,14 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
         val image = cursor.getString(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_IMAGE))
         val type = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TYPE))
         val cost = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_COST))
+        val speed = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_SPEED))
         val power = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_POWER))
+        val offense = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_OFFENSE))
+        val defense = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_DEFENSE))
         val techId = cursor.getInt(cursor.getColumnIndexOrThrow(DeviceHelper.COLUMN_TECH_ID))
 
-        val device = Device(id, name, desc, image, type, cost, power, techId)
+        val device = Device(id, name, desc, image, type, cost,
+            speed, power, offense, defense, techId)
         return device
     }
 
@@ -41,7 +45,10 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
             put(DeviceHelper.COLUMN_IMAGE, device.image)
             put(DeviceHelper.COLUMN_TYPE, device.type)
             put(DeviceHelper.COLUMN_COST, device.cost)
+            put(DeviceHelper.COLUMN_SPEED, device.speed)
             put(DeviceHelper.COLUMN_POWER, device.power)
+            put(DeviceHelper.COLUMN_OFFENSE, device.offense)
+            put(DeviceHelper.COLUMN_DEFENSE, device.defense)
             put(DeviceHelper.COLUMN_TECH_ID, device.techId)
         }
         db.insert(DeviceHelper.TABLE_NAME, null, values)
@@ -99,12 +106,11 @@ class DeviceDAO(context: Context) : SQLiteOpenHelper(context,
 
     fun getDeviceById(deviceId: Int): Device {
         val db = readableDatabase
-        var device = Device()
+        val device: Device
         val query = "SELECT * FROM devices WHERE id = $deviceId"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()) {
+        cursor.moveToFirst()
             device = getColumns(cursor)
-        }
         cursor.close()
         db.close()
         return device

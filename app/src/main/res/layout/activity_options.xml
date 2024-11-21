@@ -17,7 +17,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="start"
         android:padding="24dp"
-        android:contentDescription="@string/go_back"
+        android:contentDescription="@string/TODO"
         android:background="@android:drawable/ic_menu_revert" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -47,6 +47,6 @@
         android:id="@+id/restart_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reiniciar" />
+        android:text="@string/reload" />
 
 </LinearLayout>

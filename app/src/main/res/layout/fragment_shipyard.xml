@@ -16,7 +16,7 @@
             android:id="@+id/shipImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/TODO"
             android:padding="10dp"
             android:src="@drawable/ship_101" />
 
@@ -27,13 +27,13 @@
             android:layout_gravity="center"
             android:autofillHints="Input"
             android:hint="@string/ship_name"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="20"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:imeOptions="actionDone"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp" />
@@ -41,7 +41,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/editButton"
@@ -61,15 +61,15 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/daysLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10dp"
-            android:text="@string/dias"
-            android:textSize="16sp"
-            android:textColor="@color/yellow"/>
+    <TextView
+        android:id="@+id/daysLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/yellow"
+        android:textSize="16sp"
+        tools:text="@string/total_dias" />
 
     <include
         android:id="@+id/devicesLayout"

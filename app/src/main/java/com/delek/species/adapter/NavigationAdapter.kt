@@ -37,7 +37,7 @@ class NavigationAdapter(private var planets: List<Planet>,
         holder.planetItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.planetItem.compoundDrawablePadding = 50
         val dias = distances(planet)
-        holder.daysLeft.text = res.getString(R.string.dias, dias)
+        holder.daysLeft.text = res.getString(R.string.total_dias, dias)
         holder.planetItem.setOnClickListener{
             dialog.insertProdShip(ship, planet, dias)
         }

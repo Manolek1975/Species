@@ -24,48 +24,50 @@
 
         <ImageView
             android:id="@+id/engineView1"
-            android:tag="1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="1" />
 
         <ImageView
             android:id="@+id/engineView2"
-            android:tag="2"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="2" />
 
         <ImageView
             android:id="@+id/engineView3"
-            android:tag="3"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="3" />
 
         <ImageView
             android:id="@+id/engineView4"
-            android:tag="4"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="4" />
 
         <TextView
-            android:id="@+id/engineText"
+            android:id="@+id/speedTotalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="12sp"
             android:layout_marginStart="15dp"
             android:textColor="@color/yellow"
-            tools:text="Power: 0" />
+            tools:text="@string/total_speed" />
 
     </LinearLayout>
 
@@ -86,39 +88,50 @@
 
         <ImageView
             android:id="@+id/powerView1"
-            android:tag="5"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="5" />
 
         <ImageView
             android:id="@+id/powerView2"
-            android:tag="6"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="6" />
 
         <ImageView
             android:id="@+id/powerView3"
-            android:tag="7"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="7" />
 
         <ImageView
             android:id="@+id/powerView4"
-            android:tag="8"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="8" />
+
+        <TextView
+            android:id="@+id/powerTotalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:textSize="12sp"
+            android:textColor="@color/yellow"
+            tools:text="@string/total_power" />
 
     </LinearLayout>
 
@@ -139,39 +152,50 @@
 
         <ImageView
             android:id="@+id/warpView1"
-            android:tag="9"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="9" />
 
         <ImageView
             android:id="@+id/warpView2"
-            android:tag="10"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="10" />
 
         <ImageView
             android:id="@+id/warpView3"
-            android:tag="11"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="11" />
 
         <ImageView
             android:id="@+id/warpView4"
-            android:tag="12"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/square_layout"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/TODO"
+            android:tag="12" />
+
+        <TextView
+            android:id="@+id/offenseTotalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:textSize="12sp"
+            android:textColor="@color/yellow"
+            tools:text="@string/total_offense" />
 
     </LinearLayout>
 </LinearLayout>

@@ -14,23 +14,19 @@ import com.delek.species.dao.BuildDAO
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.PlanetBuildsDAO
 import com.delek.species.dao.PlanetDAO
-import com.delek.species.dao.ShipDAO
-import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.dao.StarDAO
 import com.delek.species.dao.TechDAO
 import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Device
 import com.delek.species.database.dataclass.DeviceTypes
 import com.delek.species.database.dataclass.Planet
 import com.delek.species.database.dataclass.PlanetTypes
-import com.delek.species.database.dataclass.Ship
-import com.delek.species.database.dataclass.ShipDevices
 import com.delek.species.database.dataclass.Specie
 import com.delek.species.database.dataclass.Star
 import com.delek.species.database.dataclass.StarExplored
 import com.delek.species.database.dataclass.Tech
 import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.helper.DeviceHelper
 import com.delek.species.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -78,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         loadPlanetTypes()
         loadBuilds()
         loadPlanetBuilds()
-        loadDevices()
+        DeviceHelper.loadDevices(this)
         loadDeviceTypes()
         loadTechs()
         //loadShips()
@@ -247,47 +243,6 @@ class MainActivity : AppCompatActivity() {
             val star = StarDAO(this).getStarById(s.origin)
             val planet = PlanetDAO(this).getOriginPlanet(star.id)
             PlanetBuildsDAO(this).insertPlanetBuild(build, planet)
-        }
-    }
-
-    private fun loadShips() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_ships)
-        val image = res.getStringArray(R.array.image_ships)
-        val specie = res.getStringArray(R.array.specie_ships)
-
-        for (i in name.indices){
-            val ship = Ship(0, name[i], image[i], specie[i].toInt(), 0,0)
-            ShipDAO(this).insertShips(ship)
-        }
-    }
-
-    private fun loadDevices() {
-        val res = this.getResources()
-        val name = res.getStringArray(R.array.name_devices)
-        val desc = res.getStringArray(R.array.desc_devices)
-        val image = res.getStringArray(R.array.image_devices)
-        val type = res.getStringArray(R.array.type_devices)
-        val cost = res.getStringArray(R.array.cost_devices)
-        val power = res.getStringArray(R.array.power_devices)
-        val tech = res.getStringArray(R.array.tech_devices)
-
-        for (i in name.indices){
-            val device = Device(0, name[i], desc[i], image[i], type[i].toInt(), cost[i].toInt(), power[i].toInt(), tech[i].toInt())
-            DeviceDAO(this).insertDevices(device)
-        }
-    }
-
-    private fun loadShipDevices() {
-        val ships = ShipDAO(this).getAllShips()
-        val device = DeviceDAO(this).getAllDevices()
-        for (i in ships){
-            for (j in device){
-                if (j.techId == 1){
-                    val shipDevice = ShipDevices(0, i.id, j.id)
-                    ShipDevicesDAO(this).insertShipDevices(shipDevice)
-                }
-            }
         }
     }
 
