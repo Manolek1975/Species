@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Prod
-import com.delek.species.database.dataclass.Tech
+import com.delek.species.database.model.Prod
+import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.BuildHelper.Companion.COLUMN_ID
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.ProdHelper

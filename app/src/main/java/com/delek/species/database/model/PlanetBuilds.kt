@@ -1,4 +1,4 @@
-package com.delek.species.database.dataclass
+package com.delek.species.database.model
 
 data class PlanetBuilds (
     val id: Int = 0,

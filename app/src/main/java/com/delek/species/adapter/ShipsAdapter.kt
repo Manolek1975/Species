@@ -12,7 +12,7 @@ import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
 import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ProdDAO
-import com.delek.species.database.dataclass.Ship
+import com.delek.species.database.model.Ship
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 

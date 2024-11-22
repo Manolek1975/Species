@@ -10,7 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.activities.SidebarActivity
-import com.delek.species.database.dataclass.Build
+import com.delek.species.database.model.Build
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 

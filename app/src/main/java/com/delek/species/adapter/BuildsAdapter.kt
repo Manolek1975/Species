@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.model.Dialog
 import com.delek.species.R
-import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.model.Build
+import com.delek.species.database.model.Planet
 import com.delek.species.model.Game
 
 class BuildsAdapter(private var builds: List<Build>,

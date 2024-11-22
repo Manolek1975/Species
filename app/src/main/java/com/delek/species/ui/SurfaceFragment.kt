@@ -21,7 +21,7 @@ import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ProdDAO
 import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
-import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.model.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game

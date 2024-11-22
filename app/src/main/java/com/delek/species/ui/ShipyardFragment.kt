@@ -14,9 +14,13 @@ import com.delek.species.R
 import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.PlanetDAO
+import com.delek.species.dao.ShipDAO
+import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
-import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.model.Device
+import com.delek.species.database.model.Planet
+import com.delek.species.database.model.Ship
+import com.delek.species.database.model.ShipDevices
 import com.delek.species.databinding.FragmentShipyardBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
@@ -29,6 +33,7 @@ class ShipyardFragment : Fragment() {
     private lateinit var v: ImageView
     private lateinit var deviceList: MutableMap<String, Device>
     private lateinit var planet: Planet
+    private lateinit var dialog: Dialog
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -44,6 +49,7 @@ class ShipyardFragment : Fragment() {
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
         val specie = SpecieDAO(context).getSpecieById(specieId)
+        dialog = Dialog(context)
         planet = PlanetDAO(context).getPlanetById(planetId)
 
         // Header
@@ -59,8 +65,32 @@ class ShipyardFragment : Fragment() {
             false
         }
         binding.editButton.setOnClickListener {
-            //TODO Insert Ship and Ship devices on DB
-            binding.editNameShip.clearFocus()
+            val list: MutableList<Int> = mutableListOf()
+            deviceList.keys.forEach {
+                val type = deviceList[it]!!.type
+                list.add(type)
+            }
+            if (list.contains(1) && list.contains(2) && list.contains(3)){
+                val res = context.resources
+                val image = res.getStringArray(R.array.image_ships)
+                val ship = Ship(0, binding.editNameShip.text.toString(),
+                    image[specieId-1], specieId, planet.id, 0)
+                ShipDAO(context).insertShips(ship)
+
+                for(device in deviceList){
+                    val shipId = ShipDAO(context).getLastShip()
+                    println(shipId)
+                    val shipDevices = ShipDevices(0, shipId, device.value.id)
+                    ShipDevicesDAO(context).insertShipDevices(shipDevices)
+                }
+
+                //TODO Añadir Ship a la lista Prod
+                //TODO volver al planeta y poner la nave en producción
+                //TODO comprobar que no se repite el nombre?
+
+            } else {
+                dialog.showAlert("Introduce al menos un motor, un generador y un WARP")
+            }
         }
 
 
@@ -73,11 +103,12 @@ class ShipyardFragment : Fragment() {
         viewListener()
         deviceList = mutableMapOf()
 
-        adapter.setOnItemClickListener {
+        adapter.setOnItemClickListener { it ->
             val resId = Game.getResId(it.image, R.drawable::class.java)
             if (discardType(v, it.type)) {
                 v.setImageResource(resId)
                 deviceList[v.tag.toString()] = it
+                println(deviceList)
                 addDays()
             }
             binding.shipDevicesRecyclerView.visibility = View.GONE
@@ -98,8 +129,6 @@ class ShipyardFragment : Fragment() {
             totalPower += device.value.power
             totalOffense += device.value.offense
             totalDefense += device.value.defense
-
-
         }
         binding.daysLeft.text = getString(R.string.total_dias, totalDays)
         binding.devicesLayout.speedTotalText.text = getString(R.string.total_speed, totalSpeed)
@@ -153,7 +182,7 @@ class ShipyardFragment : Fragment() {
     }
 
     private fun discardType(v: ImageView, type: Int): Boolean {
-        val dialog = Dialog(requireContext())
+
         val range: Int = v.tag.toString().toInt()
         when (range) {
             in 1..4 -> if (type != 1) {

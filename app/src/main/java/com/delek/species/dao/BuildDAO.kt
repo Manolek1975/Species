@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.PlanetBuilds
+import com.delek.species.database.model.Build
+import com.delek.species.database.model.PlanetBuilds
 import com.delek.species.database.helper.BuildHelper
 import com.delek.species.database.helper.DBHelper
 

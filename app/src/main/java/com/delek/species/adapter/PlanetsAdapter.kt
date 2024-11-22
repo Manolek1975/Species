@@ -14,7 +14,7 @@ import com.delek.species.activities.SidebarActivity
 import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ShipDAO
 import com.delek.species.dao.SpecieDAO
-import com.delek.species.database.dataclass.Planet
+import com.delek.species.database.model.Planet
 import com.delek.species.model.Game
 import com.google.android.material.navigation.NavigationView
 

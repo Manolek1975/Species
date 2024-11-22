@@ -20,12 +20,12 @@ import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ProdDAO
 import com.delek.species.dao.ShipDAO
 import com.delek.species.dao.TechDAO
-import com.delek.species.database.dataclass.Build
-import com.delek.species.database.dataclass.Planet
-import com.delek.species.database.dataclass.Prod
-import com.delek.species.database.dataclass.Ship
-import com.delek.species.database.dataclass.Specie
-import com.delek.species.database.dataclass.Tech
+import com.delek.species.database.model.Build
+import com.delek.species.database.model.Planet
+import com.delek.species.database.model.Prod
+import com.delek.species.database.model.Ship
+import com.delek.species.database.model.Specie
+import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.DBHelper
 import com.google.android.material.navigation.NavigationView
 

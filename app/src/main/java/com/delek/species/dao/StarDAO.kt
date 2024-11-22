@@ -6,8 +6,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Star
-import com.delek.species.database.dataclass.StarExplored
+import com.delek.species.database.model.Star
+import com.delek.species.database.model.StarExplored
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.StarExploredHelper
 import com.delek.species.database.helper.StarHelper

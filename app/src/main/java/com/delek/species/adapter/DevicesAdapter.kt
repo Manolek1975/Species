@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.dao.DeviceDAO
-import com.delek.species.database.dataclass.Device
+import com.delek.species.database.model.Device
 import com.delek.species.model.Game
 
 

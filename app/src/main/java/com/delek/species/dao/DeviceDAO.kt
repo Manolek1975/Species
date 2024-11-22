@@ -5,8 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Device
-import com.delek.species.database.dataclass.DeviceTypes
+import com.delek.species.database.model.Device
+import com.delek.species.database.model.DeviceTypes
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
 import com.delek.species.database.helper.DeviceTypesHelper

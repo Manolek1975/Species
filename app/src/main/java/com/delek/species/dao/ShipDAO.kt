@@ -5,16 +5,19 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.Ship
+import com.delek.species.R
+import com.delek.species.database.model.Ship
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.ShipHelper
 
-class ShipDAO(context: Context) : SQLiteOpenHelper(context,
+
+class ShipDAO(context: Context) : SQLiteOpenHelper(
+    context,
     DBHelper.DATABASE_NAME, null,
     DBHelper.DATABASE_VERSION
 ) {
-    override fun onCreate(p0: SQLiteDatabase?) { }
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
+    override fun onCreate(p0: SQLiteDatabase?) {}
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
 
     private fun getColumns(cursor: Cursor): Ship {
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(ShipHelper.COLUMN_ID))
@@ -46,7 +49,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             shipList.add(getColumns(cursor))
         }
         cursor.close()
@@ -59,7 +62,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE specie_id = $specieID"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             shipList.add(getColumns(cursor))
         }
         cursor.close()
@@ -72,7 +75,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         val shipList = mutableListOf<Ship>()
         val query = "SELECT * FROM ships WHERE orbit = $planetId"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             shipList.add(getColumns(cursor))
         }
         cursor.close()
@@ -85,7 +88,7 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         var ship = Ship()
         val query = "SELECT * FROM ships WHERE id = $shipId"
         val cursor = db.rawQuery(query, null)
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             ship = getColumns(cursor)
         }
         cursor.close()
@@ -109,6 +112,20 @@ class ShipDAO(context: Context) : SQLiteOpenHelper(context,
         values.put("route", 0)
         db.update("ships", values, "id = $specie", null)
         db.close()
+    }
+
+    fun getLastShip(): Int {
+        val db = readableDatabase
+        val query = "SELECT MAX(rowid) FROM ships"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToNext()
+            val lastId = cursor.getInt(0)
+        cursor.close()
+        db.close()
+        return lastId
+
+
+
     }
 
 

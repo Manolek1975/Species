@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.model.Dialog
 import com.delek.species.R
 import com.delek.species.dao.TechDAO
-import com.delek.species.database.dataclass.Tech
+import com.delek.species.database.model.Tech
 import com.delek.species.model.Game
 
 class TechsAdapter(private var tech: List<Tech>,

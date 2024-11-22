@@ -21,7 +21,7 @@ import com.delek.species.dao.ProdDAO
 import com.delek.species.dao.ShipDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.dao.TechDAO
-import com.delek.species.database.dataclass.Prod
+import com.delek.species.database.model.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game

@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.delek.species.database.dataclass.ShipDevices
+import com.delek.species.database.model.ShipDevices
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.ShipDevicesHelper
 
