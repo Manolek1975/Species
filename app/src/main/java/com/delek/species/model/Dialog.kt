@@ -88,6 +88,26 @@ class Dialog(context: Context) : View(context) {
         }.show()
     }
 
+    fun insertProdShipyard(ship: Ship, planet: Planet, days: Int) {
+        val owner = data.getInt("specie", 0)
+        val prod = Prod(0, 2, ship.id, planet.id, owner, days)
+        val id = Game.getResId(ship.image, R.drawable::class.java)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle(ship.name)
+        dialogBuilder.setMessage("¿Construir nave ${ship.name} en planeta ${planet.name}?")
+        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
+        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
+            data.edit().putInt("planet", planet.id).apply()
+            data.edit().putInt("ship", ship.id).apply()
+            //data.edit().putInt("build", build.id).apply()
+            ProdDAO(context).insertProd(prod)
+            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+            val item = nv.menu.getItem(9) // To Planet
+            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }.show()
+    }
+
     fun insertProdShip(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 2, ship.id, planet.id, owner, days)

@@ -40,7 +40,6 @@ class TechsAdapter(private var tech: List<Tech>,
         } else {
             holder.techDays.text = (tech.cost / science).toString()
         }
-
         val learned = TechDAO(context).isLearned(tech.id)
         if (learned) holder.techItem.setTextColor(Color.GREEN)
         holder.techItem.text = tech.name

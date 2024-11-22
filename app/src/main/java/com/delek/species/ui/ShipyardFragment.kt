@@ -30,10 +30,11 @@ class ShipyardFragment : Fragment() {
 
     private var _binding: FragmentShipyardBinding? = null
     private lateinit var adapter: DevicesAdapter
-    private lateinit var v: ImageView
     private lateinit var deviceList: MutableMap<String, Device>
     private lateinit var planet: Planet
     private lateinit var dialog: Dialog
+    private lateinit var v: ImageView
+    private var totalDays = 0
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -49,6 +50,7 @@ class ShipyardFragment : Fragment() {
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
         val specie = SpecieDAO(context).getSpecieById(specieId)
+
         dialog = Dialog(context)
         planet = PlanetDAO(context).getPlanetById(planetId)
 
@@ -73,23 +75,23 @@ class ShipyardFragment : Fragment() {
             if (list.contains(1) && list.contains(2) && list.contains(3)){
                 val res = context.resources
                 val image = res.getStringArray(R.array.image_ships)
-                val ship = Ship(0, binding.editNameShip.text.toString(),
+                var ship = Ship(0, binding.editNameShip.text.toString(),
                     image[specieId-1], specieId, planet.id, 0)
                 ShipDAO(context).insertShips(ship)
 
                 for(device in deviceList){
                     val shipId = ShipDAO(context).getLastShip()
+                    ship = ShipDAO(context).getShipById(shipId)
                     println(shipId)
                     val shipDevices = ShipDevices(0, shipId, device.value.id)
                     ShipDevicesDAO(context).insertShipDevices(shipDevices)
                 }
 
-                //TODO Añadir Ship a la lista Prod
-                //TODO volver al planeta y poner la nave en producción
+                dialog.insertProdShipyard(ship, planet, totalDays)
                 //TODO comprobar que no se repite el nombre?
 
             } else {
-                dialog.showAlert("Introduce al menos un motor, un generador y un WARP")
+                dialog.showAlert("Introduce al menos un WARP, un generador y un motor")
             }
         }
 
@@ -118,7 +120,7 @@ class ShipyardFragment : Fragment() {
     }
 
     private fun addDays()  {
-        var totalDays = 0
+        totalDays = 0
         var totalSpeed = 0
         var totalPower = 0
         var totalOffense = 0

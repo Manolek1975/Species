@@ -24,14 +24,14 @@
     </string-array>
 
     <string-array name="image_ships">
-        <item>ship01</item>
-        <item>ship02</item>
-        <item>ship03</item>
-        <item>ship04</item>
-        <item>ship05</item>
-        <item>ship06</item>
-        <item>ship07</item>
-        <item>ship08</item>
+        <item>ship_101</item>
+        <item>ship_201</item>
+        <item>ship_301</item>
+        <item>ship_401</item>
+        <item>ship_501</item>
+        <item>ship_601</item>
+        <item>ship_701</item>
+        <item>ship_801</item>
     </string-array>
 
     <string-array name="orbit_ships">

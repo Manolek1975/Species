@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -19,6 +22,7 @@ import com.delek.species.dao.BuildDAO
 import com.delek.species.dao.PlanetBuildsDAO
 import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ProdDAO
+import com.delek.species.dao.ShipDAO
 import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.database.model.Planet
@@ -33,6 +37,7 @@ class SurfaceFragment : Fragment() {
     private var _binding: FragmentSurfaceBinding? = null
     private lateinit var orbitalAdapter: PlanetOrbitalAdapter
     private lateinit var adapter: PlanetBuildsAdapter
+    val dialog = Dialog(requireContext())
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,8 +48,9 @@ class SurfaceFragment : Fragment() {
         _binding = FragmentSurfaceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initListener()
+
         val context = requireContext()
-        val dialog = Dialog(requireContext())
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
@@ -89,12 +95,21 @@ class SurfaceFragment : Fragment() {
         }*/
 
         // Prod Info
-        val prod = ProdDAO(context).getPlanetBuildProd(planet.id)
+        var prod = ProdDAO(context).getPlanetBuildProd(planet.id)
         if (prod.id > 0){
             val build = BuildDAO(context).getBuildById(prod.typeId)
             val prodID = Game.getResId(build.image, R.drawable::class.java)
-            binding.prod.setCompoundDrawablesWithIntrinsicBounds(prodID, 0, 0, 0)
+            scaleImage(prodID)
             binding.prod.text = build.name
+            binding.prodDays.text = prod.days.toString()
+        }
+
+        prod = ProdDAO(context).getPlanetShipProd(planet.id)
+        if (prod.id > 0){
+            val ship = ShipDAO(context).getShipById(prod.typeId)
+            val prodID = Game.getResId(ship.image, R.drawable::class.java)
+            scaleImage(prodID)
+            binding.prod.text = ship.name
             binding.prodDays.text = prod.days.toString()
         }
 
@@ -110,13 +125,10 @@ class SurfaceFragment : Fragment() {
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.planetBuildsRecyclerView.adapter = adapter
 
-        // Manage FAB and Textview Message
-/*        if (planet.owner == 0 && colonyModule) {
-            binding.colonyButton.visibility = View.VISIBLE*/
+        // Check if planet is colonized
         if (planet.owner != 0) {
             binding.resLayout.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
-            //binding.fab.visibility = View.VISIBLE
             showResources(planet)
         }
 
@@ -127,35 +139,10 @@ class SurfaceFragment : Fragment() {
             PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
             binding.resLayout.visibility = View.VISIBLE
             binding.colonyButton.visibility = View.GONE
-            //binding.fab.visibility = View.VISIBLE
             binding.prodLayout.visibility = View.VISIBLE
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
             showResources(planet)
-        }
-
-        binding.planetInfo.setOnClickListener{
-            (activity as SidebarActivity).openDrawer()
-        }
-
-        binding.foodInfo.setOnClickListener {
-            dialog.descFood()
-        }
-
-        binding.prodInfo.setOnClickListener {
-            dialog.descProd()
-        }
-
-        binding.techInfo.setOnClickListener {
-            dialog.descTech()
-        }
-
-        binding.defInfo.setOnClickListener {
-            dialog.descDef()
-        }
-
-        binding.popInfo.setOnClickListener {
-            dialog.descPop()
         }
 
         binding.prodImg.setOnClickListener {
@@ -166,17 +153,24 @@ class SurfaceFragment : Fragment() {
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
         }
-        // FAB
-/*        binding.fab.setOnClickListener { _ ->
-            ProdDAO(context).deleteProd(prod.id)
-            data.edit().putInt("planet", planet.id).apply()
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(7) // To Builds
-            val navController = context.findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
-        }*/
 
         return root
+    }
+
+    private fun initListener() {
+        binding.planetInfo.setOnClickListener{(activity as SidebarActivity).openDrawer()}
+        binding.foodInfo.setOnClickListener {dialog.descFood()}
+        binding.prodInfo.setOnClickListener {dialog.descProd()}
+        binding.techInfo.setOnClickListener {dialog.descTech()}
+        binding.defInfo.setOnClickListener {dialog.descDef()}
+        binding.popInfo.setOnClickListener {dialog.descPop()}
+    }
+
+    private fun scaleImage(prodID: Int) {
+        val res = ResourcesCompat.getDrawable(resources, prodID, null)
+        val bitmap = res?.toBitmap(50, 50)
+        val scale = bitmap?.toDrawable(resources)
+        binding.prod.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
     }
 
     private fun showResources(planet: Planet) {
