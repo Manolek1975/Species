@@ -37,7 +37,6 @@ class SurfaceFragment : Fragment() {
     private var _binding: FragmentSurfaceBinding? = null
     private lateinit var orbitalAdapter: PlanetOrbitalAdapter
     private lateinit var adapter: PlanetBuildsAdapter
-    val dialog = Dialog(requireContext())
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -51,6 +50,7 @@ class SurfaceFragment : Fragment() {
         initListener()
 
         val context = requireContext()
+        val dialog = Dialog(context)
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
@@ -95,25 +95,20 @@ class SurfaceFragment : Fragment() {
         }*/
 
         // Prod Info
-        var prod = ProdDAO(context).getPlanetBuildProd(planet.id)
-        if (prod.id > 0){
+        var prod = ProdDAO(context).getPlanetProd(planet.id)
+        if (prod.type == 1){
             val build = BuildDAO(context).getBuildById(prod.typeId)
             val prodID = Game.getResId(build.image, R.drawable::class.java)
             scaleImage(prodID)
             binding.prod.text = build.name
             binding.prodDays.text = prod.days.toString()
-        }
-
-        prod = ProdDAO(context).getPlanetShipProd(planet.id)
-        if (prod.id > 0){
+        } else if (prod.type == 2){
             val ship = ShipDAO(context).getShipById(prod.typeId)
             val prodID = Game.getResId(ship.image, R.drawable::class.java)
             scaleImage(prodID)
             binding.prod.text = ship.name
             binding.prodDays.text = prod.days.toString()
-        }
-
-        if (prod.typeId == 0){
+        } else {
             binding.prod.text = getString(R.string.sin_produccion)
         }
 
@@ -140,6 +135,7 @@ class SurfaceFragment : Fragment() {
             binding.resLayout.visibility = View.VISIBLE
             binding.colonyButton.visibility = View.GONE
             binding.prodLayout.visibility = View.VISIBLE
+
             dialog.showTutorial(4)
             data.edit().putInt("tutorial", 4).apply()
             showResources(planet)
@@ -158,6 +154,7 @@ class SurfaceFragment : Fragment() {
     }
 
     private fun initListener() {
+        val dialog = Dialog(requireContext())
         binding.planetInfo.setOnClickListener{(activity as SidebarActivity).openDrawer()}
         binding.foodInfo.setOnClickListener {dialog.descFood()}
         binding.prodInfo.setOnClickListener {dialog.descProd()}
@@ -168,7 +165,7 @@ class SurfaceFragment : Fragment() {
 
     private fun scaleImage(prodID: Int) {
         val res = ResourcesCompat.getDrawable(resources, prodID, null)
-        val bitmap = res?.toBitmap(50, 50)
+        val bitmap = res?.toBitmap(68, 48)
         val scale = bitmap?.toDrawable(resources)
         binding.prod.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
     }

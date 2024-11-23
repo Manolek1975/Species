@@ -95,7 +95,6 @@ class ShipyardFragment : Fragment() {
             }
         }
 
-
         // Devices
         val devices = DeviceDAO(context).getDevicesByTechLearned()
         adapter = DevicesAdapter(devices, context)
@@ -110,7 +109,6 @@ class ShipyardFragment : Fragment() {
             if (discardType(v, it.type)) {
                 v.setImageResource(resId)
                 deviceList[v.tag.toString()] = it
-                println(deviceList)
                 addDays()
             }
             binding.shipDevicesRecyclerView.visibility = View.GONE

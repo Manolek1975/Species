@@ -16,6 +16,7 @@ abstract class Game {
     //TODO Comprobar que no se repita el astillero y borrar nave de tabla prod
     //TODO Ordenar el archivo strings.xml
     //TODO Mover los loads a cada helper correspondiente
+    //TODO Incrementar Tutorial en dialogs, borrar OnPause
 
     //TODO Crear estilos para las vistas del device adapter
     //TODO Una sola vista para todas los device dhip

@@ -60,11 +60,13 @@
         android:name="com.delek.species.ui.BuildFragment"
         android:label="Builds"
         tools:layout="@layout/fragment_build" />
+
     <fragment
         android:id="@+id/nav_navigation"
         android:name="com.delek.species.ui.NavigationFragment"
         android:label="Navigation"
         tools:layout="@layout/fragment_navigation" />
+
     <fragment
         android:id="@+id/nav_build_ship"
         android:name="com.delek.species.ui.ShipyardFragment"

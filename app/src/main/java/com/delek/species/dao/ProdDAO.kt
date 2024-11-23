@@ -61,25 +61,11 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun getPlanetBuildProd(planetId: Int): Prod {
+    fun getPlanetProd(planetId: Int): Prod {
         val db = readableDatabase
         var prod = Prod()
         val specie = data.getInt("specie", 0)
-        val query = "SELECT * FROM prod WHERE type = 1 AND planet = $planetId AND owner = $specie"
-        val cursor = db.rawQuery(query, null)
-        if (cursor.moveToFirst()) {
-            prod = getColumns(cursor)
-        }
-        cursor.close()
-        db.close()
-        return prod
-    }
-
-    fun getPlanetShipProd(planetId: Int): Prod {
-        val db = readableDatabase
-        var prod = Prod()
-        val specie = data.getInt("specie", 0)
-        val query = "SELECT * FROM prod WHERE type = 2 AND planet = $planetId AND owner = $specie"
+        val query = "SELECT * FROM prod WHERE planet = $planetId AND owner = $specie"
         val cursor = db.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             prod = getColumns(cursor)
