@@ -69,47 +69,52 @@ class SurfaceFragment : Fragment() {
         val orbitalBuilds = BuildDAO(context).getOrbitalBuildsByPlanet(planetBuilds)
         orbitalAdapter = PlanetOrbitalAdapter(orbitalBuilds, context)
         binding.planetOrbitalRecyclerView.setHasFixedSize(true)
-        binding.planetOrbitalRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        binding.planetOrbitalRecyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.planetOrbitalRecyclerView.adapter = orbitalAdapter
 
         // Ship Info
-/*        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
-        var colonyModule = false
-        for (ship in ships){
-            val shipId = Game.getResId(ship.image, R.drawable::class.java)
-            if (specieId == ship.specieId){
-                binding.shipInfo.setImageResource(shipId)
-                val explored = PlanetDAO(context).getPlanetExplored(planetId)
-                if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
-                data.edit().putInt("ship", ship.id).apply()
+        /*        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
+                var colonyModule = false
+                for (ship in ships){
+                    val shipId = Game.getResId(ship.image, R.drawable::class.java)
+                    if (specieId == ship.specieId){
+                        binding.shipInfo.setImageResource(shipId)
+                        val explored = PlanetDAO(context).getPlanetExplored(planetId)
+                        if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
+                        data.edit().putInt("ship", ship.id).apply()
 
-                colonyModule = DeviceDAO(context).getColonyDevice(ship.id)
+                        colonyModule = DeviceDAO(context).getColonyDevice(ship.id)
 
-                binding.shipInfo.setOnClickListener {
-                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(10) // To Ship devices
-                    val navController = context.findNavController(R.id.nav_host)
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                }
-            }
-        }*/
+                        binding.shipInfo.setOnClickListener {
+                            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                            val item = nv.menu.getItem(10) // To Ship devices
+                            val navController = context.findNavController(R.id.nav_host)
+                            NavigationUI.onNavDestinationSelected(item, navController)
+                        }
+                    }
+                }*/
 
         // Prod Info
-        var prod = ProdDAO(context).getPlanetProd(planet.id)
-        if (prod.type == 1){
-            val build = BuildDAO(context).getBuildById(prod.typeId)
-            val prodID = Game.getResId(build.image, R.drawable::class.java)
-            scaleImage(prodID)
-            binding.prod.text = build.name
-            binding.prodDays.text = prod.days.toString()
-        } else if (prod.type == 2){
-            val ship = ShipDAO(context).getShipById(prod.typeId)
-            val prodID = Game.getResId(ship.image, R.drawable::class.java)
-            scaleImage(prodID)
-            binding.prod.text = ship.name
-            binding.prodDays.text = prod.days.toString()
-        } else {
-            binding.prod.text = getString(R.string.sin_produccion)
+        val prod = ProdDAO(context).getPlanetProd(planet.id)
+        when (prod.type) {
+            1 -> {
+                val build = BuildDAO(context).getBuildById(prod.typeId)
+                val prodID = Game.getResId(build.image, R.drawable::class.java)
+                scaleImage(prodID)
+                binding.prod.text = build.name
+                binding.prodDays.text = prod.days.toString()
+            }
+
+            2 -> {
+                val ship = ShipDAO(context).getShipById(prod.typeId)
+                val prodID = Game.getResId(ship.image, R.drawable::class.java)
+                scaleImage(prodID)
+                binding.prod.text = ship.name
+                binding.prodDays.text = prod.days.toString()
+            }
+
+            else -> binding.prod.text = getString(R.string.sin_produccion)
         }
 
         // Builds
@@ -127,7 +132,7 @@ class SurfaceFragment : Fragment() {
             showResources(planet)
         }
 
-        binding.colonyButton.setOnClickListener{
+        binding.colonyButton.setOnClickListener {
             ShipDevicesDAO(context).removeColonyDevice(data.getInt("ship", 0), 1)
             PlanetDAO(context).setPlanetColony(planet, specieId)
             val build = BuildDAO(context).getBuildById(1) // Get colony build
@@ -155,12 +160,12 @@ class SurfaceFragment : Fragment() {
 
     private fun initListener() {
         val dialog = Dialog(requireContext())
-        binding.planetInfo.setOnClickListener{(activity as SidebarActivity).openDrawer()}
-        binding.foodInfo.setOnClickListener {dialog.descFood()}
-        binding.prodInfo.setOnClickListener {dialog.descProd()}
-        binding.techInfo.setOnClickListener {dialog.descTech()}
-        binding.defInfo.setOnClickListener {dialog.descDef()}
-        binding.popInfo.setOnClickListener {dialog.descPop()}
+        binding.planetInfo.setOnClickListener { (activity as SidebarActivity).openDrawer() }
+        binding.foodInfo.setOnClickListener { dialog.descFood() }
+        binding.prodInfo.setOnClickListener { dialog.descProd() }
+        binding.techInfo.setOnClickListener { dialog.descTech() }
+        binding.defInfo.setOnClickListener { dialog.descDef() }
+        binding.popInfo.setOnClickListener { dialog.descPop() }
     }
 
     private fun scaleImage(prodID: Int) {
@@ -187,49 +192,49 @@ class SurfaceFragment : Fragment() {
         binding.popInfo.text = planet.population.toString()
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val dialog = Dialog(requireContext())
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 3) dialog.showTutorial(3)
-        if(tutorial == 5) dialog.showTutorial(5)
-        if(tutorial == 6) dialog.showTutorial(6)
-        if(tutorial == 8) dialog.showTutorial(8)
-        if(tutorial == 9) dialog.showTutorial(9)
-        if(tutorial == 12) dialog.showTutorial(12)
-        if(tutorial == 14) dialog.showTutorial(14)
-        if(tutorial == 15) dialog.showTutorial(15)
-        if(tutorial == 17) dialog.showTutorial(17)
-        if(tutorial == 18) dialog.showTutorial(18)
-        if(tutorial == 20) dialog.showTutorial(20)
-        if(tutorial == 22) dialog.showTutorial(22)
-        if(tutorial == 24) dialog.showTutorial(24)
-        if(tutorial == 28) dialog.showTutorial(28)
+        if (tutorial == 3) dialog.showTutorial(3)
+        if (tutorial == 5) dialog.showTutorial(5)
+        if (tutorial == 6) dialog.showTutorial(6)
+        if (tutorial == 8) dialog.showTutorial(8)
+        if (tutorial == 9) dialog.showTutorial(9)
+        if (tutorial == 12) dialog.showTutorial(12)
+        if (tutorial == 14) dialog.showTutorial(14)
+        if (tutorial == 15) dialog.showTutorial(15)
+        if (tutorial == 17) dialog.showTutorial(17)
+        if (tutorial == 18) dialog.showTutorial(18)
+        if (tutorial == 20) dialog.showTutorial(20)
+        if (tutorial == 22) dialog.showTutorial(22)
+        if (tutorial == 24) dialog.showTutorial(24)
+        if (tutorial == 28) dialog.showTutorial(28)
 
     }
 
-    override fun onPause(){
+    override fun onPause() {
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
         data?.edit()?.putInt("build", 0)?.apply()
-        if(tutorial == 3) data.edit().putInt("tutorial", 4).apply()
-        if(tutorial == 5) data.edit().putInt("tutorial", 6).apply()
-        if(tutorial == 6) data.edit().putInt("tutorial", 7).apply()
-        if(tutorial == 8) data.edit().putInt("tutorial", 9).apply()
-        if(tutorial == 9) data.edit().putInt("tutorial", 10).apply()
-        if(tutorial == 12) data.edit().putInt("tutorial", 13).apply()
-        if(tutorial == 14) data.edit().putInt("tutorial", 15).apply()
-        if(tutorial == 15) data.edit().putInt("tutorial", 16).apply()
-        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
-        if(tutorial == 17) data.edit().putInt("tutorial", 18).apply()
-        if(tutorial == 18) data.edit().putInt("tutorial", 19).apply()
-        if(tutorial == 20) data.edit().putInt("tutorial", 21).apply()
-        if(tutorial == 22) data.edit().putInt("tutorial", 23).apply()
-        if(tutorial == 24) data.edit().putInt("tutorial", 25).apply()
-        if(tutorial == 26) data.edit().putInt("tutorial", 27).apply()
-        if(tutorial == 28) data.edit().putInt("tutorial", 29).apply()
+        if (tutorial == 3) data.edit().putInt("tutorial", 4).apply()
+        if (tutorial == 5) data.edit().putInt("tutorial", 6).apply()
+        if (tutorial == 6) data.edit().putInt("tutorial", 7).apply()
+        if (tutorial == 8) data.edit().putInt("tutorial", 9).apply()
+        if (tutorial == 9) data.edit().putInt("tutorial", 10).apply()
+        if (tutorial == 12) data.edit().putInt("tutorial", 13).apply()
+        if (tutorial == 14) data.edit().putInt("tutorial", 15).apply()
+        if (tutorial == 15) data.edit().putInt("tutorial", 16).apply()
+        if (tutorial == 16) data.edit().putInt("tutorial", 17).apply()
+        if (tutorial == 17) data.edit().putInt("tutorial", 18).apply()
+        if (tutorial == 18) data.edit().putInt("tutorial", 19).apply()
+        if (tutorial == 20) data.edit().putInt("tutorial", 21).apply()
+        if (tutorial == 22) data.edit().putInt("tutorial", 23).apply()
+        if (tutorial == 24) data.edit().putInt("tutorial", 25).apply()
+        if (tutorial == 26) data.edit().putInt("tutorial", 27).apply()
+        if (tutorial == 28) data.edit().putInt("tutorial", 29).apply()
     }
 
     override fun onDestroyView() {

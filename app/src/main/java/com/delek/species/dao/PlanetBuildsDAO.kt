@@ -73,5 +73,18 @@ class PlanetBuildsDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
+    fun checkIfShipyard(planetId: Int, buildId: Int): Boolean {
+        val db = readableDatabase
+        val query = "SELECT * FROM planet_builds WHERE planet_id = $planetId AND build_id = 30"
+        val cursor = db.rawQuery(query, null)
+        val exists = cursor.count > 0
+        cursor.close()
+        db.close()
+        return exists
+
+
+
+    }
+
 
 }

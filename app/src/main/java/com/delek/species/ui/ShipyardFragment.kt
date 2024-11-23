@@ -77,6 +77,8 @@ class ShipyardFragment : Fragment() {
                 val image = res.getStringArray(R.array.image_ships)
                 var ship = Ship(0, binding.editNameShip.text.toString(),
                     image[specieId-1], specieId, planet.id, 0)
+
+                //TODO Aquí no debería insertar nada, solo al terminar produccion en planeta
                 ShipDAO(context).insertShips(ship)
 
                 for(device in deviceList){
@@ -104,7 +106,7 @@ class ShipyardFragment : Fragment() {
         viewListener()
         deviceList = mutableMapOf()
 
-        adapter.setOnItemClickListener { it ->
+        adapter.setOnItemClickListener {
             val resId = Game.getResId(it.image, R.drawable::class.java)
             if (discardType(v, it.type)) {
                 v.setImageResource(resId)

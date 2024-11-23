@@ -38,7 +38,11 @@ class BuildsAdapter(private var builds: List<Build>,
         holder.buildItem.compoundDrawablePadding = 50
 
         holder.buildItem.setOnClickListener{
-            dialog.insertProdBuild(build, planet)
+            if (build.id == 30) {
+                dialog.showAlert("Ya tienes un astillero en tu planeta")
+            } else {
+                dialog.showBuild(build, planet)
+            }
         }
     }
 
