@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.model.Dialog
 import com.delek.species.R
+import com.delek.species.dao.PlanetBuildsDAO
 import com.delek.species.database.model.Build
 import com.delek.species.database.model.Planet
 import com.delek.species.model.Game
@@ -28,8 +29,10 @@ class BuildsAdapter(private var builds: List<Build>,
     }
 
     override fun onBindViewHolder(holder: BuildViewHolder, position: Int) {
+
         val dialog = Dialog(context)
         val build = builds[position]
+
         val days = build.cost / planet.production
         holder.buildItem.text = build.name
         holder.buildDays.text = days.toString()
@@ -37,8 +40,9 @@ class BuildsAdapter(private var builds: List<Build>,
         holder.buildItem.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
         holder.buildItem.compoundDrawablePadding = 50
 
+        val planetBuild = PlanetBuildsDAO(context).checkIfShipyard(planet.id, build.id)
         holder.buildItem.setOnClickListener{
-            if (build.id == 30) {
+            if (planetBuild && build.id == 30) {
                 dialog.showAlert("Ya tienes un astillero en tu planeta")
             } else {
                 dialog.showBuild(build, planet)

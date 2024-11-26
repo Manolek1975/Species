@@ -11,6 +11,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -107,6 +108,7 @@ class SurfaceFragment : Fragment() {
             }
 
             2 -> {
+                //TODO ***ERROR*** Pass dataStringSet
                 val ship = ShipDAO(context).getShipById(prod.typeId)
                 val prodID = Game.getResId(ship.image, R.drawable::class.java)
                 scaleImage(prodID)
@@ -116,6 +118,7 @@ class SurfaceFragment : Fragment() {
 
             else -> binding.prod.text = getString(R.string.sin_produccion)
         }
+
 
         // Builds
         //setAdapter(planetId, context)

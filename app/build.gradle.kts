@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.jetbrainsKotlinKsp)
+    alias(libs.plugins.hiltPlugin)
+    alias(libs.plugins.androidx.navigation.safe.args)
+
 }
 
 android {
@@ -31,13 +35,24 @@ android {
         viewBinding = true
     }
 
+/*    buildscript {
+        repositories {
+            google()
+        }
+        dependencies {
+            classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+        }
+    }*/
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     sourceSets {
         getByName("main") {
             java {
@@ -54,12 +69,18 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-
     implementation(libs.androidx.constraintlayout)
+
+    //Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
 
+    //Hilt
+    implementation (libs.hilt.android)
+    ksp(libs.dagger.compiler)
+    ksp(libs.hilt.compiler)
+
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

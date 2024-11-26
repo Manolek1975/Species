@@ -27,6 +27,7 @@ import com.delek.species.database.model.Ship
 import com.delek.species.database.model.Specie
 import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.DBHelper
+import com.delek.species.ui.ShipyardFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 
@@ -99,12 +100,17 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             data.edit().putInt("planet", planet.id).apply()
             data.edit().putInt("ship", ship.id).apply()
-            //data.edit().putInt("build", build.id).apply()
             ProdDAO(context).insertProd(prod)
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+
+
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                ShipyardFragmentDirections.actionNavShipyardToNavSurface()
+            )
+
+/*            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(9) // To Planet
             val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
+            NavigationUI.onNavDestinationSelected(item, navController)*/
         }.show()
     }
 

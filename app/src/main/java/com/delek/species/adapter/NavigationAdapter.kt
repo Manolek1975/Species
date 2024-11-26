@@ -24,7 +24,7 @@ class NavigationAdapter(private var planets: List<Planet>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavigationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.navigation_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_navigation, parent, false)
         return NavigationViewHolder(view)
     }
 

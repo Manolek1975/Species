@@ -72,25 +72,30 @@ class ShipyardFragment : Fragment() {
                 val type = deviceList[it]!!.type
                 list.add(type)
             }
+            //Check if add engine, generator and warp
             if (list.contains(1) && list.contains(2) && list.contains(3)){
+                //TODO Aquí no debería insertar nada, solo al terminar produccion en planeta
+                //val res = context.resources
+                //val image = res.getStringArray(R.array.image_ships)
+                //var ship = Ship(0, binding.editNameShip.text.toString(), image[specieId-1], specieId, planet.id, 0)
+                //ShipDAO(context).insertShips(ship)
+                for(device in deviceList){
+                    //TODO comprobar que no se repite el nombre?
+                    val nave = "X101" //Nombre de la nave
+                    //TODO Insertar como mutableSet en SharedPreferences
+                    val test = mutableSetOf("1", "2", "3") //ID de cada device
+                    data.edit().putStringSet(nave, test).apply()
+                    //TODO Tampoco se insertan los devices aquí
+                    //val shipId = ShipDAO(context).getLastShip()
+                    //ship = ShipDAO(context).getShipById(shipId)
+                    //val shipDevices = ShipDevices(0, shipId, device.value.id)
+                    //ShipDevicesDAO(context).insertShipDevices(shipDevices)
+                }
+                //TODO Aún no sabemos el ID e la nave
                 val res = context.resources
                 val image = res.getStringArray(R.array.image_ships)
-                var ship = Ship(0, binding.editNameShip.text.toString(),
-                    image[specieId-1], specieId, planet.id, 0)
-
-                //TODO Aquí no debería insertar nada, solo al terminar produccion en planeta
-                ShipDAO(context).insertShips(ship)
-
-                for(device in deviceList){
-                    val shipId = ShipDAO(context).getLastShip()
-                    ship = ShipDAO(context).getShipById(shipId)
-                    println(shipId)
-                    val shipDevices = ShipDevices(0, shipId, device.value.id)
-                    ShipDevicesDAO(context).insertShipDevices(shipDevices)
-                }
-
+                val ship = Ship(0, binding.editNameShip.text.toString(), image[specieId-1], specieId, planet.id, 0)
                 dialog.insertProdShipyard(ship, planet, totalDays)
-                //TODO comprobar que no se repite el nombre?
 
             } else {
                 dialog.showAlert("Introduce al menos un WARP, un generador y un motor")

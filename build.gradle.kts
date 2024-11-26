@@ -2,4 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.jetbrainsKotlinKsp) apply false
+    alias(libs.plugins.hiltPlugin) apply false
+    alias(libs.plugins.androidx.navigation.safe.args) apply false
+
 }

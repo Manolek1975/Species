@@ -66,7 +66,7 @@
             android:title="@string/menu_navigation" />
         <!--12-->
         <item
-            android:id="@+id/nav_build_ship"
+            android:id="@+id/nav_shipyard"
             android:icon="@drawable/menu_ship"
             android:title="@string/menu_shipyard" />
 
