@@ -34,7 +34,12 @@
         android:id="@+id/nav_surface"
         android:name="com.delek.species.ui.SurfaceFragment"
         android:label="Planet"
-        tools:layout="@layout/fragment_surface" />
+        tools:layout="@layout/fragment_surface" >
+        <argument
+            android:name="ship"
+            app:argType="string"
+            android:defaultValue="Nave" />
+    </fragment>
     <fragment
         android:id="@+id/nav_ship"
         android:name="com.delek.species.ui.ShipFragment"

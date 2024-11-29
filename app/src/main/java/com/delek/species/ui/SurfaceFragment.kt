@@ -11,7 +11,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,6 @@ import com.delek.species.dao.BuildDAO
 import com.delek.species.dao.PlanetBuildsDAO
 import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.ProdDAO
-import com.delek.species.dao.ShipDAO
 import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.database.model.Planet
@@ -39,6 +38,8 @@ class SurfaceFragment : Fragment() {
     private lateinit var orbitalAdapter: PlanetOrbitalAdapter
     private lateinit var adapter: PlanetBuildsAdapter
     private val binding get() = _binding!!
+
+    private val args: SurfaceFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -109,10 +110,9 @@ class SurfaceFragment : Fragment() {
 
             2 -> {
                 //TODO ***ERROR*** Pass dataStringSet
-                val ship = ShipDAO(context).getShipById(prod.typeId)
-                val prodID = Game.getResId(ship.image, R.drawable::class.java)
+                val prodID = Game.getResId(specie.imgShip, R.drawable::class.java)
                 scaleImage(prodID)
-                binding.prod.text = ship.name
+                binding.prod.text = args.ship
                 binding.prodDays.text = prod.days.toString()
             }
 

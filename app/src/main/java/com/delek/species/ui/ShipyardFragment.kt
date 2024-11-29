@@ -14,13 +14,10 @@ import com.delek.species.R
 import com.delek.species.adapter.DevicesAdapter
 import com.delek.species.dao.DeviceDAO
 import com.delek.species.dao.PlanetDAO
-import com.delek.species.dao.ShipDAO
-import com.delek.species.dao.ShipDevicesDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.database.model.Device
 import com.delek.species.database.model.Planet
 import com.delek.species.database.model.Ship
-import com.delek.species.database.model.ShipDevices
 import com.delek.species.databinding.FragmentShipyardBinding
 import com.delek.species.model.Dialog
 import com.delek.species.model.Game
@@ -35,6 +32,7 @@ class ShipyardFragment : Fragment() {
     private lateinit var dialog: Dialog
     private lateinit var v: ImageView
     private var totalDays = 0
+    private var shipName: String = ""
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -55,7 +53,7 @@ class ShipyardFragment : Fragment() {
         planet = PlanetDAO(context).getPlanetById(planetId)
 
         // Header
-        val id = Game.getResId(specie.ship, R.drawable::class.java)
+        val id = Game.getResId(specie.imgShip, R.drawable::class.java)
         binding.shipImage.setImageResource(id)
         binding.editNameShip.hint = specie.ship
         binding.editNameShip.setText(specie.ship)
@@ -79,12 +77,14 @@ class ShipyardFragment : Fragment() {
                 //val image = res.getStringArray(R.array.image_ships)
                 //var ship = Ship(0, binding.editNameShip.text.toString(), image[specieId-1], specieId, planet.id, 0)
                 //ShipDAO(context).insertShips(ship)
+
                 for(device in deviceList){
                     //TODO comprobar que no se repite el nombre?
-                    val nave = "X101" //Nombre de la nave
+                    //val nave = "X101" //Nombre de la nave
+                    shipName = binding.editNameShip.text.toString()
                     //TODO Insertar como mutableSet en SharedPreferences
-                    val test = mutableSetOf("1", "2", "3") //ID de cada device
-                    data.edit().putStringSet(nave, test).apply()
+                    val devices = mutableSetOf("1", "2", "3") //ID de cada device
+                    data.edit().putStringSet(shipName, devices).apply()
                     //TODO Tampoco se insertan los devices aquí
                     //val shipId = ShipDAO(context).getLastShip()
                     //ship = ShipDAO(context).getShipById(shipId)
@@ -92,9 +92,9 @@ class ShipyardFragment : Fragment() {
                     //ShipDevicesDAO(context).insertShipDevices(shipDevices)
                 }
                 //TODO Aún no sabemos el ID e la nave
-                val res = context.resources
-                val image = res.getStringArray(R.array.image_ships)
-                val ship = Ship(0, binding.editNameShip.text.toString(), image[specieId-1], specieId, planet.id, 0)
+                //val res = context.resources
+                //val image = res.getStringArray(R.array.image_ships)
+                val ship = Ship(0, shipName, specie.imgShip, specieId, planet.id, 0)
                 dialog.insertProdShipyard(ship, planet, totalDays)
 
             } else {

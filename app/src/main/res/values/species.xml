@@ -54,6 +54,17 @@
     </string-array>
 
     <string-array name="ship_species">
+        <item>C101</item>
+        <item>G201</item>
+        <item>H301</item>
+        <item>K401</item>
+        <item>M501</item>
+        <item>S601</item>
+        <item>V701</item>
+        <item>W801</item>
+    </string-array>
+
+    <string-array name="image_ship_species">
         <item>ship_101</item>
         <item>ship_201</item>
         <item>ship_301</item>

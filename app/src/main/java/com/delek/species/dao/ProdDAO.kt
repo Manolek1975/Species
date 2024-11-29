@@ -24,12 +24,13 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
     private fun getColumns(cursor: Cursor): Prod {
         val id = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_ID))
         val type = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_NAME))
         val typeId = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_TYPE_ID))
         val planet = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_PLANET))
         val owner = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_OWNER))
         val days = cursor.getInt(cursor.getColumnIndexOrThrow(ProdHelper.COLUMN_DAYS))
 
-        val prod = Prod(id, type, typeId, planet, owner, days)
+        val prod = Prod(id, type, name, typeId, planet, owner, days)
         return prod
     }
 
@@ -37,6 +38,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val db = writableDatabase
         val values = ContentValues().apply {
             put(ProdHelper.COLUMN_TYPE, prod.type)
+            put(ProdHelper.COLUMN_NAME, prod.name)
             put(ProdHelper.COLUMN_TYPE_ID, prod.typeId)
             put(ProdHelper.COLUMN_PLANET, prod.planet)
             put(ProdHelper.COLUMN_OWNER, prod.owner)
@@ -52,6 +54,7 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         val specie = data.getInt("specie", 0)
         val values = ContentValues().apply {
             put(ProdHelper.COLUMN_TYPE, 3)
+            put(ProdHelper.COLUMN_NAME, tech.name)
             put(ProdHelper.COLUMN_TYPE_ID, tech.id)
             put(ProdHelper.COLUMN_PLANET, 0)
             put(ProdHelper.COLUMN_OWNER, specie)

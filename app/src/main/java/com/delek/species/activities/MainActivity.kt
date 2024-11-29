@@ -17,16 +17,16 @@ import com.delek.species.dao.PlanetDAO
 import com.delek.species.dao.SpecieDAO
 import com.delek.species.dao.StarDAO
 import com.delek.species.dao.TechDAO
+import com.delek.species.database.helper.DBHelper
+import com.delek.species.database.helper.DeviceHelper
+import com.delek.species.database.helper.SpecieHelper
 import com.delek.species.database.model.Build
 import com.delek.species.database.model.DeviceTypes
 import com.delek.species.database.model.Planet
 import com.delek.species.database.model.PlanetTypes
-import com.delek.species.database.model.Specie
 import com.delek.species.database.model.Star
 import com.delek.species.database.model.StarExplored
 import com.delek.species.database.model.Tech
-import com.delek.species.database.helper.DBHelper
-import com.delek.species.database.helper.DeviceHelper
 import com.delek.species.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadTables() {
-        loadSpecies()
+        SpecieHelper.loadSpecies(this)
         loadStarsSector1()
         loadStarsSector2()
         loadStarsExplored()
@@ -88,25 +88,6 @@ class MainActivity : AppCompatActivity() {
         for (i in name.indices){
             val deviceType = DeviceTypes(0, name[i])
             DeviceDAO(this).insertDeviceTypes(deviceType)
-            finish()
-        }
-    }
-
-    // Load resources from xml files to database
-    private fun loadSpecies(){
-        val res = this.resources
-        val name = res.getStringArray(R.array.name_species)
-        val desc = res.getStringArray(R.array.description_species)
-        val image = res.getStringArray(R.array.image_species)
-        val ship = res.getStringArray(R.array.ship_species)
-        val star = res.getStringArray(R.array.origin_species)
-        val color = res.getStringArray(R.array.color_species)
-        val origin = res.getStringArray(R.array.origin_species)
-
-        for (i in name.indices){
-            val specie = Specie(0, name[i], desc[i], image[i], skill = "", ship[i],
-                star = star[i].toInt(), color = color[i], origin = origin[i].toInt())
-            SpecieDAO(this).insertSpecies(specie)
             finish()
         }
     }

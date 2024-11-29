@@ -7,8 +7,9 @@ data class Specie(
     val name : String,
     val desc : String,
     val image : String,
-    val skill : String,
     val ship : String,
+    val imgShip : String,
+    val skill : String,
     val star : Int,
     val color : String,
     val origin : Int

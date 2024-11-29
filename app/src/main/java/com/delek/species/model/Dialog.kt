@@ -72,7 +72,7 @@ class Dialog(context: Context) : View(context) {
 
     fun showBuild(build: Build, planet: Planet) {
         val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 1, build.id, planet.id, owner, build.cost/planet.production)
+        val prod = Prod(0, 1, build.name, build.id, planet.id, owner, build.cost/planet.production)
         val id = Game.getResId(build.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(build.name)
@@ -91,7 +91,7 @@ class Dialog(context: Context) : View(context) {
 
     fun insertProdShipyard(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 2, ship.id, planet.id, owner, days)
+        val prod = Prod(0, 2, ship.name, ship.id, planet.id, owner, days)
         val id = Game.getResId(ship.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(ship.name)
@@ -102,9 +102,8 @@ class Dialog(context: Context) : View(context) {
             data.edit().putInt("ship", ship.id).apply()
             ProdDAO(context).insertProd(prod)
 
-
             (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
-                ShipyardFragmentDirections.actionNavShipyardToNavSurface()
+                ShipyardFragmentDirections.actionNavShipyardToNavSurface(ship.name)
             )
 
 /*            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
@@ -116,7 +115,7 @@ class Dialog(context: Context) : View(context) {
 
     fun insertProdShip(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 2, ship.id, planet.id, owner, days)
+        val prod = Prod(0, 2, ship.name, ship.id, planet.id, owner, days)
         val id = Game.getResId(ship.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(ship.name)
@@ -138,7 +137,7 @@ class Dialog(context: Context) : View(context) {
 
     fun insertProdTech(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 2, ship.id, planet.id, owner, days)
+        val prod = Prod(0, 2, ship.name, ship.id, planet.id, owner, days)
         val id = Game.getResId(ship.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(ship.name)
