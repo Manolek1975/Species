@@ -13,18 +13,18 @@
         android:theme="@style/AppTheme.SpeciesTheme"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SidebarActivity"
+            android:name=".ui.activities.SidebarActivity"
             android:exported="false"
             android:label="@string/title_activity_sidebar"
             android:theme="@style/AppTheme.SpeciesTheme.NoActionBar" />
         <activity
-            android:name=".activities.OptionsActivity"
+            android:name=".ui.activities.OptionsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SpecieActivity"
+            android:name=".ui.activities.specie.SpecieActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

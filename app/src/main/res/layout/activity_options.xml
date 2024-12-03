@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/portada"
-    tools:context=".activities.OptionsActivity">
+    tools:context=".ui.activities.OptionsActivity">
 
     <ImageButton
         android:id="@+id/back_button"

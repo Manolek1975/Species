@@ -9,12 +9,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.BuildsAdapter
-import com.delek.species.dao.BuildDAO
-import com.delek.species.dao.PlanetDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.ui.adapter.BuildsAdapter
+import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.FragmentBuildBinding
-import com.delek.species.model.Dialog
+import com.delek.species.core.Dialog
 
 
 class BuildFragment: Fragment() {

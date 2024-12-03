@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.DevicesAdapter
-import com.delek.species.dao.DeviceDAO
-import com.delek.species.dao.ShipDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.ui.adapter.DevicesAdapter
+import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipDevicesBinding
-import com.delek.species.model.Dialog
-import com.delek.species.model.Game
+import com.delek.species.core.Dialog
+import com.delek.species.core.Game
 
 
 class ShipDevicesFragment : Fragment() {

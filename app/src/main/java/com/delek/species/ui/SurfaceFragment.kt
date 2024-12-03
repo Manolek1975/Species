@@ -16,19 +16,19 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.PlanetBuildsAdapter
-import com.delek.species.adapter.PlanetOrbitalAdapter
-import com.delek.species.dao.BuildDAO
-import com.delek.species.dao.PlanetBuildsDAO
-import com.delek.species.dao.PlanetDAO
-import com.delek.species.dao.ProdDAO
-import com.delek.species.dao.ShipDevicesDAO
-import com.delek.species.dao.SpecieDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.ui.adapter.PlanetBuildsAdapter
+import com.delek.species.ui.adapter.PlanetOrbitalAdapter
+import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.PlanetBuildsDAO
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ProdDAO
+import com.delek.species.database.dao.ShipDevicesDAO
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.model.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
-import com.delek.species.model.Dialog
-import com.delek.species.model.Game
+import com.delek.species.core.Dialog
+import com.delek.species.core.Game
 import com.google.android.material.navigation.NavigationView
 
 
@@ -107,22 +107,17 @@ class SurfaceFragment : Fragment() {
                 binding.prod.text = build.name
                 binding.prodDays.text = prod.days.toString()
             }
-
             2 -> {
                 //TODO ***ERROR*** Pass dataStringSet
                 val prodID = Game.getResId(specie.imgShip, R.drawable::class.java)
                 scaleImage(prodID)
-                binding.prod.text = args.ship
+                binding.prod.text = prod.name
                 binding.prodDays.text = prod.days.toString()
             }
-
             else -> binding.prod.text = getString(R.string.sin_produccion)
         }
 
-
         // Builds
-        //setAdapter(planetId, context)
-        //val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
         val builds = BuildDAO(context).getBuildsByPlanet(planetBuilds)
         adapter = PlanetBuildsAdapter(builds, PlanetBuildsDAO(context), planet, context)
         binding.planetBuildsRecyclerView.layoutManager = LinearLayoutManager(context)

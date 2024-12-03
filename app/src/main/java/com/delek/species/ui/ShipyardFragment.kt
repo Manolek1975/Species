@@ -11,16 +11,16 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.adapter.DevicesAdapter
-import com.delek.species.dao.DeviceDAO
-import com.delek.species.dao.PlanetDAO
-import com.delek.species.dao.SpecieDAO
+import com.delek.species.ui.adapter.DevicesAdapter
+import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.model.Device
 import com.delek.species.database.model.Planet
 import com.delek.species.database.model.Ship
 import com.delek.species.databinding.FragmentShipyardBinding
-import com.delek.species.model.Dialog
-import com.delek.species.model.Game
+import com.delek.species.core.Dialog
+import com.delek.species.core.Game
 
 
 class ShipyardFragment : Fragment() {

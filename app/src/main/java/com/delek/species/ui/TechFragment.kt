@@ -11,11 +11,11 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.TechsAdapter
-import com.delek.species.dao.TechDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.ui.adapter.TechsAdapter
+import com.delek.species.database.dao.TechDAO
 import com.delek.species.databinding.FragmentTechBinding
-import com.delek.species.model.Dialog
+import com.delek.species.core.Dialog
 
 
 class TechFragment: Fragment() {

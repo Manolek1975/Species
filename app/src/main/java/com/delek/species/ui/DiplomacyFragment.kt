@@ -10,9 +10,9 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
+import com.delek.species.ui.activities.SidebarActivity
 import com.delek.species.databinding.FragmentDiplomacyBinding
-import com.delek.species.model.Dialog
+import com.delek.species.core.Dialog
 
 
 class DiplomacyFragment: Fragment() {

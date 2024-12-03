@@ -12,9 +12,15 @@
         tools:layout="@layout/fragment_crono" />
     <fragment
         android:id="@+id/nav_sector"
-        android:name="com.delek.species.ui.SectorFragment"
+        android:name="com.delek.species.ui.sector.SectorFragment"
         android:label="Sector"
-        tools:layout="@layout/fragment_sector" />
+        tools:layout="@layout/fragment_sector" >
+        <action
+            android:id="@+id/action_nav_sector_to_nav_system"
+            app:destination="@id/nav_system"
+            app:popUpTo="@id/mobile_navigation" />
+    </fragment>
+
     <fragment
         android:id="@+id/nav_stars"
         android:name="com.delek.species.ui.StarFragment"
@@ -27,9 +33,13 @@
         tools:layout="@layout/fragment_planet" />
     <fragment
         android:id="@+id/nav_system"
-        android:name="com.delek.species.ui.SystemFragment"
+        android:name="com.delek.species.ui.system.SystemFragment"
         android:label="System"
-        tools:layout="@layout/fragment_system" />
+        tools:layout="@layout/fragment_system" >
+        <argument
+            android:name="star_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/nav_surface"
         android:name="com.delek.species.ui.SurfaceFragment"

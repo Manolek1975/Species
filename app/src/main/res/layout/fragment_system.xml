@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sector"
-    tools:context=".ui.SystemFragment">
+    tools:context=".ui.system.SystemFragment">
 
     <TextView
         android:id="@+id/starInfo"

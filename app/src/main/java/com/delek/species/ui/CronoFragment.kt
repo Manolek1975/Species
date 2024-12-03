@@ -13,18 +13,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.dao.BuildDAO
-import com.delek.species.dao.PlanetBuildsDAO
-import com.delek.species.dao.PlanetDAO
-import com.delek.species.dao.ProdDAO
-import com.delek.species.dao.ShipDAO
-import com.delek.species.dao.SpecieDAO
-import com.delek.species.dao.TechDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.database.dao.BuildDAO
+import com.delek.species.database.dao.PlanetBuildsDAO
+import com.delek.species.database.dao.PlanetDAO
+import com.delek.species.database.dao.ProdDAO
+import com.delek.species.database.dao.ShipDAO
+import com.delek.species.database.dao.SpecieDAO
+import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.model.Prod
 import com.delek.species.databinding.FragmentCronoBinding
-import com.delek.species.model.Dialog
-import com.delek.species.model.Game
+import com.delek.species.core.Dialog
+import com.delek.species.core.Game
 import com.google.android.material.navigation.NavigationView
 
 

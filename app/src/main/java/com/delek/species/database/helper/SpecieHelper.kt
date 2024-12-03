@@ -2,7 +2,7 @@ package com.delek.species.database.helper
 
 import android.content.Context
 import com.delek.species.R
-import com.delek.species.dao.SpecieDAO
+import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.model.Specie
 
 class SpecieHelper {

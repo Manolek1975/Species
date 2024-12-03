@@ -5,6 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sector"
-    tools:context=".ui.SectorFragment">
+    tools:context=".ui.sector.SectorFragment">
 
 </LinearLayout>

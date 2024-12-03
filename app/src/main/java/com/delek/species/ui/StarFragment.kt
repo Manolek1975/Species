@@ -11,9 +11,9 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.activities.SidebarActivity
-import com.delek.species.adapter.StarsAdapter
-import com.delek.species.dao.StarDAO
+import com.delek.species.ui.activities.SidebarActivity
+import com.delek.species.ui.adapter.StarsAdapter
+import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentStarsBinding
 
 class StarFragment: Fragment() {
