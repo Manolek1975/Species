@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sistema"
-    tools:context=".ui.StarFragment">
+    tools:context=".ui.star.StarFragment">
 
     <TextView
         android:id="@+id/starHeader"

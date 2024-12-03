@@ -23,9 +23,14 @@
 
     <fragment
         android:id="@+id/nav_stars"
-        android:name="com.delek.species.ui.StarFragment"
+        android:name="com.delek.species.ui.star.StarFragment"
         android:label="Stars"
-        tools:layout="@layout/fragment_stars" />
+        tools:layout="@layout/fragment_stars" >
+        <action
+            android:id="@+id/action_nav_stars_to_nav_system"
+            app:destination="@id/nav_system"
+            app:popUpTo="@id/mobile_navigation" />
+    </fragment>
     <fragment
         android:id="@+id/nav_planet"
         android:name="com.delek.species.ui.PlanetFragment"

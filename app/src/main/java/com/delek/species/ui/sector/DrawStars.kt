@@ -12,14 +12,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import com.delek.species.R
-import com.delek.species.ui.activities.SidebarActivity
 import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.model.Star
-import com.delek.species.ui.ShipyardFragmentDirections
-import com.google.android.material.navigation.NavigationView
 
 
 class DrawStars(context: Context): View(context) {
