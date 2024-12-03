@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.build
 
 import android.content.Context
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.BuildsAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.FragmentBuildBinding
@@ -22,6 +22,7 @@ class BuildFragment: Fragment() {
     private var _binding: FragmentBuildBinding? = null
     private lateinit var adapter: BuildsAdapter
     private val binding get() = _binding!!
+    private val args: BuildFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +33,10 @@ class BuildFragment: Fragment() {
         val root: View = binding.root
 
         val context = requireContext()
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val planetId = data.getInt("planet", 0)
+        //val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+        //val planetId = data.getInt("planet", 0)
         //val tech = data.getInt("tech", 0)
-        val planet = PlanetDAO(context).getPlanetById(planetId)
+        val planet = PlanetDAO(context).getPlanetById(args.planet)
 
         // Header
         val res = ResourcesCompat.getDrawable(resources, android.R.drawable.ic_menu_manage, null)
@@ -45,7 +46,7 @@ class BuildFragment: Fragment() {
         val list1 = BuildDAO(context).getInitialBuilds()
         val list2 = BuildDAO(context).getBuildsTechLearned()
 
-        adapter = BuildsAdapter(list1 + list2, planet, context)
+        adapter = BuildsAdapter(list1 + list2, planet)
         binding.buildsRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.buildsRecyclerView.adapter = adapter
 

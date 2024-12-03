@@ -11,6 +11,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ import com.delek.species.database.model.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.ui.ShipyardFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 
@@ -56,7 +58,6 @@ class SurfaceFragment : Fragment() {
         //val planetId = data.getInt("planet", 0)
 
         // Planet Info
-        val x = args.planet
         val specie = SpecieDAO(context).getSpecieById(specieId)
         val planet = PlanetDAO(context).getPlanetById(args.planet)
         val type = PlanetDAO(context).getType(planet.type)
@@ -144,11 +145,17 @@ class SurfaceFragment : Fragment() {
 
         binding.prodImg.setOnClickListener {
             ProdDAO(context).deleteProd(prod.id)
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                SurfaceFragmentDirections.actionNavSurfaceToNavBuild(args.planet, 0)
+            )
+
+/*
             data.edit().putInt("planet", planet.id).apply()
             val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
             val item = nv.menu.getItem(7) // To Builds
             val navController = context.findNavController(R.id.nav_host)
             NavigationUI.onNavDestinationSelected(item, navController)
+*/
         }
 
         return root

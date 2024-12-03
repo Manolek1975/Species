@@ -92,6 +92,8 @@ class SidebarActivity : AppCompatActivity() {
         navMenu.findItem(R.id.nav_surface).setVisible(false)
         navMenu.findItem(R.id.nav_ship_devices).setVisible(false)
         navMenu.findItem(R.id.nav_navigation).setVisible(false)
+        navMenu.findItem(R.id.nav_build).setVisible(false)
+        navMenu.findItem(R.id.nav_shipyard).setVisible(false)
 
     }
 

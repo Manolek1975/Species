@@ -63,6 +63,9 @@
         <argument
             android:name="planet"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_nav_surface_to_nav_build"
+            app:destination="@id/nav_build" />
     </fragment>
 
     <fragment
@@ -91,9 +94,19 @@
 
     <fragment
         android:id="@+id/nav_build"
-        android:name="com.delek.species.ui.BuildFragment"
+        android:name="com.delek.species.ui.build.BuildFragment"
         android:label="Builds"
-        tools:layout="@layout/fragment_build" />
+        tools:layout="@layout/fragment_build" >
+        <argument
+            android:name="planet"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_nav_build_to_nav_surface"
+            app:destination="@id/nav_surface" />
+        <argument
+            android:name="build"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_navigation"

@@ -28,6 +28,7 @@ import com.delek.species.database.model.Specie
 import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.ui.ShipyardFragmentDirections
+import com.delek.species.ui.build.BuildFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 
@@ -79,13 +80,12 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setMessage(build.description)
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Construir") { _, _: Int ->
-            data.edit().putInt("planet", planet.id).apply()
+            //data.edit().putInt("planet", planet.id).apply()
             data.edit().putInt("build", build.id).apply()
             ProdDAO(context).insertProd(prod)
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                BuildFragmentDirections.actionNavBuildToNavSurface(planet.id)
+            )
         }.show()
     }
 
@@ -101,15 +101,9 @@ class Dialog(context: Context) : View(context) {
             data.edit().putInt("planet", planet.id).apply()
             data.edit().putInt("ship", ship.id).apply()
             ProdDAO(context).insertProd(prod)
-
             (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
                 ShipyardFragmentDirections.actionNavShipyardToNavSurface(planet.id)
             )
-
-/*            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)*/
         }.show()
     }
 
