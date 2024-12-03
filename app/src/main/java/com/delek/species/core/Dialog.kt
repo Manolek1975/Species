@@ -103,7 +103,7 @@ class Dialog(context: Context) : View(context) {
             ProdDAO(context).insertProd(prod)
 
             (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
-                ShipyardFragmentDirections.actionNavShipyardToNavSurface(ship.name)
+                ShipyardFragmentDirections.actionNavShipyardToNavSurface(planet.id)
             )
 
 /*            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)

@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.surface
 
 import android.content.Context
 import android.graphics.Color
@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.PlanetBuildsAdapter
-import com.delek.species.ui.adapter.PlanetOrbitalAdapter
 import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetBuildsDAO
 import com.delek.species.database.dao.PlanetDAO
@@ -55,11 +53,12 @@ class SurfaceFragment : Fragment() {
         val dialog = Dialog(context)
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
-        val planetId = data.getInt("planet", 0)
+        //val planetId = data.getInt("planet", 0)
 
         // Planet Info
+        val x = args.planet
         val specie = SpecieDAO(context).getSpecieById(specieId)
-        val planet = PlanetDAO(context).getPlanetById(planetId)
+        val planet = PlanetDAO(context).getPlanetById(args.planet)
         val type = PlanetDAO(context).getType(planet.type)
         val id = Game.getResId(planet.image, R.drawable::class.java)
         binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
@@ -104,11 +103,10 @@ class SurfaceFragment : Fragment() {
                 val build = BuildDAO(context).getBuildById(prod.typeId)
                 val prodID = Game.getResId(build.image, R.drawable::class.java)
                 scaleImage(prodID)
-                binding.prod.text = build.name
+                binding.prod.text = prod.name
                 binding.prodDays.text = prod.days.toString()
             }
             2 -> {
-                //TODO ***ERROR*** Pass dataStringSet
                 val prodID = Game.getResId(specie.imgShip, R.drawable::class.java)
                 scaleImage(prodID)
                 binding.prod.text = prod.name

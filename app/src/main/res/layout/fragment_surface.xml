@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sistema"
-    tools:context=".ui.SurfaceFragment">
+    tools:context=".ui.surface.SurfaceFragment">
 
     <TextView
         android:id="@+id/planetInfo"

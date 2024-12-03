@@ -21,7 +21,6 @@ class SectorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSectorBinding.inflate(inflater, container, false)
 
         val context = requireContext()

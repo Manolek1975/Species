@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.planet
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.PlanetsAdapter
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.FragmentPlanetBinding
 import com.delek.species.core.Dialog
@@ -43,7 +42,7 @@ class PlanetFragment : Fragment() {
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = data.getInt("specie", 0)
         val planet = PlanetDAO(context).getPlanetsColonized(specie)
-        adapter = PlanetsAdapter(planet, context)
+        adapter = PlanetsAdapter(planet)
         binding.planetRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.planetRecyclerView.adapter = adapter
 

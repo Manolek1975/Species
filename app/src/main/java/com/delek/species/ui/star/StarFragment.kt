@@ -27,28 +27,37 @@ class StarFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStarsBinding.inflate(inflater, container, false)
+        initUI()
+        openSidebar()
+        return binding.root
+    }
 
-        // Header
+    private fun openSidebar() {
+        binding.starHeader.setOnClickListener {
+            (activity as SidebarActivity).openDrawer()
+        }
+    }
+
+    private fun initUI() {
+        initHeader()
+        initRecyclerView()
+    }
+
+    private fun initHeader() {
         val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_star, null)
         val bitmap = res?.toBitmap(30, 30)
         val scale = bitmap?.toDrawable(resources)
         binding.starHeader.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
         binding.starHeader.text = getString(R.string.menu_stars)
+    }
 
+    private fun initRecyclerView() {
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val stars = StarDAO(context).getStarsExploredBySpecie(specieId)
-
         adapter = StarsAdapter(stars)
         binding.starRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.starRecyclerView.adapter = adapter
-
-        binding.starHeader.setOnClickListener {
-            (activity as SidebarActivity).openDrawer()
-        }
-
-        return binding.root
     }
-
 }

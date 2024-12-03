@@ -84,25 +84,14 @@ class DrawStars(context: Context): View(context) {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
-
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 val touchedStar = findTouchedStar(event.x, event.y)
                 touchedStar?.let {
-                    data.edit().putInt("star", it.id).apply()
                     println(it.name)
-
                     findNavController().navigate(
                         SectorFragmentDirections.actionNavSectorToNavSystem(it.id)
                     )
-/*
-                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                    val item = nv.menu.getItem(8) //To System
-                    val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-                    onNavDestinationSelected(item, navController)
-*/
-
                 }
                 return true
             }
@@ -134,9 +123,8 @@ class DrawStars(context: Context): View(context) {
             5 -> p.color = ResourcesCompat.getColor(resources, R.color.red, null)
         }
     }
-
+    // Height of action bar
     private fun getActionBarHeight(): Int {
-        // Height of action bar
         val ta = context.theme.obtainStyledAttributes(
             intArrayOf(android.R.attr.actionBarSize)
         )

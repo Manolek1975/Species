@@ -21,15 +21,18 @@ class SpecieActivity : AppCompatActivity() {
         binding = ActivitySpecieBinding.inflate(layoutInflater)
         setContentView(binding.root)
         hideSystemBars()
-
-        species = SpecieDAO(this)
-        adapter = SpeciesAdapter(species.getAllSpecies())
-        binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.speciesRecyclerView.adapter = adapter
+        initUI()
 
         onBackPressedDispatcher.addCallback(this) {
             finishAffinity()
         }
+    }
+
+    private fun initUI() {
+        species = SpecieDAO(this)
+        adapter = SpeciesAdapter(species.getAllSpecies())
+        binding.speciesRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.speciesRecyclerView.adapter = adapter
     }
 
     private fun hideSystemBars() {

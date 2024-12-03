@@ -10,21 +10,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.PlanetsAdapter
+import com.delek.species.core.Dialog
+import com.delek.species.core.Game
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
-import com.delek.species.core.Dialog
-import com.delek.species.core.Game
-import com.delek.species.ui.SurfaceFragmentArgs
+import com.delek.species.ui.activities.SidebarActivity
 
 
 class SystemFragment : Fragment() {
 
     private var _binding: FragmentSystemBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: PlanetsAdapter
+    private lateinit var adapter: SystemAdapter
     private val args: SystemFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -42,7 +40,7 @@ class SystemFragment : Fragment() {
         binding.starInfo.text = star.name
 
         if (star.explore != -1) { // TODO Cambiar a 0 para ocultar planetas
-            adapter = PlanetsAdapter(PlanetDAO(context).getPlanetsByStarId(star.id), context)
+            adapter = SystemAdapter(PlanetDAO(context).getPlanetsByStarId(star.id))
             binding.systemRecyclerView.layoutManager = LinearLayoutManager(context)
             binding.systemRecyclerView.adapter = adapter
             binding.explored.visibility = View.GONE
