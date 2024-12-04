@@ -134,11 +134,11 @@ class ProdDAO(context: Context) : SQLiteOpenHelper(context,
         db.close()
     }
 
-    fun getBuildProd(): Boolean {
+    fun isProd(): Boolean {
         val db = readableDatabase
         var prod = false
         val specie = data.getInt("specie", 0)
-        val query = "SELECT * FROM prod WHERE type = 1 AND owner = $specie"
+        val query = "SELECT * FROM prod WHERE type != 3 AND owner = $specie"
         val cursor = db.rawQuery(query, null)
         if (cursor.count == 0) {
             prod = true

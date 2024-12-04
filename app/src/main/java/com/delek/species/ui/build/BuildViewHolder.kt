@@ -30,7 +30,7 @@ class BuildViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             if (planetBuild && build.id == 30) {
                 dialog.showAlert("Ya tienes un astillero en tu planeta")
             } else {
-                dialog.showBuild(build, planet)
+                dialog.insertProdBuild(build, planet)
             }
         }
     }

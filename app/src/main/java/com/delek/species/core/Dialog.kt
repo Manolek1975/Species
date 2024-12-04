@@ -27,6 +27,7 @@ import com.delek.species.database.model.Ship
 import com.delek.species.database.model.Specie
 import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.DBHelper
+import com.delek.species.ui.CronoFragmentDirections
 import com.delek.species.ui.ShipyardFragmentDirections
 import com.delek.species.ui.build.BuildFragmentDirections
 import com.google.android.material.navigation.NavigationView
@@ -53,6 +54,24 @@ class Dialog(context: Context) : View(context) {
         .show()
     }
 
+    fun showTutorial(id: Int) {
+        val res = context.resources
+        val message = res.getStringArray(R.array.tutorial)
+        dialogBuilder.setTitle("Tutorial")
+        dialogBuilder.setMessage(message[id])
+        if (data.getInt("tutorial", 0) == 9){
+            dialogBuilder.setPositiveButton("Ir a Tecnologías") { _, _ ->
+                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                val item = nv.menu.getItem(5) // To Tech
+                val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }.show()
+        } else {
+            dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
+        }
+
+    }
+
     fun showSpecie(specie: Specie) {
         val id = Game.getResId(specie.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
@@ -71,7 +90,7 @@ class Dialog(context: Context) : View(context) {
         .show()
     }
 
-    fun showBuild(build: Build, planet: Planet) {
+    fun insertProdBuild(build: Build, planet: Planet) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 1, build.name, build.id, planet.id, owner, build.cost/planet.production)
         val id = Game.getResId(build.image, R.drawable::class.java)
@@ -85,24 +104,6 @@ class Dialog(context: Context) : View(context) {
             ProdDAO(context).insertProd(prod)
             (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
                 BuildFragmentDirections.actionNavBuildToNavSurface(planet.id)
-            )
-        }.show()
-    }
-
-    fun insertProdShipyard(ship: Ship, planet: Planet, days: Int) {
-        val owner = data.getInt("specie", 0)
-        val prod = Prod(0, 2, ship.name, ship.id, planet.id, owner, days)
-        val id = Game.getResId(ship.image, R.drawable::class.java)
-        dialogBuilder.setIcon(id)
-        dialogBuilder.setTitle(ship.name)
-        dialogBuilder.setMessage("¿Construir nave ${ship.name} en planeta ${planet.name}?")
-        dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
-        dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
-            data.edit().putInt("planet", planet.id).apply()
-            data.edit().putInt("ship", ship.id).apply()
-            ProdDAO(context).insertProd(prod)
-            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
-                ShipyardFragmentDirections.actionNavShipyardToNavSurface(planet.id)
             )
         }.show()
     }
@@ -129,44 +130,22 @@ class Dialog(context: Context) : View(context) {
         }.show()
     }
 
-    fun insertProdTech(ship: Ship, planet: Planet, days: Int) {
+    fun insertProdShipyard(ship: Ship, planet: Planet, days: Int) {
         val owner = data.getInt("specie", 0)
         val prod = Prod(0, 2, ship.name, ship.id, planet.id, owner, days)
         val id = Game.getResId(ship.image, R.drawable::class.java)
         dialogBuilder.setIcon(id)
         dialogBuilder.setTitle(ship.name)
-        dialogBuilder.setMessage("¿Establecer ruta a ${planet.name}?")
+        dialogBuilder.setMessage("¿Construir nave ${ship.name} en planeta ${planet.name}?")
         dialogBuilder.setNegativeButton("Rechazar") { _, _ -> }
         dialogBuilder.setPositiveButton("Aceptar") { _, _: Int ->
             data.edit().putInt("planet", planet.id).apply()
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            var item = nv.menu.getItem(9) // To Planets
-            if (days != 0) {
-                item = nv.menu.getItem(4) // To Ships
-                ProdDAO(context).insertProd(prod)
-                ShipDAO(context).updateRouteShip(ship.id, planet.id)
-            }
-            NavigationUI.onNavDestinationSelected(item, navController)
+            data.edit().putInt("ship", ship.id).apply()
+            ProdDAO(context).insertProd(prod)
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                ShipyardFragmentDirections.actionNavShipyardToNavSurface(planet.id)
+            )
         }.show()
-    }
-
-     fun showTutorial(id: Int) {
-         val res = context.resources
-         val message = res.getStringArray(R.array.tutorial)
-         dialogBuilder.setTitle("Tutorial")
-         dialogBuilder.setMessage(message[id])
-         if (data.getInt("tutorial", 0) == 9){
-             dialogBuilder.setPositiveButton("Ir a Tecnologías") { _, _ ->
-                 val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                 val item = nv.menu.getItem(5) // To Tech
-                 val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-                 NavigationUI.onNavDestinationSelected(item, navController)
-             }.show()
-         } else {
-             dialogBuilder.setNegativeButton("OK") { _, _ -> }.show()
-         }
-
     }
 
     fun showTech(tech: Tech) {
@@ -228,14 +207,25 @@ class Dialog(context: Context) : View(context) {
         dialogBuilder.setTitle("Construcción finalizada")
         dialogBuilder.setMessage("Ha finalizado la construcción de un ${build.name} en el planeta ${planet.name}")
         dialogBuilder.setPositiveButton("Ir allí") { _, _: Int ->
-            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-            val item = nv.menu.getItem(9) // To Planet
-            val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
-            NavigationUI.onNavDestinationSelected(item, navController)
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                CronoFragmentDirections.actionNavHipercronoToNavSurface(planet.id)
+            )
         }.show().setCanceledOnTouchOutside(false)
     }
 
-    fun shipDone(ship: Ship) {
+    fun shipDone(ship: Ship, planet: Planet) {
+        val id= Game.getResId(ship.image, R.drawable::class.java)
+        dialogBuilder.setIcon(id)
+        dialogBuilder.setTitle("Nave finalizada")
+        dialogBuilder.setMessage("Ha finalizado la construcción de la ${ship.name} en el planeta ${planet.name}")
+        dialogBuilder.setPositiveButton("Ir a Planeta") { _, _: Int ->
+            (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                CronoFragmentDirections.actionNavHipercronoToNavSurface(planet.id)
+            )
+        }.show().setCanceledOnTouchOutside(false)
+    }
+
+    fun shipJourney(ship: Ship) {
         val id = Game.getResId(ship.image, R.drawable::class.java)
         val planet = PlanetDAO(context).getPlanetById(ship.route)
         val specieId = data.getInt("specie", 0)

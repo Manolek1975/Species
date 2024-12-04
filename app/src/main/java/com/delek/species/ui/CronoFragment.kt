@@ -25,6 +25,7 @@ import com.delek.species.database.model.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.database.model.Ship
 import com.google.android.material.navigation.NavigationView
 
 
@@ -57,8 +58,8 @@ class CronoFragment: Fragment() {
         var min: Long = minProd.days.toLong()
 
         // Planets without production
-        val exist = ProdDAO(context).getBuildProd()
         val noProd = PlanetDAO(context).getNoProd(specieId)
+        val exist = ProdDAO(context).isProd()
         val specie = SpecieDAO(context).getSpecieById(specieId)
         println(noProd)
         if (exist){
@@ -69,10 +70,9 @@ class CronoFragment: Fragment() {
             binding.noProd.text = noProd[0].name
             binding.noProdMessage.visibility = View.VISIBLE
             binding.noProd.setOnClickListener {
-                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                val item = nv.menu.getItem(9) //To Planet
-                val navController = context.findNavController(R.id.nav_host)
-                NavigationUI.onNavDestinationSelected(item, navController)
+                (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                    CronoFragmentDirections.actionNavHipercronoToNavSurface(noProd[0].id)
+                )
             }
         }
         //TODO Perhaps list of build, ships or tech under construction?
@@ -104,10 +104,11 @@ class CronoFragment: Fragment() {
                 override fun onFinish() {
                     data.edit().putInt("year", year).apply()
                     data.edit().putInt("day", day).apply()
+                    val planet = PlanetDAO(context).getPlanetById(minProd.planet)
                     //Show Dialog if days are finished
                     if (minProd.type == 1) {
                         val build = BuildDAO(context).getBuildById(minProd.typeId)
-                        val planet = PlanetDAO(context).getPlanetById(minProd.planet)
+                        //val planet = PlanetDAO(context).getPlanetById(minProd.planet)
                         val planetBuild = PlanetBuildsDAO(context).getPlanetBuildById(build.id, planet)
                         if (planetBuild.id != 0) PlanetBuildsDAO(context).setBuildLevel(planetBuild)
                         else PlanetBuildsDAO(context).insertPlanetBuild(build, planet)
@@ -115,10 +116,17 @@ class CronoFragment: Fragment() {
                         println("Build=$build")
                         updatePlanetResources(context, minProd)
                         Dialog(context).buildDone(build, planet)
-                    } else if (minProd.type == 2 && minProd.typeId != 0) {
-                        val ship = ShipDAO(context).getShipById(minProd.typeId)
-                        println("Ship=$ship")
-                        Dialog(context).shipDone(ship)
+                    } else if (minProd.type == 2) {
+                        if (minProd.typeId == 0){
+                            val ship = Ship(0, minProd.name, specie.imgShip, specie.id, minProd.planet, 0 )
+                            ShipDAO(context).insertShips(ship)
+                            //TODO insertar ship devices
+                            Dialog(context).shipDone(ship, planet)
+                        } else {
+                            val ship = ShipDAO(context).getShipById(minProd.typeId)
+                            println("Ship=$ship")
+                            Dialog(context).shipJourney(ship)
+                        }
                     } else if (minProd.type == 3 && minProd.typeId != 0) {
                         val learned = TechDAO(context).getTechLearned(minProd.typeId)
                         TechDAO(context).setLearned(learned)

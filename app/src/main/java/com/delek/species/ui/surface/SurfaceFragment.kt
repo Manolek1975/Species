@@ -28,6 +28,7 @@ import com.delek.species.database.model.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.database.dao.ShipDAO
 import com.delek.species.ui.ShipyardFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
@@ -76,26 +77,27 @@ class SurfaceFragment : Fragment() {
         binding.planetOrbitalRecyclerView.adapter = orbitalAdapter
 
         // Ship Info
-        /*        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
-                var colonyModule = false
-                for (ship in ships){
-                    val shipId = Game.getResId(ship.image, R.drawable::class.java)
-                    if (specieId == ship.specieId){
-                        binding.shipInfo.setImageResource(shipId)
-                        val explored = PlanetDAO(context).getPlanetExplored(planetId)
-                        if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
-                        data.edit().putInt("ship", ship.id).apply()
+        //TODO Show ships in orbital
+        val ships = ShipDAO(context).getShipsByPlanet(planet.id)
+        var colonyModule = false
+/*        for (ship in ships){
+            val shipId = Game.getResId(ship.image, R.drawable::class.java)
+            if (specieId == ship.specieId){
+                binding.shipInfo.setImageResource(shipId)
+                val explored = PlanetDAO(context).getPlanetExplored(planetId)
+                if (!explored) PlanetDAO(context).insertPlanetExplored(specieId, planetId)
+                data.edit().putInt("ship", ship.id).apply()
 
-                        colonyModule = DeviceDAO(context).getColonyDevice(ship.id)
+                colonyModule = DeviceDAO(context).getColonyDevice(ship.id)
 
-                        binding.shipInfo.setOnClickListener {
-                            val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                            val item = nv.menu.getItem(10) // To Ship devices
-                            val navController = context.findNavController(R.id.nav_host)
-                            NavigationUI.onNavDestinationSelected(item, navController)
-                        }
-                    }
-                }*/
+                binding.shipInfo.setOnClickListener {
+                    val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                    val item = nv.menu.getItem(10) // To Ship devices
+                    val navController = context.findNavController(R.id.nav_host)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
+            }
+        }*/
 
         // Prod Info
         val prod = ProdDAO(context).getPlanetProd(planet.id)

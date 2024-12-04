@@ -9,7 +9,11 @@
         android:id="@+id/nav_hipercrono"
         android:name="com.delek.species.ui.CronoFragment"
         android:label="Hipercrono"
-        tools:layout="@layout/fragment_crono" />
+        tools:layout="@layout/fragment_crono" >
+        <action
+            android:id="@+id/action_nav_hipercrono_to_nav_surface"
+            app:destination="@id/nav_surface" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_sector"
