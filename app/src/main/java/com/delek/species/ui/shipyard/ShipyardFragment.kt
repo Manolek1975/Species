@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.shipyard
 
 import android.content.Context
 import android.graphics.Color
@@ -11,7 +11,6 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.ui.adapter.DevicesAdapter
 import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.SpecieDAO
@@ -42,7 +41,7 @@ class ShipyardFragment : Fragment() {
     ): View {
         _binding = FragmentShipyardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        tutorial()
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
@@ -124,6 +123,18 @@ class ShipyardFragment : Fragment() {
         return root
     }
 
+    private fun tutorial() {
+        val dialog = Dialog(requireContext())
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
+        val list = listOf(29)
+        if (list.contains(tutorial)) {
+            dialog.showTutorial(tutorial)
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
+        }
+    }
+
     private fun addDays()  {
         totalDays = 0
         var totalSpeed = 0
@@ -189,7 +200,6 @@ class ShipyardFragment : Fragment() {
     }
 
     private fun discardType(v: ImageView, type: Int): Boolean {
-
         val range: Int = v.tag.toString().toInt()
         when (range) {
             in 1..4 -> if (type != 1) {

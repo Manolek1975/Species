@@ -30,9 +30,21 @@ class SectorFragment : Fragment() {
         StarDAO(context).setStarExplored(origin.id) // Set origin star Explored
         data.edit().putInt("sector", origin.sector).apply()
 
+        tutorial()
         val drawStars = DrawStars(context)
         return drawStars
 
+    }
+
+    private fun tutorial() {
+        val dialog = Dialog(requireContext())
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
+        if(tutorial == 1){
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
+            dialog.showTutorial(1)
+        }
     }
 
     override fun onDestroyView() {
@@ -40,21 +52,4 @@ class SectorFragment : Fragment() {
         _binding = null
     }
 
-    override fun onResume(){
-        super.onResume()
-        val dialog = Dialog(requireContext())
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 1){
-            dialog.showTutorial(1)
-        }
-    }
-
-    override fun onPause(){
-        super.onPause()
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 1)
-            data.edit().putInt("tutorial", 2).apply()
-    }
 }

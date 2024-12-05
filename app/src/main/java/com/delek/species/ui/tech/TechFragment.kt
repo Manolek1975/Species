@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.tech
 
 import android.content.Context
 import android.os.Bundle
@@ -11,14 +11,13 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
-import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.TechsAdapter
+import com.delek.species.core.Dialog
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.databinding.FragmentTechBinding
-import com.delek.species.core.Dialog
+import com.delek.species.ui.activities.SidebarActivity
 
 
-class TechFragment: Fragment() {
+class TechFragment : Fragment() {
 
     private var _binding: FragmentTechBinding? = null
     private lateinit var adapter: TechsAdapter
@@ -31,7 +30,7 @@ class TechFragment: Fragment() {
     ): View {
         _binding = FragmentTechBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        tutorial()
         // Header
         val res = ResourcesCompat.getDrawable(resources, R.drawable.menu_tech, null)
         val bitmap = res?.toBitmap(30, 30)
@@ -55,28 +54,16 @@ class TechFragment: Fragment() {
         return root
     }
 
-    override fun onResume(){
-        super.onResume()
+    private fun tutorial() {
         val dialog = Dialog(requireContext())
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 10) dialog.showTutorial(10)
-        if(tutorial == 11) dialog.showTutorial(11)
-        if(tutorial == 21) dialog.showTutorial(21)
-        if(tutorial == 25) dialog.showTutorial(25)
-        if(tutorial == 26) dialog.showTutorial(26)
-        if(tutorial == 27) dialog.showTutorial(27)
-    }
-
-    override fun onPause(){
-        super.onPause()
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 10) data.edit().putInt("tutorial", 11).apply()
-        if(tutorial == 21) data.edit().putInt("tutorial", 22).apply()
-        if(tutorial == 25) data.edit().putInt("tutorial", 26).apply()
-        if(tutorial == 26) data.edit().putInt("tutorial", 27).apply()
-        if(tutorial == 27) data.edit().putInt("tutorial", 28).apply()
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
+        val list = listOf(10, 21, 25, 26, 27)
+        if (list.contains(tutorial)) {
+            dialog.showTutorial(tutorial)
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
+        }
     }
 
     override fun onDestroyView() {

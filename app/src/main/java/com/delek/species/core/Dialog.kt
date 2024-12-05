@@ -27,9 +27,9 @@ import com.delek.species.database.model.Ship
 import com.delek.species.database.model.Specie
 import com.delek.species.database.model.Tech
 import com.delek.species.database.helper.DBHelper
-import com.delek.species.ui.CronoFragmentDirections
-import com.delek.species.ui.ShipyardFragmentDirections
 import com.delek.species.ui.build.BuildFragmentDirections
+import com.delek.species.ui.crono.CronoFragmentDirections
+import com.delek.species.ui.shipyard.ShipyardFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 
@@ -189,12 +189,13 @@ class Dialog(context: Context) : View(context) {
             dialogBuilder.setNegativeButton("Salir") { _, _ -> }
             dialogBuilder.setPositiveButton("Investigar") { _, _ ->
                 ProdDAO(context).insertProdTech(tech)
-                if (tutorial == 10 || tutorial == 21 || tutorial in 25..27) {
+                //if (tutorial == 10 || tutorial == 21 || tutorial in 25..27) {
+
                     val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
                     val item = nv.menu.getItem(0) // To Hipercrono
                     val navController = (context as SidebarActivity).findNavController(R.id.nav_host)
                     NavigationUI.onNavDestinationSelected(item, navController)
-                }
+
             }.show()
         }
     }

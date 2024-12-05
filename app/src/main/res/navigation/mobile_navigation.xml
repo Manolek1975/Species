@@ -7,9 +7,10 @@
 
     <fragment
         android:id="@+id/nav_hipercrono"
-        android:name="com.delek.species.ui.CronoFragment"
+        android:name="com.delek.species.ui.crono.CronoFragment"
         android:label="Hipercrono"
         tools:layout="@layout/fragment_crono" >
+
         <action
             android:id="@+id/action_nav_hipercrono_to_nav_surface"
             app:destination="@id/nav_surface" />
@@ -74,13 +75,13 @@
 
     <fragment
         android:id="@+id/nav_ship"
-        android:name="com.delek.species.ui.ShipFragment"
+        android:name="com.delek.species.ui.ship.ShipFragment"
         android:label="Ships"
         tools:layout="@layout/fragment_ship" />
 
     <fragment
         android:id="@+id/nav_tech"
-        android:name="com.delek.species.ui.TechFragment"
+        android:name="com.delek.species.ui.tech.TechFragment"
         android:label="Techs"
         tools:layout="@layout/fragment_tech" />
 
@@ -120,7 +121,7 @@
 
     <fragment
         android:id="@+id/nav_shipyard"
-        android:name="com.delek.species.ui.ShipyardFragment"
+        android:name="com.delek.species.ui.shipyard.ShipyardFragment"
         android:label="Shipyard"
         tools:layout="@layout/fragment_shipyard" >
         <action

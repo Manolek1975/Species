@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.adapter.DevicesAdapter
+import com.delek.species.ui.shipyard.DevicesAdapter
 import com.delek.species.database.dao.DeviceDAO
 import com.delek.species.database.dao.ShipDAO
 import com.delek.species.databinding.FragmentShipDevicesBinding

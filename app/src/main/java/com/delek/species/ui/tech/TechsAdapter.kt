@@ -1,4 +1,4 @@
-package com.delek.species.ui.adapter
+package com.delek.species.ui.tech
 
 import android.content.Context
 import android.content.SharedPreferences

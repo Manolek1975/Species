@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sistema"
-    tools:context=".ui.TechFragment">
+    tools:context=".ui.tech.TechFragment">
 
     <TextView
         android:id="@+id/techHeader"

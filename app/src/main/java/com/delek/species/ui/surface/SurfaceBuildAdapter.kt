@@ -12,11 +12,11 @@ import com.delek.species.database.model.Build
 import com.delek.species.database.model.Planet
 import com.delek.species.core.Game
 
-class PlanetBuildsAdapter(private var build: List<Build>,
+class SurfaceBuildAdapter(private var build: List<Build>,
                           private var planetDao: PlanetBuildsDAO,
                           private var planet: Planet,
                           private val context: Context):
-    RecyclerView.Adapter<PlanetBuildsAdapter.BuildViewHolder>() {
+    RecyclerView.Adapter<SurfaceBuildAdapter.BuildViewHolder>() {
 
     class BuildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val buildLevel: TextView = itemView.findViewById(R.id.buildLevel)

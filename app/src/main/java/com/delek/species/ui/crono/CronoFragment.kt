@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.crono
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
 import com.delek.species.database.dao.BuildDAO
@@ -26,7 +25,6 @@ import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
 import com.delek.species.database.model.Ship
-import com.google.android.material.navigation.NavigationView
 
 
 class CronoFragment: Fragment() {
@@ -42,7 +40,7 @@ class CronoFragment: Fragment() {
     ): View {
         _binding = FragmentCronoBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+tutorial()
         // Header
         val res = ResourcesCompat.getDrawable(resources, android.R.drawable.ic_media_ff, null)
         binding.hipercronoHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
@@ -117,16 +115,16 @@ class CronoFragment: Fragment() {
                         updatePlanetResources(context, minProd)
                         Dialog(context).buildDone(build, planet)
                     } else if (minProd.type == 2) {
-                        if (minProd.typeId == 0){
+                        //if (minProd.typeId >= 0){
                             val ship = Ship(0, minProd.name, specie.imgShip, specie.id, minProd.planet, 0 )
                             ShipDAO(context).insertShips(ship)
                             //TODO insertar ship devices
                             Dialog(context).shipDone(ship, planet)
-                        } else {
+/*                        } else {
                             val ship = ShipDAO(context).getShipById(minProd.typeId)
                             println("Ship=$ship")
                             Dialog(context).shipJourney(ship)
-                        }
+                        }*/
                     } else if (minProd.type == 3 && minProd.typeId != 0) {
                         val learned = TechDAO(context).getTechLearned(minProd.typeId)
                         TechDAO(context).setLearned(learned)
@@ -156,6 +154,18 @@ class CronoFragment: Fragment() {
         binding.buildsRecyclerView.adapter = adapter*/
 
         return root
+    }
+
+    private fun tutorial() {
+        val dialog = Dialog(requireContext())
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
+        val list = listOf(11)
+        if (list.contains(tutorial)) {
+            dialog.showTutorial(tutorial)
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
+        }
     }
 
     private fun updatePlanetResources(context: Context, minProd: Prod) {

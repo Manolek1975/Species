@@ -1,4 +1,4 @@
-package com.delek.species.ui.adapter
+package com.delek.species.ui.shipyard
 
 import android.content.Context
 import android.graphics.Paint

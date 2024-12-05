@@ -31,6 +31,7 @@ class BuildFragment: Fragment() {
     ): View {
         _binding = FragmentBuildBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        tutorial()
 
         val context = requireContext()
         //val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
@@ -57,32 +58,16 @@ class BuildFragment: Fragment() {
         return root
     }
 
-    override fun onResume(){
-        super.onResume()
+    private fun tutorial() {
         val dialog = Dialog(requireContext())
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 4) dialog.showTutorial(4)
-        if(tutorial == 7) dialog.showTutorial(7)
-        if(tutorial == 13) dialog.showTutorial(13)
-        if(tutorial == 16) dialog.showTutorial(16)
-        if(tutorial == 19) dialog.showTutorial(19)
-        if(tutorial == 23) dialog.showTutorial(23)
-        if(tutorial == 27) dialog.showTutorial(27)
-
-    }
-
-    override fun onPause(){
-        super.onPause()
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 4) data.edit().putInt("tutorial", 5).apply()
-        if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
-        if(tutorial == 13) data.edit().putInt("tutorial", 14).apply()
-        if(tutorial == 16) data.edit().putInt("tutorial", 17).apply()
-        if(tutorial == 19) data.edit().putInt("tutorial", 20).apply()
-        if(tutorial == 23) data.edit().putInt("tutorial", 24).apply()
-        if(tutorial == 27) data.edit().putInt("tutorial", 28).apply()
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
+        val list = listOf(4, 7, 13, 16, 19, 23, 27)
+        if(list.contains(tutorial)){
+            dialog.showTutorial(tutorial)
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
+        }
     }
 
     override fun onDestroyView() {

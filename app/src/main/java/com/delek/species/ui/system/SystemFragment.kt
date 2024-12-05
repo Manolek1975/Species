@@ -54,27 +54,21 @@ class SystemFragment : Fragment() {
             val navController = findNavController()
             navController.popBackStack()
         }
-
+        tutorial()
         return root
     }
 
-    override fun onResume(){
-        super.onResume()
+    private fun tutorial() {
         val dialog = Dialog(requireContext())
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
+        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
+        var tutorial = data.getInt("tutorial", 0)
         if(tutorial == 2){
+            tutorial += 1
+            data.edit().putInt("tutorial", tutorial).apply()
             dialog.showTutorial(2)
         }
     }
 
-    override fun onPause(){
-        super.onPause()
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 2)
-            data.edit().putInt("tutorial", 3).apply()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
