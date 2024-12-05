@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.delek.species.R
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.core.Game.Companion.tutorial
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSystemBinding
@@ -32,8 +33,10 @@ class SystemFragment : Fragment() {
     ): View {
         _binding = FragmentSystemBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         val context = requireContext()
+        val list = listOf(2)
+        tutorial(list, context)
+
         val star = StarDAO(context).getStarById(args.starId)
         val id = Game.getResId(star.image, R.drawable::class.java)
         binding.starInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
@@ -54,19 +57,8 @@ class SystemFragment : Fragment() {
             val navController = findNavController()
             navController.popBackStack()
         }
-        tutorial()
-        return root
-    }
 
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        if(tutorial == 2){
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-            dialog.showTutorial(2)
-        }
+        return root
     }
 
     override fun onDestroyView() {

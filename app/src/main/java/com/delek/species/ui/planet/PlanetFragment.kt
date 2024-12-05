@@ -53,23 +53,6 @@ class PlanetFragment : Fragment() {
         return root
     }
 
-    override fun onResume(){
-        super.onResume()
-        val dialog = Dialog(requireContext())
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 8) dialog.showTutorial(8)
-        if(tutorial == 18) dialog.showTutorial(18)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
-        val tutorial = data?.getInt("tutorial", 0)
-        if (tutorial == 8) data.edit().putInt("tutorial", 9).apply()
-        if (tutorial == 18) data.edit().putInt("tutorial", 19).apply()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -20,6 +20,7 @@ import com.delek.species.database.model.Ship
 import com.delek.species.databinding.FragmentShipyardBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.core.Game.Companion.tutorial
 
 
 class ShipyardFragment : Fragment() {
@@ -41,8 +42,10 @@ class ShipyardFragment : Fragment() {
     ): View {
         _binding = FragmentShipyardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        tutorial()
         val context = requireContext()
+        val list = listOf(29)
+        tutorial(list, context)
+
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         val planetId = data.getInt("planet", 0)
@@ -121,18 +124,6 @@ class ShipyardFragment : Fragment() {
         }
 
         return root
-    }
-
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        val list = listOf(29)
-        if (list.contains(tutorial)) {
-            dialog.showTutorial(tutorial)
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-        }
     }
 
     private fun addDays()  {

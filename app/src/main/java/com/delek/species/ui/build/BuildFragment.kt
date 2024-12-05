@@ -15,6 +15,7 @@ import com.delek.species.database.dao.BuildDAO
 import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.databinding.FragmentBuildBinding
 import com.delek.species.core.Dialog
+import com.delek.species.core.Game.Companion.tutorial
 
 
 class BuildFragment: Fragment() {
@@ -31,9 +32,10 @@ class BuildFragment: Fragment() {
     ): View {
         _binding = FragmentBuildBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        tutorial()
-
         val context = requireContext()
+        val list = listOf(4, 7, 13, 16, 19, 23, 27)
+        tutorial(list, context)
+
         //val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         //val planetId = data.getInt("planet", 0)
         //val tech = data.getInt("tech", 0)
@@ -58,17 +60,6 @@ class BuildFragment: Fragment() {
         return root
     }
 
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        val list = listOf(4, 7, 13, 16, 19, 23, 27)
-        if(list.contains(tutorial)){
-            dialog.showTutorial(tutorial)
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

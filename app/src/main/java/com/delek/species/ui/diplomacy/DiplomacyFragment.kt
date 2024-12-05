@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.diplomacy
 
 import android.content.Context
 import android.os.Bundle

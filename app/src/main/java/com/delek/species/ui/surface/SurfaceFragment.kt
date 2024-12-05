@@ -26,8 +26,9 @@ import com.delek.species.database.model.Planet
 import com.delek.species.databinding.FragmentSurfaceBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.core.Game.Companion.tutorial
 import com.delek.species.database.dao.ShipDAO
-import com.delek.species.database.model.Build
+
 
 
 class SurfaceFragment : Fragment() {
@@ -46,11 +47,11 @@ class SurfaceFragment : Fragment() {
     ): View {
         _binding = FragmentSurfaceBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        initListener()
-        tutorial()
-
         val context = requireContext()
+        val list = listOf(3, 5, 6, 8, 9, 12, 14, 15, 17, 18, 20, 22, 24, 28, 30)
+        tutorial(list, requireContext())
+        initListener()
+
         val dialog = Dialog(context)
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
@@ -161,18 +162,6 @@ class SurfaceFragment : Fragment() {
         }
 
         return root
-    }
-
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        val list = listOf(3, 5, 6, 8, 9, 12, 14, 15, 17, 18, 20, 22, 24, 28, 30)
-        if(list.contains(tutorial)){
-            dialog.showTutorial(tutorial)
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-        }
     }
 
     private fun initListener() {

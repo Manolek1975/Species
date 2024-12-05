@@ -1,4 +1,4 @@
-package com.delek.species.ui
+package com.delek.species.ui.navigation
 
 import android.content.Context
 import android.os.Bundle
@@ -7,20 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.delek.species.R
 import com.delek.species.ui.activities.SidebarActivity
-import com.delek.species.ui.shipyard.DevicesAdapter
-import com.delek.species.database.dao.DeviceDAO
+import com.delek.species.ui.navigation.NavigationAdapter
+import com.delek.species.database.dao.PlanetDAO
 import com.delek.species.database.dao.ShipDAO
-import com.delek.species.databinding.FragmentShipDevicesBinding
+import com.delek.species.database.dao.StarDAO
+import com.delek.species.databinding.FragmentNavigationBinding
 import com.delek.species.core.Dialog
-import com.delek.species.core.Game
 
 
-class ShipDevicesFragment : Fragment() {
+class NavigationFragment : Fragment() {
 
-    private var _binding: FragmentShipDevicesBinding? = null
-    private lateinit var adapter: DevicesAdapter
+    private var _binding: FragmentNavigationBinding? = null
+    private lateinit var adapter: NavigationAdapter
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -28,28 +27,24 @@ class ShipDevicesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentShipDevicesBinding.inflate(inflater, container, false)
+        _binding = FragmentNavigationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val context = requireContext()
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val shipId = data.getInt("ship", 0)
+        val starId = data.getInt("star", 0)
         val ship = ShipDAO(context).getShipById(shipId)
+        val star = StarDAO(context).getStarById(starId)
+        val planet = PlanetDAO(context).getPlanetsByStarId(star.id)
+        adapter = NavigationAdapter(planet, ship,context)
+        binding.navigationRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.navigationRecyclerView.adapter = adapter
 
-        // Ship Info
-        val id = Game.getResId(ship.image, R.drawable::class.java)
-        binding.shipInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
-        binding.shipInfo.text = ship.name
-
-        // Devices
-        val devices = DeviceDAO(context).getDevicesByShip(ship.id)
-        adapter = DevicesAdapter(devices, context)
-        binding.shipDevicesRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.shipDevicesRecyclerView.adapter = adapter
-
-        binding.shipInfo.setOnClickListener {
+        binding.navigationHeader.setOnClickListener {
             (activity as SidebarActivity).openDrawer()
         }
+
         return root
     }
 
@@ -58,16 +53,16 @@ class ShipDevicesFragment : Fragment() {
         val dialog = Dialog(requireContext())
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 7) dialog.showTutorial(7)
-        if(tutorial == 17) dialog.showTutorial(17)
+        if(tutorial == 8) dialog.showTutorial(8)
+        if(tutorial == 18) dialog.showTutorial(18)
     }
 
-    override fun onPause(){
+    override fun onPause() {
         super.onPause()
         val data = context?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val tutorial = data?.getInt("tutorial", 0)
-        if(tutorial == 7) data.edit().putInt("tutorial", 8).apply()
-        if(tutorial == 17) data.edit().putInt("tutorial", 18).apply()
+        if (tutorial == 8) data.edit().putInt("tutorial", 9).apply()
+        if (tutorial == 18) data.edit().putInt("tutorial", 19).apply()
     }
 
     override fun onDestroyView() {

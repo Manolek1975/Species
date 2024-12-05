@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_sector"
-    tools:context=".ui.ShipDevicesFragment">
+    tools:context=".ui.devices.ShipDevicesFragment">
 
     <TextView
         android:id="@+id/shipInfo"

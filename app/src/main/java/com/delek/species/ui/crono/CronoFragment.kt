@@ -24,6 +24,7 @@ import com.delek.species.database.model.Prod
 import com.delek.species.databinding.FragmentCronoBinding
 import com.delek.species.core.Dialog
 import com.delek.species.core.Game
+import com.delek.species.core.Game.Companion.tutorial
 import com.delek.species.database.model.Ship
 
 
@@ -40,14 +41,16 @@ class CronoFragment: Fragment() {
     ): View {
         _binding = FragmentCronoBinding.inflate(inflater, container, false)
         val root: View = binding.root
-tutorial()
+        val context = requireContext()
+        val list = listOf(11)
+        tutorial(list, context)
         // Header
         val res = ResourcesCompat.getDrawable(resources, android.R.drawable.ic_media_ff, null)
         binding.hipercronoHeader.setCompoundDrawablesWithIntrinsicBounds(res, null, null, null)
         binding.hipercronoHeader.text = getString(R.string.hipercrono)
         binding.fechaHeader.text = getString(R.string.fecha_estelar_text)
 
-        val context = requireContext()
+
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
         var year = data.getInt("year", 0)
@@ -154,18 +157,6 @@ tutorial()
         binding.buildsRecyclerView.adapter = adapter*/
 
         return root
-    }
-
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        val list = listOf(11)
-        if (list.contains(tutorial)) {
-            dialog.showTutorial(tutorial)
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-        }
     }
 
     private fun updatePlanetResources(context: Context, minProd: Prod) {

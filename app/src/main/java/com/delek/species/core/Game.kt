@@ -1,5 +1,7 @@
 package com.delek.species.core
 
+import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
 import java.lang.reflect.Field
 
 abstract class Game {
@@ -35,6 +37,17 @@ abstract class Game {
             } catch (e: Exception) {
                 e.printStackTrace()
                 return -1
+            }
+        }
+
+        fun tutorial(list: List<Int>, context: Context) {
+            val dialog = Dialog(context)
+            val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
+            var tutorial = data.getInt("tutorial", 0)
+            if(list.contains(tutorial)){
+                dialog.showTutorial(tutorial)
+                tutorial += 1
+                data.edit().putInt("tutorial", tutorial).apply()
             }
         }
 

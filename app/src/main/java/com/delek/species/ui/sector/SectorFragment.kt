@@ -10,6 +10,8 @@ import com.delek.species.database.dao.SpecieDAO
 import com.delek.species.database.dao.StarDAO
 import com.delek.species.databinding.FragmentSectorBinding
 import com.delek.species.core.Dialog
+import com.delek.species.core.Game
+import com.delek.species.core.Game.Companion.tutorial
 
 
 class SectorFragment : Fragment() {
@@ -22,29 +24,19 @@ class SectorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSectorBinding.inflate(inflater, container, false)
-
         val context = requireContext()
+        val list = listOf(1)
+        tutorial(list, context)
+
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specie = SpecieDAO(context).getSpecieById(data.getInt("specie", 0))
         val origin = StarDAO(context).getStarById(specie.origin)
         StarDAO(context).setStarExplored(origin.id) // Set origin star Explored
         data.edit().putInt("sector", origin.sector).apply()
 
-        tutorial()
         val drawStars = DrawStars(context)
         return drawStars
 
-    }
-
-    private fun tutorial() {
-        val dialog = Dialog(requireContext())
-        val data = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE)
-        var tutorial = data.getInt("tutorial", 0)
-        if(tutorial == 1){
-            tutorial += 1
-            data.edit().putInt("tutorial", tutorial).apply()
-            dialog.showTutorial(1)
-        }
     }
 
     override fun onDestroyView() {

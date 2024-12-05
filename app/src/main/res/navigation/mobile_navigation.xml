@@ -87,13 +87,13 @@
 
     <fragment
         android:id="@+id/nav_diplomacy"
-        android:name="com.delek.species.ui.DiplomacyFragment"
+        android:name="com.delek.species.ui.diplomacy.DiplomacyFragment"
         android:label="Diplomacy"
         tools:layout="@layout/fragment_diplomacy" />
 
     <fragment
         android:id="@+id/nav_ship_devices"
-        android:name="com.delek.species.ui.ShipDevicesFragment"
+        android:name="com.delek.species.ui.devices.ShipDevicesFragment"
         android:label="Ship"
         tools:layout="@layout/fragment_ship_devices" />
 
@@ -115,7 +115,7 @@
 
     <fragment
         android:id="@+id/nav_navigation"
-        android:name="com.delek.species.ui.NavigationFragment"
+        android:name="com.delek.species.ui.navigation.NavigationFragment"
         android:label="Navigation"
         tools:layout="@layout/fragment_navigation" />
 
