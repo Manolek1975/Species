@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
@@ -48,10 +49,15 @@ class SurfaceOrbitalAdapter(private var list: List<String>, private val context:
                 val navController = (context).findNavController(R.id.nav_host)
                 NavigationUI.onNavDestinationSelected(item, navController)
             } else {
-                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
-                val item = nv.menu.getItem(4) // To Shipyard
+
+                (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
+                    SurfaceFragmentDirections.actionNavSurfaceToNavSpace()
+                )
+
+/*                val nv: NavigationView = (context as SidebarActivity).findViewById(R.id.nav_view)
+                val item = nv.menu.getItem(13) // To Space
                 val navController = (context).findNavController(R.id.nav_host)
-                NavigationUI.onNavDestinationSelected(item, navController)
+                NavigationUI.onNavDestinationSelected(item, navController)*/
             }
         }
     }

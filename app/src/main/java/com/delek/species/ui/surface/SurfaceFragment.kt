@@ -48,24 +48,24 @@ class SurfaceFragment : Fragment() {
         _binding = FragmentSurfaceBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val context = requireContext()
-        val list = listOf(3, 5, 6, 8, 9, 12, 14, 15, 17, 18, 20, 22, 24, 28, 30)
+        val list = listOf(3, 5, 6, 8, 9, 12, 14, 15, 17, 18, 20, 22, 24, 28, 30, 31)
         tutorial(list, requireContext())
         initListener()
 
         val dialog = Dialog(context)
         val data = context.getSharedPreferences("data", Context.MODE_PRIVATE)
         val specieId = data.getInt("specie", 0)
-        //val planetId = data.getInt("planet", 0)
 
         // Header
         val specie = SpecieDAO(context).getSpecieById(specieId)
         val planet = PlanetDAO(context).getPlanetById(args.planet)
         val type = PlanetDAO(context).getType(planet.type)
-        val id = Game.getResId(planet.image, R.drawable::class.java)
-        binding.planetInfo.setCompoundDrawablesWithIntrinsicBounds(id, 0, 0, 0)
-        binding.planetInfo.setTextColor(Color.parseColor(specie.color))
-        binding.planetInfo.text = planet.name
-        binding.planetType.text = getString(R.string.planet_type, type.name)
+        val img = Game.getResId(planet.image, R.drawable::class.java)
+        binding.headerImg.setImageResource(img)
+        binding.headerName.setTextColor(Color.parseColor(specie.color))
+        binding.headerType.setTextColor(Color.parseColor(specie.color))
+        binding.headerName.text = planet.name
+        binding.headerType.text = getString(R.string.planet_type, type.name)
 
         // Orbital Adapter
         val planetBuilds = PlanetBuildsDAO(context).getPlanetBuildsByPlanet(planet.id)
@@ -154,7 +154,7 @@ class SurfaceFragment : Fragment() {
             showResources(planet)
         }
 
-        binding.prodImg.setOnClickListener {
+        binding.prodLayout.setOnClickListener {
             ProdDAO(context).deleteProd(prod.id)
             (context as SidebarActivity).findNavController(R.id.nav_host).navigate(
                 SurfaceFragmentDirections.actionNavSurfaceToNavBuild(args.planet, 0)
@@ -164,21 +164,21 @@ class SurfaceFragment : Fragment() {
         return root
     }
 
-    private fun initListener() {
-        val dialog = Dialog(requireContext())
-        binding.planetInfo.setOnClickListener { (activity as SidebarActivity).openDrawer() }
-        binding.foodInfo.setOnClickListener { dialog.descFood() }
-        binding.prodInfo.setOnClickListener { dialog.descProd() }
-        binding.techInfo.setOnClickListener { dialog.descTech() }
-        binding.defInfo.setOnClickListener { dialog.descDef() }
-        binding.popInfo.setOnClickListener { dialog.descPop() }
-    }
-
     private fun scaleImage(prodID: Int) {
         val res = ResourcesCompat.getDrawable(resources, prodID, null)
         val bitmap = res?.toBitmap(68, 48)
         val scale = bitmap?.toDrawable(resources)
         binding.prod.setCompoundDrawablesWithIntrinsicBounds(scale, null, null, null)
+    }
+
+    private fun initListener() {
+        val dialog = Dialog(requireContext())
+        binding.headerImg.setOnClickListener { (activity as SidebarActivity).openDrawer() }
+        binding.foodInfo.setOnClickListener { dialog.descFood() }
+        binding.prodInfo.setOnClickListener { dialog.descProd() }
+        binding.techInfo.setOnClickListener { dialog.descTech() }
+        binding.defInfo.setOnClickListener { dialog.descDef() }
+        binding.popInfo.setOnClickListener { dialog.descPop() }
     }
 
     private fun showResources(planet: Planet) {

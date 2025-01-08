@@ -34,8 +34,7 @@
         </item>
 
         <!-- TUTORIAL 5 -->
-        <item>Abre el menú deslizando el borde izquierdo o
-            tocando la parte superior en el nombre del planeta.
+        <item>Abre el menú deslizando el borde izquierdo o tocando la imagen del planeta.
             Después toca el HIPERCRONO
             \n\n
             ABRE EL MENÚ \n  TOCA EL HIPERCRONO.
@@ -228,7 +227,10 @@
             ACTIVA EL HIPERCRONO
         </item>
 
-
+        <!-- TUTORIAL 31 -->
+        <item>
+            AQUÍ ACABA EL TUTORIAL, A PARTIR DE AHORA TE BUSCAS LA VIDA
+        </item>
 
 
         <!-- TUTORIAL 28 -->

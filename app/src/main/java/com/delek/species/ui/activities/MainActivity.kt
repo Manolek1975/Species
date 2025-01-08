@@ -19,6 +19,7 @@ import com.delek.species.database.dao.StarDAO
 import com.delek.species.database.dao.TechDAO
 import com.delek.species.database.helper.DBHelper
 import com.delek.species.database.helper.DeviceHelper
+import com.delek.species.database.helper.PlanetHelper
 import com.delek.species.database.helper.SpecieHelper
 import com.delek.species.database.model.Build
 import com.delek.species.database.model.DeviceTypes
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         loadStarsSector1()
         loadStarsSector2()
         loadStarsExplored()
-        loadPlanets()
+        PlanetHelper.loadPlanets(this)
         loadPlanetTypes()
         loadBuilds()
         loadPlanetBuilds()
@@ -134,28 +135,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadPlanets() {
-        val star = StarDAO(this).getAllStars()
-        var rnd: Int
-        var rndTypes: Int
-        for (i in star){
-            rnd = (1..8).random()
-            if (i.owner !=0) rnd = 3 // Limit origin star to 3 planets
-            for (j in 1..rnd){
-                var owner = 0; var food = 0; var prod = 0; var pop = 0
-                rndTypes = (1..12).random()
-                if (i.owner !=0) rndTypes = j // Limit origin type to 1..3
-                if (j == 2) {
-                    owner = i.owner; food = 1; prod = 1; pop = 20 // Set values to Origin planet
-                }
-                val image = getPlanetImage(rndTypes)
-                val planet = Planet(0, i.id, i.name +" "+ j, image, j, setSize(j), rndTypes,
-                    owner, food, prod,0,0, pop)
-                PlanetDAO(this).insertPlanets(planet)
-            }
-        }
-    }
-
     private fun loadPlanetTypes() {
         val res = this.resources
         val name = res.getStringArray(R.array.name_types)
@@ -166,35 +145,6 @@ class MainActivity : AppCompatActivity() {
         for (i in name.indices) {
             val types = PlanetTypes(0, name[i], food[i].toInt(), prod[i].toInt(), tech[i].toInt())
             PlanetDAO(this).insertPlanetTypes(types)
-        }
-    }
-
-    private fun getPlanetImage(image: Int): String {
-        return when (image) {
-            1 -> return "planet1_arido"
-            2 -> return "planet2_primordial"
-            3 -> return "planet3_agricola"
-            4 -> return "planet4_eden"
-            5 -> return "planet5_mineral"
-            6 -> return "planet6_supermineral"
-            7 -> return "planet7_experimental"
-            8 -> return "planet8_peculiar"
-            9 -> return "planet9_especial"
-            10 -> return "planet10_singular"
-            11 -> return "planet11_cornucopia"
-            12 -> return "planet12_helado"
-
-            else -> ({}).toString()
-        }
-    }
-
-    private fun setSize(j: Int): Int {
-        return when (j) {
-            1 -> 1
-            in 2..4 -> 2
-            in 5..7 -> 3
-            8 -> 1
-            else -> 0
         }
     }
 
